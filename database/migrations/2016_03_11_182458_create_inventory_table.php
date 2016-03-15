@@ -15,10 +15,19 @@ class CreateInventoryTable extends Migration
         Schema::create('inventory', function (Blueprint $table) {
                         $table->increments('sku');
                         $table->string('description');
-                        $table->integer('price');
+                        $table->integer('ep_cost_vendor');
+                        $table->integer('ep_cost_landed');
+                        $table->integer('ep_cost_wholesale');
+                        $table->integer('ep_cost_ad'); //associate dealer (leslie, tong)
+                        $table->integer('unit_cost');
+                        $table->integer('unit_price');
+                        $table->integer('unit_sale_price');
                         $table->boolean('pst');
                         $table->boolean('gst');
-                        $table->timestamps();
+                        $table->string('supplier');
+                        $table->string('brand');
+                        $table->string('model');
+                        $table->timestamp('updated_at');
         });
     }
 

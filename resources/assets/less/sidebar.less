@@ -1,0 +1,49 @@
+.sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 210px;
+	background: #000;
+	min-height: 100vh;
+	max-height: auto;
+	padding: 0px;
+	color: #fff;
+	.box-shadow(3px 0 15px @boxShadowColor);
+	/*-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;*/
+
+	.sidebar-nav {
+	    overflow-y: auto;
+	    height: auto;
+
+	    ul {
+	        list-style-type: none;
+	        margin: 0;
+	        padding: 0;
+	        li {
+	            margin: 0;
+	            padding: 0;
+	            text-align: left;
+	            a {
+	                display: block;
+	                padding: 20px;
+	                color: #eee;
+	                text-decoration: none;
+	                margin: 0;
+	                .material-icons {
+	                    vertical-align: middle;
+	                    margin-right: 20px;
+	                }
+	            }
+
+	            a:hover {
+	                text-decoration: none;
+	                background: #666;
+	            }
+
+	        }
+	    }
+	}
+}

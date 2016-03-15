@@ -1,0 +1,32 @@
+@navbarHeight: 60px;
+
+.navbar-inverse {
+	background: @primaryColor;
+	.box-shadow(0px 3px 5px @boxShadowColor);
+	border-color: transparent;
+	margin: 0;
+	margin-bottom: 20px;
+	height: @navbarHeight;
+	position: fixed;
+	z-index: 10;
+
+
+	.brand-header {
+		width: 230px;
+		a {
+			line-height: @navbarHeight;
+			font-size: 1.4em;
+			color: #fff;
+			text-decoration: none;
+		}
+	}
+}
+
+.navbar-inverse {
+	.material-icons {
+		color: #fff;
+		float: left;
+		line-height: @navbarHeight;
+		margin: 0 15px;
+	}
+}
