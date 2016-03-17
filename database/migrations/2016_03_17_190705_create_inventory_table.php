@@ -15,6 +15,7 @@ class CreateInventoryTable extends Migration
         Schema::create('inventory', function (Blueprint $table) {
                         $table->increments('sku');
                         $table->string('description');
+                        $table->integer('category_id')->unsigned();
                         $table->integer('ep_cost_vendor');
                         $table->integer('ep_cost_landed');
                         $table->integer('ep_cost_wholesale');
@@ -28,6 +29,9 @@ class CreateInventoryTable extends Migration
                         $table->string('brand');
                         $table->string('model');
                         $table->timestamp('updated_at');
+
+                        $table->foreign('category_id')
+                              ->references('id')->on('categories');
         });
     }
 
