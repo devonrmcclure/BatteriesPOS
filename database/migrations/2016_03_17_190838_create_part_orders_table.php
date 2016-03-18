@@ -22,7 +22,7 @@ class CreatePartOrdersTable extends Migration
                         $table->integer('sku')->unsigned();
                         $table->string('description');
                         $table->string('part_number');
-                        $table->integer('deposit');
+                        $table->float('deposit');
                         $table->integer('customer_id')->unsigned();
                         $table->string('staff');
                         $table->string('location');

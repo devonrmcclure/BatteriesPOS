@@ -13,18 +13,19 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-                        $table->increments('invoice_number');
+                        $table->increments('id');
+                        $table->integer('invoice_number');
                         $table->string('location'); //White Rock
                         $table->integer('sku');
                         $table->string('description');
                         $table->string('category');
                         $table->integer('quantity');
-                        $table->integer('price');
-                        $table->integer('discount');
-                        $table->integer('extended');
-                        $table->integer('pst');
-                        $table->integer('gst');
-                        $table->integer('total');
+                        $table->float('price');
+                        $table->float('discount');
+                        $table->float('extended');
+                        $table->float('pst');
+                        $table->float('gst');
+                        $table->float('total');
                         $table->integer('customer_id')->unsigned();
                         $table->string('payment_method');
                         $table->string('staff');

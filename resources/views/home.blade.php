@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="content">
-	<h1>BatteriesPOS Dashboard</h1>
+	<h1>Dashboard <small>{{$date}}</small></h1>
+
 	<div class="col-md-6 module-container">
 		<div class="module">
-			<h3>Daily TODO</h3> <span class="pull-right"><small>Must be done before closing</small></span>
+			<h3>Daily TODO <small>Must be done before closing</small></h3>
 			<p>Call RO: 340325</p>
 			<p>Call PO# 48209</p>
 			<p>RO: 400002 @ 2016-02-29 Comment: It has been over 2 weeks for this part order.</p>

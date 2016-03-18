@@ -18,7 +18,6 @@ class CreateTransferHistoryTable extends Migration
                         $table->integer('quantity');
                         $table->integer('sku')->unsigned();
                         $table->integer('destination_store')->unsigned();
-                        $table->rememberToken();
                         $table->timestamps();
 
                         $table->foreign('originating_store')

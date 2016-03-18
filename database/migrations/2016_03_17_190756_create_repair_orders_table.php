@@ -20,7 +20,7 @@ class CreateRepairOrdersTable extends Migration
                         $table->integer('call_if_over')->nullable();
                         $table->boolean('original_receipt')->nullable()->default(NULL);
                         $table->boolean('warranty');
-                        $table->integer('deposit')->nullable();
+                        $table->float('deposit')->nullable();
                         $table->string('staff');
                         $table->string('product');
                         $table->string('model')->nullable();
