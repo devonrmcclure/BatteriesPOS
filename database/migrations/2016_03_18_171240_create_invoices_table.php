@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesTable extends Migration
+class CreateInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,12 @@ class CreateSalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
                         $table->increments('id');
-                        $table->integer('invoice_number');
+                        $table->integer('invoice_number')->unsigned()->unique();
                         $table->string('location'); //White Rock
-                        $table->integer('sku');
-                        $table->string('description');
-                        $table->string('category');
-                        $table->integer('quantity');
-                        $table->float('price');
-                        $table->float('discount');
-                        $table->float('extended');
-                        $table->float('pst');
-                        $table->float('gst');
+                        $table->float('total_pst');
+                        $table->float('total_gst');
                         $table->float('total');
                         $table->integer('customer_id')->unsigned();
                         $table->string('payment_method');
@@ -47,6 +40,6 @@ class CreateSalesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sales');
+        Schema::drop('invoices');
     }
 }
