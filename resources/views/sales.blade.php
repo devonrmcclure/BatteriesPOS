@@ -3,11 +3,24 @@
 @section('content')
 <div class="content">
 	<h1>Sales <small>{{$date}}</small></h1>
-	<div class="col-md-6 module-container">
+	<div class="col-md-4 module-container">
 		<div class="module">
 			<h3>Daily Sales Stats</h3>
-			<p>Items Sold: {{$itemsSold}}</p>
-			<p>Total Sales: ${{$totalSales}}</p>
+			<hr />
+			<table class="sales-stats">
+				<tr>
+					<th>Invoices</th>
+					<th>Items Sold</th>
+					<th>Total Sales</th>
+					<th>Items/Invoice</th>
+				</tr>
+				<tr>
+					<td>{{$totalInvoices}}</td>
+					<td>{{$itemsSold}}</td>
+					<td>${{$totalSales}}</td>
+					<td>{{$itemsPerInvoice}}</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </div>

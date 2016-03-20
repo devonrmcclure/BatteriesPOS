@@ -14,7 +14,6 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
                         $table->increments('id');
-                        $table->integer('invoice_number')->unsigned()->unique();
                         $table->string('location'); //White Rock
                         $table->float('total_pst');
                         $table->float('total_gst');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Sale;
+use App\Invoice;
 use DB;
 use Auth;
 
@@ -24,6 +25,9 @@ class SalesController extends Controller
      */
     public function index()
     {
+        $itemsSold = 0;
+        $totalSales = 0;
+
         /**
          * Calculate stats for the daily sales.
          * -Invoice count (# of unique invoice #s)
@@ -34,17 +38,26 @@ class SalesController extends Controller
          * -Total sales (post-tax)
          * -Individual for each Method (allow user input for close out.)
          */
-        $salesData = DB::table('sales')->where('created_at', '>=', date('Y-m-d'))->where('location', Auth::User()->name)->get();
+        $invoiceData = Invoice::where('created_at', '>=', date('Y-m-d'))->where('location', Auth::User()->name)->get();
 
-        $itemsSold = count($salesData);
+
+        $itemsSold = 0;
         $totalSales = 0;
-        //Get the total sales
-        foreach($salesData as $sale)
+
+        foreach($invoiceData as $invoice)
         {
-            $totalSales += $sale->extended;
+            $itemsSold += count($invoice->sale);
+            $totalSales += $invoice->total;
         }
 
-        return view('sales', ['itemsSold' => $itemsSold],['totalSales' => $totalSales]);
+        $totalInvoices = count($invoiceData);
+        $itemsPerInvoice = $itemsSold/$totalInvoices;
+
+        return view('sales')
+                ->with('totalInvoices', $totalInvoices)
+                ->with('totalSales', $totalSales)
+                ->with('itemsSold', $itemsSold)
+                ->with('itemsPerInvoice', $itemsPerInvoice);
     }
 
     /**

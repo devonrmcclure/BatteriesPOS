@@ -14,7 +14,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
                         $table->increments('id');
-                        $table->integer('invoice_number')->unsigned();
+                        $table->integer('invoice_id')->unsigned();
                         $table->integer('sku');
                         $table->string('description');
                         $table->string('category');
@@ -27,8 +27,8 @@ class CreateSalesTable extends Migration
                         $table->float('total');
                         $table->timestamps();
 
-                        $table->foreign('invoice_number')
-                              ->references('invoice_number')->on('invoices');
+                        $table->foreign('invoice_id')
+                              ->references('id')->on('invoices');
         });
     }
 
