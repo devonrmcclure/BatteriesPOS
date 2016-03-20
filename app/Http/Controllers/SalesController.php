@@ -51,13 +51,15 @@ class SalesController extends Controller
         }
 
         $totalInvoices = count($invoiceData);
-        $itemsPerInvoice = $itemsSold/$totalInvoices;
+        $itemsPerInvoice = round($itemsSold/$totalInvoices, 2);
+        $salesPerInvoice = round($totalSales/$totalInvoices, 2);
 
         return view('sales')
                 ->with('totalInvoices', $totalInvoices)
                 ->with('totalSales', $totalSales)
                 ->with('itemsSold', $itemsSold)
-                ->with('itemsPerInvoice', $itemsPerInvoice);
+                ->with('itemsPerInvoice', $itemsPerInvoice)
+                ->with('salesPerInvoice', $salesPerInvoice);
     }
 
     /**
