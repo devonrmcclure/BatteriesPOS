@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class CustomersTableSeeder extends Seeder
 {
@@ -29,7 +30,8 @@ class CustomersTableSeeder extends Seeder
                    	'postal_code' => 'V6X 2C7',
                    	'primary_phone' => '604-270-9989',
                    	'email' => 'richmond@batteriesincluded.ca',
-                   	'location_id' => 2
+                   	'location_id' => 2,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('customers')->insert([
@@ -42,7 +44,8 @@ class CustomersTableSeeder extends Seeder
                    	'postal_code' => 'V4A 4N3',
                    	'primary_phone' => '604-536-8108',
                    	'email' => 'whiterock@batteriesincluded.ca',
-                   	'location_id' => 3
+                   	'location_id' => 3,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('customers')->insert([
@@ -55,7 +58,8 @@ class CustomersTableSeeder extends Seeder
                    	'postal_code' => 'V3R 6N7',
                    	'primary_phone' => '604-970-9889',
                    	'email' => 'guildford@batteriesincluded.ca',
-                   	'location_id' => 6
+                   	'location_id' => 6,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('customers')->insert([
@@ -68,7 +72,8 @@ class CustomersTableSeeder extends Seeder
                    	'postal_code' => 'V9T 1W1',
                    	'primary_phone' => '250-756-2838',
                    	'email' => 'nanaimo@batteriesincluded.ca',
-                   	'location_id' => 7
+                   	'location_id' => 7,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('customers')->insert([
@@ -81,7 +86,8 @@ class CustomersTableSeeder extends Seeder
                    	'postal_code' => 'V2X 0T5',
                    	'primary_phone' => '604-466-8378',
                    	'email' => 'mapleridge@batteriesincluded.ca',
-                   	'location_id' => 8
+                   	'location_id' => 8,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }
 }

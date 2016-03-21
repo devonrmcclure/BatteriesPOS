@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class StaffLocationTableSeeder extends Seeder
 {
@@ -22,12 +23,14 @@ class StaffLocationTableSeeder extends Seeder
     	*/
         DB::table('staff_location')->insert([
                    	'staff_id' => 1,
-                   	'location_id' => 2
+                   	'location_id' => 2,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('staff_location')->insert([
                    	'staff_id' => 2,
-                   	'location_id' => 3
+                   	'location_id' => 3,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Sale;
 use App\Invoice;
-use DB;
 use Auth;
 
 class SalesController extends Controller
@@ -46,7 +45,8 @@ class SalesController extends Controller
 
         foreach($invoiceData as $invoice)
         {
-            $itemsSold += count($invoice->sale);
+            //TODO: Count quanity from quantity field.
+            $itemsSold += count($invoice->sale->quantity);
             $totalSales += $invoice->total;
         }
 

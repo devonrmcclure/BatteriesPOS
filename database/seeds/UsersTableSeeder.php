@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -26,7 +27,8 @@ class UsersTableSeeder extends Seeder
     	           	'email' => 'servicecentre@batteriesincluded.ca',
     	           	'location_code' => 'HO',
     	           	'admin' => 1,
-    	           	'password' => bcrypt('3218ho')
+    	           	'password' => bcrypt('3218ho'),
+                  'created_at' => Carbon::now()->format('Y-m-d H:i:s')
     	]);
 
         DB::table('users')->insert([
@@ -35,7 +37,8 @@ class UsersTableSeeder extends Seeder
                    	'email' => 'richmond@batteriesincluded.ca',
                    	'location_code' => 'RM',
                    	'admin' => 0,
-                   	'password' => bcrypt('3218rm')
+                   	'password' => bcrypt('3218rm'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('users')->insert([
@@ -44,7 +47,8 @@ class UsersTableSeeder extends Seeder
                    	'email' => 'whiterock@batteriesincluded.ca',
                    	'location_code' => 'WR',
                    	'admin' => 0,
-                   	'password' => bcrypt('3218wr')
+                   	'password' => bcrypt('3218wr'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('users')->insert([
@@ -53,7 +57,8 @@ class UsersTableSeeder extends Seeder
                    	'email' => 'guildford@batteriesincluded.ca',
                    	'location_code' => 'GF',
                    	'admin' => 0,
-                   	'password' => bcrypt('3218gf')
+                   	'password' => bcrypt('3218gf'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('users')->insert([
@@ -62,7 +67,8 @@ class UsersTableSeeder extends Seeder
                    	'email' => 'nanaimo@batteriesincluded.ca',
                    	'location_code' => 'NM',
                    	'admin' => 0,
-                   	'password' => bcrypt('3218nm')
+                   	'password' => bcrypt('3218nm'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('users')->insert([
@@ -71,7 +77,8 @@ class UsersTableSeeder extends Seeder
                    	'email' => 'mapleridge@batteriesincluded.ca',
                    	'location_code' => 'MR',
                    	'admin' => 0,
-                   	'password' => bcrypt('3218MR')
+                   	'password' => bcrypt('3218MR'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
     }

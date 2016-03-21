@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class StaffTableSeeder extends Seeder
 {
@@ -25,7 +26,8 @@ class StaffTableSeeder extends Seeder
     	           	'name' => 'Richmond Staff',
     	           	'primary_phone' => '778-874-9156',
     	           	'email' => 'richmond@batteriesincluded.ca',
-    	           	'rep_code' => 'RM'
+    	           	'rep_code' => 'RM',
+                  'created_at' => Carbon::now()->format('Y-m-d H:i:s')
     	]);
 
         DB::table('staff')->insert([
@@ -37,7 +39,8 @@ class StaffTableSeeder extends Seeder
                    	'postal_code' => 'V4A 5X3',
                    	'primary_phone' => '778-874-9156',
                    	'email' => 'devon.r.mcclure@gmail.com',
-                   	'rep_code' => 'DM'
+                   	'rep_code' => 'DM',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }
 }
