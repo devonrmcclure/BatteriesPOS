@@ -3,7 +3,7 @@
 @section('content')
 <div class="content">
 	<h1>Sales <small>{{$date}}</small></h1>
-	<div class="col-md-4 module-container">
+	<div class="col-md-6 module-container">
 		<div class="module">
 			<h3>Daily Sales Stats</h3>
 			<hr />

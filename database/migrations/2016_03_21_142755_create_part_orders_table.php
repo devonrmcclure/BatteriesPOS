@@ -14,7 +14,7 @@ class CreatePartOrdersTable extends Migration
     {
         Schema::create('part_orders', function (Blueprint $table) {
                         $table->increments('id');
-                        $table->integer('invoice_number');
+                        $table->integer('invoice_id')->unsigned();
                         $table->string('refered_by')->nullable();
                         $table->string('make');
                         $table->string('item');
@@ -24,7 +24,7 @@ class CreatePartOrdersTable extends Migration
                         $table->string('part_number');
                         $table->float('deposit');
                         $table->integer('customer_id')->unsigned();
-                        $table->string('staff');
+                        $table->integer('staff_id')->unsigned();
                         $table->string('location');
                         $table->string('pick_up_location');
                         $table->integer('location_id')->unsigned();
@@ -40,6 +40,10 @@ class CreatePartOrdersTable extends Migration
                               ->references('sku')->on('inventory');
                         $table->foreign('location_id')
                               ->references('id')->on('users');
+                        $table->foreign('staff_id')
+                              ->references('id')->on('staff');
+                        $table->foreign('invoice_id')
+                              ->references('id')->on('invoices');
         });
     }
 

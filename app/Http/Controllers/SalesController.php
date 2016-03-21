@@ -51,8 +51,16 @@ class SalesController extends Controller
         }
 
         $totalInvoices = count($invoiceData);
-        $itemsPerInvoice = round($itemsSold/$totalInvoices, 2);
-        $salesPerInvoice = round($totalSales/$totalInvoices, 2);
+        if($totalInvoices > 0)
+        {
+            $itemsPerInvoice = round($itemsSold/$totalInvoices, 2);
+            $salesPerInvoice = round($totalSales/$totalInvoices, 2);
+        } else
+        {
+            $itemsPerInvoice = 0;
+            $salesPerInvoice = 0;
+        }
+
 
         return view('sales')
                 ->with('totalInvoices', $totalInvoices)
