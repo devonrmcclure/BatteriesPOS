@@ -22,7 +22,7 @@ class CreateInventoryTable extends Migration
                         $table->float('ep_cost_ad'); //associate dealer (leslie, tong)
                         $table->float('unit_cost');
                         $table->float('unit_price');
-                        $table->float('unit_sale_price')->nullable();;
+                        $table->float('unit_sale_price')->nullable();
                         $table->boolean('pst');
                         $table->boolean('gst');
                         $table->string('supplier');
