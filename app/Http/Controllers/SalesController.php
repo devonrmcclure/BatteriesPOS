@@ -47,7 +47,10 @@ class SalesController extends Controller
         {
 
             //TODO: Count quanity from quantity field.
-            $itemsSold += $invoice->sale[0]->quantity;
+            foreach($invoice->sale as $item) {
+                $itemsSold += $item->quantity;
+            }
+
             $totalSales += $invoice->total;
         }
 
