@@ -30,7 +30,7 @@ class SalesTableSeeder extends Seeder
         DB::table('sales')->insert([
         		'invoice_id' => 300001,
         		'sku' => 485,
-        		'description' => 'CR2032 Button Cell Battery',
+        		'description' => 'CR2025 Button Cell Battery',
         		'category' => 'Button Cell Batteries',
         		'quantity' => 2,
         		'price' => 4.99,
