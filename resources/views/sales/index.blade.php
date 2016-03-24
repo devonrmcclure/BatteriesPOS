@@ -23,7 +23,15 @@
 					<td>${{$salesPerInvoice}}</td>
 				</tr>
 			</table>
+			<br />
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newSale">
+			  New Sale
+			</button>
 		</div>
+
+
+		@include('sales.new')
 	</div>
 </div>
 @endsection

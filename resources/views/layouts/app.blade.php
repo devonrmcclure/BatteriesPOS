@@ -23,7 +23,7 @@
 <body id="app-layout">
 
     @if(Auth::check())
-        @include('includes.sidebar')
+        @include('partials.sidebar')
         <div class="current-user">
             <a href="#" id="user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <i class="caret"></i></a>
 

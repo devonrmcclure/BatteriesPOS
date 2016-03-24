@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Sale;
 use App\Invoice;
+use App\Customer;
 use Auth;
 
 class SalesController extends Controller
@@ -37,8 +38,15 @@ class SalesController extends Controller
          * -Total sales (post-tax)
          * -Individual for each Method (allow user input for close out.)
          */
-        $invoiceData = Invoice::where('created_at', '>=', date('Y-m-d'))->where('location', Auth::User()->name)->get();
 
+        //Get all invoices from the logged in store for today.
+        $invoiceData = Invoice::today()->get();
+
+
+        $invoiceNumber = Invoice::orderBy('id', 'DESC')->where('location', Auth::User()->name)->first();
+
+        $invoiceNumber = $invoiceNumber->id + 1;
+        $customer = Customer::defaultCustomer()->first();
 
         $itemsSold = 0;
         $totalSales = 0;
@@ -52,12 +60,13 @@ class SalesController extends Controller
 
             $totalSales += $invoice->total;
         }
+        $totalSales = number_format(round($totalSales, 2), 2);
 
         $totalInvoices = count($invoiceData);
         if($totalInvoices > 0)
         {
-            $itemsPerInvoice = round($itemsSold/$totalInvoices, 2);
-            $salesPerInvoice = round($totalSales/$totalInvoices, 2);
+            $itemsPerInvoice = number_format($itemsSold/$totalInvoices, 2);
+            $salesPerInvoice = number_format($totalSales/$totalInvoices, 2);
         } else
         {
             $itemsPerInvoice = 0;
@@ -65,12 +74,16 @@ class SalesController extends Controller
         }
 
 
-        return view('sales')
+
+
+        return view('sales.index')
                 ->with('totalInvoices', $totalInvoices)
                 ->with('totalSales', $totalSales)
                 ->with('itemsSold', $itemsSold)
                 ->with('itemsPerInvoice', $itemsPerInvoice)
-                ->with('salesPerInvoice', $salesPerInvoice);
+                ->with('salesPerInvoice', $salesPerInvoice)
+                ->with('customer', $customer)
+                ->with('invoiceNumber', $invoiceNumber);
     }
 
     /**
@@ -91,7 +104,38 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+
+        //Create the new invoice
+        $invoice = new Invoice();
+        $invoice->id = $request->invoice_number;
+        $invoice->location = Auth::User()->name;
+        $invoice->total_pst = $request->pst;
+        $invoice->total_gst = $request->gst;
+        $invoice->total = $request->sku_total;
+        $invoice->customer_id = $request->customer_id;
+        $invoice->payment_method = 'Cash';
+        $invoice->staff = 'Devon';
+        $invoice->invoice_comment = 'Not returnable';
+        $invoice->gst_number = 'fjkdslfjklds';
+        $invoice->printed = false;
+        $invoice->save();
+        //Create the sale
         //
+        $sale = new Sale();
+        $sale->invoice_id = $request->invoice_number;
+        $sale->sku = $request->sku;
+        $sale->description = $request->description;
+        $sale->category = 'Button Cell Batteries';
+        $sale->quantity = $request->quantity;
+        $sale->price = $request->unit_price;
+        $sale->discount = $request->discount;
+        $sale->extended = $request->extended;
+        $sale->pst = $request->pst;
+        $sale->gst = $request->gst;
+        $sale->total = $request->sku_total;
+        $sale->save();
+
+        return redirect('sales');
     }
 
     /**
