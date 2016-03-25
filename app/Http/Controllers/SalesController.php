@@ -77,6 +77,7 @@ class SalesController extends Controller
             $salesPerInvoice = 0;
         }
         $itemsSold = number_format($itemsSold, 0);
+        $totalSales = number_format($totalSales, 2);
 
 
 
