@@ -37,18 +37,20 @@
                         {!! Form::open(array('url' => 'sales')) !!}
                             {!! Form::text('customer_id', $customer->id, ['class' => 'hidden']) !!}
                             {!! Form::text('invoice_number', $invoiceNumber, ['class' => 'hidden']) !!}
-                            <tr class="sale-row">
-                                <td>{!! Form::text('sku', '483', ['class' => 'form-control']) !!}</td>
-                                <td>{!! Form::text('description', 'CR2032 3V Button Cell Battery', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('quantity', '1', ['class' => 'form-control']) !!}</td>
-                                <td>{!! Form::text('discount', '0.00', ['class' => 'form-control']) !!}</td>
-                                <td>{!! Form::text('unit_price', '4.99', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('extended', '4.99', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('pst', '0.35', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('gst', '0.25', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('sku_total', '5.59', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</td>
+                            <tr class="sale-row selected">
+                                <td>{!! Form::text('sku', null, ['class' => 'form-control sku', 'tabindex' => '1']) !!}</td>
+                                <td>{!! Form::text('description', null, ['class' => 'form-control description', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('quantity', null, ['class' => 'form-control quantity', 'tabindex' => '2']) !!}</td>
+                                <td>{!! Form::text('discount', null, ['class' => 'form-control discount', 'tabindex' => '3']) !!}</td>
+                                <td>{!! Form::text('unit_price', null, ['class' => 'form-control unit-price', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('extended', null, ['class' => 'form-control extended', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('pst', null, ['class' => 'form-control pst', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('gst', null, ['class' => 'form-control gst', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('sku_total', null, ['class' => 'form-control sku-total', 'readonly' => 'readonly']) !!}</td>
 
                             </tr>
+
+
                     </table>
 
                 </div>

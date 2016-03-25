@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Sale;
 use App\Invoice;
 use App\Customer;
+use App\Inventory;
 use Auth;
 
 class SalesController extends Controller
@@ -59,20 +60,23 @@ class SalesController extends Controller
             }
 
             $totalSales += $invoice->total;
+
         }
-        $totalSales = number_format(round($totalSales, 2), 2);
+        $totalSales = round($totalSales, 2);
+
 
         $totalInvoices = count($invoiceData);
+
         if($totalInvoices > 0)
         {
             $itemsPerInvoice = number_format($itemsSold/$totalInvoices, 2);
-            $salesPerInvoice = number_format($totalSales/$totalInvoices, 2);
+            $salesPerInvoice = number_format($totalSales/$totalInvoices, 3);
         } else
         {
             $itemsPerInvoice = 0;
             $salesPerInvoice = 0;
         }
-
+        $itemsSold = number_format($itemsSold, 0);
 
 
 
@@ -181,5 +185,9 @@ class SalesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getProductByID($id) {
+        return json_encode(Inventory::find($id));
     }
 }

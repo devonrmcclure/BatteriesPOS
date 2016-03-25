@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                 tasks: ['less:development']
             },
             js: {
-                files: 'resources/assets/js/*',
+                files: 'resources/assets/js/*.js',
                 tasks: ['browserify']
             }
         },

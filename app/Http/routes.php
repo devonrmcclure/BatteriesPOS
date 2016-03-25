@@ -30,4 +30,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'HomeController@index');
 
     Route::resource('sales', 'SalesController');
+
+    Route::get('sales/getProduct/{id}', 'SalesController@getProductByID');
 });
