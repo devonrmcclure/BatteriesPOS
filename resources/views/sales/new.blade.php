@@ -37,7 +37,7 @@
                         {!! Form::open(array('url' => 'sales')) !!}
                             {!! Form::text('customer_id', $customer->id, ['class' => 'hidden']) !!}
                             {!! Form::text('invoice_number', $invoiceNumber, ['class' => 'hidden']) !!}
-                            <tr class="sale-row selected">
+                            <tr class="sale-row">
                                 <td>{!! Form::text('sku', null, ['class' => 'form-control sku', 'tabindex' => '1']) !!}</td>
                                 <td>{!! Form::text('description', null, ['class' => 'form-control description', 'readonly' => 'readonly']) !!}</td>
                                 <td>{!! Form::text('quantity', null, ['class' => 'form-control quantity', 'tabindex' => '2']) !!}</td>
@@ -47,10 +47,7 @@
                                 <td>{!! Form::text('pst', null, ['class' => 'form-control pst', 'readonly' => 'readonly']) !!}</td>
                                 <td>{!! Form::text('gst', null, ['class' => 'form-control gst', 'readonly' => 'readonly']) !!}</td>
                                 <td>{!! Form::text('sku_total', null, ['class' => 'form-control sku-total', 'readonly' => 'readonly']) !!}</td>
-
                             </tr>
-
-
                     </table>
 
                 </div>

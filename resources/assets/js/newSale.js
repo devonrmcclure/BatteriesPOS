@@ -1,18 +1,35 @@
 $('#newSale').on('shown.bs.modal', function () {
-  $('.selected > td > .sku').focus()
-})
+  $('.sku:first').focus()
+});
 
-$('.selected > td > .sku').focusout(function(e) {
+$('.sku').focus(function(e) {
 	e.preventDefault();
-	var url = 'sales/getProduct/' + $('.sku').val();
+	$('.selected').removeClass('selected');
+
+	$(this).parent().parent().addClass('selected');
+});
+
+/*$('.selected > td > .sku').focusout(function(e) {
+	e.preventDefault();
+	var url = 'sales/getProduct/' + $('.selected > td > .sku').val();
 
    $.getJSON(url, function(data) {
    		$('.selected > td > .description').val(data['description']);
    		$('.selected > td > .unit-price').val(data['unit_price']);
     });
+});*/
+
+$('table').on('blur', '.selected > td > .sku', function(e) {
+    e.preventDefault();
+    	var url = 'sales/getProduct/' + $('.selected > td > .sku').val();
+
+       $.getJSON(url, function(data) {
+       		$('.selected > td > .description').val(data['description']);
+       		$('.selected > td > .unit-price').val(data['unit_price']);
+        });
 });
 
-$( '.quantity' ).focusout(function(e) {
+$('table').on('blur', '.selected > td > .quantity', function(e) {
 	e.preventDefault();
 
 	var quantity = parseInt($('.selected > td > .quantity').val());
