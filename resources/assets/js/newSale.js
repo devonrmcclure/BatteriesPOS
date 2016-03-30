@@ -2,22 +2,12 @@ $('#newSale').on('shown.bs.modal', function () {
   $('.sku:first').focus()
 });
 
-$('.sku').focus(function(e) {
+$('table').on('focus', 'td > .sku', function(e) {
 	e.preventDefault();
 	$('.selected').removeClass('selected');
 
 	$(this).parent().parent().addClass('selected');
 });
-
-/*$('.selected > td > .sku').focusout(function(e) {
-	e.preventDefault();
-	var url = 'sales/getProduct/' + $('.selected > td > .sku').val();
-
-   $.getJSON(url, function(data) {
-   		$('.selected > td > .description').val(data['description']);
-   		$('.selected > td > .unit-price').val(data['unit_price']);
-    });
-});*/
 
 $('table').on('blur', '.selected > td > .sku', function(e) {
     e.preventDefault();
@@ -44,4 +34,12 @@ $('table').on('blur', '.selected > td > .quantity', function(e) {
 	$('.selected > td > .gst').val(gst);
 	$('.selected > td > .sku-total').val(total);
 
+});
+
+$('.new-sale-modal').on('click', '.add-line', function(e) {
+	var n = $('tr:last > td > .discount').attr('tabindex');
+	var n = parseInt(n);
+	$('.new-sale-table').append('<tr class="sale-row"><td><input class="form-control sku" tabindex="' + (n+1) + '" name="sku" type="text"></td><td><input class="form-control description" readonly="readonly" name="description" type="text"></td><td><input class="form-control quantity" tabindex="' + (n+2) + '" name="quantity" type="text"></td><td><input class="form-control discount" tabindex="' + (n+3) + '" name="discount" type="text"></td><td><input class="form-control unit-price" readonly="readonly" name="unit_price" type="text"></td><td><input class="form-control extended" readonly="readonly" name="extended" type="text"></td><td><input class="form-control pst" readonly="readonly" name="pst" type="text"></td><td><input class="form-control gst" readonly="readonly" name="gst" type="text"></td><td><input class="form-control sku-total" readonly="readonly" name="sku_total" type="text"></td></tr>');
+
+	$('.sku:last').focus()
 });

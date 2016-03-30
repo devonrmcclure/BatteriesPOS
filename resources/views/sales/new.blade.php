@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">New Sale</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body new-sale-modal">
                 <div class="customer-info pull-left">
                     <p><b>Name:</b> {{$customer->name}}</p>
                     <p><b>Address:</b> {{$customer->address}}</p>
@@ -49,8 +49,8 @@
                                 <td>{!! Form::text('sku_total', null, ['class' => 'form-control sku-total', 'readonly' => 'readonly']) !!}</td>
                             </tr>
                     </table>
-
                 </div>
+                <button type="button" class="btn btn-primary add-line ">+</button>
             </div>
             <div class="modal-footer">
 
