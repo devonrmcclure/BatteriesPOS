@@ -110,13 +110,23 @@ class SalesController extends Controller
     public function store(Request $request)
     {
 
+        //Calculate total gst and pst.
+        $totalPST = 0;
+        $totalGST = 0;
+
+        for($i = 0; $i < count($request->sku); $i++)
+        {
+            $totalPST += $request->pst[$i];
+            $totalGST += $request->gst[$i];
+        }
+
         //Create the new invoice
         $invoice = new Invoice();
         $invoice->id = $request->invoice_number;
         $invoice->location = Auth::User()->name;
-        $invoice->total_pst = $request->pst;
-        $invoice->total_gst = $request->gst;
-        $invoice->total = $request->sku_total;
+        $invoice->total_pst = $totalPST;
+        $invoice->total_gst = $totalGST;
+        $invoice->total = $request->sale_total;
         $invoice->customer_id = $request->customer_id;
         $invoice->payment_method = 'Cash';
         $invoice->staff = 'Devon';
@@ -124,21 +134,25 @@ class SalesController extends Controller
         $invoice->gst_number = 'fjkdslfjklds';
         $invoice->printed = false;
         $invoice->save();
-        //Create the sale
-        //
-        $sale = new Sale();
-        $sale->invoice_id = $request->invoice_number;
-        $sale->sku = $request->sku;
-        $sale->description = $request->description;
-        $sale->category = 'Button Cell Batteries';
-        $sale->quantity = $request->quantity;
-        $sale->price = $request->unit_price;
-        $sale->discount = $request->discount;
-        $sale->extended = $request->extended;
-        $sale->pst = $request->pst;
-        $sale->gst = $request->gst;
-        $sale->total = $request->sku_total;
-        $sale->save();
+
+        for($i = 0; $i < count($request->sku); $i++)
+        {
+            $sale = new Sale();
+            $sale->invoice_id = $request->invoice_number;
+            $sale->sku = $request->sku[$i];
+            $sale->description = $request->description[$i];
+            $sale->category = 'Button Cell Batteries';
+            $sale->quantity = $request->quantity[$i];
+            $sale->price = $request->unit_price[$i];
+            $sale->discount = $request->discount[$i];
+            $sale->extended = $request->extended[$i];
+            $sale->pst = $request->pst[$i];
+            $sale->gst = $request->gst[$i];
+            $sale->total = $request->sku_total[$i];
+            $sale->save();
+        }
+
+
 
         return redirect('sales');
     }

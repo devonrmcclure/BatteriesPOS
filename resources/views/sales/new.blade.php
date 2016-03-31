@@ -22,6 +22,7 @@
                 </div>
 
                 <div class="table table-striped sale-items">
+                    {!! Form::open(array('url' => 'sales')) !!}
                     <table class="new-sale-table">
                         <tr>
                             <th>SKU</th>
@@ -34,28 +35,32 @@
                             <th>GST</th>
                             <th>Total</th>
                         </tr>
-                        {!! Form::open(array('url' => 'sales')) !!}
+
                             {!! Form::text('customer_id', $customer->id, ['class' => 'hidden']) !!}
                             {!! Form::text('invoice_number', $invoiceNumber, ['class' => 'hidden']) !!}
+                            {!! Form::text('sale_total', null, ['class' => 'hidden sale-total']) !!}
                             <tr class="sale-row">
-                                <td>{!! Form::text('sku', null, ['class' => 'form-control sku', 'tabindex' => '1']) !!}</td>
-                                <td>{!! Form::text('description', null, ['class' => 'form-control description', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('quantity', null, ['class' => 'form-control quantity', 'tabindex' => '2']) !!}</td>
-                                <td>{!! Form::text('discount', null, ['class' => 'form-control discount', 'tabindex' => '3']) !!}</td>
-                                <td>{!! Form::text('unit_price', null, ['class' => 'form-control unit-price', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('extended', null, ['class' => 'form-control extended', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('pst', null, ['class' => 'form-control pst', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('gst', null, ['class' => 'form-control gst', 'readonly' => 'readonly']) !!}</td>
-                                <td>{!! Form::text('sku_total', null, ['class' => 'form-control sku-total', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('sku[0]', null, ['class' => 'form-control sku', 'tabindex' => '1']) !!}</td>
+                                <td>{!! Form::text('description[0]', null, ['class' => 'form-control description', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('quantity[0]', null, ['class' => 'form-control quantity', 'tabindex' => '2']) !!}</td>
+                                <td>{!! Form::text('discount[0]', null, ['class' => 'form-control discount', 'tabindex' => '3']) !!}</td>
+                                <td>{!! Form::text('unit_price[0]', null, ['class' => 'form-control unit-price', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('extended[0]', null, ['class' => 'form-control extended', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('pst[0]', null, ['class' => 'form-control pst', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('gst[0]', null, ['class' => 'form-control gst', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('sku_total[0]', null, ['class' => 'form-control sku-total', 'readonly' => 'readonly']) !!}</td>
                             </tr>
+
                     </table>
+                    {!! Form::submit('', ['class' => 'btn btn-primary form']) !!}
+                    {!! Form::close() !!}
                 </div>
-                <button type="button" class="btn btn-primary add-line ">+</button>
+                <h4 class="total">Total: $<span class="price"></span></h4>
+                <button type="button" class="btn btn-primary add-line">+</button>
+                <button type="button" class="btn btn-primary display-total">Total</button>
+                <button type="button" class="btn btn-primary log-data">Log Data</button>
             </div>
             <div class="modal-footer">
-
-                {!! Form::submit('', ['class' => 'btn btn-primary form']) !!}
-            {!! Form::close() !!}
                 <button type="button" class="btn btn-primary">Cash</button>
                 <button type="button" class="btn btn-primary">Interac</button>
                 <button type="button" class="btn btn-primary">Mastercard</button>
