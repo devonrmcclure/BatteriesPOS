@@ -52,6 +52,13 @@
                             </tr>
 
                     </table>
+                    {!! Form::label('invoice_comment', 'Comment:', array('class' => 'control-label')) !!}
+                    {!! Form::select('invoice_comment', array(
+                        'Returns may be subject to a 25% restocking fee.' => 'Returns may be subject to a 25% restocking fee.',
+                        'Small appliance repairs have a 30 day service warranty.' => 'Small appliance repairs have a 30 day service warranty.',
+                        'Thank you for your business.' => 'Thank you for your business.',
+                        'To ensure quality, batteries are a non-refundable item.' => 'To ensure quality, batteries are a non-refundable item.'
+                                                              ), 'Returns may be subject to a 25% restocking fee.', ['class' => 'form-control']) !!}
                     {!! Form::submit('', ['class' => 'btn btn-primary form']) !!}
                     {!! Form::close() !!}
                 </div>

@@ -109,8 +109,6 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-
-        //Calculate total gst and pst.
         $totalPST = 0;
         $totalGST = 0;
 
@@ -130,7 +128,8 @@ class SalesController extends Controller
         $invoice->customer_id = $request->customer_id;
         $invoice->payment_method = 'Cash';
         $invoice->staff = 'Devon';
-        $invoice->invoice_comment = 'Not returnable';
+        //TODO: Once there is an invoice comment DB Table, get the comment from it and hard-code the comment here.
+        $invoice->invoice_comment = $request->invoice_comment;
         $invoice->gst_number = 'fjkdslfjklds';
         $invoice->printed = false;
         $invoice->save();

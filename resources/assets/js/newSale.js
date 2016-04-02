@@ -1,5 +1,5 @@
 $('#newSale').on('shown.bs.modal', function () {
-  $('.sku:first').focus()
+  $('.sku:first').focus();
 });
 
 $('table').on('focus', 'td > .sku', function(e) {
@@ -42,7 +42,7 @@ $('table').on('blur', 'td > .quantity', function(e) {
   		total += parseFloat($(this).val());
 	});
 	$('.total > .price').text(total.toFixed(2));
-	$('.sale-total').val(total.toFixed(2))
+	$('.sale-total').val(total.toFixed(2));
 
 });
 
