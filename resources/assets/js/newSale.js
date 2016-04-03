@@ -60,11 +60,19 @@ $('body').on('change', '.customer-number', function(e) {
     e.preventDefault();
     	var url = 'customers/getCustomer/' + $('.customer-number').val();
 
-       $.getJSON(url, function(data) {
-       		$('.customer-name').text('Name: ' + data['name']);
-       		$('.customer-address').text('Address: ' + data['address']);
-       		$('.customer-city').text('City: ' + data['city']);
-       		$('.customer-pc').text('PC: ' + data['postal_code']);
-       		$('.customer-primary-phone').text('Primary Phone: ' + data['primary_phone']);
+       $.ajax({
+          url: url,
+          dataType: 'json',
+          success: function(data) {
+          	console.log(data);
+            $('.customer-name').text('Name: ' + data['name']);
+            $('.customer-address').text('Address: ' + data['address']);
+            $('.customer-city').text('City: ' + data['city']);
+            $('.customer-pc').text('PC: ' + data['postal_code']);
+            $('.customer-primary-phone').text('Primary Phone: ' + data['primary_phone']);
+          },
+          error: function( data ) {
+            alert( "ERROR:  " + data );
+          }
         });
 });
