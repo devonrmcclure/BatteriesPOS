@@ -32,4 +32,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('sales', 'SalesController');
 
     Route::get('sales/getProduct/{id}', 'SalesController@getProductByID');
+    Route::get('customers/getCustomer/{phone}', 'CustomersController@getCustomerByPhone');
 });

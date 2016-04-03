@@ -56,19 +56,15 @@ $('.new-sale-modal').on('click', '.add-line', function(e) {
 	$('.sku:last').focus();
 });
 
-$('.new-sale-modal').on('click', '.display-total', function(e) {
-	var total = 0;
-	$('td > .sku-total').each(function(index) {
-  		total += parseFloat($(this).val());
-	});
-	console.log(total.toFixed(2));
-});
+$('body').on('change', '.customer-number', function(e) {
+    e.preventDefault();
+    	var url = 'customers/getCustomer/' + $('.customer-number').val();
 
-$('.new-sale-modal').on('click', '.log-data', function(e) {
-	var total = 0;
-	$('tr').each(function(index) {
-  		console.log(index);
-	});
-
-	console.log(total.toFixed(2));
+       $.getJSON(url, function(data) {
+       		$('.customer-name').text('Name: ' + data['name']);
+       		$('.customer-address').text('Address: ' + data['address']);
+       		$('.customer-city').text('City: ' + data['city']);
+       		$('.customer-pc').text('PC: ' + data['postal_code']);
+       		$('.customer-primary-phone').text('Primary Phone: ' + data['primary_phone']);
+        });
 });

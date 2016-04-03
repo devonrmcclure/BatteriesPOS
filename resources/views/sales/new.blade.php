@@ -8,10 +8,12 @@
             </div>
             <div class="modal-body new-sale-modal">
                 <div class="customer-info pull-left">
-                    <p><b>Name:</b> {{$customer->name}}</p>
-                    <p><b>Address:</b> {{$customer->address}}</p>
-                    <p><b>City:</b> {{$customer->city}}<span> <b>PC:</b> {{$customer->postal_code}}</span></p>
-                    <p><b>Primary Phone:</b> {{$customer->primary_phone}}</p>
+                    <p class="customer-name"><b>Name:</b> {{$customer->name}}</p>
+                    <p class="customer-address"><b>Address:</b> {{$customer->address}}</p>
+                    <p class="customer-city"><b>City:</b> {{$customer->city}}<span class="customer-pc"> <b>PC:</b> {{$customer->postal_code}}</span></p>
+                    <p class="customer-primary-phone"><b>Primary Phone:</b> {{$customer->primary_phone}}</p>
+                    {!! Form::label('customer-number', 'Quick Search', ['class' => 'form-label'])!!}
+                    {!! Form::text('customer-number', null, ['class' => 'form-control customer-number', 'placeholder' => 'Search Customer']) !!}
                 </div>
 
                 <div class="invoice-info pull-right">
@@ -64,8 +66,6 @@
                 </div>
                 <h4 class="total">Total: $<span class="price"></span></h4>
                 <button type="button" class="btn btn-primary add-line">+</button>
-                <button type="button" class="btn btn-primary display-total">Total</button>
-                <button type="button" class="btn btn-primary log-data">Log Data</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Cash</button>
