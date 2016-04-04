@@ -65,6 +65,7 @@ $('body').on('change', '.customer-number', function(e) {
           dataType: 'json',
           success: function(data) {
           	console.log(data);
+          	$('.customer-id').val('Name: ' + data['id']);
             $('.customer-name').text('Name: ' + data['name']);
             $('.customer-address').text('Address: ' + data['address']);
             $('.customer-city').text('City: ' + data['city']);
