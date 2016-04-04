@@ -16,6 +16,7 @@ $('table').on('blur', '.selected > td > .sku', function(e) {
        $.getJSON(url, function(data) {
        		$('.selected > td > .description').val(data['description']);
        		$('.selected > td > .unit-price').val(data['unit_price']);
+       		$('.selected > td > .original-price').val(data['unit_price']);
         });
 });
 
@@ -25,6 +26,10 @@ $('table').on('blur', 'td > .quantity', function(e) {
 	var row = $(this).closest('tr');
 	var quantity = parseInt(row.find('.quantity').val());
 
+	if(quantity == -1)
+	{
+		alert('This is a refund');
+	}
 
 	var price = parseFloat(row.find('.unit-price').val());
 	var extended = parseFloat(Number(quantity)*Number(price)).toFixed(2);
@@ -43,6 +48,51 @@ $('table').on('blur', 'td > .quantity', function(e) {
 	});
 	$('.total > .price').text(total.toFixed(2));
 	$('.sale-total').val(total.toFixed(2));
+
+});
+
+$('table').on('blur', '.selected > td > .discount', function(e) {
+	e.preventDefault();
+
+	var row = $(this).closest('tr');
+	var quantity = parseInt(row.find('.quantity').val());
+
+	var price = parseFloat(row.find('.unit-price').val());
+	var discount = parseFloat(row.find('.discount').val()/100);
+	var originalPrice = parseFloat(row.find('.original-price').val());
+
+
+	if(discount > 0.1)
+	{
+		alert('no');
+		return;
+	}
+
+	price = originalPrice - (originalPrice*discount);
+	row.find('.unit-price').val(price.toFixed(2));
+
+	var extended = parseFloat(Number(quantity)*Number(price)).toFixed(2);
+	var pst = parseFloat((Number(quantity)*Number(price))*0.07).toFixed(2);
+	var gst = parseFloat((Number(quantity)*Number(price))*0.05).toFixed(2);
+	var skuTotal = parseFloat(Number(extended)+Number(pst)+Number(gst)).toFixed(2);
+
+	console.log(extended);
+	console.log(pst);
+	console.log(gst);
+	console.log(skuTotal);
+
+	row.find('.extended').val(extended);
+	row.find('.pst').val(pst);
+	row.find('.gst').val(gst);
+	row.find('.sku-total').val(skuTotal);
+
+	var total = 0;
+	$('td > .sku-total').each(function( index ) {
+  		total += parseFloat($(this).val());
+	});
+	$('.total > .price').text(total.toFixed(2));
+	$('.sale-total').val(total.toFixed(2));
+
 
 });
 

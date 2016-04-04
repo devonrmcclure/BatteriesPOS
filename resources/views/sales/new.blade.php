@@ -51,6 +51,7 @@
                                 <td>{!! Form::text('pst[0]', null, ['class' => 'form-control pst', 'readonly' => 'readonly']) !!}</td>
                                 <td>{!! Form::text('gst[0]', null, ['class' => 'form-control gst', 'readonly' => 'readonly']) !!}</td>
                                 <td>{!! Form::text('sku_total[0]', null, ['class' => 'form-control sku-total', 'readonly' => 'readonly']) !!}</td>
+                                <td>{!! Form::text('original-price[0]', null, ['class' => 'form-control original-price hidden']) !!}</td>
                             </tr>
 
                     </table>
