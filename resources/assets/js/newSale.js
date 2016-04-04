@@ -72,7 +72,7 @@ $('body').on('change', '.customer-number', function(e) {
             $('.customer-primary-phone').text('Primary Phone: ' + data['primary_phone']);
           },
           error: function( data ) {
-            alert( "ERROR:  " + data );
+            alert( "Customer does not exist" );
           }
         });
 });
