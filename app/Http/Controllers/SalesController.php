@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Sale;
 use App\Invoice;
+use App\Customer;
+use App\Inventory;
 use Auth;
 
 class SalesController extends Controller
@@ -37,37 +39,56 @@ class SalesController extends Controller
          * -Total sales (post-tax)
          * -Individual for each Method (allow user input for close out.)
          */
-        $invoiceData = Invoice::where('created_at', '>=', date('Y-m-d'))->where('location', Auth::User()->name)->get();
 
+        //Get all invoices from the logged in store for today.
+        $invoiceData = Invoice::today()->get();
+
+
+        $invoiceNumber = Invoice::orderBy('id', 'DESC')->where('location', Auth::User()->name)->first();
+
+        $invoiceNumber = $invoiceNumber->id + 1;
+        $customer = Customer::defaultCustomer()->first();
 
         $itemsSold = 0;
         $totalSales = 0;
 
         foreach($invoiceData as $invoice)
         {
-            //TODO: Count quanity from quantity field.
-            $itemsSold += count($invoice->sale);
+
+            foreach($invoice->sale as $item) {
+                $itemsSold += $item->quantity;
+            }
+
             $totalSales += $invoice->total;
+
         }
+        $totalSales = round($totalSales, 2);
+
 
         $totalInvoices = count($invoiceData);
+
         if($totalInvoices > 0)
         {
-            $itemsPerInvoice = round($itemsSold/$totalInvoices, 2);
-            $salesPerInvoice = round($totalSales/$totalInvoices, 2);
+            $itemsPerInvoice = number_format($itemsSold/$totalInvoices, 2);
+            $salesPerInvoice = number_format($totalSales/$totalInvoices, 3);
         } else
         {
             $itemsPerInvoice = 0;
             $salesPerInvoice = 0;
         }
+        $itemsSold = number_format($itemsSold, 0);
+        $totalSales = number_format($totalSales, 2);
 
 
-        return view('sales')
+
+        return view('sales.index')
                 ->with('totalInvoices', $totalInvoices)
                 ->with('totalSales', $totalSales)
                 ->with('itemsSold', $itemsSold)
                 ->with('itemsPerInvoice', $itemsPerInvoice)
-                ->with('salesPerInvoice', $salesPerInvoice);
+                ->with('salesPerInvoice', $salesPerInvoice)
+                ->with('customer', $customer)
+                ->with('invoiceNumber', $invoiceNumber);
     }
 
     /**
@@ -88,7 +109,51 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $totalPST = 0;
+        $totalGST = 0;
+
+        for($i = 0; $i < count($request->sku); $i++)
+        {
+            $totalPST += $request->pst[$i];
+            $totalGST += $request->gst[$i];
+        }
+
+        //Create the new invoice
+        $invoice = new Invoice();
+        $invoice->id = $request->invoice_number;
+        $invoice->location = Auth::User()->name;
+        $invoice->total_pst = $totalPST;
+        $invoice->total_gst = $totalGST;
+        $invoice->total = $request->sale_total;
+        $invoice->customer_id = $request->customer_id;
+        $invoice->payment_method = 'Cash';
+        $invoice->staff = 'Devon';
+        //TODO: Once there is an invoice comment DB Table, get the comment from it and hard-code the comment here.
+        $invoice->invoice_comment = $request->invoice_comment;
+        $invoice->gst_number = 'fjkdslfjklds';
+        $invoice->printed = false;
+        $invoice->save();
+
+        for($i = 0; $i < count($request->sku); $i++)
+        {
+            $sale = new Sale();
+            $sale->invoice_id = $request->invoice_number;
+            $sale->sku = $request->sku[$i];
+            $sale->description = $request->description[$i];
+            $sale->category = 'Button Cell Batteries';
+            $sale->quantity = $request->quantity[$i];
+            $sale->price = $request->unit_price[$i];
+            $sale->discount = $request->discount[$i];
+            $sale->extended = $request->extended[$i];
+            $sale->pst = $request->pst[$i];
+            $sale->gst = $request->gst[$i];
+            $sale->total = $request->sku_total[$i];
+            $sale->save();
+        }
+
+
+
+        return redirect('sales');
     }
 
     /**
@@ -134,5 +199,9 @@ class SalesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getProductByID($id) {
+        return json_encode(Inventory::find($id));
     }
 }

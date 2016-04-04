@@ -56,7 +56,7 @@ class CustomersTableSeeder extends Seeder
                    	'province' => 'British Columbia',
                    	'country' => 'Canada',
                    	'postal_code' => 'V3R 6N7',
-                   	'primary_phone' => '604-970-9889',
+                   	'primary_phone' => '604-930-9889',
                    	'email' => 'guildford@batteriesincluded.ca',
                    	'location_id' => 6,
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')

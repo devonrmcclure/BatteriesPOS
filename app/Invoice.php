@@ -15,4 +15,9 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\Customer');
     }
+
+    public function scopeToday($query)
+    {
+        $query->where('created_at', '>=', date('Y-m-d'))->where('location', \Auth::User()->name);
+    }
 }
