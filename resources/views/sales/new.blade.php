@@ -38,7 +38,7 @@
                             <th>Total</th>
                         </tr>
 
-                            {!! Form::text('customer_id', $customer->id, ['class' => 'hidden']) !!}
+                            {!! Form::text('customer_id', $customer->id, ['class' => 'hidden customer_id']) !!}
                             {!! Form::text('invoice_number', $invoiceNumber, ['class' => 'hidden']) !!}
                             {!! Form::text('sale_total', null, ['class' => 'hidden sale-total']) !!}
                             <tr class="sale-row">
