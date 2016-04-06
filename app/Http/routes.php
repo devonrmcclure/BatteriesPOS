@@ -1,18 +1,4 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -24,7 +10,7 @@
 |
 */
 
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => 'web', 'domain' => 'batteriespos.dev'], function () {
     Route::auth();
 
     Route::get('/', 'HomeController@index');
@@ -33,4 +19,17 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('sales/getProduct/{id}', 'SalesController@getProductByID');
     Route::get('customers/getCustomer/{phone}', 'CustomersController@getCustomerByPhone');
+
+    Route::resource('admin/purchase/history', 'PurchasesController');
+    Route::get('admin/purchase/getProduct/{id}', 'PurchasesController@getProduct');
+
+    Route::get('staff/{rep}', 'SalesController@getStaff');
+
+});
+
+Route::group(['domain' => 'api.batteriespos.dev'], function () {
+	Route::get('/', function () {
+		return 'BatteriesPOS API v0.0.1';
+
+	});
 });
