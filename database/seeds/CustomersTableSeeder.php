@@ -21,7 +21,7 @@ class CustomersTableSeeder extends Seeder
     	    MR: 8
     	*/
         DB::table('customers')->insert([
-                   	'name' => 'Richmond Customer',
+                   	'first_name' => 'Richmond Customer',
                    	'company' => 'Batteries Included',
                    	'address' => '5300 No 3 Rd',
                    	'city' => 'Richmond',
@@ -35,7 +35,7 @@ class CustomersTableSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-                   	'name' => 'White Rock Customer',
+                   	'first_name' => 'White Rock Customer',
                    	'company' => 'Batteries Included',
                    	'address' => '1711 152nd Street',
                    	'city' => 'Surrey',
@@ -49,7 +49,7 @@ class CustomersTableSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-                   	'name' => 'Guildford Customer',
+                   	'first_name' => 'Guildford Customer',
                    	'company' => 'Batteries Included',
                    	'address' => '1026 152nd Street',
                    	'city' => 'Surrey',
@@ -63,7 +63,7 @@ class CustomersTableSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-                   	'name' => 'Nanaimo Customer',
+                   	'first_name' => 'Nanaimo Customer',
                    	'company' => 'Batteries Included',
                    	'address' => '3200 North Island Way',
                    	'city' => 'Nanaimo',
@@ -77,7 +77,7 @@ class CustomersTableSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-                   	'name' => 'Maple Ridge Customer',
+                   	'first_name' => 'Maple Ridge Customer',
                    	'company' => 'Batteries Included',
                    	'address' => '#500 22709 Lougheed Highway',
                    	'city' => 'Maple Ridge',

@@ -23,7 +23,7 @@ class StaffTableSeeder extends Seeder
     	*/
 
     	DB::table('staff')->insert([
-    	           	'name' => 'Richmond Staff',
+    	           	'first_name' => 'Richmond Staff',
     	           	'primary_phone' => '778-874-9156',
     	           	'email' => 'richmond@batteriesincluded.ca',
     	           	'rep_code' => 'RM',
@@ -31,7 +31,8 @@ class StaffTableSeeder extends Seeder
     	]);
 
         DB::table('staff')->insert([
-                   	'name' => 'Devon McClure',
+                   	'first_name' => 'Devon',
+                    'last_name' => 'McClure',
                    	'address' => '15826 McBeth Rd',
                    	'city' => 'Surrey',
                    	'province' => 'British Columbia',

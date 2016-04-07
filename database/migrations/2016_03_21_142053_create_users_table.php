@@ -29,8 +29,8 @@ class CreateUsersTable extends Migration
                         $table->string('gst_number');
                         $table->string('pst_number');
                         $table->boolean('admin');
-                        $table->rememberToken();]
-                        $table->string('api_token', 60)->unique();
+                        $table->rememberToken();
+                        $table->string('api_token', 60)->unique()->nullable();
                         $table->timestamps();
         });
     }
