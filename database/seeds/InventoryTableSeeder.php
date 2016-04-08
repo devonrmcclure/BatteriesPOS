@@ -62,7 +62,7 @@ class InventoryTableSeeder extends Seeder
         		'gst' => 1,
         		'supplier' => 'Awesome Batteries INC',
         		'brand' => 'Infinity',
-        		'model' => 'ITF-12-5',
+        		'model' => 'IT5-12-F1',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }
