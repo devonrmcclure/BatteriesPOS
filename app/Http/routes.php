@@ -10,26 +10,41 @@
 |
 */
 
-Route::group(['middleware' => 'web', 'domain' => 'batteriespos.dev'], function () {
+Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function () {
     Route::auth();
 
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'Controllers\HomeController@index');
 
-    Route::resource('sales', 'SalesController');
+    Route::resource('sales', 'Controllers\SalesController');
 
-    Route::get('sales/getProduct/{id}', 'SalesController@getProductByID');
-    Route::get('customers/getCustomer/{phone}', 'CustomersController@getCustomerByPhone');
+    Route::get('sales/getProduct/{id}', 'Controllers\SalesController@getProductByID');
+    Route::get('customers/getCustomer/{phone}', 'Controllers\CustomersController@getCustomerByPhone');
 
-    Route::resource('admin/purchase/history', 'PurchasesController');
-    Route::get('admin/purchase/getProduct/{id}', 'PurchasesController@getProduct');
+    Route::resource('admin/purchase/history', 'Controllers\PurchasesController');
+    Route::get('admin/purchase/getProduct/{id}', 'Controllers\PurchasesController@getProduct');
 
-    Route::get('staff/{rep}', 'SalesController@getStaff');
-
+    Route::get('staff/{rep}', 'Controllers\SalesController@getStaff');
 });
 
-Route::group(['domain' => 'api.batteriespos.dev'], function () {
-	Route::get('/', function () {
-		return 'BatteriesPOS API v0.0.1';
+Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'], function () {
+    //Note: Must use Auth::gaurd('api')->user();
+    Route::get('/', function() {
+        echo 'TODO: show API versions.';
+    });
 
-	});
+    Route::group(['prefix' => 'v0'], function () {
+        Route::get('/', function() {
+            return 'test';
+        });
+
+        Route::get('customers', 'Api\Controllers\CustomersController@index');
+        Route::get('inventory', 'Api\Controllers\InventoryController@index');
+        Route::get('invoice', 'Api\Controllers\InvoiceController@index');
+        Route::get('sales', 'Api\Controllers\SalesController@index');
+        Route::post('sales', 'Api\Controllers\SalesController@store');
+        Route::get('purchases', 'Api\Controllers\PurchasesController@index');
+        Route::get('staff', 'Api\Controllers\StaffController@index');
+        Route::get('vendor-invoices', 'Api\Controllers\VendorInvoicesController@index');
+        Route::get('user', 'Api\Controllers\UserController@index');
+    });
 });
