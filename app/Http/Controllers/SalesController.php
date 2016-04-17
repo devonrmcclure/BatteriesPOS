@@ -10,9 +10,10 @@ use App\Invoice;
 use App\Customer;
 use App\Inventory;
 use Auth;
+use App\Staff;
 
 class SalesController extends Controller
-{
+{   
 
     public function __construct()
     {
@@ -43,10 +44,44 @@ class SalesController extends Controller
         //Get all invoices from the logged in store for today.
         $invoiceData = Invoice::today()->get();
 
+        if($invoiceNumber = Invoice::orderBy('id', 'DESC')->where('location', Auth::User()->name)->first())
+        {
+            $invoiceNumber = $invoiceNumber->id + 1;
+        } else {
+            /* Location codes:
+                HO: 1
+                RM: 2
+                WR: 3
+                GF: 6
+                NM: 7
+                MR: 8
+            */
+            switch(Auth::User()->id)
+            {
+                case 1:
+                    $invoiceNumber = 0;
+                    break;
+                case 2:
+                    $invoiceNumber = 200000;
+                    break;
+                case 3:
+                    $invoiceNumber = 300000;
+                    break;
+                case 6:
+                    $invoiceNumber = 600000;
+                    break;
+                case 7:
+                    $invoiceNumber = 700000;
+                    break;
+                case 8:
+                    $invoiceNumber = 800000;
+                    break;
+                default:
+                    $invoiceNumber = 0;
+            }
+        }
 
-        $invoiceNumber = Invoice::orderBy('id', 'DESC')->where('location', Auth::User()->name)->first();
 
-        $invoiceNumber = $invoiceNumber->id + 1;
         $customer = Customer::defaultCustomer()->first();
 
         $itemsSold = 0;
@@ -127,8 +162,7 @@ class SalesController extends Controller
         $invoice->total = $request->sale_total;
         $invoice->customer_id = $request->customer_id;
         $invoice->payment_method = 'Cash';
-        $invoice->staff = 'Devon';
-        //TODO: Once there is an invoice comment DB Table, get the comment from it and hard-code the comment here.
+        $invoice->staff = $request->rep_name;
         $invoice->invoice_comment = $request->invoice_comment;
         $invoice->gst_number = 'fjkdslfjklds';
         $invoice->printed = false;
@@ -203,5 +237,9 @@ class SalesController extends Controller
 
     public function getProductByID($id) {
         return json_encode(Inventory::find($id));
+    }
+
+    public function getStaff($rep) {
+        return json_encode(Staff::where('rep_code', $rep)->first());
     }
 }

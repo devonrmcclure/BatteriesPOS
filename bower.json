@@ -6,7 +6,6 @@
     "jquery": "~2.1.4",
     "bootstrap": "~3.3.6",
     "filterTable": "^1.5.5",
-    "vue": "^1.0.20"
   },
   "devDependencies": {}
 }

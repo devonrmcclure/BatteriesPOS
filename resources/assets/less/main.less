@@ -6,11 +6,33 @@
 @import "sidebar";
 @import "content";
 @import "user-dropdown";
-@import "new-sale";
+@import "Modals/modal";
 
 body {
 	background: #eee;
 	padding: 0;
 	margin: 0;
+	font-family: Roboto;
 }
+
+input[type="text"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px lighten(indigo, 50%);
+  transition: border 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="text"].focus {
+  border-bottom: solid 2px indigo;
+}
+
 

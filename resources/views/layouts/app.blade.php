@@ -17,10 +17,10 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,400italic,700italic,300,700,500italic,300italic,400' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ elixir('css/main.css') }}" />
     @show
 </head>
-<body id="app-layout">
+<body>
 
     @if(Auth::check())
         @include('partials.sidebar')
@@ -39,9 +39,9 @@
 
     @section('scripts')
     <!-- JavaScripts -->
-    <script type="text/javascript" src="{{ URL::asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+    <script src="{{ URL::asset('bower_components/jquery/dist/jquery.js') }}"></script>
+    <script src="{{ URL::asset('bower_components/bootstrap/dist/js/bootstrap.js') }}"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
     @show
 
 </body>

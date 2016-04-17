@@ -24,14 +24,10 @@
 				</tr>
 			</table>
 			<br />
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newSale">
-			  New Sale
-			</button>
-		</div>
-
-
-		@include('sales.new')
+			<div id="app">
+				<rep-login-modal :show.sync="showRepLoginModal" title="Rep Login" :location="{{ Auth::User() }}"></rep-login-modal>
+				<button id="show-modal" @click="showRepLoginModal = true">New Sale</button>
+			</div>
 	</div>
 </div>
 @endsection
