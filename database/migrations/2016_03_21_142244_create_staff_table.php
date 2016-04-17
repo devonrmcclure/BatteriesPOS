@@ -14,6 +14,7 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
                         $table->increments('id');
+                        $table->integer('location_id')->unsigned();
                         $table->string('first_name');
                         $table->string('last_name');
                         $table->string('address')->nullable();
@@ -26,6 +27,8 @@ class CreateStaffTable extends Migration
                         $table->string('email');
                         $table->string('rep_code');
                         $table->timestamps();
+
+                        $table->foreign('location_id')->references('id')->on('users');
         });
     }
 
