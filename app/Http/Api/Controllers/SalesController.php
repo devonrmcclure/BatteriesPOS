@@ -40,12 +40,11 @@ class SalesController extends ApiController
 
 	public function store(Request $request)
 	{	
-		// $products = $request->input('products');
-		// //dd($products[0]['sku']);
-		 $prices = $request->input('prices');
+		$products = $request->input('products');
+		$prices = $request->input('prices');
 		// $invoice = $request->input('invoice');
 		// $total = $request->input('sale_total');
-
+		//dd($prices);
 		$totalPST = 0;
         $totalGST = 0;
 
@@ -56,17 +55,36 @@ class SalesController extends ApiController
         }
 		//Add invoice. 
 		$invoice = new Invoice();
-        $invoice->id = '3333';
-        $invoice->location = 'White Rock';
+        $invoice->id = $request->invoice;
+        $invoice->location = $request->input('location')['name'];
         $invoice->total_pst = $totalPST;
         $invoice->total_gst = $totalGST;
-        $invoice->total = 500;
-        $invoice->customer_id = 1;
-        $invoice->payment_method = 'Cash';
-        $invoice->staff = 'Dev';
-        $invoice->invoice_comment = 'comment';
-        $invoice->gst_number = 'fjkdslfjklds';
-        $invoice->printed = false;
+        $invoice->total = $request->total;
+        $invoice->customer_id = $request->input('customer')['id'];
+        $invoice->payment_method = $request->input('method');
+        $invoice->staff = $request->input('rep')['first_name'];
+        $invoice->invoice_comment = $request->input('invoice_comment');
+        $invoice->gst_number = $request->input('location')['gst_number'];
+        $invoice->printed = $request->input('printed');
         $invoice->save();
+
+        //Add product
+
+        foreach($products as $i => $product)
+        {
+            $sale = new Sale();
+            $sale->invoice_id = $request->invoice;
+            $sale->sku = $product['sku'];
+            $sale->description = $product['description'];
+            $sale->category = 'Button Cell Batteries';
+            $sale->quantity = $prices[$i]['quantity'];
+            $sale->price = $product['unit_price'];
+            $sale->discount = $prices[$i]['discount'];
+            $sale->extended = $prices[$i]['extended'];
+            $sale->pst = $prices[$i]['pst'];
+            $sale->gst = $prices[$i]['gst'];
+            $sale->total = $prices[$i]['sku_total'];
+            $sale->save();
+        }
 	}
 }
