@@ -18,7 +18,6 @@
         "laracasts/generators": "^1.1"
     },
     "autoload": {
-        "files": ["app/Helpers/helpers.php"],
         "classmap": [
             "database"
         ],
