@@ -14,7 +14,6 @@ use App\Sale;
 
 class SalesController extends ApiController
 {	
-	protected $salesTransformer;
 	//Declare the model we are working on
 	protected $model = '\App\Sale';
 
