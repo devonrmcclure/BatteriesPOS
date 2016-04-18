@@ -42,16 +42,6 @@ class ApiController extends Controller
         return $this;
     }
 
-    /**
-     * Gets the value of locationId.
-     *
-     * @return mixed
-     */
-    public function getLocationId()
-    {
-        return $this->locationId;
-    }
-
     public function respondNotFound($message = 'Not Found')
     {
     	return $this->setStatusCode(Response::HTTP_NOT_FOUND)->respondWithError($message);
@@ -88,7 +78,9 @@ class ApiController extends Controller
             'only',
             'between',
             'created_at',
-            'updated_at'
+            'day',
+            'updated_at',
+            'with'
         ];
 
         $query = $model::select();
@@ -96,6 +88,11 @@ class ApiController extends Controller
         // $date1 = '2016-04-10';
         // $date2 = '2016-04-14';
         //return $query->whereBetween('created_at', [new Carbon($date1), new Carbon($date2)])->get();
+        
+        if(isset($parameters['with']))
+        {
+            $query->with($parameters['with']);
+        }
 
         if(isset($parameters['only']))
         {
@@ -142,6 +139,11 @@ class ApiController extends Controller
         if(isset($parameters['created_at']))
         {
             $query->whereDate('created_at', '=', $parameters['created_at']);
+        }
+
+        if(isset($parameters['day']))
+        {
+            $query->whereDate('created_at', '=', $parameters['day']);
         }
 
         if(isset($parameters['updated_at']))

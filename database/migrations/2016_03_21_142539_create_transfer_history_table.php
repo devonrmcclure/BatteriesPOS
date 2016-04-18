@@ -14,16 +14,16 @@ class CreateTransferHistoryTable extends Migration
     {
         Schema::create('transfer_history', function (Blueprint $table) {
                         $table->increments('id');
-                        $table->integer('originating_store')->unsigned();
+                        $table->integer('from_store')->unsigned();
                         $table->integer('quantity');
                         $table->integer('sku')->unsigned();
-                        $table->integer('destination_store')->unsigned();
+                        $table->integer('to_store')->unsigned();
                         $table->timestamps();
 
-                        $table->foreign('originating_store')
+                        $table->foreign('from_store')
                               ->references('id')->on('users');
 
-                        $table->foreign('destination_store')
+                        $table->foreign('to_store')
                               ->references('id')->on('users');
 
                         $table->foreign('sku')

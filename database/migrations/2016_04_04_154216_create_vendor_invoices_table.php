@@ -16,7 +16,7 @@ class CreateVendorInvoicesTable extends Migration
             $table->string('invoice_id')->primary();
             $table->string('vendor');
             $table->float('total_gst');
-            $table->float('total');
+            $table->float('total_before_gst');
             $table->string('payment_method');
             $table->string('staff');
             $table->string('comments')->nullable();

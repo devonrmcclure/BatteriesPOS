@@ -46,5 +46,7 @@ Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'],
         Route::get('staff', 'Api\Controllers\StaffController@index');
         Route::get('vendor-invoices', 'Api\Controllers\VendorInvoicesController@index');
         Route::get('user', 'Api\Controllers\UserController@index');
+
+        Route::get('daily-stats', 'Api\Controllers\DailyStatsController@index');
     });
 });
