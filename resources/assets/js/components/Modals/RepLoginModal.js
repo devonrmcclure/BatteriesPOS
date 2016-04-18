@@ -63,7 +63,6 @@ export default Modal.extend({
             .then( function(response) {
                 //Success
                 this.$set('invoice', Number(response.data.data[0].id+1));
-                console.log('200000');
             }, function(response) {
                 //Error
                 

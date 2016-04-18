@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ elixir('css/main.css') }}" />
     @show
 </head>
-<body>
+<body id="app">
 
     @if(Auth::check())
         @include('partials.sidebar')

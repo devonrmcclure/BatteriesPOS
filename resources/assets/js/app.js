@@ -4,17 +4,24 @@ import VueResource from 'vue-resource';
 //import CustomerInfo from './CustomerInfo.vue';
 import NewSaleModal from './components/Modals/NewSaleModal';
 import RepLoginModal from './components/Modals/RepLoginModal';
+import DailySalesStats from './components/Stats/DailySalesStats.js';
 
 Vue.use(VueResource);
 
 new Vue({
     el: '#app',
-    components: {NewSaleModal, RepLoginModal},
+    components: {NewSaleModal, RepLoginModal, DailySalesStats},
     data() {
     	return {
         	showNewSaleModal: false,
-        	showRepLoginModal: false
+        	showRepLoginModal: false,
     	}
+    },
+
+    events: {
+        'new-sale': function() {
+            this.$broadcast('new-sale');
+        }
     }
 });
 

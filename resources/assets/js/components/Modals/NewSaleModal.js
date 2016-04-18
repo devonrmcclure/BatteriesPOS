@@ -104,7 +104,7 @@ export default Modal.extend({
         },
 
         getCustomer() {
-            var url = 'http://api.batteriespos.dev/v0/customers?phone=' + this.location.phone_number + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
+            var url = '//api.batteriespos.dev/v0/customers?phone=' + this.location.phone_number + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
             
             this.$http.get(url).then(function(response) {
                       // get status
@@ -189,6 +189,7 @@ export default Modal.extend({
             })
             .then(function(response) {
                 //Success
+                this.$dispatch('new-sale');
                 this.close();
             }, function(response) {
                 //TODO: Proper flash message
