@@ -86,7 +86,9 @@ class ApiController extends Controller
             'limit',
             'api_token',
             'only',
-            'between'
+            'between',
+            'created_at',
+            'updated_at'
         ];
 
         $query = $model::select();
@@ -135,6 +137,16 @@ class ApiController extends Controller
         if(isset($parameters['limit']))
         {
             $limit = $parameters['limit'];
+        }
+
+        if(isset($parameters['created_at']))
+        {
+            $query->whereDate('created_at', '=', $parameters['created_at']);
+        }
+
+        if(isset($parameters['updated_at']))
+        {
+            $query->whereDate('updated_at', '=', $parameters['updated_at']);
         }
 
         try {
