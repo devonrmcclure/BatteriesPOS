@@ -24,6 +24,8 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('admin/purchase/getProduct/{id}', 'Controllers\PurchasesController@getProduct');
 
     Route::get('staff/{rep}', 'Controllers\SalesController@getStaff');
+
+    Route::get('inventory', 'Controllers\InventoryController@index');
 });
 
 Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'], function () {

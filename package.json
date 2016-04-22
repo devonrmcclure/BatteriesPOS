@@ -4,6 +4,7 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
+    "laravel-elixir-vueify": "^1.0.3",
     "notify-send": "^0.1.2"
   },
   "dependencies": {

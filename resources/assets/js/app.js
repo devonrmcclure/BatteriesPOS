@@ -2,9 +2,9 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 //import Sale from './Sale.vue';
 //import CustomerInfo from './CustomerInfo.vue';
-import NewSaleModal from './components/Modals/NewSaleModal';
-import RepLoginModal from './components/Modals/RepLoginModal';
-import DailySalesStats from './components/Stats/DailySalesStats.js';
+import NewSaleModal from './components/Modals/NewSaleModal.vue';
+import RepLoginModal from './components/Modals/RepLoginModal.vue';
+import DailySalesStats from './components/Stats/DailySalesStats.vue';
 
 Vue.use(VueResource);
 
