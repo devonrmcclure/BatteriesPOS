@@ -34,39 +34,23 @@ class DailyStatsController extends ApiController
 
         $invoices = $this->getResults($this->invoices, $parameters);
 
-        if($invoices->isEmpty())
-        {
-            return $this->respondNotFound('No sales today');
-        }
-        $totalInvoices = $this->getTotalInvoices($invoices);
         $itemsSold = $this->getItemsSold($invoices);
         $totalSales = $this->getTotalSales($invoices);
+        $totalInvoices = $this->getTotalInvoices($invoices);
         $itemsPerInvoice = $this->getItemsPerInvoice($invoices);
         $salesPerInvoice = $this->getSalesPerInvoice($invoices);
         
         return $this->respond([
             'data' => [
                 'location'          => $parameters['location'],
-                'total_invoices' => (int) $totalInvoices,
-                'items_sold'     => (int) $itemsSold,
-                'total_sales'    => (float) $totalSales,
+                'items_sold'        => (int) $itemsSold,
+                'total_sales'       => (float) $totalSales,
+                'total_invoices'    => (int) $totalInvoices,
                 'items_per_invoice' => (float) $itemsPerInvoice,
                 'sales_per_invoice' => (float) $salesPerInvoice,
             ],
             'user' => \Auth::guard('api')->user()
         ]);
-        die;
-		$saleProducts = $this->getResults($this->sales, $request->all());
-
-		if($saleProducts->isEmpty())
-		{
-			return $this->respondNotFound('Sale does not exist');
-		}
-
-		return $this->respond([
-			'data' => $stats,
-			'user' => \Auth::guard('api')->user()
-		]);
 	}
 
     public function getTotalInvoices($invoices) {
@@ -100,13 +84,23 @@ class DailyStatsController extends ApiController
     public function getItemsPerInvoice($invoices) {
         $total = 0;
 
-        $total = ($this->getItemsSold($invoices) / $this->getTotalInvoices($invoices));
+        if(! $this->getTotalInvoices($invoices))
+        {
+            return $total;
+        }
+        
+        $total = ($this->getItemsSold($invoices) / $this->getTotalInvoices($invoices));        
 
         return number_format($total, 2);
     }
 
     public function getSalesPerInvoice($invoices) {
         $total = 0;
+
+        if(! $this->getTotalInvoices($invoices))
+        {
+            return $total;
+        }
 
         $total = ($this->getTotalSales($invoices) / $this->getTotalInvoices($invoices));
 
