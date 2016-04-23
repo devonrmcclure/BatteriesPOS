@@ -52,11 +52,11 @@ class DailyStatsController extends ApiController
         ]);
 	}
 
-    public function getTotalInvoices($invoices) {
+    protected function getTotalInvoices($invoices) {
         return count($invoices);
     }
 
-	public function getItemsSold($invoices) {
+	protected function getItemsSold($invoices) {
         $total = 0;
         foreach($invoices as $invoice)
         {
@@ -69,7 +69,7 @@ class DailyStatsController extends ApiController
         return $total;
     }
 
-    public function getTotalSales($invoices) {
+    protected function getTotalSales($invoices) {
         $total = 0;
 
         foreach($invoices as $invoice)
@@ -80,7 +80,7 @@ class DailyStatsController extends ApiController
         return number_format($total, 2);
     }
 
-    public function getItemsPerInvoice($invoices) {
+    protected function getItemsPerInvoice($invoices) {
         $total = 0;
 
         if(! $this->getTotalInvoices($invoices))
@@ -93,7 +93,7 @@ class DailyStatsController extends ApiController
         return number_format($total, 2);
     }
 
-    public function getSalesPerInvoice($invoices) {
+    protected function getSalesPerInvoice($invoices) {
         $total = 0;
 
         if(! $this->getTotalInvoices($invoices))
