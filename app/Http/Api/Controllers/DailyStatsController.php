@@ -18,7 +18,6 @@ class DailyStatsController extends ApiController
 {	
 	//Declare the model we are working on
 	protected $invoices = '\App\Invoice';
-    protected $sales    = '\App\Sale';
 
 	function __construct()
 	{
