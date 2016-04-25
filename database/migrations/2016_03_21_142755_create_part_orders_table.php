@@ -15,7 +15,7 @@ class CreatePartOrdersTable extends Migration
         Schema::create('part_orders', function (Blueprint $table) {
                         $table->increments('id');
                         $table->integer('invoice_id')->unsigned();
-                        $table->string('refered_by')->nullable();
+                        $table->string('referred_by')->nullable();
                         $table->string('make');
                         $table->string('item');
                         $table->string('model');
