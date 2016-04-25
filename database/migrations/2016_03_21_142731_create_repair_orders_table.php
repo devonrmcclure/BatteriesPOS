@@ -15,7 +15,7 @@ class CreateRepairOrdersTable extends Migration
         Schema::create('repair_orders', function (Blueprint $table) {
                         $table->increments('id');
                         $table->integer('repair_order_number')->unique();
-                        $table->string('refered_by');
+                        $table->string('referred_by');
                         $table->integer('customer_id')->unsigned();
                         $table->integer('call_if_over')->nullable();
                         $table->boolean('original_receipt')->nullable()->default(NULL);
