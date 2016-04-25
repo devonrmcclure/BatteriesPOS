@@ -26,6 +26,9 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('staff/{rep}', 'Controllers\SalesController@getStaff');
 
     Route::get('inventory', 'Controllers\InventoryController@index');
+
+    Route::get('repair-orders', 'Controllers\RepairOrdersController@index');
+    Route::get('repair-orders/{orderNum}', 'Controllers\RepairOrdersController@show');
 });
 
 Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'], function () {
@@ -50,5 +53,11 @@ Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'],
         Route::get('user', 'Api\Controllers\UserController@index');
 
         Route::get('daily-stats', 'Api\Controllers\DailyStatsController@index');
+
+        Route::get('qoh', 'Api\Controllers\QuantityOnHandController@index');
+        Route::get('location', 'Api\Controllers\LocationsController@index');
+
+        Route::get('repair-orders', 'Api\Controllers\RepairOrdersController@index');
+        Route::get('repair-orders/{orderNum}', 'Api\Controllers\RepairOrdersController@show');
     });
 });

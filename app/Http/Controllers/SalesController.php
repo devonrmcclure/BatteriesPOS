@@ -77,6 +77,7 @@ class SalesController extends Controller
             $sale = new Sale();
             $sale->invoice_id = $request->invoice_number;
             $sale->sku = $request->sku[$i];
+            $sale->location_id = 3;
             $sale->description = $request->description[$i];
             $sale->category = 'Button Cell Batteries';
             $sale->quantity = $request->quantity[$i];
