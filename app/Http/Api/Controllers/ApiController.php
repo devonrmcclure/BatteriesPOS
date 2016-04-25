@@ -80,18 +80,30 @@ class ApiController extends Controller
             'created_at',
             'day',
             'updated_at',
-            'with'
+            'with',
+            'wherewith',
+            'description'
         ];
 
         $query = $model::select();
-
-        // $date1 = '2016-04-10';
-        // $date2 = '2016-04-14';
-        //return $query->whereBetween('created_at', [new Carbon($date1), new Carbon($date2)])->get();
         
         if(isset($parameters['with']))
         {
-            $query->with($parameters['with']);
+
+            if(isset($parameters['wherewith']))
+            {
+                $param = explode(',', $parameters['wherewith'], 3);
+                $query->with([$parameters['with'] => function($query) use ($param) {
+                    $query->where($param[0], $param[1], $param[2]);
+                }]);
+            } else {
+                $query->with($parameters['with']);
+            }
+        }
+
+        if(isset($parameters['description']))
+        {
+            $query->where('description', 'LIKE', '%'. $parameters['description'] . '%');
         }
 
         if(isset($parameters['only']))
