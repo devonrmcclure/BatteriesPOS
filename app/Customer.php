@@ -16,8 +16,7 @@ class Customer extends Model
     	return $this->belongsTo('App\User');
     }
 
-    public function scopeDefaultCustomer($query)
-    {
-        $query->where('email', \Auth::User()->email)->where('location_id', \Auth::User()->id);
+    public function repair_order() {
+        return $this->hasMany('App\RepairOrder');
     }
 }

@@ -10,4 +10,9 @@ class Sale extends Model
 	    {
 	        return $this->belongsTo('App\Invoice');
 	    }
+
+        public function location()
+        {
+            return $this->belongsTo('App\User');
+        }
 }

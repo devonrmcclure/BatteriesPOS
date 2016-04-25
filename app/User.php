@@ -28,4 +28,16 @@ class User extends Authenticatable
     public function customer() {
         return $this->hasMany('App\Customer', 'location_id');
     }
+
+    public function qoh() {
+        return $this->hasMany('App\Qoh', 'location_id');
+    }
+
+    public function sales() {
+        return $this->hasMany('App\Sale', 'location_id');
+    }
+
+    public function repair_order() {
+        return $this->hasMany('App\RepairOrder', 'location_id');
+    }
 }
