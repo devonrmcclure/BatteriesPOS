@@ -73,6 +73,7 @@ class SalesController extends ApiController
         {
             $sale = new Sale();
             $sale->invoice_id = $request->invoice;
+            $sale->location_id = $request->input('location')['id'];
             $sale->sku = $product['sku'];
             $sale->description = $product['description'];
             $sale->category = 'Button Cell Batteries';

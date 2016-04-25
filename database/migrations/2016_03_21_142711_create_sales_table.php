@@ -15,6 +15,7 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
                         $table->increments('id');
                         $table->integer('invoice_id')->unsigned();
+                        $table->integer('location_id')->unsigned();
                         $table->integer('sku');
                         $table->string('description');
                         $table->string('category');
