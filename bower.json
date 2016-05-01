@@ -1,11 +1,11 @@
 {
-  "name": "BatteriesPOS",
+  "name": "batteriespos",
   "description": "POS System for Batteries Included",
   "version": "1.0.0",
   "dependencies": {
     "jquery": "~2.1.4",
     "bootstrap": "~3.3.6",
-    "filterTable": "^1.5.5",
+    "filterTable": "^1.5.5"
   },
   "devDependencies": {}
 }
