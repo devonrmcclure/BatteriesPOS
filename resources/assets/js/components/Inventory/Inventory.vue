@@ -1,6 +1,6 @@
 <template>
-	<input type="text" placeholder="Search By Sku" v-model="sku" @keyup="getInfo(sku)"/>
-	<input type="text" placeholder="Search By Description" v-model="description" @keyup="getByDescription(description)"/>
+	<input type="text" placeholder="Search By Sku" v-model="sku" @keyup.enter="getInfo(sku)"/>
+	<input type="text" placeholder="Search By Description" v-model="description" @keyup.enter="getByDescription(description)"/>
 	<h2>{{ product[0].description }}</h2>
 	Price: {{ product[0].unit_price | currency}} Last sold: {{ last_sale | moment }}
 

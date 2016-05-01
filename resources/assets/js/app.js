@@ -17,6 +17,7 @@ new Vue({
     	return {
         	showNewSaleModal: false,
         	showRepLoginModal: false,
+            showNewRepairOrdersModal: false
     	}
     },
 
