@@ -31,6 +31,8 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::post('repair-orders', 'Controllers\RepairOrdersController@store'); //Change to post to api.batteriespos.dev/v0/repair-orders
 
     Route::get('part-orders', 'Controllers\PartOrdersController@index');
+
+    Route::get('customers', 'Controllers\CustomersController@index');
 });
 
 Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'], function () {

@@ -14,5 +14,8 @@ use Auth;
 
 class CustomersController extends Controller
 {
-    
+    public function index()
+    {
+        return view('customers.index');
+    }
 }
