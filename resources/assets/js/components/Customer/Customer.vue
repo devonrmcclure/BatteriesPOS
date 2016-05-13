@@ -1,6 +1,6 @@
 <template>
     <div>{{customer.first_name}}</div>
-    <div>{{customer.address}}, {{customer.city}} {{customer.postal_code}}</div>
+    <div>{{customer.address}} {{customer.city}} {{customer.postal_code}}</div>
     <div>{{customer.primary_phone}}</div>
     <div>{{customer.secondary_phone}}</div>
     <input type="text" placeholder="Search Customer" v-model="phone_number" @change="getCustomer()"/>
