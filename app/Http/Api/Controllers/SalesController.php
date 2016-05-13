@@ -10,10 +10,10 @@ use App\Http\Requests;
 use App\Customer;
 use App\Invoice;
 use App\Sale;
-
+use App\Qoh;
 
 class SalesController extends ApiController
-{	
+{
 	//Declare the model we are working on
 	protected $model = '\App\Sale';
 
@@ -38,7 +38,7 @@ class SalesController extends ApiController
 	}
 
 	public function store(Request $request)
-	{	
+	{
 		$products = $request->input('products');
 		$prices = $request->input('prices');
 		// $invoice = $request->input('invoice');
@@ -52,7 +52,7 @@ class SalesController extends ApiController
             $totalPST += $prices[$i]['pst'];
             $totalGST += $prices[$i]['gst'];
         }
-		//Add invoice. 
+		//Add invoice.
 		$invoice = new Invoice();
         $invoice->id = $request->invoice;
         $invoice->location = $request->input('location')['name'];
@@ -85,6 +85,10 @@ class SalesController extends ApiController
             $sale->gst = $prices[$i]['gst'];
             $sale->total = $prices[$i]['sku_total'];
             $sale->save();
+
+            $qoh = Qoh::where('location_id', \Auth::guard('api')->user()->id)->where('sku', $product['sku'])->first();
+            $qoh->quantity -= $prices[$i]['quantity'];
+            $qoh->save();
         }
 	}
 }
