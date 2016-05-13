@@ -3,12 +3,15 @@
 
         <div class="Modal__body">
             <customer :customer.sync="customer" :location.sync="location"></customer>
-            Sold By: {{ rep.first_name }}
+            Location: {{ location.name }} <br />
+            Sold By: {{ rep.first_name }} <br />
+            Date: {{ date | moment }} <br />
             Total: {{total}}<br />
             Invoice: {{invoice}}<br />
             <input class="sku" id="sku" v-model="sku" @change="addProduct" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
             <table class="products">
                 <tr>
+                    <th></th>
                     <th>SKU</th>
                     <th>Description</th>
                     <th>QTY</th>
@@ -18,10 +21,11 @@
                     <th>PST</th>
                     <th>GST</th>
                     <th>Total</th>
-                    <th></th>
+
                 </tr>
 
                 <tr v-for="product in products">
+                    <td @click="removeProduct(product, $index)">X</td>
                     <td>{{ product.sku }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ prices[$index].quantity }}</td>
@@ -31,7 +35,6 @@
                     <td>{{ prices[$index].pst }}</td>
                     <td>{{ prices[$index].gst }}</td>
                     <td>{{ prices[$index].sku_total }}</td>
-                    <td @click="removeProduct(product, $index)">X</td>
                 </tr>
 
             </table>
@@ -53,6 +56,7 @@
 
 
 <script>
+    import Moment from 'moment';
     import Modal from './Modal.vue';
     import Customer from '../Customer/Customer.vue';
 
@@ -70,7 +74,8 @@
                 sku: '',
                 quantity: '',
                 invoice_comment: '',
-                paymentMethod: ''
+                paymentMethod: '',
+                date: new Date()
             }
         },
 
@@ -137,20 +142,30 @@
                     this.quantity = '';
                 }
                 var index = this.products.length - 1;
-                    var extended = (this.quantity * this.products[index]['unit_price']).toFixed(2);
-                    var pst = (extended*0.07).toFixed(2);
-                    var gst = (extended*0.05).toFixed(2);
-                    var total = Number(Number(extended)+Number(pst)+Number(gst)).toFixed(2);
-                    var price = {
-                        quantity: this.quantity,
-                        extended: Number(extended).toFixed(2),
-                        discount: 0.00,
-                        pst: Number(pst).toFixed(2),
-                        gst: Number(gst).toFixed(2),
-                        sku_total: Number(total).toFixed(2),
-                    };
+                var extended = (this.quantity * this.products[index]['unit_price']).toFixed(2);
+                var pst = 0, gst = 0;
+                //Check if it's taxable.
+                if(this.products[index]['pst'] == 1)
+                {
+                    pst = (extended*0.07).toFixed(2);
+                }
+                if(this.products[index]['gst'] == 1)
+                {
+                    gst = (extended*0.05).toFixed(2);
+                }
 
-                    this.prices.push(price);
+
+                var total = Number(Number(extended)+Number(pst)+Number(gst)).toFixed(2);
+                var price = {
+                    quantity: this.quantity,
+                    extended: Number(extended).toFixed(2),
+                    discount: 0.00,
+                    pst: Number(pst).toFixed(2),
+                    gst: Number(gst).toFixed(2),
+                    sku_total: Number(total).toFixed(2),
+                };
+
+                this.prices.push(price);
 
                 this.sku = '';
                 this.quantity = '';
@@ -165,6 +180,12 @@
             },
 
             completeSale(method) {
+                if (!this.products || !this.prices)
+                {
+                    alert('Please enter a product');
+                    return false;
+                }
+
                 this.paymentMethod = method;
                 var url = '//api.batteriespos.dev/v0/sales';
 
@@ -189,6 +210,12 @@
                     //TODO: Proper flash message
                 });
             },
+        },
+
+        filters: {
+            moment: function (date) {
+                return Moment(date).format('MMMM Do YYYY');
+            }
         }
     });
 </script>
