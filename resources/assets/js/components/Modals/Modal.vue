@@ -1,9 +1,12 @@
 <template>
     <div class="Modal__overlay" @click="close" v-show="show" transition="modal">
         <div class="Modal__container" @click.stop>
-            <div class="modal-header">
+            <div class="Modal__header">
+                <span class=" Modal--close pull-right" @click="onClose()">&times;</span>
                 <h3>{{ title }}</h3>
+
             </div>
+            <hr/>
 
             <slot></slot>
 
@@ -23,7 +26,7 @@ export default Vue.extend({
     },
 
     props: ['show', 'onClose', 'title'],
-    
+
     methods: {
         close: function () {
             this.onClose();
