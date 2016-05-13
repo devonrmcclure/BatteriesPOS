@@ -60,7 +60,7 @@ class SalesController extends ApiController
         $invoice->total_gst = $totalGST;
         $invoice->total = $request->total;
         $invoice->customer_id = $request->input('customer')['id'];
-        $invoice->payment_method = $request->input('method');
+        $invoice->payment_method = $request->input('paymentMethod');
         $invoice->staff = $request->input('rep')['first_name'];
         $invoice->invoice_comment = $request->input('invoice_comment');
         $invoice->gst_number = $request->input('location')['gst_number'];

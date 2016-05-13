@@ -6,7 +6,6 @@
             Sold By: {{ rep.first_name }}
             Total: {{total}}<br />
             Invoice: {{invoice}}<br />
-            <button @click="completeSale()">Click</button><br />
             <input class="sku" id="sku" v-model="sku" @change="addProduct" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
             <table class="products">
                 <tr>
@@ -46,7 +45,7 @@
 
         <div class="Modal__footer">
             <span class="payment-method">
-                <p>CASH | DEBIT | MASTERCARD | VISA</p>
+                <p class="paymentMethod"><span @click="completeSale('Cash')">CASH</span> | <span @click="completeSale('Interac')">Interac</span> | <span @click="completeSale('Mastercard')">MASTERCARD</span> | <span @click="completeSale('Visa')">VISA</span></p>
             </span>
         </div>
     </modal>
@@ -71,6 +70,7 @@
                 sku: '',
                 quantity: '',
                 invoice_comment: '',
+                paymentMethod: ''
             }
         },
 
@@ -104,17 +104,7 @@
                 this.sku = '';
                 this.quantity = '';
                 this.invoice = '';
-            },
-
-            getCustomer() {
-                var url = '//api.batteriespos.dev/v0/customers?phone=' + this.location.phone_number + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
-
-                this.$http.get(url).then(function(response) {
-                          // get status
-                    this.$set('customer', response.data.data[0]);
-                }, function(response) {
-                    //TODO: Error
-                });
+                this.method = '';
             },
 
             getProduct(sku) {
@@ -174,7 +164,8 @@
                 this.prices.$remove(this.prices[index]);
             },
 
-            completeSale() {
+            completeSale(method) {
+                this.paymentMethod = method;
                 var url = '//api.batteriespos.dev/v0/sales';
 
                 this.$http.post(url, {
@@ -187,7 +178,7 @@
                     invoice_comment: this.invoice_comment,
                     rep: this.rep,
                     printed: false,
-                    method: 'Cash',
+                    paymentMethod: this.paymentMethod,
                     api_token: this.location.api_token
                 })
                 .then(function(response) {
