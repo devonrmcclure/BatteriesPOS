@@ -1,5 +1,5 @@
 <template>
-	<table>
+	<table class="table">
         <tr>
             <th>Customer</th>
             <th>Primary Phone</th>
@@ -51,7 +51,7 @@ export default Vue.extend({
 
     filters: {
         moment: function (date) {
-            return Moment(date).format('MMMM Do YYYY, H:mm');
+            return Moment(date).format('MMMM Do YYYY');
         }
     }
 
