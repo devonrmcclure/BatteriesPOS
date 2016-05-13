@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function repair_order() {
         return $this->hasMany('App\RepairOrder', 'location_id');
     }
+
+    public function part_order() {
+        return $this->hasMany('App\PartOrder', 'location_id');
+    }
 }

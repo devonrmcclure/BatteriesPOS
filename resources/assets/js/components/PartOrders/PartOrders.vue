@@ -2,7 +2,7 @@
     <button @click="newOrder">+</button>
     <table class="table">
         <tr>
-            <th>Repair Number</th>
+            <th>Part Order Number</th>
             <th>Customer</th>
             <th>Phone Number</th>
             <th>Product</th>
@@ -11,45 +11,45 @@
             <th>Picked Up</th>
         </tr>
 
-        <tr v-for="repairOrder in repairOrders">
-            <td>{{ repairOrder.id }}</td>
-            <td>{{ repairOrder.customer.first_name }} {{ repairOrder.customer.last_name }}</td>
-            <td>{{ repairOrder.customer.primary_phone }}</td>
-            <td>{{ repairOrder.product }}</td>
-            <td>{{ repairOrder.to_head_office | moment }}</td>
-            <td>{{ repairOrder.from_head_office | moment }}</td>
-            <td>{{ repairOrder.customer_pick_up | moment }}</td>
+        <tr v-for="partOrder in partOrders">
+            <td>{{ partOrder.id }}</td>
+            <td>{{ partOrder.customer.first_name }} {{ partOrder.customer.last_name }}</td>
+            <td>{{ partOrder.customer.primary_phone }}</td>
+            <td>{{ partOrder.item }}</td>
+            <td>{{ partOrder.to_head_office | moment }}</td>
+            <td>{{ partOrder.from_head_office | moment }}</td>
+            <td>{{ partOrder.customer_pick_up | moment }}</td>
         </tr>
     </table>
 
-    <repair-orders-modal :show.sync="newRepairOrder" title="New Repair Order"></repair-orders-modal>
+    <part-orders-modal :show.sync="newPartOrder" title="New Part Order"></part-orders-modal>
 </template>
 
 <script lang="babel">
     import Vue from 'vue';
     import Moment from 'moment';
-    import RepairOrdersModal from '../Modals/RepairOrdersModal.vue';
+    import partOrdersModal from '../Modals/PartOrdersModal.vue';
 
     export default Vue.extend({
 
-        components: {RepairOrdersModal},
+        components: {partOrdersModal},
         data() {
             return {
-                repairOrders: [],
-                newRepairOrder: false,
+                partOrders: [],
+                newPartOrder: false,
             }
         },
 
         ready() {
-            this.getRepairOrders();
+            this.getPartOrders();
         },
 
         methods: {
-            getRepairOrders() {
-                var url = 'http://api.batteriespos.dev/v0/repair-orders?&with=customer&location_id=3';
+            getPartOrders() {
+                var url = 'http://api.batteriespos.dev/v0/part-orders?&with=customer&location_id=3';
 
                 this.$http.get(url, {api_token: 'token'}).then(function(response) {
-                this.$set('repairOrders', response.data.data);
+                this.$set('partOrders', response.data.data);
 
                 }, function(response) {
                 // error callback
@@ -57,7 +57,7 @@
             },
 
             newOrder() {
-                this.newRepairOrder = true;
+                this.newPartOrder = true;
             }
         },
 

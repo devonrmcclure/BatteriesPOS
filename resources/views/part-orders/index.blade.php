@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="content">
-    <h1>Repair Orders <small>{{$date}}</small></h1>
+    <h1>Part Orders <small>{{$date}}</small></h1>
     <div class="col-md-12 module-container">
         <div class="module">
 
-            <repair-orders></repair-orders>
+            <part-orders></part-orders>
         </div>
     </div>
 </div>

@@ -1,18 +1,19 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-//import Sale from './Sale.vue';
-//import CustomerInfo from './CustomerInfo.vue';
 import Inventory from './components/Inventory/Inventory.vue';
 import NewSaleModal from './components/Modals/NewSaleModal.vue';
 import RepLoginModal from './components/Modals/RepLoginModal.vue';
 import DailySalesStats from './components/Stats/DailySalesStats.vue';
 import RepairOrders from './components/RepairOrders/RepairOrders.vue';
+import PartOrders from './components/PartOrders/PartOrders.vue';
+import './directives/Ajax';
 
 Vue.use(VueResource);
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('input[name="_token"]').value;
 
 new Vue({
     el: '#app',
-    components: {NewSaleModal, RepLoginModal, DailySalesStats, Inventory, RepairOrders},
+    components: {NewSaleModal, RepLoginModal, DailySalesStats, Inventory, RepairOrders, PartOrders},
     data() {
     	return {
         	showNewSaleModal: false,
@@ -27,21 +28,3 @@ new Vue({
         }
     }
 });
-
-// $('.rep-login').on('shown.bs.modal', function () {
-// $('.rep-code').focus();
-
-// $('.rep-code').on('change', function(e){
-// e.preventDefault();
-// var url = 'staff/' + $('.rep-code').val();
-
-// $.getJSON(url, function(data) {
-// $('.rep').html('<b>Rep:</b> ' + data['name']);
-// $('.rep-name').val(data['name']);
-// $('.rep-login').modal('hide');
-// $('#newSale').modal('show');
-// $('.sku:first').focus();
-// $('.rep-code').val('');
-// });
-// });
-// });

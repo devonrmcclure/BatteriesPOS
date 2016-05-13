@@ -1,6 +1,6 @@
 <template>
     <modal :show.sync="show" :on-close="close" :title.sync="title">
-        
+
         <div class="Modal__body">
             <span class="error">{{ error }}</span>
 
@@ -34,10 +34,10 @@
 
         ready() {
             document.addEventListener("keydown", (e) => {
-                $('#rep-login').focus();    
+                $('#rep-login').focus();
             });
         },
-        
+
         methods: {
             close() {
                 this.show = false;
@@ -47,7 +47,7 @@
 
             getRep() {
                 var url = 'http://api.batteriespos.dev/v0/staff?rep_code=' + this.repCode + '&location_id=' + this.location.id;
-                
+
                 this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                     this.$set('rep', response.data.data[0]);
                     this.close();
@@ -68,7 +68,7 @@
                     this.$set('invoice', Number(response.data.data[0].id+1));
                 }, function(response) {
                     //Error
-                    
+
                     switch(this.location.name) {
                         case "Head Office":
                             this.invoice = 0;
@@ -88,7 +88,7 @@
                         case "Maple Ridge":
                             this.invoice = 800000;
                             break;
-                        default: 
+                        default:
                             //Throw error
                             console.log('ERROR');
                     }

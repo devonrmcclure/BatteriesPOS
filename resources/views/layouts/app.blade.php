@@ -21,6 +21,7 @@
     @show
 </head>
 <body id="app">
+    {{ csrf_field() }}
 
     @if(Auth::check())
         @include('partials.sidebar')

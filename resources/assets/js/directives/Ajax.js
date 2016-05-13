@@ -1,19 +1,17 @@
 import Vue from 'vue';
 
 Vue.directive('ajax', {
+
     bind() {
         this.el.addEventListener('submit', this.onFormSubmit.bind(this));
     },
 
-    update(value) {
-
-    },
-
     onFormSubmit(e) {
         e.preventDefault();
-
+        var formData = new FormData(document.querySelector('form'))
+        console.log(formData);
         this.vm
-            .$http[this.getRequestType()](this.el.action)
+            .$http[this.getRequestType()](this.el.action, formData)
             .then(this.onComplete.bind(this));
     },
 
@@ -24,6 +22,6 @@ Vue.directive('ajax', {
     },
 
     onComplete() {
-        alert('Complete');
+        //Do stuff (send a flash message)
     }
 });

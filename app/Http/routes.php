@@ -28,7 +28,9 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('inventory', 'Controllers\InventoryController@index');
 
     Route::get('repair-orders', 'Controllers\RepairOrdersController@index');
-    Route::get('repair-orders/{orderNum}', 'Controllers\RepairOrdersController@show');
+    Route::post('repair-orders', 'Controllers\RepairOrdersController@store'); //Change to post to api.batteriespos.dev/v0/repair-orders
+
+    Route::get('part-orders', 'Controllers\PartOrdersController@index');
 });
 
 Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'], function () {
@@ -59,5 +61,9 @@ Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'],
 
         Route::get('repair-orders', 'Api\Controllers\RepairOrdersController@index');
         Route::get('repair-orders/{orderNum}', 'Api\Controllers\RepairOrdersController@show');
+
+        Route::get('part-orders', 'Api\Controllers\PartOrdersController@index');
+        Route::get('part-orders/{orderNum}', 'Api\Controllers\PartOrdersController@show');
+        Route::post('part-orders', 'Api\Controllers\PartOrdersController@store');
     });
 });

@@ -18,7 +18,7 @@ class CreateRepairOrdersTable extends Migration
                         $table->integer('customer_id')->unsigned();
                         $table->integer('call_if_over')->nullable();
                         $table->boolean('original_receipt')->nullable()->default(NULL);
-                        $table->boolean('warranty');
+                        $table->string('warranty');
                         $table->float('deposit')->nullable();
                         $table->integer('staff_id')->unsigned();
                         $table->string('product');
@@ -30,10 +30,11 @@ class CreateRepairOrdersTable extends Migration
                         $table->integer('location_id')->unsigned();
                         $table->integer('invoice_id')->unsigned()->nullable();
                         $table->text('problem');
-                        $table->text('notes');
+                        $table->text('notes')->nullable();
                         $table->timestamp('to_head_office');
                         $table->timestamp('from_head_office');
                         $table->timestamp('customer_pick_up');
+                        $table->timestamp('customer_called');
                         $table->timestamps();
 
                         $table->foreign('customer_id')
