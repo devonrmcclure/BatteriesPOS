@@ -30,11 +30,16 @@ span.error {
 
 .Modal__header  {
     h3 {
-        color:#1C8DEF;  
+        //color:#1C8DEF;
+        display: inline-block;
     }
-    padding: 10px 15px;
-    border-bottom: 1px solid #666;
-    
+    padding: 10px 15px 0;
+
+    .Modal--close {
+        cursor: pointer;
+        font-size: 18px;
+    }
+
 }
 
 .Modal__body {
@@ -53,7 +58,7 @@ span.error {
 
 
 /*
-    Stylings for VueJS' transition 
+    Stylings for VueJS' transition
 */
 .modal-enter, .modal-leave {
     opacity: 0;
