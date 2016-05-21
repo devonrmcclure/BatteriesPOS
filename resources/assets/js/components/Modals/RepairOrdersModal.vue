@@ -2,7 +2,9 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
 
         <div class="Modal__body">
+
             <form method="POST" action="/repair-orders" v-ajax>
+                <customer :customer.sync="customer" :location.sync="location"></customer>
                 <label for="referred-by">Referred By</label>
                 <select name="referred-by" id="referred_by">
                     <option value=""></option>
@@ -52,12 +54,19 @@
 
 <script lang="babel">
     import Modal from './Modal.vue';
+    import Customer from '../Customer/Customer.vue';
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'newRepairOrder'],
+        props: ['show', 'title', 'newRepairOrder', 'location'],
 
-        components: {Modal},
+        components: {Modal, Customer},
+
+        data() {
+            return {
+                customer: []
+            }
+        },
 
         methods: {
              close() {

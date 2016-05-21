@@ -1,5 +1,5 @@
 <template>
-    <div>{{customer.first_name}}</div>
+    <div><input type="text" name="first-name" id="first-name" placeholder="First Name" value="{{customer.first_name}}"/></div>
     <div>{{customer.address}} {{customer.city}} {{customer.postal_code}}</div>
     <div>{{customer.primary_phone}}</div>
     <div>{{customer.secondary_phone}}</div>

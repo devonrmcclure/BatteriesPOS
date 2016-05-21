@@ -9,7 +9,7 @@ use App\Http\Requests;
 
 
 class RepairOrdersController extends ApiController
-{   
+{
     //Declare the model we are working on
     protected $model = '\App\RepairOrder';
 
@@ -34,7 +34,7 @@ class RepairOrdersController extends ApiController
     }
 
     public function store(Request $request)
-    {   
-        
+    {
+        dd($request->all());
     }
 }

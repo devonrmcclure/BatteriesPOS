@@ -22,7 +22,7 @@
         </tr>
     </table>
 
-    <repair-orders-modal :show.sync="newRepairOrder" title="New Repair Order"></repair-orders-modal>
+    <repair-orders-modal :show.sync="newRepairOrder" :location.sync="location" title="New Repair Order"></repair-orders-modal>
 </template>
 
 <script lang="babel">
@@ -31,6 +31,8 @@
     import RepairOrdersModal from '../Modals/RepairOrdersModal.vue';
 
     export default Vue.extend({
+
+        props: ['location'],
 
         components: {RepairOrdersModal},
         data() {
