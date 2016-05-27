@@ -6,7 +6,7 @@
         </div>
 
         <div class="Modal__footer">
-            Footer
+            YES | NO
         </div>
     </modal>
 

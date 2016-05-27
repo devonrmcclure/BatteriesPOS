@@ -53,7 +53,7 @@
         </div>
     </modal>
 
-    <receipt-modal show="showReceipt" title="Print Receipt?"></receipt-modal>
+    <receipt-modal :show.sync="showReceipt" title="Print Receipt?"></receipt-modal>
 </template>
 
 
