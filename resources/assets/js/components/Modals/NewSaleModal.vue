@@ -52,19 +52,22 @@
             </span>
         </div>
     </modal>
+
+    <receipt-modal show="showReceipt" title="Print Receipt?"></receipt-modal>
 </template>
 
 
 <script>
     import Moment from 'moment';
     import Modal from './Modal.vue';
+    import ReceiptModal from './ReceiptModal.vue';
     import Customer from '../Customer/Customer.vue';
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'rep', 'location', 'invoice'],
+        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt'],
 
-        components: {Modal, Customer},
+        components: {Modal, Customer, ReceiptModal},
 
         data() {
             return {
@@ -75,7 +78,7 @@
                 quantity: '',
                 invoice_comment: '',
                 paymentMethod: '',
-                date: new Date()
+                date: new Date(),
             }
         },
 
@@ -99,6 +102,7 @@
         methods: {
             close() {
                 this.clearData();
+                this.showReceipt = true;
                 this.show = false;
 
             },
@@ -206,6 +210,7 @@
                     //Success
                     this.$dispatch('new-sale');
                     this.close();
+
                 }, function(response) {
                     //TODO: Proper flash message
                 });
