@@ -53,7 +53,7 @@
         </div>
     </modal>
 
-    <receipt-modal :show.sync="showReceipt" title="Print Receipt?"></receipt-modal>
+    <receipt-modal :show.sync="showReceipt" title="Print Receipt?" :print.sync="print"></receipt-modal>
 </template>
 
 
@@ -78,6 +78,7 @@
                 quantity: '',
                 invoice_comment: '',
                 paymentMethod: '',
+                print: false,
                 date: new Date(),
             }
         },
@@ -202,7 +203,7 @@
                     customer: this.customer,
                     invoice_comment: this.invoice_comment,
                     rep: this.rep,
-                    printed: false,
+                    printed: this.print,
                     paymentMethod: this.paymentMethod,
                     api_token: this.location.api_token
                 })

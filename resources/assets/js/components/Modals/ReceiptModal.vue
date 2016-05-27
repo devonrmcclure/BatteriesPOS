@@ -6,7 +6,7 @@
         </div>
 
         <div class="Modal__footer">
-            YES | NO
+                <p class=""><span @click="printInvoice(true)">YES</span> | <span @click="printInvoice(false)">Interac</span></p>
         </div>
     </modal>
 
@@ -18,13 +18,12 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title'],
+        props: ['show', 'title', 'print'],
 
         components: {Modal},
 
         data() {
             return {
-                
             }
         },
 
@@ -32,6 +31,11 @@
             close() {
                 this.show = false;
             },
+
+            printInvoice(print) {
+                this.print = print;
+                this.close();
+            }
         },
     });
 </script>
