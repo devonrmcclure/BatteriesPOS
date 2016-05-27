@@ -52,19 +52,22 @@
             </span>
         </div>
     </modal>
+
+    <receipt-modal :show.sync="showReceipt" title="Print Receipt?" :print.sync="print"></receipt-modal>
 </template>
 
 
 <script>
     import Moment from 'moment';
     import Modal from './Modal.vue';
+    import ReceiptModal from './ReceiptModal.vue';
     import Customer from '../Customer/Customer.vue';
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'rep', 'location', 'invoice'],
+        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt'],
 
-        components: {Modal, Customer},
+        components: {Modal, Customer, ReceiptModal},
 
         data() {
             return {
@@ -101,6 +104,7 @@
             close() {
                 this.clearData();
                 this.show = false;
+
             },
 
             clearData() {
@@ -187,7 +191,7 @@
                 }
 
                 this.paymentMethod = method;
-                this.print = confirm("Print a copy of the invoice?");
+                this.showReceipt = true;
                 var url = '//api.batteriespos.dev/v0/sales';
 
                 this.$http.post(url, {
