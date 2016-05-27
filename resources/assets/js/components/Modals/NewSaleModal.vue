@@ -78,6 +78,7 @@
                 quantity: '',
                 invoice_comment: '',
                 paymentMethod: '',
+                postData: {},
                 print: false,
                 date: new Date(),
             }
@@ -190,8 +191,9 @@
                     return false;
                 }
 
+                this.print = confirm("Print a copy of the invoice?");
+
                 this.paymentMethod = method;
-                this.showReceipt = true;
                 var url = '//api.batteriespos.dev/v0/sales';
 
                 this.$http.post(url, {
@@ -210,11 +212,14 @@
                 .then(function(response) {
                     //Success
                     this.$dispatch('new-sale');
+                    if(this.print) {
+                        console.log('Print the invoice!!');
+                    }
                     this.close();
 
                 }, function(response) {
                     //TODO: Proper flash message
-                });
+                });               
             },
         },
 
