@@ -1,5 +1,6 @@
 <template>
-    <div><input type="text" name="first-name" id="first-name" placeholder="First Name" value="{{customer.first_name}}"/></div>
+    <span>{{ error }}</span>
+    <div><input type="text" name="first-name" id="first-name" placeholder="First Name" v-model="customer.first_name"/><input type="text" name="last-name" id="last-name" placeholder="Last Name" v-model="customer.last_name"/></div>
     <div>{{customer.address}} {{customer.city}} {{customer.postal_code}}</div>
     <div>{{customer.primary_phone}}</div>
     <div>{{customer.secondary_phone}}</div>
@@ -16,6 +17,7 @@ export default Vue.extend({
     data() {
         return {
             phone_number: '',
+            error: ''
         }
     },
 
@@ -45,7 +47,7 @@ export default Vue.extend({
                 this.$set('customer', response.data.data[0]);
             }, function(response) {
                 //TODO: Error
-                alert('Customer does not exist, add now?');
+                this.$set('error', 'Customer does not exist please add below');
             });
 
             this.phone_number = '';
