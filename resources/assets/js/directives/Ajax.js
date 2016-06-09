@@ -11,6 +11,7 @@ Vue.directive('ajax', {
         var formData = new FormData(document.querySelector('form'))
         console.log(formData);
         this.vm
+            // If there is a hidden form field that has the api_token, it *should* work fine.
             .$http[this.getRequestType()](this.el.action, formData)
             .then(this.onComplete.bind(this));
     },

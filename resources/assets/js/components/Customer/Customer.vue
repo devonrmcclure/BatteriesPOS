@@ -1,10 +1,19 @@
 <template>
-    <span>{{ error }}</span>
-    <div><input type="text" name="first-name" id="first-name" placeholder="First Name" v-model="customer.first_name"/><input type="text" name="last-name" id="last-name" placeholder="Last Name" v-model="customer.last_name"/></div>
-    <div>{{customer.address}} {{customer.city}} {{customer.postal_code}}</div>
-    <div>{{customer.primary_phone}}</div>
-    <div>{{customer.secondary_phone}}</div>
-    <input type="text" placeholder="Search Customer" v-model="phone_number" @change="getCustomer()"/>
+    <span class="error">{{ error }}</span>
+    <div>
+        <input type="text" name="first-name" id="first-name" placeholder="First Name" v-model="customer.first_name"/>
+        <input type="text" name="last-name" id="last-name" placeholder="Last Name" v-model="customer.last_name"/>
+    </div>
+    <div>
+        <input type="text" name="address" id="address" placeholder="Address" v-model="customer.address"/> 
+        <input type="text" name="city" id="city" placeholder="City" v-model="customer.city"/>
+        <input type="text" name="postal-code" id="postal-code" placeholder="Postal Code" v-model="customer.postal_code"/>
+    </div>
+    <div>
+        <input type="text" name="primary-phone" id="primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone"/>
+        <input type="text" name="secondary-phone" id="secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone"/>
+    </div>
+    <input type="text" placeholder="Search Customer" v-model="phone_number" @change="getCustomer()"/><br/>
 
 </template>
 
