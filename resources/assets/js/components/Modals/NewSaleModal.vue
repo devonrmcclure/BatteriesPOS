@@ -2,54 +2,59 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
 
         <div class="Modal__body">
-            <customer :customer.sync="customer" :location.sync="location"></customer>
-            Location: {{ location.name }} <br />
-            Sold By: {{ rep.first_name }} <br />
-            Date: {{ date | moment }} <br />
-            Total: {{total}}<br />
-            Invoice: {{invoice}}<br />
-            <input class="sku" id="sku" v-model="sku" @change="addProduct" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
-            <table class="products">
-                <tr>
-                    <th></th>
-                    <th>SKU</th>
-                    <th>Description</th>
-                    <th>QTY</th>
-                    <th>Discount</th>
-                    <th>Unit $</th>
-                    <th>Extended</th>
-                    <th>PST</th>
-                    <th>GST</th>
-                    <th>Total</th>
+            <form method="POST" action="http://api.batteriespos.dev/v0/sales" v-ajax>
+                <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
+                <customer :customer.sync="customer" :location.sync="location"></customer>
+                Location: {{ location.name }} <br />
+                Sold By: <input type="text" name="sale-rep" value="{{rep.first_name}}" readonly/><br />
+                
+                Date: {{ date | moment }} <br />
+                Total: <input type="text" name="sale-total" value="{{total}}" readonly/><br />
+                Invoice: <input type="text" name="sale-invoice" value="{{invoice}}" readonly/><br />
+                <input class="sku" id="sku" v-model="sku" @change="addProduct" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
+                <table class="products">
+                    <tr>
+                        <th></th>
+                        <th>SKU</th>
+                        <th>Description</th>
+                        <th>QTY</th>
+                        <th>Discount</th>
+                        <th>Unit $</th>
+                        <th>Extended</th>
+                        <th>PST</th>
+                        <th>GST</th>
+                        <th>Total</th>
 
-                </tr>
+                    </tr>
 
-                <tr v-for="product in products">
-                    <td @click="removeProduct(product, $index)">X</td>
-                    <td>{{ product.sku }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>{{ prices[$index].quantity }}</td>
-                    <td>{{ prices[$index].discount }}</td>
-                    <td>{{ product.unit_price }}</td>
-                    <td>{{ prices[$index].extended }}</td>
-                    <td>{{ prices[$index].pst }}</td>
-                    <td>{{ prices[$index].gst }}</td>
-                    <td>{{ prices[$index].sku_total }}</td>
-                </tr>
+                    <tr v-for="product in products">
+                        <td @click="removeProduct(product, $index)">X</td>
+                        <td><input type="text" name="sku[]" value="{{ product.sku }}"/></td>
+                        <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
+                        <td><input type="text" name="quantity[]" value="{{ prices[$index].quantity }}" @change="calculatePrice()"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
+                        <td><input type="text" name="discount[]" value="{{ prices[$index].discount }}"/></td>
+                        <td><input type="text" name="unit-price[]" value="{{ product.unit_price }}" readonly/></td>
+                        <td><input type="text" name="extended[]" value="{{ prices[$index].extended }}" readonly/></td>
+                        <td><input type="text" name="pst[]" value="{{ prices[$index].pst }}" readonly/></td>
+                        <td><input type="text" name="gst[]" value="{{ prices[$index].gst }}" readonly/></td>
+                        <td><input type="text" name="sku_total[]" value="{{ prices[$index].sku_total }}" readonly/></td>
+                    </tr>
 
-            </table>
-            <select v-model="invoice_comment">
-                <option selected>Returns may be subject to a 25% restocking fee.</option>
-                <option>Small appliance repairs have a 30 day service warranty.</option>
-                <option>Thank you for your business.</option>
-                <option>To ensure quality, batteries are a non-refundable item.</option>
-            </select>
+                </table>
+                <select name="invoice-comment" v-model="invoice_comment">
+                    <option selected>Returns may be subject to a 25% restocking fee.</option>
+                    <option>Small appliance repairs have a 30 day service warranty.</option>
+                    <option>Thank you for your business.</option>
+                    <option>To ensure quality, batteries are a non-refundable item.</option>
+                </select>
+                 <span class="payment-method">
+                    <input type="submit" name="payment-method" value="Cash" @click="completeSale(invoice)"/>
+                </span>
+            </form>
         </div>
 
         <div class="Modal__footer">
-            <span class="payment-method">
-                <p class="paymentMethod"><span @click="completeSale('Cash')">CASH</span> | <span @click="completeSale('Interac')">Interac</span> | <span @click="completeSale('Mastercard')">MASTERCARD</span> | <span @click="completeSale('Visa')">VISA</span></p>
-            </span>
+           
         </div>
     </modal>
 
@@ -86,6 +91,7 @@
 
         ready() {
             //this.getCustomer();
+            // TODO: Get value of PST and GST from a "settings" table
         },
 
         computed: {
@@ -184,42 +190,13 @@
                 this.prices.$remove(this.prices[index]);
             },
 
-            completeSale(method) {
-                if (!this.products || !this.prices)
-                {
-                    alert('Please enter a product');
-                    return false;
-                }
-
+            completeSale(invoice) {
+                console.log(invoice);
                 this.print = confirm("Print a copy of the invoice?");
-
-                this.paymentMethod = method;
-                var url = '//api.batteriespos.dev/v0/sales';
-
-                this.$http.post(url, {
-                    products: this.products,
-                    prices: this.prices,
-                    invoice: this.invoice,
-                    location: this.location,
-                    total: this.total,
-                    customer: this.customer,
-                    invoice_comment: this.invoice_comment,
-                    rep: this.rep,
-                    printed: this.print,
-                    paymentMethod: this.paymentMethod,
-                    api_token: this.location.api_token
-                })
-                .then(function(response) {
-                    //Success
-                    this.$dispatch('new-sale');
-                    if(this.print) {
-                        console.log('Print the invoice!!');
-                    }
-                    this.close();
-
-                }, function(response) {
-                    //TODO: Proper flash message
-                });               
+                this.$dispatch('new-sale');
+                if(this.print) {
+                    console.log('Print the invoice!!');
+                }         
             },
         },
 

@@ -12,6 +12,8 @@ use App\Invoice;
 use App\Sale;
 use App\Qoh;
 
+use Auth;
+
 class SalesController extends ApiController
 {
 	//Declare the model we are working on
@@ -38,7 +40,13 @@ class SalesController extends ApiController
 	}
 
 	public function store(Request $request)
-	{
+	{   
+        if($request->input('new-customer') == 'true')
+        {
+            var_dump('new CUSTOMER!');
+        }
+
+        dd($request->all());
 		$products = $request->input('products');
 		$prices = $request->input('prices');
 		// $invoice = $request->input('invoice');
@@ -55,7 +63,7 @@ class SalesController extends ApiController
 		//Add invoice.
 		$invoice = new Invoice();
         $invoice->id = $request->invoice;
-        $invoice->location = $request->input('location')['name'];
+        $invoice->location = Auth::user()->name; //This should use Auth::user()->name instead
         $invoice->total_pst = $totalPST;
         $invoice->total_gst = $totalGST;
         $invoice->total = $request->total;
@@ -73,7 +81,7 @@ class SalesController extends ApiController
         {
             $sale = new Sale();
             $sale->invoice_id = $request->invoice;
-            $sale->location_id = $request->input('location')['id'];
+            $sale->location_id = $request->input('location')['id']; //This should use Auth::user()->id instead
             $sale->sku = $product['sku'];
             $sale->description = $product['description'];
             $sale->category = 'Button Cell Batteries';

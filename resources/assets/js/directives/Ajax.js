@@ -8,12 +8,12 @@ Vue.directive('ajax', {
 
     onFormSubmit(e) {
         e.preventDefault();
-        var formData = new FormData(document.querySelector('form'))
-        console.log(formData);
+        var formData = new FormData(document.querySelector('form'));
         this.vm
             // If there is a hidden form field that has the api_token, it *should* work fine.
             .$http[this.getRequestType()](this.el.action, formData)
-            .then(this.onComplete.bind(this));
+            .then(this.onComplete.bind(this))
+            .catch(this.onError.bind(this));
     },
 
     getRequestType() {
@@ -24,5 +24,10 @@ Vue.directive('ajax', {
 
     onComplete() {
         //Do stuff (send a flash message)
+        console.log('form done');
+    },
+
+    onError(response) {
+
     }
 });

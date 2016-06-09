@@ -1,20 +1,21 @@
 <template>
     <span class="error">{{ error }}</span>
     <div>
-        <input type="text" name="first-name" id="first-name" placeholder="First Name" v-model="customer.first_name"/>
-        <input type="text" name="last-name" id="last-name" placeholder="Last Name" v-model="customer.last_name"/>
+        <input type="hidden" name="customer-id" v-model="customer.id"/>
+        <input type="hidden" name="new-customer" v-model="customer.new_customer"/>
+        <input type="text" name="customer-first-name" id="first-name" placeholder="First Name" v-model="customer.first_name"/>
+        <input type="text" name="customer-last-name" id="last-name" placeholder="Last Name" v-model="customer.last_name"/>
     </div>
     <div>
-        <input type="text" name="address" id="address" placeholder="Address" v-model="customer.address"/> 
-        <input type="text" name="city" id="city" placeholder="City" v-model="customer.city"/>
-        <input type="text" name="postal-code" id="postal-code" placeholder="Postal Code" v-model="customer.postal_code"/>
+        <input type="text" name="customer-address" id="address" placeholder="Address" v-model="customer.address"/> 
+        <input type="text" name="customer-city" id="city" placeholder="City" v-model="customer.city"/>
+        <input type="text" name="customer-postal-code" id="postal-code" placeholder="Postal Code" v-model="customer.postal_code"/>
     </div>
     <div>
-        <input type="text" name="primary-phone" id="primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone"/>
-        <input type="text" name="secondary-phone" id="secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone"/>
+        <input type="text" name="customer-primary-phone" id="primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone"/>
+        <input type="text" name="customer-secondary-phone" id="secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone"/>
     </div>
     <input type="text" placeholder="Search Customer" v-model="phone_number" @change="getCustomer()"/><br/>
-
 </template>
 
 
@@ -42,7 +43,9 @@ export default Vue.extend({
 
             this.$http.get(url).then(function(response) {
                       // get status
+                this.$set('error', '');      
                 this.$set('customer', response.data.data[0]);
+                this.$set("customer['new_customer']", false);
             }, function(response) {
                 //TODO: Error
             });
@@ -53,15 +56,24 @@ export default Vue.extend({
 
             this.$http.get(url).then(function(response) {
                       // get status
+                this.$set('error', '');
                 this.$set('customer', response.data.data[0]);
+                this.$set("customer['new_customer']", false);
             }, function(response) {
                 //TODO: Error
                 this.$set('error', 'Customer does not exist please add below');
+                this.$set("customer['new_customer']", true);
             });
 
             this.phone_number = '';
         }
     },
+
+    events: {
+        'new-sale': function() {
+            this.getDefaultCustomer();
+        }
+    }
 });
 
 </script>
