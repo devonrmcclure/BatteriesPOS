@@ -1,5 +1,6 @@
 <template>
 	<table class="table">
+        <button value="New Customer" @click="newCustomer()">New Customer</button>
         <tr>
             <th>Customer</th>
             <th>Primary Phone</th>
@@ -13,19 +14,23 @@
             <td>{{ customer.secondary_phone }}</td>
             <td>{{ customer.created_at | moment }}</td>
         </tr>
-
     </table>
+    <new-customer-modal :show.sync="showNewCustomerModal" title="New Customer" :location="location"></new-customer-modal>
 </template>
 
 <script lang="babel">
 import Vue from 'vue';
 import Moment from 'moment';
+import NewCustomerModal from '../Modals/NewCustomerModal.vue';
 
 export default Vue.extend({
 
+    components: {NewCustomerModal},
+    props: ['location'],
 	data() {
 		return {
             customers: [],
+            showNewCustomerModal: false,
 		}
 	},
 
@@ -42,16 +47,25 @@ export default Vue.extend({
                 this.$set('customers', response.data.data);
             }, function(response) {
                 //TODO: Error
-                alert('There are no customers');
+                console.log('There are no customers');
             });
+        },
 
-            this.phone_number = '';
+        newCustomer() {
+            this.showNewCustomerModal = true;
         }
 	},
 
     filters: {
         moment: function (date) {
             return Moment(date).format('MMMM Do YYYY');
+        }
+    },
+
+    events: {
+        'new-customer': function() {
+            this.getCustomers();
+            alert('yay');
         }
     }
 

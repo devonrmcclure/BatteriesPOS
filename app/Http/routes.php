@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'],
         });
 
         Route::get('customers', 'Api\Controllers\CustomersController@index');
+        Route::post('customers', 'Api\Controllers\CustomersController@store');
         Route::get('inventory', 'Api\Controllers\InventoryController@index');
         Route::get('invoice', 'Api\Controllers\InvoiceController@index');
         Route::get('sales', 'Api\Controllers\SalesController@index');

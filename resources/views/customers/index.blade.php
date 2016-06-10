@@ -6,7 +6,7 @@
 	<div class="col-md-6 module-container">
 		<div class="module">
             
-            <customer-list></customer-list>
+            <customer-list :location="{{ Auth::User() }}"></customer-list>
 		</div>
 	</div>
 </div>
