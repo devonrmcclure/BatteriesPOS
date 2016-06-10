@@ -39,12 +39,17 @@ export default Vue.extend({
     },
 
 	methods: {
+        getCustomerList() {
+            this.getCustomers();
+        },
+
         getCustomers() {
             var url = '//api.batteriespos.dev/v0/customers?location_id=3&api_token=token';
 
             this.$http.get(url).then(function(response) {
                       // get status
                 this.$set('customers', response.data.data);
+                alert('get cust');
             }, function(response) {
                 //TODO: Error
                 console.log('There are no customers');
