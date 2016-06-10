@@ -24,7 +24,11 @@ new Vue({
 
     events: {
         'new-sale': function() {
-            this.$broadcast('new-sale');
+            this.$dispatch('new-sale');
+        },
+
+        'form-done': function() {
+            this.$dispatch('form-done');
         }
     }
 });

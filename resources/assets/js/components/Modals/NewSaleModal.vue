@@ -204,6 +204,12 @@
             moment: function (date) {
                 return Moment(date).format('MMMM Do YYYY');
             }
+        },
+
+        events: {
+            'form-done': function() {
+                this.close();
+            }
         }
     });
 </script>

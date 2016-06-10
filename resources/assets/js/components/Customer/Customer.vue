@@ -72,7 +72,7 @@ export default Vue.extend({
     events: {
         'new-sale': function() {
             this.getDefaultCustomer();
-        }
+        },
     }
 });
 
