@@ -2,7 +2,7 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
 
         <div class="Modal__body">
-            <form method="POST" action="http://api.batteriespos.dev/v0/sales" v-ajax>
+            <form method="POST" action="http://api.batteriespos.dev/v0/sales">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
                 <customer :customer.sync="customer" :location.sync="location"></customer>
                 Location: {{ location.name }} <br />
@@ -37,7 +37,7 @@
                         <td><input type="text" name="extended[]" value="{{ prices[$index].extended }}" readonly/></td>
                         <td><input type="text" name="pst[]" value="{{ prices[$index].pst }}" readonly/></td>
                         <td><input type="text" name="gst[]" value="{{ prices[$index].gst }}" readonly/></td>
-                        <td><input type="text" name="sku_total[]" value="{{ prices[$index].sku_total }}" readonly/></td>
+                        <td><input type="text" name="sku-total[]" value="{{ prices[$index].sku_total }}" readonly/></td>
                     </tr>
 
                 </table>
@@ -47,14 +47,14 @@
                     <option>Thank you for your business.</option>
                     <option>To ensure quality, batteries are a non-refundable item.</option>
                 </select>
-                 <span class="payment-method">
-                    <input type="submit" name="payment-method" value="Cash" @click="completeSale(invoice)"/>
-                </span>
+                 
             </form>
         </div>
 
         <div class="Modal__footer">
-           
+            <span class="payment-method">
+               <button name="payment-method" value="Cash" @click="completeSale('Cash')">Cash</button>
+           </span>
         </div>
     </modal>
 
@@ -120,7 +120,6 @@
                 this.sku = '';
                 this.quantity = '';
                 this.invoice = '';
-                this.method = '';
             },
 
             getProduct(sku) {
@@ -190,25 +189,33 @@
                 this.prices.$remove(this.prices[index]);
             },
 
-            completeSale(invoice) {
-                console.log(invoice);
+            completeSale(method) {
+               
+                if (!this.products.length || !this.prices.length)
+                {
+                    alert('Please enter a product');
+                    return false;
+                }
+
+                var formData = new FormData(document.querySelector('form'));
                 this.print = confirm("Print a copy of the invoice?");
-                this.$dispatch('new-sale');
-                if(this.print) {
-                    console.log('Print the invoice!!');
-                }         
+                formData.set('printed', this.print);
+                formData.set('payment-method', method);
+                var url = '//api.batteriespos.dev/v0/sales';
+                this.$http.post(url, formData)
+                .then(function(response) {
+                    //Success
+                    this.$dispatch('new-sale');
+                    this.close();
+                }, function(response) {
+                    //TODO: Proper flash message
+                });               
             },
         },
 
         filters: {
             moment: function (date) {
                 return Moment(date).format('MMMM Do YYYY');
-            }
-        },
-
-        events: {
-            'form-done': function() {
-                this.close();
             }
         }
     });

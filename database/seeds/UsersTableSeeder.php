@@ -28,6 +28,7 @@ class UsersTableSeeder extends Seeder
     	           	'location_code' => 'HO',
                   'phone_number' => '604-930-9889',
     	           	'admin' => 1,
+                  'gst_number' => 'fdslfsd;lfsd',
     	           	'password' => bcrypt('3218ho'),
                   'created_at' => Carbon::now()->format('Y-m-d H:i:s')
     	]);
@@ -39,6 +40,7 @@ class UsersTableSeeder extends Seeder
                    	'location_code' => 'RM',
                     'phone_number' => '604-270-9989',
                    	'admin' => 0,
+                    'gst_number' => 'fdslfsd;lfsd',
                    	'password' => bcrypt('3218rm'),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
@@ -50,6 +52,7 @@ class UsersTableSeeder extends Seeder
                    	'location_code' => 'WR',
                     'phone_number' => '604-536-8108',
                    	'admin' => 0,
+                    'gst_number' => 'fdslfsd;lfsd',
                     'api_token' => 'token',
                    	'password' => bcrypt('3218wr'),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -62,6 +65,7 @@ class UsersTableSeeder extends Seeder
                    	'location_code' => 'GF',
                     'phone_number' => '604-930-9889',
                    	'admin' => 0,
+                    'gst_number' => 'fdslfsd;lfsd',
                    	'password' => bcrypt('3218gf'),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
@@ -73,6 +77,7 @@ class UsersTableSeeder extends Seeder
                    	'location_code' => 'NM',
                     'phone_number' => '250-756-2838',
                    	'admin' => 0,
+                    'gst_number' => 'fdslfsd;lfsd',
                    	'password' => bcrypt('3218nm'),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
@@ -84,7 +89,8 @@ class UsersTableSeeder extends Seeder
                    	'location_code' => 'MR',
                     'phone_number' => "604-466-8378",
                    	'admin' => 0,
-                   	'password' => bcrypt('3218MR'),
+                    'gst_number' => 'fdslfsd;lfsd',
+                   	'password' => bcrypt('3218mr'),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
