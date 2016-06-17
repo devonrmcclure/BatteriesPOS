@@ -25,6 +25,6 @@ new Vue({
     events: {
         'new-sale': function() {
             this.$broadcast('new-sale');
-        }
+        },
     }
 });

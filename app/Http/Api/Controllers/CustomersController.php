@@ -54,5 +54,7 @@ class CustomersController extends ApiController
 		$customer->store_credit = $request->input('customer-store-credit');
 		$customer->location_id = \Auth::guard('api')->user()->id;
 		$customer->save();
+
+		return $customer;
 	}
 }

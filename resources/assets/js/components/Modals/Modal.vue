@@ -1,4 +1,4 @@
-cd<template>
+<template>
     <div class="Modal__overlay" @click="close" v-show="show" transition="modal">
         <div class="Modal__container" @click.stop>
             <div class="Modal__header">

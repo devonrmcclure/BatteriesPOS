@@ -1,4 +1,5 @@
 <template>
+    <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location"></new-customer-modal>
     <span class="error">{{ error }}</span>
     <div>
         <input type="hidden" name="customer-id" v-model="customer.id"/>
@@ -22,14 +23,18 @@
 <script lang="babel">
 
 import Vue from 'vue';
+import NewCustomerModal from '../Modals/NewCustomerModal.vue';
 
 export default Vue.extend({
     data() {
         return {
             phone_number: '',
-            error: ''
+            error: '',
+            showNewCustomerModal: false,
         }
     },
+
+    components: {NewCustomerModal},
 
     props: ['customer', 'location'],
 
@@ -51,6 +56,14 @@ export default Vue.extend({
             });
         },
 
+        clearInputs() {
+            this.customer = [];
+            this.customer = {
+                province: 'British Columbia',
+                country: 'Canada'
+            }
+        },
+
         getCustomer() {
             var url = '//api.batteriespos.dev/v0/customers?phone=' + this.phone_number + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
 
@@ -61,8 +74,8 @@ export default Vue.extend({
                 this.$set("customer['new_customer']", false);
             }, function(response) {
                 //TODO: Error
-                this.$set('error', 'Customer does not exist please add below');
-                this.$set("customer['new_customer']", true);
+                this.clearInputs();
+                this.showNewCustomerModal = true;
             });
 
             this.phone_number = '';

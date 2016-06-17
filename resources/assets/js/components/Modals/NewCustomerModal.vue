@@ -2,7 +2,7 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
 
         <div class="Modal__body">
-            <form method="POST" action="http://api.batteriespos.dev/v0/customers" v-ajax>
+            <form method="POST" id="add-customer-form" action="http://api.batteriespos.dev/v0/customers">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
                 <div>
                     <input type="text" name="customer-first-name" id="customer-first-name" placeholder="First Name" v-model="customer.first_name"/>
@@ -27,13 +27,11 @@
                     <input type="text" name="customer-comments" id="customer-comments" placeholder="Comments" v-model="customer.comments"/>
                     <input type="text" name="customer-store-credit" id="customer-store-credit" placeholder="Store Credit" v-model="customer.store_credit"/>
                 </div>
-
-                <input type="submit" value="Add Customer" @click="close"/>
+                <input type="submit" @click.capture="addCustomer" value="Add"/>
             </form>
         </div>
 
         <div class="Modal__footer">
-           
         </div>
     </modal>
 </template>
@@ -43,32 +41,47 @@
     import Moment from 'moment';
     import Modal from './Modal.vue';
     import ReceiptModal from './ReceiptModal.vue';
-    import Customer from '../Customer/Customer.vue';
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'location'],
+        props: ['show', 'title', 'location', 'customer'],
 
-        components: {Modal, Customer},
+        components: {Modal},
 
         data() {
             return {
-                customer: {
-                    province: 'British Columbia',
-                    country: 'Canada'
-                },
+               
             }
         },
 
         ready() {
-            //this.getCustomer();
-            // TODO: Get value of PST and GST from a "settings" table
+            //Change this to a default for props.
+            this.customer = {
+                province: 'British Columbia',
+                country: 'Canada'
+            }
         },
 
         methods: {
             close() {
                 this.show = false;
-                this.$dispatch('new-customer');
+            },
+
+            addCustomer(e) {
+                //TODO Validation
+                e.preventDefault();
+                var formData = new FormData(document.querySelector('#add-customer-form'));
+                var url = '//api.batteriespos.dev/v0/customers';
+                this.$http.post(url, formData)
+                .then(function(response) {
+                    //Success
+                    this.$set('customer', response.data);
+                    this.$dispatch('new-customer');
+                    this.close();
+                }, function(response) {
+                    //TODO: Proper flash message
+                    console.log(response);
+                });               
             },
 
         }

@@ -2,7 +2,9 @@
 <modal :show.sync="show" :on-close="close" :title.sync="title">
 
     <div class="Modal__body">
-        <form method="POST" action="http://api.batteriespos.dev/v0/part-orders?api_token=token" v-ajax>
+        <form method="POST" action="http://api.batteriespos.dev/v0/part-orders">
+            <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
+            <customer :customer.sync="customer" :location.sync="location"></customer>
             <label for="referred-by">Referred By</label>
             <select name="referred-by" id="referred_by">
                 <option value=""></option>
@@ -50,12 +52,13 @@
 
 <script lang="babel">
 import Modal from './Modal.vue';
+import Customer from '../Customer/Customer.vue';
 
 export default Modal.extend({
 
     props: ['show', 'title', 'newPartOrder'],
 
-    components: {Modal},
+    components: {Modal, Customer},
 
     methods: {
          close() {

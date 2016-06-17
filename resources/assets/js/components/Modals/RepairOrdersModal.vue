@@ -3,7 +3,8 @@
 
         <div class="Modal__body">
 
-            <form method="POST" action="/repair-orders" v-ajax>
+            <form method="POST" action="/repair-orders">
+                <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
                 <customer :customer.sync="customer" :location.sync="location"></customer>
                 <label for="referred-by">Referred By</label>
                 <select name="referred-by" id="referred_by">

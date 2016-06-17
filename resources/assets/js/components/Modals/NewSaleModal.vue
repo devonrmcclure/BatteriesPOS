@@ -57,7 +57,7 @@
            </span>
         </div>
     </modal>
-
+    
     <receipt-modal :show.sync="showReceipt" title="Print Receipt?" :print.sync="print"></receipt-modal>
 </template>
 

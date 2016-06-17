@@ -15,6 +15,7 @@
             <td>{{ customer.created_at | moment }}</td>
         </tr>
     </table>
+
     <new-customer-modal :show.sync="showNewCustomerModal" title="New Customer" :location="location"></new-customer-modal>
 </template>
 
@@ -49,7 +50,6 @@ export default Vue.extend({
             this.$http.get(url).then(function(response) {
                       // get status
                 this.$set('customers', response.data.data);
-                alert('get cust');
             }, function(response) {
                 //TODO: Error
                 console.log('There are no customers');
@@ -70,7 +70,6 @@ export default Vue.extend({
     events: {
         'new-customer': function() {
             this.getCustomers();
-            alert('yay');
         }
     }
 

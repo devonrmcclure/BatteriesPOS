@@ -41,14 +41,6 @@ class SalesController extends ApiController
 
 	public function store(Request $request)
 	{   
-        if($request->input('new-customer') == 'true')
-        {
-            var_dump('new CUSTOMER!');
-        }
-
-        
-
-       //dd($request->input('printed'));
 		$totalPST = 0;
         $totalGST = 0;
 

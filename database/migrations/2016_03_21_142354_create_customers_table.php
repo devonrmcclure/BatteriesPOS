@@ -22,7 +22,7 @@ class CreateCustomersTable extends Migration
                         $table->string('province')->nullable();
                         $table->string('country')->nullable();
                         $table->string('postal_code')->nullable();
-                        $table->string('primary_phone');
+                        $table->string('primary_phone')->unique();
                         $table->string('secondary_phone')->nullable();
                         $table->string('email')->nullable();
                         $table->text('comments')->nullable();
