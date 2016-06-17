@@ -6,7 +6,7 @@
     <div class="col-md-12 module-container">
         <div class="module">
 
-            <part-orders></part-orders>
+            <part-orders :location="{{ Auth::User() }}"></part-orders>
         </div>
     </div>
 </div>

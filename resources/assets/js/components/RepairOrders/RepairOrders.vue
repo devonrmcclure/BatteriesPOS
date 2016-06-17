@@ -71,6 +71,12 @@
             }
                 return 'Not Yet';
             }
+        },
+
+        events: {
+            'new-repair-order': function() {
+                this.getRepairOrders();
+            }
         }
     });
 

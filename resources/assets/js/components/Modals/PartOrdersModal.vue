@@ -2,7 +2,7 @@
 <modal :show.sync="show" :on-close="close" :title.sync="title">
 
     <div class="Modal__body">
-        <form method="POST" action="http://api.batteriespos.dev/v0/part-orders">
+        <form method="POST" id="new-part-order-form" action="http://api.batteriespos.dev/v0/part-orders">
             <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
             <customer :customer.sync="customer" :location.sync="location"></customer>
             <label for="referred-by">Referred By</label>
@@ -40,9 +40,9 @@
             <input name="pick-up-location" id="pick-up-location" type="text"/>
 
             <label for="notes">Notes</label>
-            <textarea name="notes" id="notes" ></textarea>
+            <textarea name="notes" id="notes"></textarea>
 
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" @click.capture="newPartOrder"/>
         </form>
     </div>
 
@@ -56,13 +56,35 @@ import Customer from '../Customer/Customer.vue';
 
 export default Modal.extend({
 
-    props: ['show', 'title', 'newPartOrder'],
+    props: ['show', 'title', 'newPartOrder', 'location'],
 
     components: {Modal, Customer},
 
+    data() {
+        return {
+            customer: [],
+        }
+    },
+
     methods: {
-         close() {
+        close() {
             this.show = false;
+        },
+
+        newPartOrder(e) {
+            //TODO Validation
+            e.preventDefault();
+            var formData = new FormData(document.querySelector('#new-part-order-form'));
+            var url = '//api.batteriespos.dev/v0/part-orders';
+            this.$http.post(url, formData)
+            .then(function(response) {
+                //Success
+                this.$dispatch('new-part-order');
+                this.close();
+            }, function(response) {
+                //TODO: Proper flash message
+                console.log(response);
+            });               
         },
     }
 

@@ -9,6 +9,7 @@
             <th>To HO</th>
             <th>From HO</th>
             <th>Picked Up</th>
+            <th>Called</th>
         </tr>
 
         <tr v-for="partOrder in partOrders">
@@ -19,10 +20,11 @@
             <td>{{ partOrder.to_head_office | moment }}</td>
             <td>{{ partOrder.from_head_office | moment }}</td>
             <td>{{ partOrder.customer_pick_up | moment }}</td>
+            <td>{{ partOrder.customer_called | moment }}</td>
         </tr>
     </table>
 
-    <part-orders-modal :show.sync="newPartOrder" title="New Part Order"></part-orders-modal>
+    <part-orders-modal :show.sync="newPartOrder" :location.sync="location" title="New Part Order"></part-orders-modal>
 </template>
 
 <script lang="babel">
@@ -33,6 +35,9 @@
     export default Vue.extend({
 
         components: {partOrdersModal},
+
+        props: ['location'],
+
         data() {
             return {
                 partOrders: [],
@@ -58,7 +63,7 @@
 
             newOrder() {
                 this.newPartOrder = true;
-            }
+            },
         },
 
         filters: {
@@ -68,6 +73,12 @@
                 return Moment(date).format('MMMM Do YYYY, H:mm');
             }
                 return 'Not Yet';
+            }
+        },
+
+        events: {
+            'new-part-order': function() {
+                this.getPartOrders();
             }
         }
     });

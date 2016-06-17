@@ -42,7 +42,7 @@ class PartOrdersController extends ApiController
         $partOrder = new PartOrder;
 
         $partOrder->referred_by = $request->input('referred-by');
-        $partOrder->customer_id = 1;
+        $partOrder->customer_id = $request->input('customer-id');
         $partOrder->deposit = $request->input('deposit');
         $partOrder->staff_id = 1;
         $partOrder->item = $request->input('item');
@@ -53,7 +53,7 @@ class PartOrdersController extends ApiController
         $partOrder->pick_up_location = $request->input('pick-up-location');
         $partOrder->location_id = \Auth::guard('api')->user()->id;
         $partOrder->invoice_id = NULL;
-        $partOrder->notes = NULL;
+        $partOrder->notes = $request->input('notes');
         $partOrder->to_head_office = Carbon::now();
         $partOrder->save();
     }

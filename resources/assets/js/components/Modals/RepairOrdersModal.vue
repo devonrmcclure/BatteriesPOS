@@ -3,7 +3,7 @@
 
         <div class="Modal__body">
 
-            <form method="POST" action="/repair-orders">
+            <form id="new-repair-order-form">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
                 <customer :customer.sync="customer" :location.sync="location"></customer>
                 <label for="referred-by">Referred By</label>
@@ -45,7 +45,7 @@
                 <label for="problem">Problem</label>
                 <textarea name="problem" id="problem" ></textarea>
 
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit"  @click.capture="newRepairOrder"/>
             </form>
         </div>
 
@@ -72,6 +72,22 @@
         methods: {
              close() {
                 this.show = false;
+            },
+
+            newRepairOrder(e) {
+                //TODO Validation
+                e.preventDefault();
+                var formData = new FormData(document.querySelector('#new-repair-order-form'));
+                var url = '//api.batteriespos.dev/v0/repair-orders';
+                this.$http.post(url, formData)
+                .then(function(response) {
+                    //Success
+                    this.$dispatch('new-repair-order');
+                    this.close();
+                }, function(response) {
+                    //TODO: Proper flash message
+                    console.log(response);
+                });               
             },
         }
 
