@@ -21,6 +21,9 @@
                 <label for="deposit">Deposit</label>
                 <input name="deposit" id="deposit" type="text"/>
 
+                <label for="date-code">Deposit Invoice</label>
+                <input name="deposit-invoice" id="deposit-invoice" v-model="invoice" type="text"/>
+
                 <label for="staff">Staff</label>
                 <input name="staff" id="staff" type="text"/>
 
@@ -47,6 +50,8 @@
 
                 <input type="submit" value="Submit"  @click.capture="newRepairOrder"/>
             </form>
+            <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" title="Rep Login" :customer.sync="customer" :location="location"></rep-login-modal>
+            <button @click="newSale()">Issue Invoice</button>
         </div>
 
     </modal>
@@ -56,22 +61,31 @@
 <script lang="babel">
     import Modal from './Modal.vue';
     import Customer from '../Customer/Customer.vue';
+    import RepLoginModal from './RepLoginModal.vue';
+    
 
     export default Modal.extend({
 
         props: ['show', 'title', 'newRepairOrder', 'location'],
 
-        components: {Modal, Customer},
+        components: {Modal, Customer, RepLoginModal},
 
         data() {
             return {
-                customer: []
+                customer: [],
+                showRepLogin: false,
+                invoice: ''
+
             }
         },
 
         methods: {
-             close() {
+            close() {
                 this.show = false;
+            },
+
+            newSale() {
+                this.showRepLogin = true;
             },
 
             newRepairOrder(e) {
@@ -83,6 +97,7 @@
                 .then(function(response) {
                     //Success
                     this.$dispatch('new-repair-order');
+                    this.$broadcast('new-repair-order');
                     this.close();
                 }, function(response) {
                     //TODO: Proper flash message
@@ -90,6 +105,5 @@
                 });               
             },
         }
-
     });
 </script>

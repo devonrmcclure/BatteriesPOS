@@ -2,7 +2,7 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
 
         <div class="Modal__body">
-            <form method="POST" action="http://api.batteriespos.dev/v0/sales">
+            <form method="POST" id="new-sale-form" action="http://api.batteriespos.dev/v0/sales">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
                 <customer :customer.sync="customer" :location.sync="location"></customer>
                 Location: {{ location.name }} <br />
@@ -70,7 +70,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt'],
+        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt', 'customer'],
 
         components: {Modal, Customer, ReceiptModal},
 
@@ -78,7 +78,6 @@
             return {
                 products: [],
                 prices: [],
-                customer: [],
                 sku: '',
                 quantity: '',
                 invoice_comment: '',
@@ -119,7 +118,6 @@
                 this.prices = [];
                 this.sku = '';
                 this.quantity = '';
-                this.invoice = '';
             },
 
             getProduct(sku) {
@@ -197,8 +195,9 @@
                     return false;
                 }
 
-                var formData = new FormData(document.querySelector('form'));
+                var formData = new FormData(document.querySelector('#new-sale-form'));
                 this.print = confirm("Print a copy of the invoice?");
+                console.log(this.print);
                 formData.set('printed', this.print);
                 formData.set('payment-method', method);
                 var url = '//api.batteriespos.dev/v0/sales';

@@ -50,7 +50,6 @@ export default Vue.extend({
                       // get status
                 this.$set('error', '');      
                 this.$set('customer', response.data.data[0]);
-                this.$set("customer['new_customer']", false);
             }, function(response) {
                 //TODO: Error
             });
@@ -84,6 +83,10 @@ export default Vue.extend({
 
     events: {
         'new-sale': function() {
+            this.getDefaultCustomer();
+        },
+
+        'new-repair-order': function() {
             this.getDefaultCustomer();
         },
     }

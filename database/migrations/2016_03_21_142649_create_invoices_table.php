@@ -24,7 +24,7 @@ class CreateInvoicesTable extends Migration
                         $table->string('invoice_comment');
                         $table->string('comments')->nullable();
                         $table->string('gst_number');
-                        $table->boolean('printed');
+                        $table->string('printed');
                         $table->timestamps();
 
                         $table->foreign('customer_id')

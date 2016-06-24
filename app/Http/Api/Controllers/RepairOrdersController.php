@@ -57,7 +57,7 @@ class RepairOrdersController extends ApiController
         $repairOrder->condition = $request->input('condition');
         $repairOrder->accessories = $request->input('accessories');
         $repairOrder->location_id = Auth::guard('api')->user()->id;
-        $repairOrder->invoice_id = NULL;
+        $repairOrder->invoice_id = $request->input('deposit-invoice');
         $repairOrder->problem = $request->input('problem');
         $repairOrder->notes = $request->input('notes');
         $repairOrder->to_head_office = '0000-00-00 00:00:00';
