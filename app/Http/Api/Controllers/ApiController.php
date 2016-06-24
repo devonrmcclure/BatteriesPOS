@@ -82,7 +82,8 @@ class ApiController extends Controller
             'updated_at',
             'with',
             'wherewith',
-            'description'
+            'description',
+            'like'
         ];
 
         $query = $model::select();

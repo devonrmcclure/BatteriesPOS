@@ -50,7 +50,7 @@
 
                 <input type="submit" value="Submit"  @click.capture="newRepairOrder"/>
             </form>
-            <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" title="Rep Login" :customer.sync="customer" :location="location"></rep-login-modal>
+            <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
             <button @click="newSale()">Issue Invoice</button>
         </div>
 
@@ -72,7 +72,7 @@
 
         data() {
             return {
-                customer: [],
+                ro_customer: [],
                 showRepLogin: false,
                 invoice: ''
 

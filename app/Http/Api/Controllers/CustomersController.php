@@ -5,6 +5,8 @@ namespace App\Http\Api\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use App\Helpers\Phone;
+
 use App\Http\Requests;
 
 use App\Customer;
@@ -37,7 +39,7 @@ class CustomersController extends ApiController
 	public function store(Request $request) 
 	{
 		//dd($request->all());
-
+		$phone = Phone::formatNumber($request->input('customer-primary-phone'));
 		$customer = new Customer();
 		$customer->first_name = $request->input('customer-first-name');
 		$customer->last_name = $request->input('customer-last-name');
@@ -47,8 +49,8 @@ class CustomersController extends ApiController
 		$customer->province  = $request->input('customer-province');
 		$customer->country   = $request->input('customer-country');
 		$customer->postal_code = $request->input('customer-postal-code');
-		$customer->primary_phone = $request->input('customer-primary-phone');
-		$customer->secondary_phone = $request->input('customer-secondary-phone');
+		$customer->primary_phone = Phone::formatNumber($request->input('customer-primary-phone'));
+		$customer->secondary_phone = Phone::formatNumber($request->input('customer-secondary-phone'));
 		$customer->email = $request->input('customer-email');
 		$customer->comments = $request->input('customer-comments');
 		$customer->store_credit = $request->input('customer-store-credit');

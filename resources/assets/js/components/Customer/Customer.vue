@@ -86,6 +86,10 @@ export default Vue.extend({
             this.getDefaultCustomer();
         },
 
+        'new-part-order': function() {
+            this.getDefaultCustomer();
+        },
+
         'new-repair-order': function() {
             this.getDefaultCustomer();
         },

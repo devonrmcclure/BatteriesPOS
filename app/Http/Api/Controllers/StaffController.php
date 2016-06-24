@@ -26,7 +26,7 @@ class StaffController extends ApiController
 
 		if($staff->isEmpty())
 		{
-			return $this->respondNotFound('Purchase does not exist');
+			return $this->respondNotFound('Staff does not exist');
 		}
 
 		return $this->respond([

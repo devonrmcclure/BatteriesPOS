@@ -3,7 +3,8 @@
 
     <div class="Modal__body">
         <form method="POST" id="new-part-order-form" action="http://api.batteriespos.dev/v0/part-orders">
-            <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
+            <input type="hidden" name="api_token" value="{{location.api_token}}"/>
+            <input type="hidden" name="rep_id" v-model="rep.id"/>
             <customer :customer.sync="customer" :location.sync="location"></customer>
             <label for="referred-by">Referred By</label>
             <select name="referred-by" id="referred_by">
@@ -44,6 +45,9 @@
 
             <input type="submit" value="Submit" @click.capture="newPartOrder"/>
         </form>
+
+        <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
+        <button @click="newSale()">Issue Invoice</button>
     </div>
 
 </modal>
@@ -53,22 +57,30 @@
 <script lang="babel">
 import Modal from './Modal.vue';
 import Customer from '../Customer/Customer.vue';
+import RepLoginModal from './RepLoginModal.vue';
 
 export default Modal.extend({
 
     props: ['show', 'title', 'newPartOrder', 'location'],
 
-    components: {Modal, Customer},
+    components: {Modal, Customer, RepLoginModal},
 
     data() {
         return {
             customer: [],
+            showRepLogin: false,
+            repName: '',
+            rep: []
         }
     },
 
     methods: {
         close() {
             this.show = false;
+        },
+
+        newSale() {
+            this.showRepLogin = true;
         },
 
         newPartOrder(e) {
@@ -80,6 +92,7 @@ export default Modal.extend({
             .then(function(response) {
                 //Success
                 this.$dispatch('new-part-order');
+                this.$broadcast('new-part-order');
                 this.close();
             }, function(response) {
                 //TODO: Proper flash message
