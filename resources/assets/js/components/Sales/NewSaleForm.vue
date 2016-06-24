@@ -2,7 +2,7 @@
 <div class="Modal__body">
     <form method="POST" id="new-sale-form" action="http://api.batteriespos.dev/v0/sales">
         <input v-ref:cust type="hidden" name="api_token" value="{{location.api_token}}"/> 
-        <customer :customer.sync="customer" :location.sync="location"></customer>
+        <input type="hidden" name="customer-id" v-model="customer.id"/>
         Location: {{ location.name }} <br />
         Sold By: <input type="text" name="sale-rep" value="{{rep.first_name}}" readonly/><br />
         
@@ -58,13 +58,12 @@
 <script>
     import Vue from 'vue';
     import Moment from 'moment';
-    import Customer from '../Customer/Customer.vue';
 
     export default Vue.extend({
 
         props: ['show', 'rep', 'location', 'invoice', 'customer'],
 
-        components: {Customer},
+        components: {},
 
         data() {
             return {
@@ -194,7 +193,7 @@
                 this.$http.post(url, formData)
                 .then(function(response) {
                     //Success
-                    //this.$dispatch('new-sale');
+                    this.$dispatch('new-sale');
                     this.close();
                 }, function(response) {
                     //TODO: Proper flash message

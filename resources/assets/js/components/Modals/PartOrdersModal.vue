@@ -43,10 +43,40 @@
             <label for="notes">Notes</label>
             <textarea name="notes" id="notes"></textarea>
 
+            <table class="products">
+                <tr>
+                    <th></th>
+                    <th>SKU</th>
+                    <th>Description</th>
+                    <th>QTY</th>
+                    <th>Discount</th>
+                    <th>Unit $</th>
+                    <th>Extended</th>
+                    <th>PST</th>
+                    <th>GST</th>
+                    <th>Total</th>
+
+                </tr>
+
+                <tr v-for="product in products">
+                    <td @click="removeProduct(product, $index)">X</td>
+                    <td><input type="text" name="sku[]" value="{{ product.sku }}"/></td>
+                    <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
+                    <td><input type="text" name="quantity[]" value="{{ prices[$index].quantity }}" @change="calculatePrice()"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
+                    <td><input type="text" name="discount[]" value="{{ prices[$index].discount }}"/></td>
+                    <td><input type="text" name="unit-price[]" value="{{ product.unit_price }}" readonly/></td>
+                    <td><input type="text" name="extended[]" value="{{ prices[$index].extended }}" readonly/></td>
+                    <td><input type="text" name="pst[]" value="{{ prices[$index].pst }}" readonly/></td>
+                    <td><input type="text" name="gst[]" value="{{ prices[$index].gst }}" readonly/></td>
+                    <td><input type="text" name="sku-total[]" value="{{ prices[$index].sku_total }}" readonly/></td>
+                </tr>
+
+            </table>
+
             <input type="submit" value="Submit" @click.capture="newPartOrder"/>
         </form>
 
-        <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
+        <rep-login-modal :show.sync="showRepLogin" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
         <button @click="newSale()">Issue Invoice</button>
     </div>
 
