@@ -13,7 +13,7 @@
         </tr>
 
         <tr v-for="partOrder in partOrders">
-            <td>{{ partOrder.id }}</td>
+            <td><a href="part-orders/{{ partOrder.id }}">{{ partOrder.id }}</a></td>
             <td>{{ partOrder.customer.first_name }} {{ partOrder.customer.last_name }}</td>
             <td>{{ partOrder.customer.primary_phone }}</td>
             <td>{{ partOrder.item }}</td>

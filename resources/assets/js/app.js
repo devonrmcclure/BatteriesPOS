@@ -6,6 +6,7 @@ import DailySalesStats from './components/Stats/DailySalesStats.vue';
 import RepairOrders from './components/RepairOrders/RepairOrders.vue';
 import PartOrders from './components/PartOrders/PartOrders.vue';
 import CustomerList from './components/Customer/CustomerList.vue';
+import ViewPartOrder from './components/PartOrders/ViewPartOrder.vue';
 import './directives/Ajax';
 
 Vue.use(VueResource);
@@ -13,7 +14,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('input[name="_t
 
 new Vue({
     el: '#app',
-    components: {RepLoginModal, DailySalesStats, Inventory, RepairOrders, PartOrders, CustomerList},
+    components: {RepLoginModal, DailySalesStats, Inventory, RepairOrders, PartOrders, CustomerList, ViewPartOrder},
     data() {
     	return {
         	showNewSaleModal: false,

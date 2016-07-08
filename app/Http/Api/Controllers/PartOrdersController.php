@@ -57,4 +57,14 @@ class PartOrdersController extends ApiController
         $partOrder->to_head_office = Carbon::now();
         $partOrder->save();
     }
+
+    public function show($id) 
+    {      
+
+        $partOrder = PartOrder::where('id', $id)->where('location_id', \Auth::guard('api')->user()->id)->first();
+        return $this->respond([
+            'data' => $partOrder,
+            'user' => \Auth::guard('api')->user()
+        ]);
+    }
 }
