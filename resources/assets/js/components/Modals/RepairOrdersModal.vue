@@ -48,9 +48,12 @@
                 <label for="problem">Problem</label>
                 <textarea name="problem" id="problem" ></textarea>
 
+                <label for="invoice">Invoice#</label>
+                <input name="invoice" id="invoice" type="text" v-model="invoice"/>
+
                 <input type="submit" value="Submit"  @click.capture="newRepairOrder"/>
             </form>
-            <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
+            <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" :total.sync="deposit" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
             <button @click="newSale()">Issue Invoice</button>
         </div>
 
@@ -72,9 +75,11 @@
 
         data() {
             return {
+                customer: [],
                 ro_customer: [],
                 showRepLogin: false,
-                invoice: ''
+                invoice: '',
+                deposit: ''
 
             }
         },
@@ -82,6 +87,7 @@
         methods: {
             close() {
                 this.show = false;
+                this.invoice = '';
             },
 
             newSale() {

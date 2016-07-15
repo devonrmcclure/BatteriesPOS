@@ -1,44 +1,44 @@
 <template>
-<form method="POST" id="new-part-order-form" action="http://api.batteriespos.dev/v0/part-orders">
+<form id="part-order-form">
     <input type="hidden" name="api_token" value="{{location.api_token}}"/>
     <input type="hidden" name="rep_id" v-model="rep.id"/>
     <customer :customer.sync="customer" :location.sync="location"></customer>
     <label for="referred-by">Referred By</label>
-    <select name="referred-by" id="referred_by">
+    <select name="referred-by" id="referred_by" v-model="partOrder.referred_by">
         <option value=""></option>
         <option value="Oster">Oster</option>
     </select>
 
     <label for="make">Make</label>
-    <input name="make" id="make" type="text"/>
+    <input name="make" id="make" type="text" v-model="partOrder.make"/>
 
     <label for="item">Item</label>
-    <input type="text" name="item" id="item">
+    <input type="text" name="item" id="item" v-model="partOrder.item">
 
     <label for="model">Model</label>
-    <input name="model" id="model" type="text"/>
+    <input name="model" id="model" type="text" v-model="partOrder.model"/>
 
     <label for="staff">Staff</label>
-    <input name="staff" id="staff" type="text"/>
+    <input name="staff" id="staff" type="text" v-model="partOrder.staff"/>
 
     <label for="sku">Sku</label>
-    <input name="sku" id="sku" type="text"/>
+    <input name="sku" id="sku" type="text" v-model="partOrder.sku"/>
 
     <label for="description">Description</label>
-    <input name="description" id="description" type="text"/>
+    <input name="description" id="description" type="text" v-model="partOrder.description"/>
 
     <label for="part-number">Part Number</label>
-    <input name="part-number" id="part-number" type="text"/>
+    <input name="part-number" id="part-number" type="text" v-model="partOrder.part_number"/>
 
     <label for="deposit">Deposit</label>
-    <input name="deposit" id="deposit" type="text"/>
+    <input name="deposit" id="deposit" type="text" v-model="partOrder.deposit"/>
 
 
     <label for="pick-up-location">Pick Up Location</label>
-    <input name="pick-up-location" id="pick-up-location" type="text"/>
+    <input name="pick-up-location" id="pick-up-location" type="text" v-model="partOrder.pick_up_location"/>
 
     <label for="notes">Notes</label>
-    <textarea name="notes" id="notes"></textarea>
+    <textarea name="notes" id="notes" v-model="partOrder.notes"></textarea>
 
     <table class="products">
         <tr>
@@ -95,7 +95,8 @@ export default Modal.extend({
             showRepLogin: false,
             repName: '',
             rep: [],
-            partOrder: []
+            partOrder: [],
+            pathArray: window.location.pathname.split( '/' ),
         }
     },
 
@@ -105,10 +106,6 @@ export default Modal.extend({
 
     methods: {
 
-        close() {
-            this.show = false;
-        },
-
         newSale() {
             this.showRepLogin = true;
         },
@@ -116,9 +113,9 @@ export default Modal.extend({
         updatePartOrder(e) {
             //TODO Validation
             e.preventDefault();
-            var formData = new FormData(document.querySelector('#new-part-order-form'));
-            var url = '//api.batteriespos.dev/v0/part-orders';
-            this.$http.post(url, formData)
+            var formData = new FormData(document.querySelector('#part-order-form'));
+            var url = '//api.batteriespos.dev/v0/part-orders/' + this.pathArray[2];
+            this.$http.put(url, formData)
             .then(function(response) {
                 //Success
                 this.$dispatch('new-part-order');
@@ -131,12 +128,12 @@ export default Modal.extend({
         },
 
         getPartOrder(e) {
-            var url = '//api.batteriespos.dev/v0/part-orders/1';
+            var url = '//api.batteriespos.dev/v0/part-orders?id=' + this.pathArray[2] + '&with=customer';
             this.$http.get(url, {api_token: 'token'})
             .then(function(response) {
                 //Success
-                this.$set('partOrder', response.data.data);
-                this.close();
+                this.$set('partOrder', response.data.data[0]);
+                this.$set('customer', response.data.data[0].customer);
             }, function(response) {
                 //TODO: Proper flash message
                 console.log(response);

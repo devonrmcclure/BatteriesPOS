@@ -19,7 +19,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'newSale', 'location', 'customer', 'invoice'],
+        props: ['show', 'title', 'newSale', 'location', 'customer', 'invoice', 'total'],
 
         components: {Modal, NewSaleModal},
 

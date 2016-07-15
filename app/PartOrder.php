@@ -29,4 +29,8 @@ class PartOrder extends Model
     public function staff() {
         return $this->belongsTo('App\Staff');
     }
+
+    public function invoice() {
+        return $this->hasMany('App\Invoice');
+    }
 }

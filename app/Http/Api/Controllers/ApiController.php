@@ -90,7 +90,6 @@ class ApiController extends Controller
         
         if(isset($parameters['with']))
         {
-
             if(isset($parameters['wherewith']))
             {
                 $param = explode(',', $parameters['wherewith'], 3);

@@ -42,7 +42,7 @@
 
             <label for="notes">Notes</label>
             <textarea name="notes" id="notes"></textarea>
-
+                
             <table class="products">
                 <tr>
                     <th></th>
@@ -62,7 +62,7 @@
                     <td @click="removeProduct(product, $index)">X</td>
                     <td><input type="text" name="sku[]" value="{{ product.sku }}"/></td>
                     <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-                    <td><input type="text" name="quantity[]" value="{{ prices[$index].quantity }}" @change="calculatePrice()"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
+                    <td><input type="text" name="quantity[]" value="{{ prices[$index].quantity }}" @change="calculatePrice()"/></td> This needs to be completely reworked and use something like onChange=getPrices($index)
                     <td><input type="text" name="discount[]" value="{{ prices[$index].discount }}"/></td>
                     <td><input type="text" name="unit-price[]" value="{{ product.unit_price }}" readonly/></td>
                     <td><input type="text" name="extended[]" value="{{ prices[$index].extended }}" readonly/></td>
@@ -77,7 +77,7 @@
         </form>
 
         <rep-login-modal :show.sync="showRepLogin" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
-        <button @click="newSale()">Issue Invoice</button>
+        <button @click="newSale()" :invoice.sync="invoice" :products.sync="products">Issue Invoice</button>
     </div>
 
 </modal>
@@ -100,7 +100,8 @@ export default Modal.extend({
             customer: [],
             showRepLogin: false,
             repName: '',
-            rep: []
+            rep: [],
+            products: []
         }
     },
 

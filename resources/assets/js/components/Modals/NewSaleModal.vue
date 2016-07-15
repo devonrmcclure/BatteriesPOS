@@ -21,7 +21,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt', 'customer'],
+        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt', 'customer', 'products'],
 
         components: {Modal, Customer, NewSaleForm, ReceiptModal},
 
