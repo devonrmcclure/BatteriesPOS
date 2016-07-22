@@ -16,7 +16,7 @@
                 <th>SKU</th>
                 <th>Description</th>
                 <th>QTY</th>
-                <th>Discount</th>
+                <th>Discount %</th>
                 <th>Unit $</th>
                 <th>Extended</th>
                 <th>PST</th>
@@ -30,7 +30,7 @@
                 <td><input type="text" name="sku[]" value="{{ product.sku }}"/></td>
                 <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
                 <td><input type="text" name="quantity[]" value="{{ prices[$index].quantity }}" @change="calculatePrice()"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
-                <td><input type="text" name="discount[]" value="{{ prices[$index].discount }}"/></td>
+                <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="calculateDiscount($index)"/></td>
                 <td><input type="text" name="unit-price[]" value="{{ product.unit_price }}" readonly/></td>
                 <td><input type="text" name="extended[]" value="{{ prices[$index].extended }}" readonly/></td>
                 <td><input type="text" name="pst[]" value="{{ prices[$index].pst }}" readonly/></td>
@@ -134,13 +134,32 @@
 
             },
 
-            calculatePrice(product = null) {
+            calculatePrice(index) {
+                // Calc price if item just added
+                // Update price based on index and discount/manually set unit_price
+                // 
                 if(!this.products.length > this.prices.length) {
                     this.sku = '';
                     this.quantity = '';
                 }
-                var index = this.products.length - 1;
+
+                if(!index) {
+                    var index = this.products.length - 1;
+                }
+
                 var extended = (this.quantity * this.products[index]['unit_price']).toFixed(2);
+
+                if(this.products[index]['discount'] != null) {
+                    extended = extended * (this.products[index]['discount']/100);
+                }
+
+                if(discount != null && index != null) {
+                    alert('DISCOUNT');
+                    //extended = (this.quantity * this.products[index]['unit_price']).toFixed(2);
+                    //extended = extended * (discount/100);
+                    alert(extended);
+                }
+
                 var pst = 0, gst = 0;
                 //Check if it's taxable.
                 if(this.products[index]['pst'] == 1)
@@ -170,6 +189,14 @@
                 setTimeout(function(){
                     $("#sku").focus();
                 }, 0);
+            },
+
+            calculateDiscount(index) {
+                console.log(index);
+                var discountPercent = this.prices[index].discount;
+
+                this.calculatePrice(index);
+                //alert(this.prices[index].discount);
             },
 
             removeProduct(product, index) {
