@@ -188,7 +188,7 @@
             },
 
             updatePrice(index) {
-
+                alert(index);
                 var extended = (this.prices[index].quantity * this.products[index]['unit_price']).toFixed(2);
 
                 if(this.prices[index].discount != 0) {
@@ -208,7 +208,8 @@
                     sku_total: Number(total).toFixed(2),
                 };  
 
-                this.$set('prices[index]', price);
+                
+                this.prices.$set(index, price);
 
                 this.sku = '';
                 this.quantity = '';
