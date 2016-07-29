@@ -59,7 +59,7 @@
             },
 
             getInvoice() {
-                var url = '//api.batteriespos.dev/v0/invoice';
+                var url = '//api.batteriespos.dev/v0/invoice?location=' + this.location.name;
 
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then( function(response) {

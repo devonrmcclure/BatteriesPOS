@@ -1,7 +1,7 @@
 <template>
 <div class="Modal__body">
     <form method="POST" id="new-sale-form" action="http://api.batteriespos.dev/v0/sales">
-        <input v-ref:cust type="hidden" name="api_token" value="{{location.api_token}}"/> 
+        <input  type="hidden" name="api_token" value="{{location.api_token}}"/> 
         <input type="hidden" name="customer-id" v-model="customer.id"/>
         Location: {{ location.name }} <br />
         Sold By: <input type="text" name="sale-rep" value="{{rep.first_name}}" readonly/><br />
@@ -188,7 +188,6 @@
             },
 
             updatePrice(index) {
-                alert(index);
                 var extended = (this.prices[index].quantity * this.products[index]['unit_price']).toFixed(2);
 
                 if(this.prices[index].discount != 0) {

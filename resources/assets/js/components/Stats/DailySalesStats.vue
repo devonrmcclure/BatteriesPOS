@@ -13,9 +13,9 @@
             <tr>
                 <td>{{totalInvoices}}</td>
                 <td>{{itemsSold}}</td>
-                <td>{{totalSales}}</td>
+                <td>${{totalSales}}</td>
                 <td>{{itemsPerInvoice}}</td>
-                <td>{{salesPerInvoice}}</td>
+                <td>${{salesPerInvoice}}</td>
             </tr>
         </table>
     </div>
@@ -63,11 +63,11 @@
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then(function(response) {
                     //Success
-                    this.totalInvoices = response.data.data.total_invoices;
-                    this.itemsSold = response.data.data.items_sold;
-                    this.totalSales = response.data.data.total_sales;
-                    this.itemsPerInvoice = response.data.data.items_per_invoice;
-                    this.salesPerInvoice = response.data.data.sales_per_invoice;
+                    this.totalInvoices = Number(response.data.data.total_invoices);
+                    this.itemsSold = Number(response.data.data.items_sold);
+                    this.totalSales = Number(response.data.data.total_sales).toFixed(2);
+                    this.itemsPerInvoice = Number(response.data.data.items_per_invoice).toFixed(2);
+                    this.salesPerInvoice = Number(response.data.data.sales_per_invoice).toFixed(2);
                 }, function(response) {
                     //Error
                     if(response.status === 404)
