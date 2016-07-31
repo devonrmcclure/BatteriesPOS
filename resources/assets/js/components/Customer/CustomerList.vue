@@ -45,9 +45,9 @@ export default Vue.extend({
         },
 
         getCustomers() {
-            var url = '//api.batteriespos.dev/v0/customers?location_id=3&api_token=token';
+            var url = '//api.batteriespos.dev/v0/customers?location_id=' + this.location.id;
 
-            this.$http.get(url).then(function(response) {
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       // get status
                 this.$set('customers', response.data.data);
             }, function(response) {
