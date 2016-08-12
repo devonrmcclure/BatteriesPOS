@@ -1,8 +1,10 @@
 <template>
     <modal :show.sync="show" :on-close="close" :title.sync="title">
         <customer :customer.sync="customer" :location.sync="location"></customer>
-
-        <new-sale-form :show.sync="show" :location="location" :customer.sync="customer" :invoice.sync="invoice" :rep.sync="rep"></new-sale-form>
+    
+        <div class="Modal__body">
+            <new-sale-form :prices.sync="prices" :products.sync="products" :show.sync="show" :location="location" :customer.sync="customer" :invoice.sync="invoice" :rep.sync="rep"></new-sale-form>
+        </div>
 
         <div class="Modal__footer">
             
@@ -21,7 +23,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt', 'customer', 'products'],
+        props: ['show', 'title', 'rep', 'location', 'invoice', 'showReceipt', 'customer', 'products', 'prices'],
 
         components: {Modal, Customer, NewSaleForm, ReceiptModal},
 

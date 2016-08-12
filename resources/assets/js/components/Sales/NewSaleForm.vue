@@ -1,57 +1,55 @@
 <template>
-<div class="Modal__body">
-    <form method="POST" id="new-sale-form" action="http://api.batteriespos.dev/v0/sales">
-        <input  type="hidden" name="api_token" value="{{location.api_token}}"/> 
-        <input type="hidden" name="customer-id" v-model="customer.id"/>
-        Location: {{ location.name }} <br />
-        Sold By: <input type="text" name="sale-rep" value="{{rep.first_name}}" readonly/><br />
-        
-        Date: {{ date | moment }} <br />
-        Total: $<input type="text" name="sale-total" value="{{total}}" readonly/><br />
-        Invoice: <input type="text" name="sale-invoice" value="{{invoice}}" readonly/><br />
-        <input class="sku" id="sku" v-model="sku" @change="addProduct" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
-        <table class="products">
-            <tr>
-                <th></th>
-                <th>SKU</th>
-                <th>Description</th>
-                <th>QTY</th>
-                <th>Discount %</th>
-                <th>Unit $</th>
-                <th>Extended</th>
-                <th>PST</th>
-                <th>GST</th>
-                <th>Total</th>
-
-            </tr>
-
-            <tr v-for="product in products">
-                <td @click="removeProduct(product, $index)">X</td>
-                <td><input type="text" name="sku[]" v-model="product.sku"/></td>
-                <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-                <td><input type="text" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
-                <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
-                <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
-                <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
-                <td><input type="text" name="pst[]" v-model="prices[$index].pst" readonly/></td>
-                <td><input type="text" name="gst[]" v-model="prices[$index].gst" readonly/></td>
-                <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" readonly/></td>
-            </tr>
-
-        </table>
-        <select name="invoice-comment" v-model="invoice_comment">
-            <option selected>Returns may be subject to a 25% restocking fee.</option>
-            <option>Small appliance repairs have a 30 day service warranty.</option>
-            <option>Thank you for your business.</option>
-            <option>To ensure quality, batteries are a non-refundable item.</option>
-        </select>
-         
-    </form>
+<form method="POST" id="new-sale-form" action="http://api.batteriespos.dev/v0/sales">
+    <input  type="hidden" name="api_token" value="{{location.api_token}}"/> 
+    <input type="hidden" name="customer-id" v-model="customer.id"/>
+    Location: {{ location.name }} <br />
+    Sold By: <input type="text" name="sale-rep" value="{{rep.first_name}}" readonly/><br />
     
-    <span class="payment-method">
-       <button name="payment-method" value="Cash" @click="completeSale('Cash')">Cash</button>
-   </span>
-</div>
+    Date: {{ date | moment }} <br />
+    Total: $<input type="text" name="sale-total" value="{{total}}" readonly/><br />
+    Invoice: <input type="text" name="sale-invoice" value="{{invoice}}" readonly/><br />
+    <input class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
+    <table class="products">
+        <tr>
+            <th></th>
+            <th>SKU</th>
+            <th>Description</th>
+            <th>QTY</th>
+            <th>Discount %</th>
+            <th>Unit $</th>
+            <th>Extended</th>
+            <th>PST</th>
+            <th>GST</th>
+            <th>Total</th>
+
+        </tr>
+
+        <tr v-for="product in products">
+            <td @click="removeProduct(product, $index)">X</td>
+            <td><input type="text" name="sku[]" v-model="product.sku"/></td>
+            <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
+            <td><input type="text" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
+            <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
+            <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
+            <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
+            <td><input type="text" name="pst[]" v-model="prices[$index].pst" readonly/></td>
+            <td><input type="text" name="gst[]" v-model="prices[$index].gst" readonly/></td>
+            <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" readonly/></td>
+        </tr>
+
+    </table>
+    <select name="invoice-comment" v-model="invoice_comment">
+        <option selected>Returns may be subject to a 25% restocking fee.</option>
+        <option>Small appliance repairs have a 30 day service warranty.</option>
+        <option>Thank you for your business.</option>
+        <option>To ensure quality, batteries are a non-refundable item.</option>
+    </select>
+     
+</form>
+
+<span class="payment-method">
+   <button name="payment-method" value="Cash" @click="completeSale('Cash')">Cash</button>
+</span>
 </template>
 
 
@@ -61,14 +59,12 @@
 
     export default Vue.extend({
 
-        props: ['show', 'rep', 'location', 'invoice', 'customer'],
+        props: ['show', 'rep', 'location', 'invoice', 'customer', 'prices', 'products'],
 
         components: {},
 
         data() {
             return {
-                products: [],
-                prices: [],
                 sku: '',
                 quantity: '',
                 invoice_comment: '',

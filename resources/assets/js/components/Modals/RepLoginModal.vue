@@ -8,7 +8,7 @@
         </div>
     </modal>
 
-    <new-sale-modal :show.sync="newSale" :customer.sync="customer" title="New Sale" :rep.sync="rep" :location.sync="location" :invoice.sync="invoice"></new-sale-modal>
+    <new-sale-modal :show.sync="newSale" :products.sync="products" :prices.sync="prices" :customer.sync="customer" title="New Sale" :rep.sync="rep" :location.sync="location" :invoice.sync="invoice"></new-sale-modal>
 
 </template>
 
@@ -19,7 +19,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'newSale', 'location', 'customer', 'invoice', 'total'],
+        props: ['show', 'title', 'newSale', 'location', 'customer', 'invoice', 'total', 'products', 'prices'],
 
         components: {Modal, NewSaleModal},
 

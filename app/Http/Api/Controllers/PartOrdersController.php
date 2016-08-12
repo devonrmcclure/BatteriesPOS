@@ -40,19 +40,17 @@ class PartOrdersController extends ApiController
         //TODO: Validation. (Use Laravel's validator.)
 
         $partOrder = new PartOrder;
-
+        $partOrder->id = $request->input('part-order-id');
         $partOrder->referred_by = $request->input('referred-by');
         $partOrder->customer_id = $request->input('customer-id');
         $partOrder->deposit = $request->input('deposit');
         $partOrder->staff_id = 1;
         $partOrder->item = $request->input('item');
-        $partOrder->model = $request->input('model');
-        $partOrder->sku = $request->input('sku');
-        $partOrder->description = $request->input('description');
+        $partOrder->model = $request->input('model');;
         $partOrder->part_number = $request->input('part-number');
         $partOrder->pick_up_location = $request->input('pick-up-location');
         $partOrder->location_id = \Auth::guard('api')->user()->id;
-        $partOrder->invoice_id = NULL;
+        $partOrder->invoice_id = $request->input('invoice');
         $partOrder->notes = $request->input('notes');
         $partOrder->to_head_office = Carbon::now();
         $partOrder->save();

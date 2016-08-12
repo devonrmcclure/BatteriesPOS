@@ -19,8 +19,6 @@ class CreatePartOrdersTable extends Migration
                         $table->string('make');
                         $table->string('item');
                         $table->string('model');
-                        $table->integer('sku')->unsigned();
-                        $table->string('description');
                         $table->string('part_number');
                         $table->float('deposit');
                         $table->integer('customer_id')->unsigned();
@@ -36,8 +34,6 @@ class CreatePartOrdersTable extends Migration
 
                         $table->foreign('customer_id')
                               ->references('id')->on('customers');
-                        $table->foreign('sku')
-                              ->references('sku')->on('inventory');
                         $table->foreign('location_id')
                               ->references('id')->on('users');
                         $table->foreign('staff_id')
