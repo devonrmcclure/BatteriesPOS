@@ -13,7 +13,7 @@
             </select>
 
             <label for="part-order-id">Part Order #:</label>
-            <input name="part-order-id" id="part-order-id" type="text" v-model="partOrderID">
+            <input name="part-order-id" id="part-order-id" type="text" v-model="id">
 
             <label for="make">Make</label>
             <input name="make" id="make" type="text"/>
@@ -88,7 +88,7 @@ import RepLoginModal from './RepLoginModal.vue';
 
 export default Modal.extend({
 
-    props: ['show', 'title', 'newPartOrder', 'location'],
+    props: ['show', 'title', 'newPartOrder', 'location', 'id'],
 
     components: {Modal, Customer, RepLoginModal},
 
@@ -105,7 +105,6 @@ export default Modal.extend({
             invoice_comment: '',
             paymentMethod: '',
             invoice: '',
-            partOrderID: '1000'
         }
     },
 

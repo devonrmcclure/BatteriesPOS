@@ -1,5 +1,5 @@
 <template>
-    <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location"></new-customer-modal>
+    <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location" :phone="phoneNumber"></new-customer-modal>
     <span class="error">{{ error }}</span>
     <div>
         <input type="hidden" name="customer-id" v-model="customer.id"/>
@@ -16,7 +16,7 @@
         <input type="text" name="customer-primary-phone" id="primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone"/>
         <input type="text" name="customer-secondary-phone" id="secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone"/>
     </div>
-    <input type="text" placeholder="Search Customer" v-model="phone_number" @change="getCustomer()"/><br/>
+    <input type="text" placeholder="Search Customer" v-model="phoneNumber" @change="getCustomer()"/><br/>
 </template>
 
 
@@ -28,7 +28,7 @@ import NewCustomerModal from '../Modals/NewCustomerModal.vue';
 export default Vue.extend({
     data() {
         return {
-            phone_number: '',
+            phoneNumber: '',
             error: '',
             showNewCustomerModal: false,
         }
@@ -63,8 +63,8 @@ export default Vue.extend({
             }
         },
 
-        getCustomer() {
-            var url = '//api.batteriespos.dev/v0/customers?phone=' + this.phone_number + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
+        getCustomer(e) {
+            var url = '//api.batteriespos.dev/v0/customers?phone=' + this.phoneNumber + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
 
             this.$http.get(url).then(function(response) {
                       // get status
@@ -76,8 +76,6 @@ export default Vue.extend({
                 this.clearInputs();
                 this.showNewCustomerModal = true;
             });
-
-            this.phone_number = '';
         }
     },
 

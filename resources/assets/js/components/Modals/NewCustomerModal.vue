@@ -19,7 +19,7 @@
                     <input type="text" name="customer-postal-code" id="customer-postal-code" placeholder="Postal Code" v-model="customer.postal_code"/>
                 </div>
                 <div>
-                    <input type="text" name="customer-primary-phone" id="customer-primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone"/>
+                    <input type="text" name="customer-primary-phone" id="customer-primary-phone" placeholder="Primary Phone" v-model="phone"/>
                     <input type="text" name="customer-secondary-phone" id="customer-secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone"/>
                     <input type="text" name="customer-email" id="customer-email" placeholder="Email" v-model="customer.email"/>
                 </div>
@@ -44,7 +44,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'location', 'customer'],
+        props: ['show', 'title', 'location', 'customer', 'phone'],
 
         components: {Modal},
 
@@ -58,7 +58,7 @@
             //Change this to a default for props.
             this.customer = {
                 province: 'British Columbia',
-                country: 'Canada'
+                country: 'Canada',
             }
         },
 

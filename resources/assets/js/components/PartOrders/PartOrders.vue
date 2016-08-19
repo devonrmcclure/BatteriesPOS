@@ -24,7 +24,7 @@
         </tr>
     </table>
 
-    <part-orders-modal :show.sync="newPartOrder" :location.sync="location" title="New Part Order"></part-orders-modal>
+    <part-orders-modal :show.sync="newPartOrder" :location.sync="location" :id="partOrderID" title="New Part Order"></part-orders-modal>
 </template>
 
 <script lang="babel">
@@ -42,11 +42,13 @@
             return {
                 partOrders: [],
                 newPartOrder: false,
+                partOrderID: ''
             }
         },
 
         ready() {
             this.getPartOrders();
+            this.getPartOrderID();
         },
 
         methods: {
@@ -64,6 +66,41 @@
             newOrder() {
                 this.newPartOrder = true;
             },
+
+            getPartOrderID() {
+                var url = '//api.batteriespos.dev/v0/part-orders?location_id=' + this.location.id;
+
+                this.$http.get(url, {api_token: this.location.api_token})
+                .then( function(response) {
+                    //Success
+                    this.$set('partOrderID', Number(response.data.data[0].id+1));
+                }, function(response) {
+                    //Error
+                    switch(this.location.name) {
+                        case "Head Office":
+                            this.partOrderID = 0;
+                            break;
+                        case "Richmond":
+                            this.partOrderID = 20000;
+                            break;
+                        case "White Rock":
+                            this.partOrderID = 30000;
+                            break;
+                        case "Guildford":
+                            this.partOrderID = 60000;
+                            break;
+                        case "Nanaimo":
+                            this.partOrderID = 70000;
+                            break;
+                        case "Maple Ridge":
+                            this.partOrderID = 80000;
+                            break;
+                        default:
+                            //Throw error
+                            console.log('ERROR');
+                    }
+                });
+            }
         },
 
         filters: {
@@ -79,6 +116,7 @@
         events: {
             'new-part-order': function() {
                 this.getPartOrders();
+                this.getPartOrderID();
             }
         }
     });
