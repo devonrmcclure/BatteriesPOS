@@ -27,7 +27,7 @@
         <tr v-for="product in products">
             <td @click="removeProduct(product, $index)">X</td>
             <td><input type="text" name="sku[]" v-model="product.sku"/></td>
-            <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
+            <td><input class="product-description" type="text" name="description[]" value="{{ product.description }}" readonly/></td>
             <td><input type="text" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
             <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
             <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
@@ -59,7 +59,7 @@
 
     export default Vue.extend({
 
-        props: ['show', 'rep', 'location', 'invoice', 'customer', 'prices', 'products'],
+        props: ['show', 'rep', 'location', 'invoice', 'customer', 'price', 'product'],
 
         components: {},
 
@@ -70,6 +70,8 @@
                 invoice_comment: '',
                 paymentMethod: '',
                 print: false,
+                prices: [],
+                products: [],
                 date: new Date(),
             }
         },
@@ -77,6 +79,11 @@
         ready() {
             //this.getCustomer();
             // TODO: Get value of PST and GST from a "settings" table
+            if(this.product || this.price)
+            {
+                this.producs = this.product;
+                this.prices = this.price;
+            }
         },
 
         computed: {

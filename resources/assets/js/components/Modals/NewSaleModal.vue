@@ -3,7 +3,7 @@
         <customer :customer.sync="customer" :location.sync="location"></customer>
     
         <div class="Modal__body">
-            <new-sale-form :prices.sync="prices" :products.sync="products" :show.sync="show" :location="location" :customer.sync="customer" :invoice.sync="invoice" :rep.sync="rep"></new-sale-form>
+            <new-sale-form :price.sync="prices" :product.sync="products" :show.sync="show" :location="location" :customer.sync="customer" :invoice.sync="invoice" :rep.sync="rep"></new-sale-form>
         </div>
 
         <div class="Modal__footer">
