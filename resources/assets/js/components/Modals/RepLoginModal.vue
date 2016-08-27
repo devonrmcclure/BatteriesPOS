@@ -45,7 +45,7 @@
             },
 
             getRep() {
-                var url = 'http://api.batteriespos.dev/v0/staff?rep_code=' + this.repCode + '&location_id=' + this.location.id;
+                var url = '/api/v0/staff?rep_code=' + this.repCode + '&location_id=' + this.location.id;
 
                 this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                     this.$set('rep', response.data.data[0]);
@@ -59,7 +59,7 @@
             },
 
             getInvoice() {
-                var url = '//api.batteriespos.dev/v0/invoice?location=' + this.location.name;
+                var url = '/api/v0/invoice?location=' + this.location.name;
 
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then( function(response) {

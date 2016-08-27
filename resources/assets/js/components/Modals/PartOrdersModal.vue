@@ -121,7 +121,7 @@ export default Modal.extend({
             //TODO Validation
             e.preventDefault();
             var formData = new FormData(document.querySelector('#new-part-order-form'));
-            var url = '//api.batteriespos.dev/v0/part-orders';
+            var url = '/api/v0/part-orders';
             this.$http.post(url, formData)
             .then(function(response) {
                 //Success
@@ -135,7 +135,7 @@ export default Modal.extend({
         },
 
         getProduct(sku) {
-              var url = 'http://api.batteriespos.dev/v0/inventory?sku=' + sku;
+              var url = '/api/v0/inventory?sku=' + sku;
 
               this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                   this.products.push(response.data.data[0]);

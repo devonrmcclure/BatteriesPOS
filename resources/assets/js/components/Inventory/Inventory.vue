@@ -34,7 +34,7 @@ export default Vue.extend({
 		},
 
 		getProduct(sku) {
-            var url = 'http://api.batteriespos.dev/v0/inventory?sku=' + sku;
+            var url = '/api/v0/inventory?sku=' + sku;
               
             this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('product', response.data.data);
@@ -45,7 +45,7 @@ export default Vue.extend({
         },
 
         getQoh(sku) {
-        	var url = 'http://api.batteriespos.dev/v0/location?with=qoh&wherewith=sku,=,' + sku + '';
+        	var url = '/api/v0/location?with=qoh&wherewith=sku,=,' + sku + '';
               
             this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('qoh', response.data.data);
@@ -56,7 +56,7 @@ export default Vue.extend({
         },
 
         getByDescription(description) {
-            var url = 'http://api.batteriespos.dev/v0/inventory?description=' + description;
+            var url = '/api/v0/inventory?description=' + description;
               
             this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('product', response.data.data);
@@ -70,7 +70,7 @@ export default Vue.extend({
         },
 
         getLastSale(sku) {
-            var url = 'http://api.batteriespos.dev/v0/sales?sku=' + sku + '&location_id=3&limit=1';
+            var url = '/api/v0/sales?sku=' + sku + '&location_id=3&limit=1';
               
             this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('last_sale', response.data.data[0].created_at);

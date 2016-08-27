@@ -59,7 +59,7 @@
             },
 
             getSalesData() {
-                var url = '//api.batteriespos.dev/v0/daily-stats?created_at=' + this.today + '&location=' + this.location.name + '&with=Sale';
+                var url = '/api/v0/daily-stats?created_at=' + this.today + '&location=' + this.location.name + '&with=Sale';
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then(function(response) {
                     //Success

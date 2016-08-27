@@ -1,5 +1,5 @@
 <template>
-<form method="POST" id="new-sale-form" action="http://api.batteriespos.dev/v0/sales">
+<form method="POST" id="new-sale-form" action="/api/v0/sales">
     <input  type="hidden" name="api_token" value="{{location.api_token}}"/> 
     <input type="hidden" name="customer-id" v-model="customer.id"/>
     Location: {{ location.name }} <br />
@@ -114,7 +114,7 @@
             },
 
             getProduct(sku) {
-                  var url = '//api.batteriespos.dev/v0/inventory?sku=' + sku;
+                  var url = '/api/v0/inventory?sku=' + sku;
 
                   this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       this.products.push(response.data.data[0]);
@@ -234,10 +234,10 @@
                 }
 
                 var formData = new FormData(document.querySelector('#new-sale-form'));
-                this.print = confirm("Print a copy of the invoice?");
+                this.print = false; //confirm("Print a copy of the invoice?");
                 formData.set('printed', this.print);
                 formData.set('payment-method', method);
-                var url = '//api.batteriespos.dev/v0/sales';
+                var url = '/api/v0/sales';
                 this.$http.post(url, formData)
                 .then(function(response) {
                     //Success

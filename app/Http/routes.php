@@ -36,13 +36,10 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('customers', 'Controllers\CustomersController@index');
 });
 
-Route::group(['middleware' => ['auth:api'], 'domain' => 'api.batteriespos.dev'], function () {
+Route::group(['middleware' => ['auth:api'], 'domain' => 'batteriespos.dev'], function () {
     //Note: Must use Auth::gaurd('api')->user();
-    Route::get('/', function() {
-        echo 'TODO: show API versions.';
-    });
 
-    Route::group(['prefix' => 'v0'], function () {
+    Route::group(['prefix' => 'api/v0'], function () {
         Route::get('/', function() {
             return 'test';
         });

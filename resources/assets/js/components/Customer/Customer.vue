@@ -44,7 +44,7 @@ export default Vue.extend({
 
     methods: {
         getDefaultCustomer() {
-            var url = '//api.batteriespos.dev/v0/customers?phone=' + this.location.phone_number + '&location_id=' + this.location.id;
+            var url = '/api/v0/customers?phone=' + this.location.phone_number + '&location_id=' + this.location.id;
 
             this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       // get status
@@ -64,7 +64,7 @@ export default Vue.extend({
         },
 
         getCustomer(e) {
-            var url = '//api.batteriespos.dev/v0/customers?phone=' + this.phoneNumber + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
+            var url = '/api/v0/customers?phone=' + this.phoneNumber + '&location_id=' + this.location.id + '&api_token=' + this.location.api_token;
 
             this.$http.get(url).then(function(response) {
                       // get status

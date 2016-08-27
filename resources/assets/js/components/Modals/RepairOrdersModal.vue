@@ -98,7 +98,7 @@
                 //TODO Validation
                 e.preventDefault();
                 var formData = new FormData(document.querySelector('#new-repair-order-form'));
-                var url = '//api.batteriespos.dev/v0/repair-orders';
+                var url = '/api/v0/repair-orders';
                 this.$http.post(url, formData)
                 .then(function(response) {
                     //Success

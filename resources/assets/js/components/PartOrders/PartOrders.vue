@@ -53,7 +53,7 @@
 
         methods: {
             getPartOrders() {
-                var url = 'http://api.batteriespos.dev/v0/part-orders?&with=customer&location_id=3';
+                var url = '/api/v0/part-orders?&with=customer&location_id=3';
 
                 this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('partOrders', response.data.data);
@@ -68,7 +68,7 @@
             },
 
             getPartOrderID() {
-                var url = '//api.batteriespos.dev/v0/part-orders?location_id=' + this.location.id;
+                var url = '/api/v0/part-orders?location_id=' + this.location.id;
 
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then( function(response) {

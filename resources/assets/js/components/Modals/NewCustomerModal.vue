@@ -71,7 +71,7 @@
                 //TODO Validation
                 e.preventDefault();
                 var formData = new FormData(document.querySelector('#add-customer-form'));
-                var url = '//api.batteriespos.dev/v0/customers';
+                var url = '/api/v0/customers';
                 this.$http.post(url, formData)
                 .then(function(response) {
                     //Success
