@@ -18,6 +18,7 @@ class VendorInvoicesController extends ApiController
 
 	function __construct()
 	{
+		return parent::__construct();
 	}
 
 	public function index(Request $request)

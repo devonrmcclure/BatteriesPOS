@@ -20,8 +20,9 @@ class DailyStatsController extends ApiController
 	protected $invoices = '\App\Invoice';
 
 	function __construct()
-	{
-	}
+    {
+        return parent::__construct();
+    }
 
 	public function index(Request $request)
 	{

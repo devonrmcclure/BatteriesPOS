@@ -18,6 +18,14 @@ class ApiController extends Controller
 {
     protected $statusCode = 200;
 
+    function __construct()
+    {
+        if(!\Auth::check())
+        {
+            abort(401, 'Unauthorized');
+        }
+    }
+
     /**
      * Gets the value of statusCode.
      *

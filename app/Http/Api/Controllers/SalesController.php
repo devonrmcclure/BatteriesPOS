@@ -20,8 +20,9 @@ class SalesController extends ApiController
 	protected $model = '\App\Sale';
 
 	function __construct()
-	{
-	}
+    {
+        return parent::__construct();
+    }
 
 	public function index(Request $request)
 	{
