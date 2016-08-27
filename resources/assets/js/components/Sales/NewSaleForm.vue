@@ -107,7 +107,7 @@
             },
 
             getProduct(sku) {
-                  var url = 'http://api.batteriespos.dev/v0/inventory?sku=' + sku;
+                  var url = '//api.batteriespos.dev/v0/inventory?sku=' + sku;
 
                   this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       this.products.push(response.data.data[0]);
