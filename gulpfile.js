@@ -1,5 +1,7 @@
 var elixir = require('laravel-elixir');
 
+require('laravel-elixir-browsersync-official');
+require('laravel-elixir-browserify-official');
 require('laravel-elixir-vueify');
 
 elixir(function(mix) {
