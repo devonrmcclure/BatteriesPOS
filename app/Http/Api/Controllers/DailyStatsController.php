@@ -78,7 +78,7 @@ class DailyStatsController extends ApiController
             $total += $invoice->total;
         }
 
-        return number_format($total, 2);
+        return $total;
     }
 
     protected function getItemsPerInvoice($invoices) {
@@ -91,7 +91,7 @@ class DailyStatsController extends ApiController
         
         $total = ($this->getItemsSold($invoices) / $this->getTotalInvoices($invoices));        
 
-        return number_format($total, 2);
+        return $total;
     }
 
     protected function getSalesPerInvoice($invoices) {
@@ -104,6 +104,6 @@ class DailyStatsController extends ApiController
 
         $total = ($this->getTotalSales($invoices) / $this->getTotalInvoices($invoices));
 
-        return number_format($total, 2);
+        return $total;
     }
 }
