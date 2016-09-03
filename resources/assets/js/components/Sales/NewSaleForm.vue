@@ -8,7 +8,7 @@
     Date: {{ date | moment }} <br />
     Total: $<input type="text" name="sale-total" value="{{total}}" readonly/><br />
     Invoice: <input type="text" name="sale-invoice" value="{{invoice}}" readonly/><br />
-    <input class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
+    <input class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="Sku" tab-index="1">  
     <table class="products">
         <tr>
             <th></th>
@@ -28,7 +28,7 @@
             <td @click="removeProduct(product, $index)">X</td>
             <td><input type="text" name="sku[]" v-model="product.sku"/></td>
             <td><input class="product-description" type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-            <td><input type="text" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
+            <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
             <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
             <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
             <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
@@ -118,6 +118,7 @@
 
                   this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       this.products.push(response.data.data[0]);
+                      this.calculatePrice();
 
                   }, function(response) {
                       this.$set('error', 'The Rep does not exist!');
@@ -126,7 +127,7 @@
             },
 
             addProduct() {
-                if(!(this.products.length - this.prices.length) < 1)
+                if(this.prices.length < this.products.length)
                 {
                     this.sku = '';
                     alert('Please enter a quantity for already entered product!');
@@ -134,7 +135,6 @@
                 }
                 this.getProduct(this.sku);
                 this.sku = '';
-
             },
 
             calculatePrice() {
@@ -167,9 +167,9 @@
 
                 this.sku = '';
                 this.quantity = '';
-                setTimeout(function(){
-                    $("#sku").focus();
-                }, 0);
+                var $quan = $('#qty');
+                var ind = $quan.index(this);
+                $quan.eq(ind + 1).focus()
             },
 
             calculatePST(product, extended) {
@@ -209,8 +209,6 @@
                     gst: Number(gst).toFixed(2),
                     sku_total: Number(total).toFixed(2),
                 };  
-
-                
                 this.prices.$set(index, price);
 
                 this.sku = '';
