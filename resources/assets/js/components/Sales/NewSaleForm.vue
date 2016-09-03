@@ -77,11 +77,10 @@
         },
 
         ready() {
-            //this.getCustomer();
             // TODO: Get value of PST and GST from a "settings" table
             if(this.product || this.price)
             {
-                this.producs = this.product;
+                this.products = this.product;
                 this.prices = this.price;
             }
         },
@@ -167,9 +166,9 @@
 
                 this.sku = '';
                 this.quantity = '';
-                var $quan = $('#qty');
-                var ind = $quan.index(this);
-                $quan.eq(ind + 1).focus()
+                setTimeout(function(){
+                    $('input[id=qty]:last').focus();
+                }, 0);
             },
 
             calculatePST(product, extended) {

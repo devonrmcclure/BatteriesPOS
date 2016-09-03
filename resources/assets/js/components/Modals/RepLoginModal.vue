@@ -52,6 +52,9 @@
                     this.close();
                     this.getInvoice();
                     this.newSale = true;
+                    setTimeout(function(){
+                        $("#sku").focus();
+                    }, 200);
 
                 }, function(response) {
                     this.$set('error', 'The Rep does not exist!');
