@@ -1,14 +1,19 @@
 <template>
-<form method="POST" id="new-sale-form" action="/api/v0/sales">
-    <input  type="hidden" name="api_token" value="{{location.api_token}}"/> 
-    <input type="hidden" name="customer-id" v-model="customer.id"/>
+<div class="location-info">
     Location: {{ location.name }} <br />
-    Sold By: <input type="text" name="sale-rep" value="{{rep.first_name}}" readonly/><br />
-    
+    Sold By: {{rep.first_name}}<br />
     Date: {{ date | moment }} <br />
-    Total: $<input type="text" name="sale-total" value="{{total}}" readonly/><br />
-    Invoice: <input type="text" name="sale-invoice" value="{{invoice}}" readonly/><br />
-    <input class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="Sku" tab-index="1">  
+    Total: ${{total}}<br />
+    Invoice: {{invoice}}<br />
+</div>
+
+<form method="POST" id="new-sale-form" action="/api/v0/sales" class="sale-form">
+    <input  type="hidden" name="api_token" value="{{location.api_token}}" readonly/> 
+    <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
+    <input type="hidden" name="sale-total" value="{{total}}" readonly/>
+    <input type="hidden" name="sale-rep" value="{{rep.first_name}}" readonly/>
+    <input type="hidden" name="sale-invoice" value="{{invoice}}" readonly/>
+    <input class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="483" tab-index="1">  
     <table class="products">
         <tr>
             <th></th>
