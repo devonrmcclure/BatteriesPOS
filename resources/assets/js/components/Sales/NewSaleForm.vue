@@ -33,7 +33,7 @@
             <td @click="removeProduct(product, $index)">X</td>
             <td><input type="text" name="sku[]" v-model="product.sku"/></td>
             <td><input class="product-description" type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-            <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
+            <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td>
             <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
             <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
             <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
