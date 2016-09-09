@@ -1,10 +1,11 @@
 <template>
 <div class="location-info">
+    <h3>Invoice: {{invoice}}</h3><br />
     Location: {{ location.name }} <br />
     Sold By: {{rep.first_name}}<br />
     Date: {{ date | moment }} <br />
-    Total: ${{total}}<br />
-    Invoice: {{invoice}}<br />
+    <h3>Total: ${{total}}</h3><br />
+    
 </div>
 
 <form method="POST" id="new-sale-form" action="/api/v0/sales" class="sale-form">
