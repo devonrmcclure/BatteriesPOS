@@ -2,7 +2,8 @@
 	position: fixed;
 	top: 0;
 	right: 0;
-	background: #000;
+	border: none;
+	background: @secondaryColor;
 	color: #fff;
 	padding: 10px;
 	margin-right: 10px;
@@ -15,9 +16,10 @@
 	}
 
 	ul.dropdown-menu {
-		background: #000;
+		background: @secondaryColor;
 		padding: 0;
 		margin: 0;
+		border: none;
 		.border-radius(0 0 2px 2px);
 
 		li {
@@ -38,7 +40,7 @@
 
 			a:hover {
                 text-decoration: none;
-                background: #666;
+                background: darken(@secondaryColor, 20%);
             }
 		}
 	}

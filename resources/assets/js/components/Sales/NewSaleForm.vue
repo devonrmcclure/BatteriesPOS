@@ -14,7 +14,7 @@
     <input type="hidden" name="sale-total" value="{{total}}" readonly/>
     <input type="hidden" name="sale-rep" value="{{rep.first_name}}" readonly/>
     <input type="hidden" name="sale-invoice" value="{{invoice}}" readonly/>
-    <input class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="483" tab-index="1">  
+    <input type="text" class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="483" tab-index="1">  
     <table class="products">
         <tr>
             <th></th>

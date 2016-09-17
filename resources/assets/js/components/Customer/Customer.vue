@@ -1,6 +1,7 @@
 0<template>
     <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location" :phone="phoneNumber"></new-customer-modal>
     <span class="error">{{ error }}</span>
+    <input type="text" placeholder="Search Customer" v-model="phoneNumber" @change="getCustomer()"/><br/>
     <div>
         <input type="hidden" name="customer-id" v-model="customer.id"/>
         <input type="hidden" name="new-customer" v-model="customer.new_customer"/>
@@ -16,7 +17,6 @@
         <input type="text" name="customer-primary-phone" id="primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone"/>
         <input type="text" name="customer-secondary-phone" id="secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone"/>
     </div>
-    <input type="text" placeholder="Search Customer" v-model="phoneNumber" @change="getCustomer()"/><br/>
 </template>
 
 
