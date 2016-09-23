@@ -5,11 +5,19 @@ table {
     tr, th, td {
         border: none;
         text-align: center;
-        padding: 8px;
+        padding: 10px;
+    }
+
+    input {
+        width: 100%;
+        text-align: center;
     }
 
     tr:not(:first-child):hover {
         background: @grey-200;
+        input {
+            background: @grey-200;
+        }
     }
 
     th {
