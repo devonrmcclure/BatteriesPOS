@@ -48,7 +48,7 @@
         <option selected>Returns may be subject to a 25% restocking fee.</option>
         <option>Small appliance repairs have a 30 day service warranty.</option>
         <option>Thank you for your business.</option>
-        <option>To ensure quality, batteries are a non-refundable item.</option>
+        <option>To ensure quality, batteries are a non-exchangeable, non-refundable item.</option>
     </select>
      
 </form>
