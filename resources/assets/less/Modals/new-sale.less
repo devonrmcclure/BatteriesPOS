@@ -19,17 +19,14 @@
 
 .sale-form {
 	clear: both;
-	padding-top: 20px;
+	padding-top: 10px;
 }
 
 .products {
-	
-	width: 100%;
+	margin: 10px 0;
 	min-width: 1000px;
-
-	.removeProduct {
-		cursor: pointer;
-	}
+	max-height: 210px;
+	overflow-y: auto;
 
 	th {
 		min-width: 90px;
@@ -39,15 +36,27 @@
 		min-width: 250px;
 	}
 
-	.product-description-value {
-		input {
-			text-align: left;
+	.remove-product {
+		max-width: 10px;
+		color: @red;
+		cursor: pointer;
+
+		&:hover {
+			color: @red-700;
 		}
 	}
+
+	.active-row {
+		color: @secondaryColor;
+	}
+
 }
 
 .payment-method {
-    span {
-        cursor: pointer;
+	cursor: pointer;
+	text-transform: uppercase;
+    button {
+    	margin: 10px 10px 0 0;
+    	width: 110px;
     }
 }

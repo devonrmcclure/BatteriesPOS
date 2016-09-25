@@ -14,13 +14,17 @@ input[type="text"] {
     }
 }
 
-input[type=submit], button { 
-    background:@secondaryColor; 
+input[type="submit"], button { 
+    background: @secondaryColor; 
     color: #FFF;
     border:0 none;
     padding: 10px;
     cursor:pointer;
     text-transform: uppercase;
+
+    &:hover {
+        background: darken(@secondaryColor, 20%);
+    }
 }
 
 input:read-only {
@@ -37,14 +41,16 @@ input:read-only {
 select {
     appearance: none;
     padding: 10px;
-    margin: 10px;
-    background: #eee;
+    //margin: 10px;
+    background: #FFF;
     border: none;
+    border-bottom: solid 2px lighten(@primaryColor, 20%);
     height: 50px;
     cursor: pointer;
 
     &:focus {
         outline: none;
+        border-bottom: solid 2px @primaryColor;
     }
 }
 

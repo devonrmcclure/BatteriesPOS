@@ -7,10 +7,6 @@
         <div class="Modal__body">
             <new-sale-form :price.sync="prices" :product.sync="products" :show.sync="show" :location="location" :customer.sync="customer" :invoice.sync="invoice" :rep.sync="rep"></new-sale-form>
         </div>
-
-        <div class="Modal__footer">
-            
-        </div>
     </modal>
     
     <receipt-modal :show.sync="showReceipt" title="Print Receipt?" :print.sync="print"></receipt-modal>

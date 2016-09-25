@@ -13,37 +13,51 @@
     <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
     <input type="hidden" name="sale-total" value="{{total}}" readonly/>
     <input type="hidden" name="sale-rep" value="{{rep.first_name}}" readonly/>
-    <input type="hidden" name="sale-invoice" value="{{invoice}}" readonly/>
-    <input type="text" class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="483" tab-index="1">  
-    <table class="products">
-        <tr>
-            <th></th>
-            <th>SKU</th>
-            <th class="product-description">Description</th>
-            <th>QTY</th>
-            <th>Discount %</th>
-            <th>Unit $</th>
-            <th>Extended</th>
-            <th>PST</th>
-            <th>GST</th>
-            <th>Total</th>
+    <input type="hidden" name="sale-invoice" value="{{invoice}}" readonly/>  
+    <div class="products"> <!-- Tables are dumb and cant have max height -.- -->
+        <table>
+            <tr>
+                <th class="remove-product"></th>
+                <th>SKU</th>
+                <th class="product-description">Description</th>
+                <th>QTY</th>
+                <th>Discount %</th>
+                <th>Unit $</th>
+                <th>Extended</th>
+                <th>PST</th>
+                <th>GST</th>
+                <th>Total</th>
 
-        </tr>
+            </tr>
 
-        <tr v-for="product in products">
-            <td @click="removeProduct(product, $index)" class="removeProduct">X</td>
-            <td><input type="text" name="sku[]" v-model="product.sku"/></td>
-            <td class="product-description-value"><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-            <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td>
-            <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
-            <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
-            <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
-            <td><input type="text" name="pst[]" v-model="prices[$index].pst" readonly/></td>
-            <td><input type="text" name="gst[]" v-model="prices[$index].gst" readonly/></td>
-            <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" readonly/></td>
-        </tr>
+            <tr v-for="product in products">
+                <td class="remove-product" @click="removeProduct(product, $index)" class="removeProduct">X</td>
+                <td><input type="text" name="sku[]" v-model="product.sku"/></td>
+                <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
+                <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td>
+                <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
+                <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
+                <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
+                <td><input type="text" name="pst[]" v-model="prices[$index].pst" readonly/></td>
+                <td><input type="text" name="gst[]" v-model="prices[$index].gst" readonly/></td>
+                <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" readonly/></td>
+            </tr>
 
-    </table>
+            <tr>
+                <td class="active-row" @click="removeProduct(product, $index)" class="removeProduct">&#9658;</td>
+                <td><input type="text" class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="483" tab-index="1"></td>
+                <td><input type="text" placeholder="CR2032 Button Cell Battery" readonly/></td>
+                <td><input type="text" placeholder="0" readonly/></td>
+                <td><input type="text" placeholder="0.00" readonly/></td>
+                <td><input type="text" readonly/></td>
+                <td><input type="text" readonly/></td>
+                <td><input type="text" readonly/></td>
+                <td><input type="text" readonly/></td>
+                <td><input type="text" readonly></td>
+            </tr>
+            
+        </table>
+    </div>
     <select name="invoice-comment" v-model="invoice_comment">
         <option selected>Returns may be subject to a 25% restocking fee.</option>
         <option>Small appliance repairs have a 30 day service warranty.</option>
@@ -55,6 +69,9 @@
 
 <span class="payment-method">
    <button name="payment-method" value="Cash" @click="completeSale('Cash')">Cash</button>
+   <button name="payment-method" value="Interac" @click="completeSale('Interac')">Interac</button>
+   <button name="payment-method" value="MasterCard" @click="completeSale('MasterCard')">MasterCard</button>
+   <button name="payment-method" value="Visa" @click="completeSale('Visa')">Visa</button>
 </span>
 </template>
 

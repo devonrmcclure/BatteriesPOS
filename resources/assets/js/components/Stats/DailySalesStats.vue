@@ -5,17 +5,17 @@
         <table class="sales-stats">
             <tr>
                 <th>Invoices</th>
-                <th>Items Sold</th>
-                <th>Total Sales</th>
+                <th>Items Sold</th>     
                 <th>Items/Invoice</th>
                 <th>Sales/Invoice</th>
+                <th>Total Sales</th>
             </tr>
             <tr>
                 <td>{{totalInvoices}}</td>
-                <td>{{itemsSold}}</td>
-                <td>${{totalSales}}</td>
+                <td>{{itemsSold}}</td>  
                 <td>{{itemsPerInvoice}}</td>
                 <td>${{salesPerInvoice}}</td>
+                <td>${{totalSales}}</td>
             </tr>
         </table>
     </div>
