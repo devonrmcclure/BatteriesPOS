@@ -31,8 +31,8 @@
             </tr>
 
             <tr v-for="product in products">
-                <td class="remove-product" @click="removeProduct(product, $index)" class="removeProduct">X</td>
-                <td><input type="text" name="sku[]" v-model="product.sku"/></td>
+                <td class="remove-product" @click="removeProduct(product, $index)" class="removeProduct">&times;</td>
+                <td><input type="text" name="sku[]" v-model="product.sku" @change="updateProduct($index)"/></td>
                 <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
                 <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td>
                 <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
@@ -143,7 +143,7 @@
                       this.calculatePrice();
 
                   }, function(response) {
-                      this.$set('error', 'The Rep does not exist!');
+                      this.$set('error', 'The Product does not exist!');
                 // error callback
                   });
             },
@@ -210,6 +210,19 @@
                 }
 
                 return gst;
+            },
+
+            updateProduct(index) {
+                var url = '/api/v0/inventory?sku=' + this.products[index]['sku'];
+
+                  this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
+                      this.products.$set(index, response.data.data[0]);
+                      this.updatePrice(index);
+
+                  }, function(response) {
+                      this.$set('error', 'The Rep does not exist!');
+                // error callback
+                  });
             },
 
             updatePrice(index) {
