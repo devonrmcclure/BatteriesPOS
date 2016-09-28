@@ -1,5 +1,5 @@
 <template>
-    <button @click="newOrder">+</button>
+    <button @click="newOrder">New Repair Order</button>
     <table class="table">
         <tr>
             <th>Repair Number</th>

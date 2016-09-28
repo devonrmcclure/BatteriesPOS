@@ -8,7 +8,7 @@
                 <customer :customer.sync="customer" :location.sync="location"></customer>
                 <label for="referred-by">Referred By</label>
                 <select name="referred-by" id="referred_by">
-                    <option value=""></option>
+                    <option value="-- SELECT ONE --" selected></option>
                     <option value="Oster">Oster</option>
                 </select>
 

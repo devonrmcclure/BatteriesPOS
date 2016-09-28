@@ -1,6 +1,6 @@
 <template>
     <button value="New Customer" @click="newCustomer()">New Customer</button>
-	<table class="table">
+	<table>
         <tr>
             <th>Customer</th>
             <th>Primary Phone</th>
