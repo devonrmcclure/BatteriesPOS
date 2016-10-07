@@ -8,7 +8,7 @@
             <customer :customer.sync="customer" :location.sync="location"></customer>
             <label for="referred-by">Referred By</label>
             <select name="referred-by" id="referred_by">
-                <option value=""></option>
+                <option value="none">-- Select -- </option>
                 <option value="Oster">Oster</option>
             </select>
 
@@ -34,7 +34,7 @@
             <input name="deposit" id="deposit" type="text"/>
 
             <label for="pick-up-location">Pick Up Location</label>
-            <input name="pick-up-location" id="pick-up-location" type="text"/>
+            <input name="pick-up-location" id="pick-up-location" type="text" value="{{location.name}}"/>
 
             <label for="notes">Notes</label>
             <textarea name="notes" id="notes"></textarea>
