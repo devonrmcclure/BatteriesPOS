@@ -14,20 +14,20 @@ class CreateInventoryTable extends Migration
     {
         Schema::create('inventory', function (Blueprint $table) {
                         $table->increments('sku');
-                        $table->string('description');
+                        $table->text('description');
                         $table->integer('category_id')->unsigned();
-                        $table->float('ep_cost_vendor');
-                        $table->float('ep_cost_landed');
-                        $table->float('ep_cost_wholesale');
-                        $table->float('ep_cost_ad'); //associate dealer (leslie, tong)
-                        $table->float('unit_cost');
+                        // $table->float('ep_cost_vendor');
+                        // $table->float('ep_cost_landed');
+                        // $table->float('ep_cost_wholesale');
+                        // $table->float('ep_cost_ad'); //associate dealer (leslie, tong)
+                        // $table->float('unit_cost');
                         $table->float('unit_price');
-                        $table->float('unit_sale_price')->nullable();
+                        $table->float('unit_sale_price')->nullable()->default('0.00');
                         $table->boolean('pst');
                         $table->boolean('gst');
-                        $table->string('supplier');
-                        $table->string('brand');
-                        $table->string('model');
+                        $table->string('manufacturer')->nullable();
+                        $table->string('model_number')->nullable();
+                        $table->string('order_number')->nullable();
                         $table->timestamps();
 
                         $table->foreign('category_id')
