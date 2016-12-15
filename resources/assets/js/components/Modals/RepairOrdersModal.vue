@@ -6,51 +6,59 @@
             <form id="new-repair-order-form">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
                 <customer :customer.sync="customer" :location.sync="location"></customer>
-                <label for="referred-by">Referred By</label>
-                <select name="referred-by" id="referred_by">
-                    <option value="-- SELECT ONE --" selected></option>
-                    <option value="Oster">Oster</option>
-                </select>
 
-                <label for="call-if-over">Call if Over</label>
-                <input name="call-if-over" id="call-if-over" type="text"/>
+                <div class="important-info">
+                    <label for="referred-by">Referred By</label>
+                    <select name="referred-by" id="referred_by">
+                        <option value="-- SELECT ONE --" selected>-- SELECT ONE --</option>
+                        <option value="Oster">Oster</option>
+                    </select>
 
-                <label for="original-receipt">Original Receipt</label>
-                <input type="checkbox" name="original-receipt" id="original-receipt">
+                    <label for="call-if-over">Call if Over</label>
+                    <input name="call-if-over" id="call-if-over" type="text"/>
 
-                <label for="deposit">Deposit</label>
-                <input name="deposit" id="deposit" type="text"/>
+                    <label for="original-receipt">Receipt</label>
+                    <input name="original-receipt" id="original-receipt" type="text" placeholder="yes/no">
 
-                <label for="date-code">Deposit Invoice</label>
-                <input name="deposit-invoice" id="deposit-invoice" v-model="invoice" type="text"/>
+                    <label for="deposit">Deposit</label>
+                    <input name="deposit" id="deposit" type="text"/>
 
-                <label for="staff">Staff</label>
-                <input name="staff" id="staff" type="text"/>
+                    <label for="date-code">Deposit Invoice</label>
+                    <input name="deposit-invoice" id="deposit-invoice" v-model="invoice" type="text"/>
 
-                <label for="product">Product</label>
-                <input name="product" id="product" type="text"/>
+                    <label for="staff">Staff</label>
+                    <input name="staff" id="staff" type="text"/>
 
-                <label for="model">Model</label>
-                <input name="model" id="model" type="text"/>
+                    <label for="invoice">Invoice#</label>
+                    <input name="invoice" id="invoice" type="text" v-model="invoice"/>
+                </div>
+               
+                <div class="product-info">
+                    <label for="product">Product</label>
+                    <input name="product" id="product" type="text"/>
 
-                <label for="type">Type</label>
-                <input name="type" id="type" type="text"/>
+                    <label for="model">Model</label>
+                    <input name="model" id="model" type="text"/>
 
-                <label for="date-code">Date Code</label>
-                <input name="date-code" id="date-code" type="text"/>
+                    <label for="type">Type</label>
+                    <input name="type" id="type" type="text"/>
 
-                <label for="condition">Condition</label>
-                <input name="condition" id="condition" type="text"/>
+                    <label for="date-code">Date Code</label>
+                    <input name="date-code" id="date-code" type="text"/>
 
-                <label for="accessories">Accessories</label>
-                <input name="accessories" id="accessories" type="text"/>
+                    <label for="condition">Condition</label>
+                    <input name="condition" id="condition" type="text"/>
 
-                <label for="problem">Problem</label>
-                <textarea name="problem" id="problem" ></textarea>
+                    <label for="accessories">Accessories</label>
+                    <input name="accessories" id="accessories" type="text"/>
 
-                <label for="invoice">Invoice#</label>
-                <input name="invoice" id="invoice" type="text" v-model="invoice"/>
+                    <hr />
+                    <label for="problem">Problem</label>
+                    <br />
+                    <textarea name="problem" id="problem"></textarea>
+                </div>
                 
+                <br />
                 <button @click="newSale()">Issue Invoice</button>
                 <input type="submit" value="Submit"  @click.capture="newRepairOrder"/>
             </form>
