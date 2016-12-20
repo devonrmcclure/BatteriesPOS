@@ -2,79 +2,101 @@
 <modal :show.sync="show" :on-close="close" :title.sync="title">
 
     <div class="Modal__body">
-        <form method="POST" id="new-part-order-form" action="http://api.batteriespos.dev/v0/part-orders">
+        <form id="new-part-order-form">
             <input type="hidden" name="api_token" value="{{location.api_token}}"/>
             <input type="hidden" name="rep_id" v-model="rep.id"/>
+
+            <div class="part-order-number">
+                <label for="part-order-id">Part Order #:</label>
+                <input name="part-order-id" id="part-order-id" type="text" v-model="id" readonly>
+            </div>
+
             <customer :customer.sync="customer" :location.sync="location"></customer>
-            <label for="referred-by">Referred By</label>
-            <select name="referred-by" id="referred_by">
-                <option value="none">-- Select -- </option>
-                <option value="Oster">Oster</option>
-            </select>
 
-            <label for="part-order-id">Part Order #:</label>
-            <input name="part-order-id" id="part-order-id" type="text" v-model="id">
+            <div class="important-info">
+                <label for="referred-by">Referred By</label>
+                <select name="referred-by" id="referred_by">
+                    <option value="none">-- Select -- </option>
+                    <option value="Oster">Oster</option>
+                </select>
 
-            <label for="make">Make</label>
-            <input name="make" id="make" type="text"/>
+                
 
-            <label for="item">Item</label>
-            <input type="text" name="item" id="item">
+                <label for="make">Make</label>
+                <input name="make" id="make" type="text"/>
 
-            <label for="model">Model</label>
-            <input name="model" id="model" type="text"/>
+                <label for="item">Item</label>
+                <input type="text" name="item" id="item">
 
-            <label for="staff">Staff</label>
-            <input name="staff" id="staff" type="text"/>
+                <label for="model">Model</label>
+                <input name="model" id="model" type="text"/>
+                
+                <label for="part-number">Part Number</label>
+                <input name="part-number" id="part-number" type="text"/>
 
-            <label for="part-number">Part Number</label>
-            <input name="part-number" id="part-number" type="text"/>
+                <label for="deposit">Deposit</label>
+                <input name="deposit" id="deposit" type="text"/>
 
-            <label for="deposit">Deposit</label>
-            <input name="deposit" id="deposit" type="text"/>
+                <label for="staff">Staff</label>
+                <input name="staff" id="staff" type="text"/>
 
-            <label for="pick-up-location">Pick Up Location</label>
-            <input name="pick-up-location" id="pick-up-location" type="text" value="{{location.name}}"/>
+                <input name="pick-up-location" id="pick-up-location" type="hidden" value="{{location.name}}"/>
+            </div>
 
-            <label for="notes">Notes</label>
-            <textarea name="notes" id="notes"></textarea>
+            <!-- <label for="notes">Notes</label>
+            <textarea name="notes" id="notes"></textarea> -->
             <br />
-            <input class="sku" id="sku" v-model="sku" @change="addProduct" placeholder="Sku" tab-index="1">  <input v-model="quantity" @change="calculatePrice()" placeholder="Quantity">
-            <table class="products">
-                <tr>
-                    <th></th>
-                    <th>SKU</th>
-                    <th>Description</th>
-                    <th>QTY</th>
-                    <th>Discount</th>
-                    <th>Unit $</th>
-                    <th>Extended</th>
-                    <th>PST</th>
-                    <th>GST</th>
-                    <th>Total</th>
+            <div class="products"> <!-- Tables are dumb and cant have max height -.- -->
+                <table>
+                    <tr>
+                        <th class="remove-product"></th>
+                        <th>SKU</th>
+                        <th class="product-description">Description</th>
+                        <th>QTY</th>
+                        <th>Discount %</th>
+                        <th>Unit $</th>
+                        <th>Extended</th>
+                        <th>PST</th>
+                        <th>GST</th>
+                        <th>Total</th>
 
-                </tr>
+                    </tr>
 
-                <tr v-for="product in products">
-                    <td @click="removeProduct(product, $index)">X</td>
-                    <td><input type="text" name="sku[]" v-model="product.sku"/></td>
-                    <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-                    <td><input type="text" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
-                    <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
-                    <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
-                    <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
-                    <td><input type="text" name="pst[]" v-model="prices[$index].pst" readonly/></td>
-                    <td><input type="text" name="gst[]" v-model="prices[$index].gst" readonly/></td>
-                    <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" readonly/></td>
-                </tr>
+                    <tr v-for="product in products">
+                        <td class="remove-product" @click="removeProduct(product, $index)" class="removeProduct">&times;</td>
+                        <td><input type="text" name="sku[]" v-model="product.sku" @change="updateProduct($index)"/></td>
+                        <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
+                        <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td>
+                        <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
+                        <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
+                        <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
+                        <td><input type="text" name="pst[]" v-model="prices[$index].pst" readonly/></td>
+                        <td><input type="text" name="gst[]" v-model="prices[$index].gst" readonly/></td>
+                        <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" readonly/></td>
+                    </tr>
 
-            </table>
+                    <tr>
+                        <td class="active-row" @click="removeProduct(product, $index)" class="removeProduct">&#9658;</td>
+                        <td><input type="text" class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="483" tab-index="1"></td>
+                        <td><input type="text" placeholder="CR2032 Button Cell Battery" readonly/></td>
+                        <td><input type="text" placeholder="0" readonly/></td>
+                        <td><input type="text" placeholder="0.00" readonly/></td>
+                        <td><input type="text" readonly/></td>
+                        <td><input type="text" readonly/></td>
+                        <td><input type="text" readonly/></td>
+                        <td><input type="text" readonly/></td>
+                        <td><input type="text" readonly></td>
+                    </tr>
+                    
+                </table>
+            </div>
 
+            <button @click="newSale()">Issue Invoice</button>
             <input type="submit" value="Submit" @click.capture="newPartOrder"/>
         </form>
 
         <rep-login-modal :invoice.sync="invoice" :show.sync="showRepLogin" :prices="prices" :products="products" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
-        <button @click="newSale()">Issue Invoice</button>
+        
     </div>
 
 </modal>
@@ -135,19 +157,20 @@ export default Modal.extend({
         },
 
         getProduct(sku) {
-              var url = '/api/v0/inventory?sku=' + sku;
+            var url = '/api/v0/inventory?sku=' + sku;
 
-              this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
-                  this.products.push(response.data.data[0]);
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
+                this.products.push(response.data.data[0]);
+                this.calculatePrice();
 
-              }, function(response) {
-                  this.$set('error', 'The sku does not exist!');
-            // error callback
-              });
+            }, function(response) {
+                this.$set('error', 'The Product does not exist!');
+                // error callback
+            });
         },
 
         addProduct() {
-            if(!(this.products.length - this.prices.length) < 1)
+            if(this.prices.length < this.products.length)
             {
                 this.sku = '';
                 alert('Please enter a quantity for already entered product!');
@@ -155,7 +178,6 @@ export default Modal.extend({
             }
             this.getProduct(this.sku);
             this.sku = '';
-
         },
 
         calculatePrice() {
@@ -189,7 +211,7 @@ export default Modal.extend({
             this.sku = '';
             this.quantity = '';
             setTimeout(function(){
-                $("#sku").focus();
+                $('input[id=qty]:last').focus();
             }, 0);
         },
 
@@ -211,6 +233,19 @@ export default Modal.extend({
             return gst;
         },
 
+        updateProduct(index) {
+            var url = '/api/v0/inventory?sku=' + this.products[index]['sku'];
+
+              this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
+                  this.products.$set(index, response.data.data[0]);
+                  this.updatePrice(index);
+
+              }, function(response) {
+                  this.$set('error', 'The Rep does not exist!');
+            // error callback
+              });
+        },
+
         updatePrice(index) {
             var extended = (this.prices[index].quantity * this.products[index]['unit_price']).toFixed(2);
 
@@ -230,8 +265,6 @@ export default Modal.extend({
                 gst: Number(gst).toFixed(2),
                 sku_total: Number(total).toFixed(2),
             };  
-
-            
             this.prices.$set(index, price);
 
             this.sku = '';
