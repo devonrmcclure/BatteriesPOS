@@ -34,6 +34,8 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('part-orders/{orderNum}', 'Controllers\PartOrdersController@show');
 
     Route::get('customers', 'Controllers\CustomersController@index');
+
+    Route::get('close-out', 'Controllers\CloseOutController@index');
 });
 
 Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev'], function () {
