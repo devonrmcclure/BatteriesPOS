@@ -197,5 +197,37 @@ class CategoriesTableSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
 
+            DB::table('categories')->insert([
+                    'name' => 'Miscellaneous',
+                    'parent_id' => 5,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+
+            DB::table('categories')->insert([
+                    'name' => 'Toys',
+                    'parent_id' => 5,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+
+            DB::table('categories')->insert([
+                    'name' => 'Travel',
+                    'parent_id' => 5,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+
+            // Travel ID: 34
+
+                DB::table('categories')->insert([
+                        'name' => 'Travel Adapters',
+                        'parent_id' => 34,
+                        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ]);
+
+                DB::table('categories')->insert([
+                        'name' => 'Travel Converters',
+                        'parent_id' => 34,
+                        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ]);
+
     }
 }
