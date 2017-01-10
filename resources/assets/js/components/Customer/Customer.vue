@@ -1,4 +1,4 @@
-0<template>
+<template>
     <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location" :phone="phoneNumber"></new-customer-modal>
     <span class="error">{{ error }}</span>
     <input type="text" placeholder="Search Customer" v-model="phoneNumber" @change="getCustomer()"/><br/>

@@ -36,6 +36,12 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('customers', 'Controllers\CustomersController@index');
 
     Route::get('close-out', 'Controllers\CloseOutController@index');
+
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('dashboard', 'Controllers\Admin\DashboardController@index');
+
+        Route::get('inventory/edit', 'Controllers\Admin\InventoryController@index');
+    });
 });
 
 Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev'], function () {
@@ -70,5 +76,13 @@ Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev
         Route::get('part-orders/{orderNum}', 'Api\Controllers\PartOrdersController@show');
         Route::post('part-orders', 'Api\Controllers\PartOrdersController@store');
         Route::post('part-orders/{orderNum', 'Api\Controllers\PartOrdersController@update');
+
+        Route::group(['prefix' => 'admin'], function () {
+            Route::get('inventory', 'Api\Controllers\Admin\InventoryController@index');
+            Route::post('inventory/update', 'Api\Controllers\Admin\InventoryController@update');
+
+            Route::get('categories', 'Api\Controllers\Admin\CategoriesController@index');
+            Route::post('categories', 'Api\Controllers\Admin\CategoriesController@update');
+        });
     });
 });

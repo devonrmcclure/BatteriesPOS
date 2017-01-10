@@ -91,7 +91,8 @@ class ApiController extends Controller
             'with',
             'wherewith',
             'description',
-            'like'
+            'like',
+            'except'
         ];
 
         $query = $model::select();
@@ -145,6 +146,12 @@ class ApiController extends Controller
             $query->whereBetween($range[0], [new Carbon($range[1]), new Carbon($range[2])]);
         }
 
+        if(isset($parameters['except']))
+        {
+            $order = explode(',', $parameters['except'], 3);
+            $query->where($order[0], $order[1], $order[2]);
+        }
+
         if(isset($parameters['order_by']))
         {
             $order = explode(',', $parameters['order_by'], 2);
@@ -153,7 +160,14 @@ class ApiController extends Controller
 
         if(isset($parameters['limit']))
         {
-            $limit = $parameters['limit'];
+            if($parameters['limit'] == 'all')
+            {
+                $limit = NULL;
+            }
+            else
+            {
+                $limit = $parameters['limit'];
+            }
         }
 
         if(isset($parameters['created_at']))
@@ -172,7 +186,7 @@ class ApiController extends Controller
         }
 
         try {
-            return $query->latest()->take($limit)->get();
+            return $query->take($limit)->get();
         } catch (\Illuminate\Database\QueryException $e) {
             //Todo, return with proper JSON error.
             dd($e);
