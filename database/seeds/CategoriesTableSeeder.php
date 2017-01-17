@@ -394,8 +394,122 @@ class CategoriesTableSeeder extends Seeder
                 ]);
 
                     DB::table('categories')->insert([
+                            'name' => 'Oster',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Phillips',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Moulinex',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Krups',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Bionaire',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
                             'name' => 'Braun',
-                            'parent_id' => 8,
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'T-Fal',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Sunbeam',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'KitchenAid',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'FoodSaver',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Salton',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'DeLonghi',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'ProctorSilex',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Hamilton Beach',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Margaritaville',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Cuisinart',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Breville',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Rowenta',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Toastess',
+                            'parent_id' => 61,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Miscellaneous',
+                            'parent_id' => 61,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
@@ -406,20 +520,248 @@ class CategoriesTableSeeder extends Seeder
                 ]);
 //{
                     DB::table('categories')->insert([
+                            'name' => 'Oster',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Phillips',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Moulinex',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Krups',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Bionaire',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
                             'name' => 'Braun',
-                            'parent_id' => 8,
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'T-Fal',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Sunbeam',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'KitchenAid',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'FoodSaver',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Salton',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'DeLonghi',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'ProctorSilex',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Hamilton Beach',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Margaritaville',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Cuisinart',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Breville',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Rowenta',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Toastess',
+                            'parent_id' => 81,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Miscellaneous',
+                            'parent_id' => 81,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                 DB::table('categories')->insert([
-                        'name' => 'Smapll Appliance Accessories',
+                        'name' => 'Small Appliance Accessories',
                         'parent_id' => 9,
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ]);
 
+                   DB::table('categories')->insert([
+                            'name' => 'Oster',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Phillips',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Moulinex',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Krups',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Bionaire',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
                     DB::table('categories')->insert([
                             'name' => 'Braun',
-                            'parent_id' => 8,
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'T-Fal',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Sunbeam',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'KitchenAid',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'FoodSaver',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Salton',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'DeLonghi',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'ProctorSilex',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Hamilton Beach',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Margaritaville',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Cuisinart',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Breville',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Rowenta',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Toastess',
+                            'parent_id' => 101,
+                            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ]);
+
+                    DB::table('categories')->insert([
+                            'name' => 'Miscellaneous',
+                            'parent_id' => 101,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 //}
