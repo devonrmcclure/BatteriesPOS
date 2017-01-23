@@ -313,23 +313,23 @@ class CategoriesTableSeeder extends Seeder
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ]);
 
-                // Shaver Accessories ID: 
+                // Shaver Accessories ID: 49
 
                     DB::table('categories')->insert([
                             'name' => 'Braun',
-                            'parent_id' => 8,
+                            'parent_id' => 49,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                     DB::table('categories')->insert([
                         'name' => 'Miscellaneous',
-                        'parent_id' => 8,
+                        'parent_id' => 49,
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                     DB::table('categories')->insert([
                         'name' => 'Phillips',
-                        'parent_id' => 8,
+                        'parent_id' => 49,
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
@@ -340,25 +340,27 @@ class CategoriesTableSeeder extends Seeder
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ]);
 
-                // Shaver Parts ID: 
+                // Shaver Parts ID: 53
                  
                     DB::table('categories')->insert([
                             'name' => 'Braun',
-                            'parent_id' => 8,
+                            'parent_id' => 53,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                     DB::table('categories')->insert([
                             'name' => 'Miscellaneous',
-                            'parent_id' => 8,
+                            'parent_id' => 53,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                     DB::table('categories')->insert([
                             'name' => 'Phillips',
-                            'parent_id' => 8,
+                            'parent_id' => 53,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
+
+                // Shaver Units ID: 57
 
                 DB::table('categories')->insert([
                         'name' => 'Shaver Units',
@@ -368,19 +370,19 @@ class CategoriesTableSeeder extends Seeder
 
                     DB::table('categories')->insert([
                             'name' => 'Braun',
-                            'parent_id' => 8,
+                            'parent_id' => 57,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                     DB::table('categories')->insert([
                             'name' => 'Miscellaneous',
-                            'parent_id' => 8,
+                            'parent_id' => 57,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                     DB::table('categories')->insert([
                             'name' => 'Phillips',
-                            'parent_id' => 8,
+                            'parent_id' => 57,
                             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
