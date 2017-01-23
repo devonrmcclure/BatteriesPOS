@@ -7,6 +7,8 @@
         <div class="module">
 
             CLOSE OUT
+
+            <close-out :location="{{ Auth::User() }}"></close-out>
         </div>
     </div>
 </div>

@@ -62,7 +62,7 @@
             },
 
             getInvoice() {
-                var url = '/api/v0/invoice?location=' + this.location.name;
+                var url = '/api/v0/invoice?order_by=created_at,desc?location=' + this.location.name;
 
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then( function(response) {
