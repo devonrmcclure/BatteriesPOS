@@ -1,7 +1,7 @@
 <template>
     {{totalCashSales[0].preTax}}
 
-    <button type="button" @click="getTotalCashSales()">gfd</button>
+    <button type="button" @click="updateStats()">gfd</button>
     grteghrtesg
 </template>
 
@@ -60,6 +60,15 @@ export default Vue.extend({
                     this.totalCashSales = 5;        
                 }
             });
+        },
+
+        updateStats() {
+            this.clear();
+            this.getTotalCashSales();
+        },
+
+        clear() {
+            this.totalCashSales = [];
         }
     }
 });
