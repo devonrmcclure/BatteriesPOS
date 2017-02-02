@@ -6,8 +6,6 @@
     <div class="col-md-6 module-container">
         <div class="module">
 
-            CLOSE OUT
-
             <close-out :location="{{ Auth::User() }}"></close-out>
         </div>
     </div>

@@ -1,5 +1,31 @@
 <template>
-    {{totalSales.toFixed(2)}}
+
+    <form style="text-align: right;">
+        <label for="cash">Cash</label>
+        <input type="text" placeholder="0.00" v-model="cashInput"><br/>
+
+        <label for="cash">Debit Card</label>
+        <input type="text" placeholder="0.00" v-model="interacInput"><br/>
+
+        <label for="cash">Visa</label>
+        <input type="text" placeholder="0.00" v-model="visaInput "><br/>
+
+        <label for="cash">Master Card</label>
+        <input type="text" placeholder="0.00" v-model="mastercardInput"><br/>
+
+        <label for="cash">Other</label>
+        <input type="text" placeholder="0.00" v-model="otherInput"><br/>
+
+        <label for="cash">Total</label>
+        <input type="text" placeholder="0.00" v-model="inputTotals" readonly><br/>
+
+        <label for="cash">Proceeds To Deposit</label>
+        <input type="text" placeholder="0.00" v-model="totalSales" readonly><br/>
+
+        <label for="cash">DIFFERENCE</label>
+        <input type="text" placeholder="0.00" v-model="difference" readonly><br/>
+
+    </form>
 
     <button type="button" @click="updateStats()">Calculate</button>
 </template>
@@ -16,7 +42,12 @@ export default Vue.extend({
             totalInteracSales: [],
             totalVisaSales: [],
             totalMasterCardSales: [],
-            totalSales: 0
+            totalSales: 0,
+            cashInput: '',
+            interacInput: '',
+            visaInput: '',
+            mastercardInput: '',
+            otherInput: ''
         }
     },
 
@@ -40,6 +71,14 @@ export default Vue.extend({
 
             return year + "-" + month + "-" + day;
         },
+
+        difference: function() {
+            return (Number(this.totalSales) - Number(this.inputTotals)).toFixed(2);
+        },
+
+        inputTotals: function() {
+            return (Number(this.cashInput) + Number(this.interacInput) + Number(this.visaInput) + Number(this.mastercardInput) + Number(this.otherInput)).toFixed(2);
+        }
     },
 
     methods: {
@@ -61,7 +100,7 @@ export default Vue.extend({
                 //Error
                 if(response.status === 404)
                 {
-                    this.totalCashSales = [];        
+                    this.totalCashSales = [];    
                 }
             });
         },
