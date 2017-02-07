@@ -1,21 +1,27 @@
 <template>
-
+    <sale-type-stats 
+        :labels="['Cash', 'Interac', 'Visa', 'MasterCard', 'Other']" 
+        :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B', '#9C27B0']"
+        :location="location"
+    ></sale-type-stats>
     <form style="text-align: right;">
         <label for="cash">Cash</label>
-        <input type="text" placeholder="0.00" v-model="cashInput"><br/>
+        <input id="cash" type="text" placeholder="0.00" v-model="cashInputDisplay" @blur="formatCurrency('cashInput')" @focus="unformatCurrency('cashInput')"><br/>
 
-        <label for="cash">Debit Card</label>
-        <input type="text" placeholder="0.00" v-model="interacInput"><br/>
+        <label for="interac">Debit Card</label>
+        <input id="interac" type="text" placeholder="0.00" v-model="interacInputDisplay" @blur="formatCurrency('interacInput')" @focus="unformatCurrency('interacInput')"><br/>
 
-        <label for="cash">Visa</label>
-        <input type="text" placeholder="0.00" v-model="visaInput "><br/>
+        <label for="visa">Visa</label>
+        <input id="visa" type="text" placeholder="0.00" v-model="visaInputDisplay" @blur="formatCurrency('visaInput')" @focus="unformatCurrency('visaInput')"><br/>
 
-        <label for="cash">Master Card</label>
-        <input type="text" placeholder="0.00" v-model="mastercardInput"><br/>
+        <label for="mastercard">Master Card</label>
+        <input id="mastercard" type="text" placeholder="0.00" v-model="mastercardInputDisplay" @blur="formatCurrency('mastercardInput')" @focus="unformatCurrency('mastercardInput')"><br/>
 
-        <label for="cash">Other</label>
-        <input type="text" placeholder="0.00" v-model="otherInput"><br/>
+        <label for="other">Other</label>
+        <input id="other" type="text" placeholder="0.00" v-model="otherInputDisplay" @blur="formatCurrency('otherInput')" @focus="unformatCurrency('otherInput')"><br/>
+        
 
+        <p>Total: ${{inputTotals}}</p>
         <label for="cash">Total</label>
         <input type="text" placeholder="0.00" v-model="inputTotals" readonly><br/>
 
@@ -34,6 +40,7 @@
 <script lang="babel">
 
 import Vue from 'vue';
+import SaleTypeStats from '../Graphs/SaleTypeStats.vue'
 
 export default Vue.extend({
     data() {
@@ -43,15 +50,20 @@ export default Vue.extend({
             totalVisaSales: [],
             totalMasterCardSales: [],
             totalSales: 0,
-            cashInput: '',
-            interacInput: '',
-            visaInput: '',
-            mastercardInput: '',
-            otherInput: ''
+            cashInput: null,
+            cashInputDisplay: 0.00,
+            interacInput: null,
+            interacInputDisplay: 0.00,
+            visaInput: null,
+            visaInputDisplay: 0.00,
+            mastercardInput: null,
+            mastercardInputDisplay: 0.00,
+            otherInput: null,
+            otherInputDisplay: 0.00
         }
     },
 
-    components: {},
+    components: {SaleTypeStats},
 
     props: ['location'],
 
@@ -60,6 +72,7 @@ export default Vue.extend({
         this.getTotalInteracSales();
         this.getTotalMasterCardSales();
         this.getTotalVisaSales();
+        this.getTotalOtherSales();
     },
 
     computed: {
@@ -174,12 +187,89 @@ export default Vue.extend({
             });
         },
 
+        getTotalOtherSales() {
+            var url = '/api/v0/invoice?created_at=' + this.today + '&location=' + this.location.name + '&limit=all&payment_method=Other';
+            this.$http.get(url, {api_token: this.location.api_token})
+            .then(function(response) {
+                //Success
+                for(var i = 0; i < response.data.data.length; i++) {
+                    
+                    var data = {
+                        'withTax': response.data.data[i].total,
+                        'preTax': (response.data.data[i].total - (response.data.data[i].total_pst + response.data.data[i].total_gst))
+                    };
+                        this.totalOtherSales.push(data);
+                        this.totalSales += response.data.data[i].total;
+                }                    
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                    this.totalOtherSales = [];        
+                }
+            });
+        },
+
         updateStats() {
             this.clear();
             this.getTotalCashSales();
             this.getTotalInteracSales();
             this.getTotalMasterCardSales();
             this.getTotalVisaSales();
+            this.getTotalOtherSales();
+        },
+
+        formatCurrency(input) {
+            switch(input) {
+                case 'cashInput':
+                    this.cashInput = Number(this.cashInputDisplay).toFixed(2);
+                    this.cashInputDisplay = "$ " + this.cashInput.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+                    break;
+
+                case 'interacInput':
+                    this.interacInput = Number(this.interacInputDisplay).toFixed(2);
+                    this.interacInputDisplay = "$ " + this.interacInput.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+                    break;
+
+                case 'visaInput':
+                    this.visaInput = Number(this.visaInputDisplay).toFixed(2);
+                    this.visaInputDisplay = "$ " + this.visaInput.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+                    break;
+
+                case 'mastercardInput':
+                    this.mastercardInput = Number(this.mastercardInputDisplay).toFixed(2);
+                    this.mastercardInputDisplay = "$ " + this.mastercardInput.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+                    break;
+
+                case 'otherInput':
+                    this.otherInput = Number(this.otherInputDisplay).toFixed(2);
+                    this.otherInputDisplay = "$ " + this.otherInput.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+                    break;
+            }
+        },
+
+        unformatCurrency(input) {
+            switch(input) {
+                case 'cashInput':
+                    this.cashInputDisplay = this.cashInput;
+                    break;
+
+                case 'interacInput':
+                    this.interacInputDisplay = this.interacInput;
+                    break;
+
+                case 'visaInput':
+                    this.visaInputDisplay = this.visaInput;
+                    break;
+
+                case 'mastercardInput':
+                    this.mastercardInputDisplay = this.mastercardInput;
+                    break;
+
+                case 'otherInput':
+                    this.otherInputDisplay = this.otherInput;
+                    break;
+            }
         },
 
         clear() {

@@ -11,8 +11,9 @@
     "notify-send": "^0.1.2"
   },
   "dependencies": {
+    "chart.js": "^2.4.0",
     "moment": "^2.13.0",
-    "vue": "^1.0.21",
+    "vue": "^1.*",
     "vue-resource": "^0.7.0"
   }
 }

@@ -28,6 +28,8 @@
         
         props: ['title', 'location'],
 
+        components: {},
+
         ready() {
            this.calculateDailyStats();
         },
