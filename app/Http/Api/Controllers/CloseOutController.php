@@ -26,6 +26,7 @@ class DailyStatsController extends ApiController
 
     public function index(Request $request)
     {
+        //todo: check if day has already been closed, if so, populate fields with that data, if not, empty data.
         $parameters = $request->all();
         
         return $this->respond([
@@ -35,4 +36,6 @@ class DailyStatsController extends ApiController
             'user' => \Auth::guard('api')->user()
         ]);
     }
+
+    //on POST update the closing stats for the day. 
 }
