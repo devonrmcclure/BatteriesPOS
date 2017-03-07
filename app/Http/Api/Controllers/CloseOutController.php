@@ -7,17 +7,14 @@ use Illuminate\Http\Response;
 
 use App\Http\Requests;
 
-use App\Customer;
-use App\Invoice;
-use App\Sale;
+use App\DailyCloseOut;
+use Auth;
+use Carbon\Carbon;
 
-use App\Http\Api\Transformers\StatsTransformer;
-
-
-class DailyStatsController extends ApiController
+class CloseOutController extends ApiController
 {   
     //Declare the model we are working on
-    //protected $invoices = '\App\Sale';
+    protected $model = '\App\DailyCloseOut';
 
     function __construct()
     {
@@ -27,15 +24,86 @@ class DailyStatsController extends ApiController
     public function index(Request $request)
     {
         //todo: check if day has already been closed, if so, populate fields with that data, if not, empty data.
-        $parameters = $request->all();
-        
+        $closeOut = $this->getResults($this->model, $request->all());
+
+        if($closeOut->isEmpty())
+        {
+            return $this->respondNotFound('Close out has not been done');
+        }
+
         return $this->respond([
-            'data' => [
-                
-            ],
+            'data' => $closeOut,
             'user' => \Auth::guard('api')->user()
         ]);
     }
 
     //on POST update the closing stats for the day. 
+    //
+    public function store(Request $request)
+    {
+
+        if(null !== $request->input('cash') 
+                && null !== $request->input('interac')
+                && null !== $request->input('visa')
+                && null !== $request->input('mastercard')
+                && null !== $request->input('other')
+                && null !== $request->input('total')
+        ){
+            if(!$this->checkAlreadyClosed())
+            {
+                $closeOut = new DailyCloseOut;
+                $closeOut->cash = str_replace('$ ', '', $request->input('cash'));
+                $closeOut->interac = str_replace('$ ', '', $request->input('interac'));
+                $closeOut->visa = str_replace('$ ', '', $request->input('visa'));
+                $closeOut->mastercard = str_replace('$ ', '', $request->input('mastercard'));
+                $closeOut->other = str_replace('$ ', '', $request->input('other'));
+                $closeOut->total = str_replace('$ ', '', $request->input('total'));
+                $closeOut->store_id = Auth::guard('api')->user()->id;
+                $closeOut->save();
+
+                return $this->respond([
+                    'data' => [
+                        'message' => 'success'
+                    ],
+                    'user' => \Auth::guard('api')->user()
+                ]);
+            }
+            else {
+                //Close out already exists, so update it.
+                $closeOut = DailyCloseOut::where('created_at', '>=', Carbon::today())->where('store_id', Auth::guard('api')->user()->id)->first();
+
+                $closeOut->cash = str_replace('$ ', '', $request->input('cash'));
+                $closeOut->interac = str_replace('$ ', '', $request->input('interac'));
+                $closeOut->visa = str_replace('$ ', '', $request->input('visa'));
+                $closeOut->mastercard = str_replace('$ ', '', $request->input('mastercard'));
+                $closeOut->other = str_replace('$ ', '', $request->input('other'));
+                $closeOut->total = str_replace('$ ', '', $request->input('total'));
+                $closeOut->store_id = Auth::guard('api')->user()->id;
+                $closeOut->save();
+
+                return $this->respond([
+                    'data' => [
+                        'message' => 'close out updated'
+                    ],
+                    'user' => \Auth::guard('api')->user()
+                ]);
+            }
+            
+        }
+
+        $this->setStatusCode(400);
+
+        return $this->respondWithError('Please enter all fields');
+    }
+
+    protected function checkAlreadyClosed(Request $request)
+    {    
+        $exists = 
+        if($exists != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

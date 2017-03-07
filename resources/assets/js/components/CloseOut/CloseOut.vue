@@ -4,36 +4,37 @@
         :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B', '#9C27B0']"
         :location="location"
     ></sale-type-stats>
-    <form style="text-align: right;">
+    <form style="text-align: right;" id="close-out-form">
+        <input  type="hidden" name="api_token" value="{{location.api_token}}" readonly/> 
         <label for="cash">Cash</label>
-        <input id="cash" type="text" placeholder="0.00" v-model="cashInputDisplay" @blur="formatCurrency('cashInput')" @focus="unformatCurrency('cashInput')"><br/>
+        <input name="cash" id="cash" type="text" placeholder="0.00" v-model="cashInputDisplay" @blur="formatCurrency('cashInput')" @focus="unformatCurrency('cashInput')"><br/>
 
         <label for="interac">Debit Card</label>
-        <input id="interac" type="text" placeholder="0.00" v-model="interacInputDisplay" @blur="formatCurrency('interacInput')" @focus="unformatCurrency('interacInput')"><br/>
+        <input name="interac" id="interac" type="text" placeholder="0.00" v-model="interacInputDisplay" @blur="formatCurrency('interacInput')" @focus="unformatCurrency('interacInput')"><br/>
 
         <label for="visa">Visa</label>
-        <input id="visa" type="text" placeholder="0.00" v-model="visaInputDisplay" @blur="formatCurrency('visaInput')" @focus="unformatCurrency('visaInput')"><br/>
+        <input name="visa" id="visa" type="text" placeholder="0.00" v-model="visaInputDisplay" @blur="formatCurrency('visaInput')" @focus="unformatCurrency('visaInput')"><br/>
 
         <label for="mastercard">Master Card</label>
-        <input id="mastercard" type="text" placeholder="0.00" v-model="mastercardInputDisplay" @blur="formatCurrency('mastercardInput')" @focus="unformatCurrency('mastercardInput')"><br/>
+        <input name="mastercard" id="mastercard" type="text" placeholder="0.00" v-model="mastercardInputDisplay" @blur="formatCurrency('mastercardInput')" @focus="unformatCurrency('mastercardInput')"><br/>
 
         <label for="other">Other</label>
-        <input id="other" type="text" placeholder="0.00" v-model="otherInputDisplay" @blur="formatCurrency('otherInput')" @focus="unformatCurrency('otherInput')"><br/>
+        <input name="other" id="other" type="text" placeholder="0.00" v-model="otherInputDisplay" @blur="formatCurrency('otherInput')" @focus="unformatCurrency('otherInput')"><br/>
         
 
-        <p>Total: ${{inputTotals}}</p>
+       
         <label for="cash">Total</label>
-        <input type="text" placeholder="0.00" v-model="inputTotals" readonly><br/>
+        <input name="total" type="text" placeholder="0.00" v-model="inputTotals" readonly><br/>
 
         <label for="cash">Proceeds To Deposit</label>
         <input type="text" placeholder="0.00" v-model="totalSales" readonly><br/>
 
         <label for="cash">DIFFERENCE</label>
         <input type="text" placeholder="0.00" v-model="difference" readonly><br/>
-
     </form>
 
     <button type="button" @click="updateStats()">Calculate</button>
+    <button name="close-out" value="Close Out" @click="closeOut()">Close Out</button>
 </template>
 
 
@@ -73,6 +74,7 @@ export default Vue.extend({
         this.getTotalMasterCardSales();
         this.getTotalVisaSales();
         this.getTotalOtherSales();
+        this.checkAlreadyClosed();
     },
 
     computed: {
@@ -278,7 +280,30 @@ export default Vue.extend({
             this.totalMasterCardSales = [];
             this.totalVisaSales = [];
             this.totalSales = 0;
-        }
+        },
+
+        checkAlreadyClosed() {
+            
+        },
+
+        closeOut() {
+
+                var formData = new FormData(document.querySelector('#close-out-form'));
+
+                var data = {
+                    cash: this.cashInput,
+                    interac: this.visaInput,
+                    total: this.total,
+                    api_token: this.location.api_token
+                }
+                var url = '/api/v0/close-out';
+                this.$http.post(url, formData)
+                .then(function(response) {
+                    //Success
+                }, function(response) {
+                    //TODO: Proper flash message
+                });               
+            },
     }
 });
 
