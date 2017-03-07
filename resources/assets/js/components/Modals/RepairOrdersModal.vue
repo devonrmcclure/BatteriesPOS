@@ -59,11 +59,11 @@
                 </div>
                 
                 <br />
-                <button @click="newSale()">Issue Invoice</button>
+                
                 <input type="submit" value="Submit"  @click.capture="newRepairOrder"/>
             </form>
             <rep-login-modal :show.sync="showRepLogin" :invoice.sync="invoice" :total.sync="deposit" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
-            
+            <button @click="newSale()">Issue Invoice</button>
         </div>
 
     </modal>
