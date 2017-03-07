@@ -49,7 +49,7 @@ class CloseOutController extends ApiController
                 && null !== $request->input('other')
                 && null !== $request->input('total')
         ){
-            if(!$this->checkAlreadyClosed())
+            if(DailyCloseOut::where('created_at', '>=', Carbon::today())->where('store_id', Auth::guard('api')->user()->id)->first() == null)
             {
                 $closeOut = new DailyCloseOut;
                 $closeOut->cash = str_replace('$ ', '', $request->input('cash'));
@@ -94,16 +94,5 @@ class CloseOutController extends ApiController
         $this->setStatusCode(400);
 
         return $this->respondWithError('Please enter all fields');
-    }
-
-    protected function checkAlreadyClosed(Request $request)
-    {    
-        $exists = 
-        if($exists != null)
-        {
-            return true;
-        }
-
-        return false;
     }
 }

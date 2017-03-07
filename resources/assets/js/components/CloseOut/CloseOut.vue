@@ -74,7 +74,9 @@ export default Vue.extend({
         this.getTotalMasterCardSales();
         this.getTotalVisaSales();
         this.getTotalOtherSales();
-        this.checkAlreadyClosed();
+        Vue.nextTick(function () {
+            this.checkAlreadyClosed(); 
+        }.bind(this));
     },
 
     computed: {
@@ -283,7 +285,28 @@ export default Vue.extend({
         },
 
         checkAlreadyClosed() {
-            
+            var url = '/api/v0/close-out';
+            this.$http.get(url, {api_token: this.location.api_token})
+            .then(function(response) {
+                this.cashInputDisplay = '$ ' + response.data.data[0].cash;
+                this.cashInput = response.data.data[0].cash;
+
+                this.interacInputDisplay = '$ ' + response.data.data[0].interac;
+                this.interacInput = response.data.data[0].interac;
+
+                this.visaInputDisplay = '$ ' + response.data.data[0].visa;
+                this.visaInput = response.data.data[0].visa;
+
+                this.mastercardInputDisplay = '$ ' + response.data.data[0].mastercard;
+                this.mastercardInput = response.data.data[0].mastercard;
+
+                this.otherInputDisplay = '$ ' + response.data.data[0].other;
+                this.otherInput = response.data.data[0].other;
+
+                this.total = response.data.data[0].total;
+            }, function(response) {
+                //TODO: Proper flash message
+            });     
         },
 
         closeOut() {

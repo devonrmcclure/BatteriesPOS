@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev
         Route::post('part-orders', 'Api\Controllers\PartOrdersController@store');
         Route::post('part-orders/{orderNum', 'Api\Controllers\PartOrdersController@update');
 
+        Route::get('close-out', 'Api\Controllers\CloseOutController@index');
         Route::post('close-out', 'Api\Controllers\CloseOutController@store');
 
         Route::group(['prefix' => 'admin'], function () {
