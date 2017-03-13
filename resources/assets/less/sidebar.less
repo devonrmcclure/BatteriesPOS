@@ -1,13 +1,15 @@
 .sidebar {
 	position: fixed;
-	top: 0;
+	bottom: 0;
 	left: 0;
-	width: 200px;
+	width: 100vw;
 	background: @indigo-700;
-	min-height: 100vh;
+	min-height: 0px;
 	max-height: auto;
 	padding: 0px;
 	color: #fff;
+	z-index: 8888;
+	
 	.box-shadow(3px 0 15px @boxShadowColor);
 	/*-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
@@ -17,21 +19,28 @@
 	.sidebar-nav {
 	    overflow-y: auto;
 	    height: auto;
-
+	    margin: 0 auto;
+		
 	    ul {
 	        list-style-type: none;
-	        margin: 0;
 	        padding: 0;
+	        text-align: center;
+
 	        li {
 	            margin: 0;
 	            padding: 0;
-	            text-align: left;
+	            float: left;
+	            display: inline-block;
+	            width: 20%;
+
 	            a {
 	                display: block;
-	                padding: 20px;
+	                padding: 10px;
+	                padding-top: 15px;
 	                color: #eee;
 	                text-decoration: none;
 	                margin: 0;
+
 	                .material-icons {
 	                    vertical-align: middle;
 	                    margin-right: 20px;
