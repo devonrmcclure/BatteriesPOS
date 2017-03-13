@@ -1,10 +1,10 @@
 <template>
-    <sale-type-stats 
+    <!-- <sale-type-stats 
         :labels="['Cash', 'Interac', 'Visa', 'MasterCard', 'Other']" 
         :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B', '#9C27B0']"
         :location="location"
-    ></sale-type-stats>
-    <form style="text-align: right;" id="close-out-form">
+    ></sale-type-stats> -->
+    <form id="close-out-form">
         <input  type="hidden" name="api_token" value="{{location.api_token}}" readonly/> 
         <label for="cash">Cash</label>
         <input name="cash" id="cash" type="text" placeholder="0.00" v-model="cashInputDisplay" @blur="formatCurrency('cashInput')" @focus="unformatCurrency('cashInput')"><br/>
@@ -32,9 +32,11 @@
         <label for="cash">DIFFERENCE</label>
         <input type="text" placeholder="0.00" v-model="difference" readonly><br/>
     </form>
-
+    <div class="clear-class"></div>
     <button type="button" @click="updateStats()">Calculate</button>
     <button name="close-out" value="Close Out" @click="closeOut()">Close Out</button>
+
+    
 </template>
 
 
