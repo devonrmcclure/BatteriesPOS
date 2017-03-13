@@ -288,22 +288,22 @@ export default Vue.extend({
             var url = '/api/v0/close-out';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
-                this.cashInputDisplay = '$ ' + response.data.data[0].cash;
-                this.cashInput = response.data.data[0].cash;
+                this.cashInputDisplay = '$ ' + response.data.data.cash;
+                this.cashInput = response.data.data.cash;
 
-                this.interacInputDisplay = '$ ' + response.data.data[0].interac;
-                this.interacInput = response.data.data[0].interac;
+                this.interacInputDisplay = '$ ' + response.data.data.interac;
+                this.interacInput = response.data.data.interac;
 
-                this.visaInputDisplay = '$ ' + response.data.data[0].visa;
-                this.visaInput = response.data.data[0].visa;
+                this.visaInputDisplay = '$ ' + response.data.data.visa;
+                this.visaInput = response.data.data.visa;
 
-                this.mastercardInputDisplay = '$ ' + response.data.data[0].mastercard;
-                this.mastercardInput = response.data.data[0].mastercard;
+                this.mastercardInputDisplay = '$ ' + response.data.data.mastercard;
+                this.mastercardInput = response.data.data.mastercard;
 
-                this.otherInputDisplay = '$ ' + response.data.data[0].other;
-                this.otherInput = response.data.data[0].other;
+                this.otherInputDisplay = '$ ' + response.data.data.other;
+                this.otherInput = response.data.data.other;
 
-                this.total = response.data.data[0].total;
+                this.total = response.data.data.total;
             }, function(response) {
                 //TODO: Proper flash message
             });     

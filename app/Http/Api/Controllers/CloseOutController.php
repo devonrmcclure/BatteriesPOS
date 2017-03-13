@@ -23,10 +23,9 @@ class CloseOutController extends ApiController
 
     public function index(Request $request)
     {
+        $closeOut = DailyCloseOut::where('created_at', '>=', Carbon::today())->where('store_id', Auth::guard('api')->user()->id)->first();
         //todo: check if day has already been closed, if so, populate fields with that data, if not, empty data.
-        $closeOut = $this->getResults($this->model, $request->all());
-
-        if($closeOut->isEmpty())
+        if($closeOut == null)
         {
             return $this->respondNotFound('Close out has not been done');
         }
