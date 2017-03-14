@@ -5,6 +5,7 @@
 
             <form id="new-repair-order-form">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
+                <input type="hidden" name="orderNumber" value="{{orderNumber}}"/>
                 <customer :customer.sync="customer" :location.sync="location"></customer>
 
                 <div class="important-info">
@@ -88,9 +89,14 @@
                 ro_customer: [],
                 showRepLogin: false,
                 invoice: '',
-                deposit: ''
+                deposit: '',
+                orderNumber: ''
 
             }
+        },
+
+        ready() {
+            this.getRepairOrderNumber();
         },
 
         methods: {
@@ -119,6 +125,42 @@
                     console.log(response);
                 });               
             },
+
+            getRepairOrderNumber() {
+                var url = '/api/v0/repair_orders?order_by=created_at,desc?location=' + this.location.name;
+
+                this.$http.get(url, {api_token: this.location.api_token})
+                .then( function(response) {
+                    //Success
+                    this.$set('orderNumber', Number(response.data.data[0].id+1));
+                }, function(response) {
+                    //Error
+
+                    switch(this.location.name) {
+                        case "Head Office":
+                            this.orderNumber = 0;
+                            break;
+                        case "Richmond":
+                            this.orderNumber = 20000;
+                            break;
+                        case "White Rock":
+                            this.orderNumber = 30000;
+                            break;
+                        case "Guildford":
+                            this.orderNumber = 60000;
+                            break;
+                        case "Nanaimo":
+                            this.orderNumber = 70000;
+                            break;
+                        case "Maple Ridge":
+                            this.orderNumber = 80000;
+                            break;
+                        default:
+                            //Throw error
+                            console.log('ERROR');
+                    }
+                });
+            }
         }
     });
 </script>

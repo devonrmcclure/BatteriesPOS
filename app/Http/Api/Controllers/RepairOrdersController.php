@@ -43,7 +43,7 @@ class RepairOrdersController extends ApiController
         //TODO: Validation. (Use Laravel's validator.)
 
         $repairOrder = new RepairOrder;
-
+        $repairOrder->id = $request->input('orderNumber');
         $repairOrder->referred_by = $request->input('referred-by');
         $repairOrder->customer_id = $request->input('customer-id');
         $repairOrder->call_if_over = $request->input('call_if_over');

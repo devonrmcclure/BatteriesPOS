@@ -43,8 +43,8 @@ class CreateRepairOrdersTable extends Migration
                               ->references('id')->on('users');
                         $table->foreign('staff_id')
                               ->references('id')->on('staff');
-                        $table->foreign('invoice_id')
-                              ->references('id')->on('invoices');
+                        //$table->foreign('invoice_id')
+                              //->references('id')->on('invoices');
 
         });
     }
