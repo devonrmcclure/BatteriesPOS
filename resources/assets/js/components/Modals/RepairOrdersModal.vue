@@ -5,10 +5,11 @@
 
             <form id="new-repair-order-form">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
-                <input type="hidden" name="orderNumber" value="{{orderNumber}}"/>
                 <customer :customer.sync="customer" :location.sync="location"></customer>
-
+                
                 <div class="important-info">
+                    <label for="orderNumber">Repair Order Number:</label>
+                    <input type="text" name="orderNumber" id="orderNumber" value="{{orderNumber}}" readonly/>
                     <label for="referred-by">Referred By</label>
                     <select name="referred-by" id="referred_by">
                         <option value="-- SELECT ONE --" selected>-- SELECT ONE --</option>
@@ -127,7 +128,7 @@
             },
 
             getRepairOrderNumber() {
-                var url = '/api/v0/repair_orders?order_by=created_at,desc?location=' + this.location.name;
+                var url = '/api/v0/repair-orders?order_by=created_at,desc&location_id=' + this.location.id;
 
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then( function(response) {
