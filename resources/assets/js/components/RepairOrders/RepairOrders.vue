@@ -22,7 +22,7 @@
         </tr>
     </table>
 
-    <repair-orders-modal :show.sync="newRepairOrder" :location.sync="location" title="New Repair Order"></repair-orders-modal>
+    <repair-orders-modal :show.sync="newRepairOrder" :location.sync="location" :order-number="orderNumber" title="New Repair Order"></repair-orders-modal>
 </template>
 
 <script lang="babel">
@@ -39,6 +39,7 @@
             return {
                 repairOrders: [],
                 newRepairOrder: false,
+                orderNumber: ''
             }
         },
 
@@ -59,7 +60,44 @@
             },
 
             newOrder() {
+                this.getRepairOrderNumber();
                 this.newRepairOrder = true;
+            },
+
+            getRepairOrderNumber() {
+                var url = '/api/v0/repair-orders?order_by=created_at,desc&location_id=' + this.location.id;
+
+                this.$http.get(url, {api_token: this.location.api_token})
+                .then( function(response) {
+                    //Success
+                    this.$set('orderNumber', Number(response.data.data[0].id+1));
+                }, function(response) {
+                    //Error
+
+                    switch(this.location.name) {
+                        case "Head Office":
+                            this.orderNumber = 0;
+                            break;
+                        case "Richmond":
+                            this.orderNumber = 20000;
+                            break;
+                        case "White Rock":
+                            this.orderNumber = 30000;
+                            break;
+                        case "Guildford":
+                            this.orderNumber = 60000;
+                            break;
+                        case "Nanaimo":
+                            this.orderNumber = 70000;
+                            break;
+                        case "Maple Ridge":
+                            this.orderNumber = 80000;
+                            break;
+                        default:
+                            //Throw error
+                            console.log('ERROR');
+                    }
+                });
             }
         },
 

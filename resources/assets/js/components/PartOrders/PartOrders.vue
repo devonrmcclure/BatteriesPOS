@@ -64,11 +64,12 @@
             },
 
             newOrder() {
+                this.getPartOrderID();
                 this.newPartOrder = true;
             },
 
             getPartOrderID() {
-                var url = '/api/v0/part-orders?location_id=' + this.location.id;
+                var url = '/api/v0/part-orders?order_by=created_at,desc&location_id=' + this.location.id;
 
                 this.$http.get(url, {api_token: this.location.api_token})
                 .then( function(response) {

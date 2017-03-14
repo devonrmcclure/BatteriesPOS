@@ -9,7 +9,7 @@
                 
                 <div class="important-info">
                     <label for="orderNumber">Repair Order Number:</label>
-                    <input type="text" name="orderNumber" id="orderNumber" value="{{orderNumber}}" readonly/>
+                    <input type="text" name="orderNumber" id="orderNumber" v-model="orderNumber" readonly/>
                     <label for="referred-by">Referred By</label>
                     <select name="referred-by" id="referred_by">
                         <option value="-- SELECT ONE --" selected>-- SELECT ONE --</option>
@@ -80,7 +80,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'newRepairOrder', 'location'],
+        props: ['show', 'title', 'newRepairOrder', 'location', 'orderNumber'],
 
         components: {Modal, Customer, RepLoginModal},
 
@@ -90,14 +90,9 @@
                 ro_customer: [],
                 showRepLogin: false,
                 invoice: '',
-                deposit: '',
-                orderNumber: ''
+                deposit: ''
 
             }
-        },
-
-        ready() {
-            this.getRepairOrderNumber();
         },
 
         methods: {
@@ -126,42 +121,6 @@
                     console.log(response);
                 });               
             },
-
-            getRepairOrderNumber() {
-                var url = '/api/v0/repair-orders?order_by=created_at,desc&location_id=' + this.location.id;
-
-                this.$http.get(url, {api_token: this.location.api_token})
-                .then( function(response) {
-                    //Success
-                    this.$set('orderNumber', Number(response.data.data[0].id+1));
-                }, function(response) {
-                    //Error
-
-                    switch(this.location.name) {
-                        case "Head Office":
-                            this.orderNumber = 0;
-                            break;
-                        case "Richmond":
-                            this.orderNumber = 20000;
-                            break;
-                        case "White Rock":
-                            this.orderNumber = 30000;
-                            break;
-                        case "Guildford":
-                            this.orderNumber = 60000;
-                            break;
-                        case "Nanaimo":
-                            this.orderNumber = 70000;
-                            break;
-                        case "Maple Ridge":
-                            this.orderNumber = 80000;
-                            break;
-                        default:
-                            //Throw error
-                            console.log('ERROR');
-                    }
-                });
-            }
         }
     });
 </script>
