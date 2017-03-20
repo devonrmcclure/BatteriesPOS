@@ -1,9 +1,10 @@
 <template>
 <div class="location-info">
     <h3>Invoice: {{invoice}}</h3><br />
-    Location: {{ location.name }} <br />
+    Location: {{location.name}} <br />
     Sold By: {{rep.first_name}}<br />
     Date: {{ date | moment }} <br />
+    <span class="print-method">Method: {{method}} <br/></span>
     <h3>Total: ${{total}}</h3><br />
     
 </div>
@@ -13,7 +14,7 @@
     <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
     <input type="hidden" name="sale-total" value="{{total}}" readonly/>
     <input type="hidden" name="sale-rep" value="{{rep.first_name}}" readonly/>
-    <input type="hidden" name="sale-invoice" value="{{invoice}}" readonly/>  
+    <input type="hidden" name="sale-invoice" value="{{invoice}}" readonly/>
     <div class="products"> <!-- Tables are dumb and cant have max height -.- -->
         <table>
             <tr>
@@ -96,6 +97,7 @@
                 prices: [],
                 products: [],
                 date: new Date(),
+                method: ''
             }
         },
 
@@ -133,6 +135,7 @@
                 this.prices = [];
                 this.sku = '';
                 this.quantity = '';
+                this.method = '';
             },
 
             getProduct(sku) {
@@ -259,26 +262,32 @@
             },
 
             completeSale(method) {
-               
+                this.method = method;
                 if (!this.products.length || !this.prices.length)
                 {
                     alert('Please enter a product');
                     return false;
                 }
 
-                var formData = new FormData(document.querySelector('#new-sale-form'));
-                this.print = false; //confirm("Print a copy of the invoice?");
-                formData.set('printed', this.print);
-                formData.set('payment-method', method);
-                var url = '/api/v0/sales';
-                this.$http.post(url, formData)
-                .then(function(response) {
-                    //Success
-                    this.$dispatch('new-sale');
-                    this.close();
-                }, function(response) {
-                    //TODO: Proper flash message
-                });               
+                Vue.nextTick(function () {
+                    var formData = new FormData(document.querySelector('#new-sale-form'));
+                    this.print = confirm("Print a copy of the invoice?");
+                    if(this.print) {
+                        window.print();
+                    }
+                    formData.set('printed', this.print);
+                    formData.set('payment-method', method);
+                    var url = '/api/v0/sales';
+                    this.$http.post(url, formData)
+                    .then(function(response) {
+                        //Success
+                        this.$dispatch('new-sale');
+                        this.close();
+                    }, function(response) {
+                        //TODO: Proper flash message
+                    });               
+                }.bind(this));
+               
             },
         },
 
