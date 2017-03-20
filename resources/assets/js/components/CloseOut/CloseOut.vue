@@ -27,7 +27,7 @@
         <input name="total" type="text" placeholder="0.00" v-model="inputTotals" readonly><br/>
 
         <label for="cash">Proceeds To Deposit</label>
-        <input type="text" placeholder="0.00" v-model="totalSales" readonly><br/>
+        <input type="text" placeholder="0.00" v-model="totalSales.toFixed(2)" readonly><br/>
 
         <label for="cash">DIFFERENCE</label>
         <input type="text" placeholder="0.00" v-model="difference" readonly><br/>
