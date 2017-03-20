@@ -1,6 +1,6 @@
 @media print {
     
-    .sidebar, #user-dropdown, h1, .content, .Modal__header, input[placeholder="Search Customer"], input:not([value]), button, hr {
+    .sidebar, #user-dropdown, h1, .content, .Modal__header, input[placeholder="Search Customer"], input:not([value]), button, hr, .discount {
         display: none;
     }
 
@@ -35,10 +35,49 @@
 
     .sale-container {
         display: block;
-        border: 1px solid purple;
         width: 98%;
-        margin: 2px auto;
+        margin: 0 auto;
         padding: 5px;
+
+        .sale-form {
+        }
+
+        .products {
+            max-width: 100% !important;
+        }
+
+        table {
+            max-width: 100% !important;
+        }
+
+        th {
+            width: 7% !important;
+            text-align: left;
+            margin: 0;
+            padding: 0;
+            min-width: 0;
+        }
+
+        .product-description {
+            width: 30% !important;
+            min-width: 0;
+            padding-right: 5px;
+        }
+
+        td {
+            text-align: left;
+            margin: 0;
+            padding: 0;
+            min-width: 0;
+        }
+
+        input {
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            border: none;
+            min-width: 0;
+        }
 
         .customer-info {
             float: left;

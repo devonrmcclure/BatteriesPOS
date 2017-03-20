@@ -21,7 +21,7 @@
                 <th>SKU</th>
                 <th class="product-description">Description</th>
                 <th>QTY</th>
-                <th>Discount %</th>
+                <th class="discount">Discount %</th>
                 <th>Unit $</th>
                 <th>Extended</th>
                 <th>PST</th>
@@ -35,12 +35,12 @@
                 <td><input type="text" name="sku[]" v-model="product.sku" @change="updateProduct($index)" value="{{product.sku}}"/></td>
                 <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
                 <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)" value="{{prices[$index].quantity}}"/></td>
-                <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)" value="{{prices[$index].discount}}"/></td>
+                <td class="discount"><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)" value="{{prices[$index].discount}}"/></td>
                 <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)" value="{{product.unit_price}}"/></td>
                 <td><input type="text" name="extended[]" v-model="prices[$index].extended" value="{{prices[$index].extended}}" readonly/></td>
                 <td><input type="text" name="pst[]" v-model="prices[$index].pst" value="{{prices[$index].gst}}" readonly/></td>
                 <td><input type="text" name="gst[]" v-model="prices[$index].gst" value="{{prices[$index].pst}}" readonly/></td>
-                <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" value="{{prices[$index].total}}" readonly/></td>
+                <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" value="{{prices[$index].sku_total}}" readonly/></td>
             </tr>
 
             <tr>
@@ -54,8 +54,7 @@
                 <td><input type="text" readonly/></td>
                 <td><input type="text" readonly/></td>
                 <td><input type="text" readonly></td>
-            </tr>
-            
+            </tr>       
         </table>
     </div>
     <select name="invoice-comment" v-model="invoice_comment">
