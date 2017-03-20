@@ -1,0 +1,51 @@
+@media print {
+    
+    .sidebar, #user-dropdown, h1, .content, .Modal__header, input[placeholder="Search Customer"], input:not([value]), button, hr {
+        display: none;
+    }
+
+    .Modal__overlay {
+        width: 100%;
+    }
+
+    .Modal__container {
+        display: block;
+        top: 200px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    select, input {
+        border: none;
+    }
+
+    input {
+        margin: 0;
+        padding: 0;
+    }
+
+    .remove-product {
+            display: none;
+    }
+
+    .active-row {
+        display: none;
+    }
+
+    .sale-container {
+        display: block;
+        border: 1px solid purple;
+        width: 98%;
+        margin: 2px auto;
+        padding: 5px;
+
+        .customer-info {
+            float: left;
+        }
+
+        .important-info {
+            float: right;
+        }
+    }
+}

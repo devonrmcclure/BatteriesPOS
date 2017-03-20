@@ -1,21 +1,21 @@
 <template>
     <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location" :phone="phoneNumber"></new-customer-modal>
     <span class="error">{{ error }}</span>
-    <input type="text" placeholder="Search Customer" v-model="phoneNumber" @change="getCustomer()"/><br/>
+    <input type="text" placeholder="Search Customer" value="{{phoneNumber}}" @change="getCustomer()"/><br/>
     <div>
-        <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
-        <input type="hidden" name="new-customer" v-model="customer.new_customer" readonly/>
-        <input type="text" name="customer-first-name" id="first-name" placeholder="First Name" v-model="customer.first_name" readonly/>
-        <input type="text" name="customer-last-name" id="last-name" placeholder="Last Name" v-model="customer.last_name" readonly/>
+        <input type="hidden" name="customer-id" value="{{customer.id}}" readonly/>
+        <input type="hidden" name="new-customer" value="{{customer.new_customer}}" readonly/>
+        <input type="text" name="customer-first-name" id="first-name" placeholder="First Name" value="{{customer.first_name}}" readonly/>
+        <input type="text" name="customer-last-name" id="last-name" placeholder="Last Name" value="{{customer.last_name}}" readonly/>
     </div>
     <div>
-        <input type="text" name="customer-address" id="address" placeholder="Address" v-model="customer.address" readonly/> 
-        <input type="text" name="customer-city" id="city" placeholder="City" v-model="customer.city" readonly/>
-        <input type="text" name="customer-postal-code" id="postal-code" placeholder="Postal Code" v-model="customer.postal_code" readonly/>
+        <input type="text" name="customer-address" id="address" placeholder="Address" value="{{customer.address}}" readonly/> 
+        <input type="text" name="customer-city" id="city" placeholder="City" value="{{customer.city}}" readonly/>
+        <input type="text" name="customer-postal-code" id="postal-code" placeholder="Postal Code" value="{{customer.postal_code}}" readonly/>
     </div>
     <div>
-        <input type="text" name="customer-primary-phone" id="primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone" readonly/>
-        <input type="text" name="customer-secondary-phone" id="secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone" readonly/>
+        <input type="text" name="customer-primary-phone" id="primary-phone" placeholder="Primary Phone" value="{{customer.primary_phone}}" readonly/>
+        <input type="text" name="customer-secondary-phone" id="secondary-phone" placeholder="Secondary Phone" value="{{customer.secondary_phone}}" readonly/>
     </div>
 </template>
 

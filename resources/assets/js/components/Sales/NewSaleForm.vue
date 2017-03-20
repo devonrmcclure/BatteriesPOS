@@ -32,15 +32,15 @@
 
             <tr v-for="product in products">
                 <td class="remove-product" @click="removeProduct(product, $index)" class="removeProduct">&times;</td>
-                <td><input type="text" name="sku[]" v-model="product.sku" @change="updateProduct($index)"/></td>
+                <td><input type="text" name="sku[]" v-model="product.sku" @change="updateProduct($index)" value="{{product.sku}}"/></td>
                 <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-                <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)"/></td>
-                <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)"/></td>
-                <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)"/></td>
-                <td><input type="text" name="extended[]" v-model="prices[$index].extended" readonly/></td>
-                <td><input type="text" name="pst[]" v-model="prices[$index].pst" readonly/></td>
-                <td><input type="text" name="gst[]" v-model="prices[$index].gst" readonly/></td>
-                <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" readonly/></td>
+                <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)" value="{{prices[$index].quantity}}"/></td>
+                <td><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)" value="{{prices[$index].discount}}"/></td>
+                <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)" value="{{product.unit_price}}"/></td>
+                <td><input type="text" name="extended[]" v-model="prices[$index].extended" value="{{prices[$index].extended}}" readonly/></td>
+                <td><input type="text" name="pst[]" v-model="prices[$index].pst" value="{{prices[$index].gst}}" readonly/></td>
+                <td><input type="text" name="gst[]" v-model="prices[$index].gst" value="{{prices[$index].pst}}" readonly/></td>
+                <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" value="{{prices[$index].total}}" readonly/></td>
             </tr>
 
             <tr>
@@ -73,6 +73,7 @@
    <button name="payment-method" value="MasterCard" @click="completeSale('MasterCard')">MasterCard</button>
    <button name="payment-method" value="Visa" @click="completeSale('Visa')">Visa</button>
 </span>
+
 </template>
 
 
