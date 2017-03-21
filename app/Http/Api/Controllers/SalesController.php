@@ -64,7 +64,7 @@ class SalesController extends ApiController
         $invoice->gst_number = \Auth::guard('api')->user()->gst_number;
         $invoice->printed = $request->input('printed');
         $invoice->save();
-
+        
         //Add product
 
         for($i = 0; $i < count($request->input('sku')); $i++)

@@ -1,6 +1,6 @@
 <template>
     <button @click="newOrder">New Part Order</button>
-    <table class="table">
+    <table class="table no-print">
         <tr>
             <th>Part Order Number</th>
             <th>Customer</th>
