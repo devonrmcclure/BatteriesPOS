@@ -37,7 +37,7 @@
                 <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
                 <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)" value="{{prices[$index].quantity}}"/></td>
                 <td class="discount"><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)" value="{{prices[$index].discount}}"/></td>
-                <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)" value="{{product.unit_price}}"/></td>
+                <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)" value="{{product.unit_price.toFixed(2)}}"/></td>
                 <td><input type="text" name="extended[]" v-model="prices[$index].extended" value="{{prices[$index].extended}}" readonly/></td>
                 <td><input type="text" name="pst[]" v-model="prices[$index].pst" value="{{prices[$index].gst}}" readonly/></td>
                 <td><input type="text" name="gst[]" v-model="prices[$index].gst" value="{{prices[$index].pst}}" readonly/></td>
@@ -73,6 +73,8 @@
    <button name="payment-method" value="MasterCard" @click="completeSale('MasterCard')">MasterCard</button>
    <button name="payment-method" value="Visa" @click="completeSale('Visa')">Visa</button>
 </span>
+    
+    <receipt-modal :show.sync="showReceipt" title="Print Receipt?" :print.sync="print" :invoice="invoice"></receipt-modal>
 
 </template>
 
@@ -97,7 +99,8 @@
                 prices: [],
                 products: [],
                 date: new Date(),
-                method: ''
+                method: '',
+                showReceipt: false
             }
         },
 
@@ -271,7 +274,7 @@
 
                 Vue.nextTick(function () {
                     var formData = new FormData(document.querySelector('#new-sale-form'));
-                    this.print = confirm("Print a copy of the invoice?");
+                    this.print = false; //confirm("Print a copy of the invoice?");
                     if(this.print) {
                         window.print();
                     }

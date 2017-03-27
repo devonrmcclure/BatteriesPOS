@@ -11,7 +11,7 @@
         </div>
     </modal>
     
-    <receipt-modal :show.sync="showReceipt" title="Print Receipt?" :print.sync="print"></receipt-modal>
+    <receipt-modal :show.sync="showReceipt" title="Print Receipt?" :print.sync="print" :invoice="invoice"></receipt-modal>
 </template>
 
 
@@ -51,6 +51,12 @@
                 this.quantity = '';
             },
 
+        },
+
+        events: {
+            'new-sale': function() {
+                this.showReceipt = true;
+            },
         }
     });
 </script>

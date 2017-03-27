@@ -2,11 +2,10 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
 
         <div class="Modal__body">
-           Does the customer want the receipt?
-        </div>
+            <p>Does the customer want the receipt?</p>
 
-        <div class="Modal__footer">
-                <p class=""><span @click="printInvoice(true)">YES</span> | <span @click="printInvoice(false)">NO</span></p>
+            <a href="/print/sales/{{invoice}}" target="_blank"><button @click="close()">YES</button></a>
+            <button @click="close()">No</button>
         </div>
     </modal>
 
@@ -18,7 +17,7 @@
 
     export default Modal.extend({
 
-        props: ['show', 'title', 'print'],
+        props: ['show', 'title', 'print', 'invoice'],
 
         components: {Modal},
 

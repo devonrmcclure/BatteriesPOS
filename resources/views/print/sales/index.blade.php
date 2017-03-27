@@ -65,7 +65,7 @@
 
                 <tr>
                     <td colspan=4></td>
-                    <th>Totals</th>
+                    <th>Total</th>
                     <th>${{number_format($invoice->total_pst, 2)}}</th>
                     <th>${{number_format($invoice->total_gst, 2)}}</th>
                     <th>${{number_format($invoice->total, 2)}}</th>
