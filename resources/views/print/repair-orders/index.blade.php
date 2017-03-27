@@ -51,7 +51,7 @@
                 <p><span class="heading">Product:</span> {{$invoice->product}}</p>
                 <p><span class="heading">Model:</span> {{$invoice->model}}</p>
                 <p><span class="heading">Date Code:</span> {{$invoice->date_code}}<br />
-                <p><span class="heading">Condition:</span> {{$invoice->condition}}</p>
+                <p><span class="heading">Condition:</span> {{$invoice->condition}}</p><br />
                 <p><span class="heading">Accessories:</span> {{$invoice->accessories}}</p><br />
                 <span class="heading">Problem:</span> <br />
             </div>
