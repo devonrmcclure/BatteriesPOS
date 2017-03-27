@@ -26,7 +26,7 @@
     <div class="sales-invoice">
         <div class="customer-info">
             <p class="name">{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</p>
-            <p class="address">{{$invoice->customer->address}}, {{$invoice->customer->city}}, {{$invoice->customer->province}}</p>
+            <p class="address">{{$invoice->customer->address}} {{$invoice->customer->city}} {{$invoice->customer->province}}</p>
             <p class="primary_phone">{{$invoice->customer->primary_phone}}</p>
         </div>
 
