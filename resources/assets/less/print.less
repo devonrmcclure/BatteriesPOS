@@ -79,5 +79,126 @@
 }
 
 .repair-order-invoice {
-    
+    background: white;
+    width: 8.5in;
+    height: 11in;
+    color: black;
+    padding: 0 10px;
+
+    .heading {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .invoice-header {
+        border-bottom: 1px solid black;
+        margin-bottom: 5px;
+        padding: 5px 0;
+
+        h2 {
+            display: inline;
+        }
+
+        .date {
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        p {
+            float: right;
+
+            .invoice-number {
+                font-size: 24px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .customer-info {
+        width: 100%;
+
+        
+        p {
+            display: inline;
+        }
+
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .address {
+            font-style: italic;
+        }
+
+        .phone {
+            font-weight: bold;
+        }
+        
+    }
+
+    .repair-info {
+        clear: both;
+        padding-top: 10px;
+        width: 100%;
+        
+        .unit-info {
+            width: 100%;
+
+            p {
+                display: inline;
+                margin-right: 10px;
+                line-height: 2em;
+            }
+
+            .heading {
+                font-weight: bold;
+                font-size: 18px;
+            }
+        }
+
+        .problem {
+            width: 100%;
+            border: 1px solid black;
+            padding: 10px;
+            height: 130px;
+            margin-bottom: 10px;
+        }
+
+        .notes {
+            width: 100%;
+            border: 1px solid black;
+            padding: 10px;
+            height: 400px;
+        }
+    }
+
+    .footer {
+        table {
+            width: 100%;
+
+            tr {
+                height: 30px;
+            }
+
+            th {
+                color: #000;
+                padding: 0;
+                border: 1px solid black;
+            }
+
+            td {
+                border: 1px solid black;
+                padding: 0;
+
+                &:first-child {}
+            }
+        }
+    }
+
+    .customer-signature {
+        padding-bottom: 30px;
+        bottom: 0;
+    }
 }

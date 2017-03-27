@@ -79,9 +79,11 @@
         </div>
 
     </div>
-
-    <script>
-        //window.print();
-    </script>
+    
+    @if($print)
+        <script>
+            window.print();
+        </script>
+    @endif
 </body>
 </html>

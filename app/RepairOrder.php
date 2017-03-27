@@ -20,4 +20,8 @@ class RepairOrder extends Model
     public function customer() {
         return $this->belongsTo('App\Customer');
     }
+
+    public function staff() {
+        return $this->belongsTo('App\Staff');
+    }
 }

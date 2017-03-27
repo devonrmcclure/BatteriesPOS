@@ -53,7 +53,7 @@
 
         methods: {
             getPartOrders() {
-                var url = '/api/v0/part-orders?&with=customer&location_id=3';
+                var url = '/api/v0/part-orders?&with=customer&location_id=' + this.location.id;
 
                 this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('partOrders', response.data.data);

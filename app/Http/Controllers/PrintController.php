@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Invoice;
+use App\PartOrder;
+use App\RepairOrder;
 
 use App\Http\Requests;
 
@@ -32,15 +34,16 @@ class PrintController extends Controller
         return view('print/sales/index')->with('invoice', $invoice)->with('print', $print);
     }
 
-    public function repair_order_invoice($id) {
-        //get repair order info
-        //send to view
-        $invoice = 1;
-        return view('print/repair-orders/index')->with('invoice', $invoice);
-    }
-
     public function part_order_invoice($id) {
         //get part order info
         //send to view
+    }
+
+    public function repair_order_invoice($id) {
+        //get repair order info
+        //send to view
+        $invoice = RepairOrder::where('id', $id)->with('customer', 'staff')->first();
+        //dd($invoice->toArray());
+        return view('print/repair-orders/index')->with('invoice', $invoice);
     }
 }

@@ -4,7 +4,7 @@
         <div class="Modal__body">
             <p>Does the customer want the receipt?</p>
 
-            <a href="/print/sales/{{invoice}}" target="_blank"><button @click="close()">YES</button></a>
+            <a href="/print/sales/{{invoice}}?print=true" target="_blank"><button @click="close()">YES</button></a>
             <button @click="close()">No</button>
         </div>
     </modal>

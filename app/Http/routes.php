@@ -38,6 +38,7 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('close-out', 'Controllers\CloseOutController@index');
 
     Route::get('/print/sales/{id}', 'Controllers\PrintController@sales_invoice');
+    Route::get('print/repair-order/{id}', 'Controllers\PrintController@repair_order_invoice');
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('dashboard', 'Controllers\Admin\DashboardController@index');
