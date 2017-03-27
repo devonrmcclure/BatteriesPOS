@@ -1,95 +1,83 @@
-@media print {
+.sales-invoice {
+    background: white;
+    width: 8.5in;
+    height: 5.5in;
+    color: black;
+    margin-top: 65px;
     
-    .sidebar, #user-dropdown, h1, .no-print, .Modal__header, input[placeholder="Search Customer"], input:not([value]), button, hr, .discount {
-        display: none;
-    }
-
-    .Modal__overlay {
-        width: 100%;
-    }
-
-    .Modal__container {
-        display: block;
-        top: 200px;
-        width: 100%;
+    div {
+        float: none;
         margin: 0;
-        padding: 0;
-    }
 
-    select, input {
-        border: none;
-    }
 
-    input {
-        margin: 0;
-        padding: 0;
-    }
-
-    .remove-product {
-            display: none;
-    }
-
-    .print-method {
-        visibility: visible !important;
-        display: static;
-    }
-
-    .active-row {
-        display: none;
-    }
-
-    .sale-container {
-        display: block;
-        width: 98%;
-        margin: 0 auto;
-        padding: 5px;
-
-        .sale-form {
-        }
-
-        .products {
-            max-width: 100% !important;
-        }
-
-        table {
-            max-width: 100% !important;
-        }
-
-        th {
-            width: 7% !important;
-            text-align: left;
+        p {
             margin: 0;
-            padding: 0;
-            min-width: 0;
+            padding: 5px;
+            line-height: 1;
+        }
+    }
+
+    .heading {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .customer-info {
+        float: left;
+        width: 50%;
+
+        .name {
+
         }
 
-        .product-description {
-            width: 30% !important;
-            min-width: 0;
-            padding-right: 5px;
+        .address {
         }
+        
+    }
 
-        td {
-            text-align: left;
-            margin: 0;
-            padding: 0;
-            min-width: 0;
-        }
+    .invoice-info {
+        float: right;
+        text-align: right;
+        width: 30%;
 
-        input {
-            padding: 0;
-            margin: 0;
-            text-align: left;
-            border: none;
-            min-width: 0;
-        }
-
-        .customer-info {
+        span {
             float: left;
         }
 
-        .important-info {
-            float: right;
+        .invoice-number {
         }
     }
+
+    .invoice-products {
+        padding-top: 5px;
+        clear: both;
+
+        table {
+            tr {
+                padding: 0;
+                margin: 0;
+            }
+
+            th {
+                font-size: 16px;
+                color: black;
+                font-weight: bold;
+            }
+
+            td {
+                padding: 0;
+            }
+        }
+    }
+
+    .invoice-comment {}
+}
+
+.part-order-invoice {
+
+}
+
+.repair-order-invoice {
+    
 }
