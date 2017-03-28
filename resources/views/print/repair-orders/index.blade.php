@@ -142,10 +142,10 @@
             </div>
         </div>
         
-         <div class="customer-signature">
+         <div class="total">
             <span style="float:right">Total (pre-tax) _________________</span>
         </div>
-
+        <br />
         <div class="customer-signature">
             <span>Picked up by: ___________________________</span> <span style="float:right">Date: _______________________________</span>
         </div>
