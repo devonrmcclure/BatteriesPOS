@@ -37,6 +37,15 @@ class PrintController extends Controller
     public function part_order_invoice($id) {
         //get part order info
         //send to view
+        echo $id;
+
+        $partOrder = PartOrder::where('id', $id)->with('customer', 'invoice')->first();
+
+        if($partOrder->invoice !== null) 
+        {
+            $invoice = Invoice::where('id', $partOrder->invoice->id)->with('sale')->first();
+        }
+        dd($partOrder->toArray());
     }
 
     public function repair_order_invoice($id) {

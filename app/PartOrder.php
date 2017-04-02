@@ -20,6 +20,6 @@ class PartOrder extends Model
     }
 
     public function invoice() {
-        return $this->hasMany('App\Invoice');
+        return $this->belongsTo('App\Invoice');
     }
 }
