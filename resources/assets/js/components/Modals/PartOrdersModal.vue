@@ -91,9 +91,11 @@
                 </table>
             </div>
 
-            <button @click="newSale()">Issue Invoice</button>
+            
             <input type="submit" value="Submit" @click.capture="newPartOrder"/>
         </form>
+
+        <button @click="newSale()">Issue Invoice</button>
 
         <rep-login-modal :invoice.sync="invoice" :show.sync="showRepLogin" :prices="prices" :products="products" title="Rep Login" :customer="customer" :location="location"></rep-login-modal>
         

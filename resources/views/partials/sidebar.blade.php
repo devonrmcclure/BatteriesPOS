@@ -17,6 +17,6 @@
 </div>
 
 <div>
-	<rep-login-modal :show.sync="showRepLoginModal" title="Rep Login" :location="{{ Auth::User() }}"></rep-login-modal>
+	{{-- <rep-login-modal :show.sync="showRepLoginModal" title="Rep Login" :location="{{ Auth::User() }}"></rep-login-modal> --}}
 	
 </div>
