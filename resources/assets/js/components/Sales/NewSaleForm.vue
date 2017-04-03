@@ -102,13 +102,14 @@
                 method: '',
                 showReceipt: false,
                 pst: 0,
-                gst: 0
+                gst: 0,
+                max_discount: 0
             }
         },
 
         ready() {
             // TODO: Get value of PST and GST from a "settings" table
-            this.getTaxRates();
+            this.getSettingsRates();
             if(this.product || this.price)
             {
                 this.products = this.product;
@@ -144,12 +145,13 @@
                 this.method = '';
             },
 
-            getTaxRates() {
+            getSettingsRates() {
                  var url = '/api/v0/settings';
 
                   this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       this.pst = response.data.data[0].value;
                       this.gst = response.data.data[1].value;
+                      this.max_discount = response.data.data[2].value;
 
                   }, function(response) {
                       this.$set('error', 'The Setting does not exist!');
@@ -250,9 +252,11 @@
             updatePrice(index) {
                 var extended = (this.prices[index].quantity * this.products[index]['unit_price']).toFixed(2);
 
-                if(this.prices[index].discount != 0) {
-                    //TODO: Get the value for highest allowed and if input value is higher, don't allow it.
+                if(this.prices[index].discount != 0 && (this.prices[index].discount/100) <= this.max_discount) {
+                    //TODO: check if the product is exempt from max discount %
                     extended = (extended - (extended * (this.prices[index].discount/100))).toFixed(2);
+                } else {
+                    this.prices[index].discount = 0;
                 }
 
                 var pst = this.calculatePST(this.products[index], extended);
