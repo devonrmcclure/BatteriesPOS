@@ -26,10 +26,10 @@
     <div class="part-order-invoice">
         <div class="customer-info">
             <p class="invoice-number"><span class="heading">PO#: </span>{{$partOrder->id}}</p>
-            <p cladd="date"><span class="heading">Date: </span>{{$invoice->created_at->format('M j, Y @ g:i A')}}</p>
+            <p cladd="date"><span class="heading">Date: </span>{{$partOrder->created_at->format('M j, Y @ g:i A')}}</p>
             <br />
-            <p class="name"><span class="heading">Customer: </span>{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</p>
-            <p class="primary_phone"><span class="heading">Phone: </span>{{$invoice->customer->primary_phone}}</p>
+            <p class="name"><span class="heading">Customer: </span>{{$partOrder->customer->first_name}} {{$partOrder->customer->last_name}}</p>
+            <p class="primary_phone"><span class="heading">Phone: </span>{{$partOrder->customer->primary_phone}}</p>
 
         </div>
 
