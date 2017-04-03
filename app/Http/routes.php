@@ -84,6 +84,8 @@ Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev
         Route::get('close-out', 'Api\Controllers\CloseOutController@index');
         Route::post('close-out', 'Api\Controllers\CloseOutController@store');
 
+        Route::get('settings', 'Api\Controllers\SettingsController@index');
+
         Route::group(['prefix' => 'admin'], function () {
             Route::get('inventory', 'Api\Controllers\Admin\InventoryController@index');
             Route::post('inventory/update', 'Api\Controllers\Admin\InventoryController@update');

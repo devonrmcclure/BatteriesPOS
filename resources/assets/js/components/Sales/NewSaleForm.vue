@@ -100,12 +100,15 @@
                 products: [],
                 date: new Date(),
                 method: '',
-                showReceipt: false
+                showReceipt: false,
+                pst: 0,
+                gst: 0
             }
         },
 
         ready() {
             // TODO: Get value of PST and GST from a "settings" table
+            this.getTaxRates();
             if(this.product || this.price)
             {
                 this.products = this.product;
@@ -139,6 +142,19 @@
                 this.sku = '';
                 this.quantity = '';
                 this.method = '';
+            },
+
+            getTaxRates() {
+                 var url = '/api/v0/settings';
+
+                  this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
+                      this.pst = response.data.data[0].value;
+                      this.gst = response.data.data[1].value;
+
+                  }, function(response) {
+                      this.$set('error', 'The Setting does not exist!');
+                // error callback
+                  });
             },
 
             getProduct(sku) {
@@ -201,21 +217,21 @@
             },
 
             calculatePST(product, extended) {
-                var pst = 0.00;
+                var calcPST = 0;
                 if(product.pst == 1) {
-                    pst = (extended*0.07).toFixed(2);
+                    calcPST = (extended*this.pst).toFixed(2);
                 }
 
-                return pst;
+                return calcPST;
             },
 
             calculateGST(product, extended) {
-                var gst = 0.00;
+                var calcGST;
                 if(product.gst == 1) {
-                    gst = (extended*0.05).toFixed(2);
+                    calcGST = (extended*this.gst).toFixed(2);
                 }
 
-                return gst;
+                return calcGST;
             },
 
             updateProduct(index) {
@@ -235,6 +251,7 @@
                 var extended = (this.prices[index].quantity * this.products[index]['unit_price']).toFixed(2);
 
                 if(this.prices[index].discount != 0) {
+                    //TODO: Get the value for highest allowed and if input value is higher, don't allow it.
                     extended = (extended - (extended * (this.prices[index].discount/100))).toFixed(2);
                 }
 
