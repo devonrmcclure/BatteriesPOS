@@ -39,8 +39,8 @@
                 <td class="discount"><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)" value="{{prices[$index].discount}}"/></td>
                 <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)" value="{{product.unit_price.toFixed(2)}}"/></td>
                 <td><input type="text" name="extended[]" v-model="prices[$index].extended" value="{{prices[$index].extended}}" readonly/></td>
-                <td><input type="text" name="pst[]" v-model="prices[$index].pst" value="{{prices[$index].gst}}" readonly/></td>
-                <td><input type="text" name="gst[]" v-model="prices[$index].gst" value="{{prices[$index].pst}}" readonly/></td>
+                <td><input type="text" name="pst[]" v-model="prices[$index].pst" value="{{prices[$index].pst}}" readonly/></td>
+                <td><input type="text" name="gst[]" v-model="prices[$index].gst" value="{{prices[$index].gst}}" readonly/></td>
                 <td><input type="text" name="sku-total[]" v-model="prices[$index].sku_total" value="{{prices[$index].sku_total}}" readonly/></td>
             </tr>
 
@@ -228,7 +228,7 @@
             },
 
             calculateGST(product, extended) {
-                var calcGST;
+                var calcGST = 0;
                 if(product.gst == 1) {
                     calcGST = (extended*this.gst).toFixed(2);
                 }

@@ -36,6 +36,8 @@
     <button type="button" @click="updateStats()">Calculate</button>
     <button name="close-out" value="Close Out" @click="closeOut()">Close Out</button>
 
+    <daily-sales-stats title="Daily Sales Stats" :location="location"></daily-sales-stats>
+
     
 </template>
 
@@ -43,7 +45,8 @@
 <script lang="babel">
 
 import Vue from 'vue';
-import SaleTypeStats from '../Graphs/SaleTypeStats.vue'
+import SaleTypeStats from '../Graphs/SaleTypeStats.vue';
+import DailySalesStats from '../Stats/DailySalesStats.vue';
 
 export default Vue.extend({
     data() {
@@ -66,7 +69,7 @@ export default Vue.extend({
         }
     },
 
-    components: {SaleTypeStats},
+    components: {SaleTypeStats, DailySalesStats},
 
     props: ['location'],
 
