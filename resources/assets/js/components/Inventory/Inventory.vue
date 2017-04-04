@@ -2,7 +2,10 @@
 	<input type="text" placeholder="Search By Sku" v-model="sku" @keyup.enter="getInfo(sku)"/>
 	<input type="text" placeholder="Search By Description" v-model="description" @keyup.enter="getByDescription(description)"/>
 	<h2>{{ product[0].description }}</h2>
-	Price: {{ product[0].unit_price | currency}} Last sold: {{ last_sale | moment }}
+	Price: {{ product[0].unit_price | currency}} <br/> Last sold: {{ last_sale | moment }}
+
+    <br />
+    <img src="{{product[0].image}}" height="100px" width="100px"/>
 
 	<h3>Quantity On Hand</h3>
 	<ul>
