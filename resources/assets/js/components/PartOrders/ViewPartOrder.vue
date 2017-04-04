@@ -3,6 +3,7 @@
     <input type="hidden" name="api_token" value="{{location.api_token}}"/>
     <input type="hidden" name="rep_id" v-model="rep.id"/>
     <customer :customer.sync="customer" :location.sync="location"></customer>
+    <p style="float: right">Part Order: {{partOrder.id}}</p>
     <label for="referred-by">Referred By</label>
     <select name="referred-by" id="referred_by" v-model="partOrder.referred_by">
         <option value=""></option>
