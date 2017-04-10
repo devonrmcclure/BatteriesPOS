@@ -328,6 +328,8 @@ export default Vue.extend({
                 this.$http.post(url, formData)
                 .then(function(response) {
                     //Success
+                    //TODO: Proper flash message
+                    alert('Close-Out Successful!');
                 }, function(response) {
                     //TODO: Proper flash message
                 });               
