@@ -75,7 +75,7 @@
         </div>
 
         <div class="invoice-comment">
-            <p class="comment">{{$invoice->invoice_comment}}</p>
+            <p class="comment">(GST#{{Auth::user()->gst_number}}) {{$invoice->invoice_comment}}</p>
         </div>
 
     </div>
