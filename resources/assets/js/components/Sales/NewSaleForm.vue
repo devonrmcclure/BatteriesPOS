@@ -46,10 +46,10 @@
 
             <tr>
                 <td class="active-row" @click="removeProduct(product, $index)" class="removeProduct">&#9658;</td>
-                <td><input type="text" class="sku" id="sku" v-model="sku" @change="addProduct()" placeholder="483" tab-index="1"></td>
-                <td><input type="text" placeholder="CR2032 Button Cell Battery" readonly/></td>
-                <td><input type="text" placeholder="0" readonly/></td>
-                <td><input type="text" placeholder="0.00" readonly/></td>
+                <td><input type="text" class="sku" id="sku" v-model="sku" @change="addProduct()" tab-index="1"></td>
+                <td><input type="text" readonly/></td>
+                <td><input type="text" readonly/></td>
+                <td><input type="text" readonly/></td>
                 <td><input type="text" readonly/></td>
                 <td><input type="text" readonly/></td>
                 <td><input type="text" readonly/></td>
