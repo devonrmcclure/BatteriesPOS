@@ -84,9 +84,9 @@ class SalesController extends ApiController
             $sale->total = $request->input('sku-total')[$i];
             $sale->save();
 
-            // $qoh = Qoh::where('location_id', \Auth::guard('api')->user()->id)->where('sku', $request->input('sku')[$i])->first();
-            // $qoh->quantity -= $request->input('quantity')[$i];
-            // $qoh->save();
+            $qoh = Qoh::where('location_id', \Auth::guard('api')->user()->id)->where('sku', $request->input('sku')[$i])->first();
+            $qoh->quantity -= $request->input('quantity')[$i];
+            $qoh->save();
         }
 	}
 }

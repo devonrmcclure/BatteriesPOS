@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
 
     Route::get('inventory', 'Controllers\InventoryController@index');
     Route::get('inventory/{id}', 'Controllers\InventoryController@show');
+    Route::get('inventory/sales-history/{id}', 'Controllers\InventoryController@history');
 
     Route::get('repair-orders', 'Controllers\RepairOrdersController@index');
     Route::post('repair-orders', 'Controllers\RepairOrdersController@store'); //Change to post to api.batteriespos.dev/v0/repair-orders
