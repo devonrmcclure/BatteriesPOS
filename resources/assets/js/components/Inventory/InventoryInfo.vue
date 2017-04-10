@@ -32,8 +32,8 @@
                                 <td>{{sale.created_at | moment}}</td>
                             </tr>
                     </table>
-                    <a href="#"><button>full history</button></a>
-                    <input type="text" placeholder="Search By Sku" @keyup.enter="searchSku(sku)"/>
+                    <a href="#"><button>sale history</button></a>
+                    <input type="text" placeholder="Search By Sku" v-model="sku" @keyup.enter="searchSku(sku)"/>
                 </div>
             </div>
         </div>
