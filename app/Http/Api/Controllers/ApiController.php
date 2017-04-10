@@ -110,9 +110,10 @@ class ApiController extends Controller
             }
         }
 
-        if(isset($parameters['description']))
-        {
-            $query->where('description', 'LIKE', '%'. $parameters['description'] . '%');
+        if(isset($parameters['like']))
+        {   
+            $param = explode(',', $parameters['like'], 2);
+            $query->where($param[0], 'LIKE', '%'. $param[1] . '%');
         }
 
         if(isset($parameters['only']))

@@ -71,18 +71,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-        			'id' => 7,
-                   	'name' => 'Nanaimo',
-                   	'email' => 'nanaimo@batteriesincluded.ca',
-                   	'location_code' => 'NM',
-                    'phone_number' => '250-756-2838',
-                   	'admin' => 0,
-                    'gst_number' => 'fdslfsd;lfsd',
-                   	'password' => bcrypt('3218nm'),
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
-
-        DB::table('users')->insert([
         			'id' => 8,
                    	'name' => 'Maple Ridge',
                    	'email' => 'mapleridge@batteriesincluded.ca',

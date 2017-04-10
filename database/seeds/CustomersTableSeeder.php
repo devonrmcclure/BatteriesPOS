@@ -63,20 +63,6 @@ class CustomersTableSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-                   	'first_name' => 'Nanaimo Customer',
-                   	'company' => 'Batteries Included',
-                   	'address' => '3200 North Island Way',
-                   	'city' => 'Nanaimo',
-                   	'province' => 'British Columbia',
-                   	'country' => 'Canada',
-                   	'postal_code' => 'V9T 1W1',
-                   	'primary_phone' => '250-756-2838',
-                   	'email' => 'nanaimo@batteriesincluded.ca',
-                   	'location_id' => 7,
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
-
-        DB::table('customers')->insert([
                    	'first_name' => 'Maple Ridge Customer',
                    	'company' => 'Batteries Included',
                    	'address' => '#500 22709 Lougheed Highway',

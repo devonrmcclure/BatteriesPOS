@@ -3,11 +3,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Helpers\Phone;
-
 use App\Http\Requests;
 
-use App\Customer;
+use App\Inventory;
 use Auth;
 
 
@@ -20,6 +18,11 @@ class InventoryController extends Controller
     }
     
     public function index() {
-    return view('inventory.index');
+        return view('inventory.index');
+    }
+
+    public function show($id) {
+        $product = Inventory::where('sku', $id)->with('qoh')->first();
+        return view('inventory.show')->with('product', $product);
     }
 }

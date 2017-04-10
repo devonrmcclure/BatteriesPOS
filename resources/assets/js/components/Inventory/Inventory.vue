@@ -1,16 +1,27 @@
 <template>
 	<input type="text" placeholder="Search By Sku" v-model="sku" @keyup.enter="getInfo(sku)"/>
 	<input type="text" placeholder="Search By Description" v-model="description" @keyup.enter="getByDescription(description)"/>
-	<h2>{{ product[0].description }}</h2>
-	Price: {{ product[0].unit_price | currency}} <br/> Last sold: {{ last_sale | moment }}
+	
+    <h2>Results</h2>
+    <table>
+        <tr>
+            <th>SKU</th>
+            <th>Description</th>
+            <th>Manufacturer</th>
+            <th>Part Number</th>
+            <th>Price</th>
+            <th>On Hand</th>
+        </tr>
 
-    <br />
-    <img src="{{product[0].image}}" height="100px" width="100px"/>
-
-	<h3>Quantity On Hand</h3>
-	<ul>
-		<li v-for="location in qoh"><b>{{ location.name }}</b>: {{ location.qoh[0].quantity }}</li>
-	</ul>
+        <tr v-for="product in products">
+            <td>{{product.sku}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.manufacturer}}</td>
+            <td>{{product.model_number}}</td>
+            <td>${{product.unit_price.toFixed(2)}}</td>
+            <td>0</td>
+        </tr>
+    </table>
 </template>
 
 <script>
@@ -24,7 +35,7 @@ export default Vue.extend({
 			sku: '',
 			description: '',
             last_sale: '',
-			product: [],
+			products: [],
 			qoh: []
 		}
 	},
@@ -37,14 +48,9 @@ export default Vue.extend({
 		},
 
 		getProduct(sku) {
-            var url = '/api/v0/inventory?sku=' + sku;
+            var url = '/inventory/' + sku;
               
-            this.$http.get(url, {api_token: 'token'}).then(function(response) {
-                this.$set('product', response.data.data);
-
-            }, function(response) {
-            // error callback
-            });
+            document.location.href = url;
         },
 
         getQoh(sku) {
@@ -59,13 +65,13 @@ export default Vue.extend({
         },
 
         getByDescription(description) {
-            var url = '/api/v0/inventory?description=' + description;
+            var url = '/api/v0/inventory?like=description,' + description + '&order_by=description,asc';
               
             this.$http.get(url, {api_token: 'token'}).then(function(response) {
-                this.$set('product', response.data.data);
-                this.$set('sku', response.data.data[0].sku);
-                this.getQoh(this.sku);
-                this.getLastSale(this.sku); 
+                this.$set('products', response.data.data);
+                // this.$set('sku', response.data.data[0].sku);
+                // this.getQoh(this.sku);
+                // this.getLastSale(this.sku); 
 
             }, function(response) {
             // error callback
