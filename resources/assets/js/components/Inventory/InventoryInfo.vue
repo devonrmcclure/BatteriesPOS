@@ -23,7 +23,7 @@
                 </div>
                 <hr />
                 <div class="product-image">
-                    <img src="{{product.image}}"/>
+                    <img src="/img/products/{{product.image}}"/>
                 </div>
 
                 <div class="sales-history">  

@@ -26,7 +26,7 @@ class CreateInventoryTable extends Migration
                         $table->boolean('pst');
                         $table->boolean('gst');
                         $table->integer('eco_fee_sku')->unsigned()->nullable();
-                        $table->string('image')->nullable();
+                        $table->string('image');
                         $table->string('manufacturer')->nullable();
                         $table->string('model_number')->nullable();
                         $table->string('order_number')->nullable();
