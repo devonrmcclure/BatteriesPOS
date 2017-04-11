@@ -1,11 +1,25 @@
 <template>
-    <div class="col-md-8 module-container">
+    <div class="col-md-9 module-container">
         <div class="module">
             <div class="product-wrapper">
                 <div class="product-info">
-                    <p class="sku">{{product.sku}}</p>
-                    <p class="description">{{product.description}}</p>
-                    <p class="price">${{product.unit_price}}</p>
+                    <table>
+                        <tr>
+                            <th>Sku</th>
+                            <th>Description</th>
+                            <th>Manufacturer</th>
+                            <th>Part Number</th>
+                            <th>Retail Price</th>
+                        </tr>
+
+                        <tr>
+                            <td>{{product.sku}}</td>
+                            <td>{{product.description}}</td>
+                            <td>{{product.manufacturer}}</td>
+                            <td>{{product.model_number}}</td>
+                            <td>${{product.unit_price}}</td>
+                        </tr>
+                    </table>
                 </div>
                 <hr />
                 <div class="product-image">
@@ -17,14 +31,16 @@
                     <table>
                         <tr>
                             <th>Invoice</th>
+                            <th>Description</th>
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Method</th>
                             <th>Staff</th>
-                            <th>Date</th>
+                            <th>Date <small><em>(YYYY-MM-DD)</em></small></th>
                         </tr>
                             <tr v-for="sale in history">
                                 <td>{{sale.invoice.id}}</td>
+                                <td>{{sale.description}}</td>
                                 <td>{{sale.quantity}}</td>
                                 <td>${{sale.price}}</td>
                                 <td>{{sale.invoice.payment_method}}</td>
@@ -32,21 +48,22 @@
                                 <td>{{sale.created_at | moment}}</td>
                             </tr>
                     </table>
-                    <a href="#"><button>sale history</button></a>
-                    <input type="text" placeholder="Search By Sku" v-model="sku" @keyup.enter="searchSku(sku)"/>
+                    <a href=""><button>sale history</button></a>
+                    <button id="test" @click="showSearch()">Search Sku</button>
+                    <input class="search hidden" type="text" placeholder="Enter Sku" v-model="sku" @keyup.enter="searchSku(sku)"/>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4 module-container">
+    <div class="col-md-3 module-container">
         <div class="module">
             <div class="product-wrapper">
                 <div class="qoh">
                     <h3>Quantity On Hand</h3>
                     <table>
                         <tr>
-                            <th v-for="location in qoh">{{location.location.location_code}}</th>
+                            <th v-for="location in qoh" id="{{location.location.location_code}}"> {{location.location.location_code}}</th>
                         </tr>
 
                         <tr>
@@ -65,6 +82,8 @@ import Moment from 'moment';
 
 export default Vue.extend({
 
+    props: ['location'],
+
     data() {
         return {
             sku: '',
@@ -80,6 +99,7 @@ export default Vue.extend({
         this.sku = temp[4];
         Vue.nextTick(function () {
             this.getInfo(this.sku);
+            this.highlightCurrentLocation();
         }.bind(this));
     },
 
@@ -88,6 +108,17 @@ export default Vue.extend({
             this.getProduct(sku);
             this.getQoh(sku);
             this.getHistory(sku);
+        },
+
+        highlightCurrentLocation() {
+            //TODO
+        },
+
+        showSearch() {
+            $("#test").hide();
+            this.sku = '';
+            $(".search").removeClass("hidden");
+            $(".search").focus();
         },
 
         searchSku(sku) {
@@ -134,7 +165,7 @@ export default Vue.extend({
       moment: function (date) {
         if(date !== 'No Previous Sale' && date !== '')
         {
-            return Moment(date).format('MMMM Do YYYY, H:mm');
+            return Moment(date).format('YYYY-MM-D @ H:mm');
         }
             return 'No Sales History';
       }
