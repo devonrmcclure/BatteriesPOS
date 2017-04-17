@@ -1,9 +1,10 @@
 <template>
 	<input type="text" placeholder="Search By Sku" v-model="sku" @keyup.enter="getInfo(sku)"/>
 	<input type="text" placeholder="Search By Description" v-model="description" @keyup.enter="getByDescription(description)"/>
+    <input type="text" placeholder="Search By Part Number" v-model="partNumber" @keyup.enter="getByPartNumber(partNumber)"/>
 	
     <h2>Results</h2>
-    <table>
+    <table class="inventory-results">
         <tr>
             <th>SKU</th>
             <th>Description</th>
@@ -14,12 +15,12 @@
         </tr>
 
         <tr v-for="product in products">
-            <td>{{product.sku}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.manufacturer}}</td>
-            <td>{{product.model_number}}</td>
-            <td>${{product.unit_price.toFixed(2)}}</td>
-            <td>0</td>
+            <td><a href="/inventory/{{product.sku}}">{{product.sku}}</a></td>
+            <td><a href="/inventory/{{product.sku}}">{{product.description}}</a></td>
+            <td><a href="/inventory/{{product.sku}}">{{product.manufacturer}}</a></td>
+            <td><a href="/inventory/{{product.sku}}">{{product.model_number}}</a></td>
+            <td><a href="/inventory/{{product.sku}}">${{product.unit_price.toFixed(2)}}</a></td>
+            <td><a href="/inventory/{{product.sku}}">{{product.qoh[0].quantity}}</a></td>
         </tr>
     </table>
 </template>
@@ -30,13 +31,16 @@ import Moment from 'moment';
 
 export default Vue.extend({
 
+    props: ['location'],
+
 	data() {
 		return {
 			sku: '',
 			description: '',
             last_sale: '',
 			products: [],
-			qoh: []
+			qoh: [],
+            partNumber: ''
 		}
 	},
 
@@ -56,7 +60,7 @@ export default Vue.extend({
         getQoh(sku) {
         	var url = '/api/v0/location?with=qoh&wherewith=sku,=,' + sku + '';
               
-            this.$http.get(url, {api_token: 'token'}).then(function(response) {
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('qoh', response.data.data);
 
             }, function(response) {
@@ -65,9 +69,27 @@ export default Vue.extend({
         },
 
         getByDescription(description) {
-            var url = '/api/v0/inventory?like=description,' + description + '&order_by=description,asc';
+            this.partNumber = '';
+            
+            var url = '/api/v0/inventory?like=description,' + description + '&with=qoh&wherewith=location_id,=,' + this.location.id + '&order_by=description,asc';
               
-            this.$http.get(url, {api_token: 'token'}).then(function(response) {
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
+                this.$set('products', response.data.data);
+                // this.$set('sku', response.data.data[0].sku);
+                // this.getQoh(this.sku);
+                // this.getLastSale(this.sku); 
+
+            }, function(response) {
+            // error callback
+            });
+        },
+
+        getByPartNumber(partNumber) {
+            this.description = '';
+
+            var url = '/api/v0/inventory?like=model_number,' + partNumber + '&with=qoh&wherewith=location_id,=,' + this.location.id + 'order_by=model_number,asc';
+              
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('products', response.data.data);
                 // this.$set('sku', response.data.data[0].sku);
                 // this.getQoh(this.sku);
