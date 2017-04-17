@@ -2,14 +2,14 @@
     <button @click="newOrder">New Part Order</button>
     <table class="table no-print">
         <tr>
-            <th>Part Order Number</th>
+            <th>Order Number</th>
             <th>Customer</th>
             <th>Phone Number</th>
             <th>Product</th>
             <th>To HO</th>
             <th>From HO</th>
-            <th>Picked Up</th>
             <th>Called</th>
+            <th>Picked Up</th>
         </tr>
 
         <tr v-for="partOrder in partOrders">
@@ -19,8 +19,8 @@
             <td>{{ partOrder.item }}</td>
             <td>{{ partOrder.to_head_office | moment }}</td>
             <td>{{ partOrder.from_head_office | moment }}</td>
-            <td>{{ partOrder.customer_pick_up | moment }}</td>
             <td>{{ partOrder.customer_called | moment }}</td>
+            <td>{{ partOrder.customer_pick_up | moment }}</td>
         </tr>
     </table>
 

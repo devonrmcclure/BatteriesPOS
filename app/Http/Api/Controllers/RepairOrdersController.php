@@ -9,6 +9,8 @@ use App\Http\Requests;
 
 use App\RepairOrder;
 
+use App\Http\Requests\StoreRepairOrder;
+
 use Auth;
 
 
@@ -38,7 +40,7 @@ class RepairOrdersController extends ApiController
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(StoreRepairOrder $request) {
 
         //TODO: Validation. (Use Laravel's validator.)
 
@@ -46,7 +48,7 @@ class RepairOrdersController extends ApiController
         $repairOrder->id = $request->input('orderNumber');
         $repairOrder->referred_by = $request->input('referred-by');
         $repairOrder->customer_id = $request->input('customer-id');
-        $repairOrder->call_if_over = $request->input('call_if_over');
+        $repairOrder->call_if_over = $request->input('call-if-over');
         $repairOrder->original_receipt = true; //DO a check for if the original receipt checkbox is on or not, then set true of false that way.
         $repairOrder->warranty = true; //Same as original_receipt
         $repairOrder->deposit = $request->input('deposit');

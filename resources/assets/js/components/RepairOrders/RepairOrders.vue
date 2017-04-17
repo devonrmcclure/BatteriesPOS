@@ -49,7 +49,7 @@
 
         methods: {
             getRepairOrders() {
-                var url = '/api/v0/repair-orders?&with=customer&location_id=' + this.location.id;
+                var url = '/api/v0/repair-orders?&with=customer&order_by=created_at,desc&location_id=' + this.location.id;
 
                 this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('repairOrders', response.data.data);
