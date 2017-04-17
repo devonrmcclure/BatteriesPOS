@@ -16,7 +16,7 @@
                     <td><a href="/invoices/{{invoice.id}}">{{invoice.staff}}</a></td>
                     <td><a href="/invoices/{{invoice.id}}">{{invoice.payment_method}}</a></td>
                     <td><a href="/invoices/{{invoice.id}}">${{invoice.total.toFixed(2)}}</a></td>
-                    <td><a href="/print/sales/{{invoice.id}}"><button>reprint</button></a></td>
+                    <td><button><a href="/print/sales/{{invoice.id}}?print=true&duplicate=true">reprint</a></button></td>
                 </tr>
 
            </table>

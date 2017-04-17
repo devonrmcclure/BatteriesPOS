@@ -16,10 +16,22 @@
 
         button {
             margin: 0;
+
+            a {
+                color: @white;
+            }
+
+            a:hover {
+                color: @white;
+            }
         }
     }
 
     tr {
         cursor: pointer;
+    }
+
+    tr:not(:first-child):nth-child(even) {
+        background: @grey-300;
     }
 }

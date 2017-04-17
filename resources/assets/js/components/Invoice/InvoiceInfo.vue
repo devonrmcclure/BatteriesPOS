@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <a href="/print/sales/{{invoice.id}}"><button>reprint</button></a>
+            <a href="/print/sales/{{invoice.id}}?print=true&duplicate=true"><button>reprint</button></a>
         </div>
     </div>
 
