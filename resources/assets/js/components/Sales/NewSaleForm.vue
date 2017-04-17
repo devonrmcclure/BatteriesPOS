@@ -35,7 +35,7 @@
                 <td class="remove-product" @click="removeProduct(product, $index)" class="removeProduct">&times;</td>
                 <td><input type="text" name="sku[]" v-model="product.sku" @change="updateProduct($index)" value="{{product.sku}}"/></td>
                 <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-                <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @change="updatePrice($index)" value="{{prices[$index].quantity}}"/></td>
+                <td><input type="text" id="qty" name="quantity[]" v-model="prices[$index].quantity" @blur="updatePrice($index)" value="{{prices[$index].quantity}}"/></td>
                 <td class="discount"><input type="text" name="discount[]" v-model="prices[$index].discount" @change="updatePrice($index)" value="{{prices[$index].discount}}"/></td>
                 <td><input type="text" name="unit-price[]" v-model="product.unit_price" @change="updatePrice($index)" value="{{product.unit_price.toFixed(2)}}"/></td>
                 <td><input type="text" name="extended[]" v-model="prices[$index].extended" value="{{prices[$index].extended}}" readonly/></td>
@@ -58,12 +58,19 @@
             </tr>       
         </table>
     </div>
-    <select name="invoice-comment" v-model="invoice_comment">
-        <option selected>Returns may be subject to a 25% restocking fee.</option>
+    <input type="text" name="invoice-comment" v-model="invoice_comment" list="comments" placeholder="SELECT A COMMENT" size="90"/>
+    <datalist id="comments">
+        <option>Returns may be subject to a 25% restocking fee.</option>
         <option>Small appliance repairs have a 30 day service warranty.</option>
         <option>Thank you for your business.</option>
         <option>To ensure quality, batteries are a non-exchangeable, non-refundable item.</option>
-    </select>
+    </datalist>
+    <!-- <select name="invoice-comment" v-model="invoice_comment">
+        <option >Returns may be subject to a 25% restocking fee.</option>
+        <option>Small appliance repairs have a 30 day service warranty.</option>
+        <option>Thank you for your business.</option>
+        <option>To ensure quality, batteries are a non-exchangeable, non-refundable item.</option>
+    </select> -->
      
 </form>
 
@@ -251,6 +258,18 @@
 
             updatePrice(index) {
                 var extended = (this.prices[index].quantity * this.products[index]['unit_price']).toFixed(2);
+
+                if(this.prices[index].quantity == 0 || this.prices[index].quantity == "") {
+                    alert('Please enter a quantity');
+                    
+                    this.prices[index].quantity = '';
+                    
+                    setTimeout(function(){
+                        $('input[id=qty]:last').focus();
+                    }, 0);
+
+                    return false;
+                }
 
                 if(this.prices[index].discount != 0 && (this.prices[index].discount/100) <= this.max_discount) {
                     //TODO: check if the product is exempt from max discount %

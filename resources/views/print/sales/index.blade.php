@@ -76,7 +76,7 @@
 
         <div class="invoice-comment">
             <p class="comment">(GST#{{Auth::user()->gst_number}}) {{$invoice->invoice_comment}}</p>
-            @if(isset($duplicate))
+            @if($duplicate)
                 <p class="duplicate">DUPLICATE</p>
             @endif
         </div>

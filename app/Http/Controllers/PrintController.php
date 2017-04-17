@@ -29,7 +29,7 @@ class PrintController extends Controller
         $invoice = Invoice::where('id', $id)->with('sale', 'customer')->first();
 
         isset($_GET['print']) ? $print = true : $print = false;
-        isset($_GET['duplicate']) ? $duplicate = true : $print = false;
+        isset($_GET['duplicate']) ? $duplicate = true : $duplicate = false;
         //dd($invoice->toArray());
 
         return view('print/sales/index')->with('invoice', $invoice)->with('print', $print)->with('duplicate', $duplicate);

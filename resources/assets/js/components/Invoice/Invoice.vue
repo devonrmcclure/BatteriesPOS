@@ -8,6 +8,7 @@
                     <th>Sold By</th>
                     <th>Method</th>
                     <th>Total</th>
+                    <th>Date</th>
                     <th>Actions</th>
                 </tr>
                 
@@ -16,6 +17,7 @@
                     <td><a href="/invoices/{{invoice.id}}">{{invoice.staff}}</a></td>
                     <td><a href="/invoices/{{invoice.id}}">{{invoice.payment_method}}</a></td>
                     <td><a href="/invoices/{{invoice.id}}">${{invoice.total.toFixed(2)}}</a></td>
+                    <td><a href="/invoices/{{invoice.id}}">{{invoice.created_at | moment}}</a></td>
                     <td><button><a href="/print/sales/{{invoice.id}}?print=true&duplicate=true">reprint</a></button></td>
                 </tr>
 
