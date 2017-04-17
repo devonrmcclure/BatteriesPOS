@@ -23,8 +23,10 @@ class InventoryController extends Controller
     }
 
     public function show($id) {
-        // $product = Inventory::where('sku', $id)->with('qoh')->first();
-        // $history = Sale::where('sku', $id)->with('invoice')->orderBy('created_at', 'desc')->limit(5)->get();
         return view('inventory.show');
+    }
+
+    public function history() {
+        return view('inventory.history');
     }
 }

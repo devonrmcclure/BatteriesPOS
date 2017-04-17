@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 import Inventory from './components/Inventory/Inventory.vue';
 import InventoryInfo from './components/Inventory/InventoryInfo.vue';
+import InventoryHistory from './components/Inventory/InventoryHistory.vue';
 import RepLoginModal from './components/Modals/RepLoginModal.vue';
 import DailySalesStats from './components/Stats/DailySalesStats.vue';
 import RepairOrders from './components/RepairOrders/RepairOrders.vue';
@@ -18,7 +19,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('input[name="_t
 
 new Vue({
     el: '#app',
-    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut},
+    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut},
     data() {
     	return {
         	showNewSaleModal: false,

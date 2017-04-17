@@ -2,32 +2,8 @@
     <div class="col-md-9 module-container">
         <div class="module">
             <div class="product-wrapper">
-                <div class="product-info">
-                    <table>
-                        <tr>
-                            <th>Sku</th>
-                            <th>Description</th>
-                            <th>Manufacturer</th>
-                            <th>Part Number</th>
-                            <th>Retail Price</th>
-                        </tr>
-
-                        <tr>
-                            <td>{{product.sku}}</td>
-                            <td>{{product.description}}</td>
-                            <td>{{product.manufacturer}}</td>
-                            <td>{{product.model_number}}</td>
-                            <td>${{product.unit_price}}</td>
-                        </tr>
-                    </table>
-                </div>
-                <hr />
-                <div class="product-image">
-                    <img src="/img/products/{{product.image}}"/>
-                </div>
-
                 <div class="sales-history">  
-                    <h3>Sales History <small>(Last 5)</small></h3>
+                    <h3>Sku {{product.sku}} Sales History</h3>
                     <table>
                         <tr>
                             <th>Invoice</th>
@@ -48,7 +24,6 @@
                                 <td>{{sale.created_at | moment}}</td>
                             </tr>
                     </table>
-                    <a href="/inventory/sales-history/{{product.sku}}"><button>sale history</button></a>
                     <button id="test" @click="showSearch()">Search Sku</button>
                     <input class="search hidden" type="text" placeholder="Enter Sku" v-model="sku" @keyup.enter="searchSku(sku)"/>
                 </div>
@@ -96,7 +71,7 @@ export default Vue.extend({
 
     ready(sku) {
         var temp = window.location.href.split('/');
-        this.sku = temp[4];
+        this.sku = temp[5];
         Vue.nextTick(function () {
             this.getInfo(this.sku);
             this.highlightCurrentLocation();
@@ -174,4 +149,4 @@ export default Vue.extend({
 
 });
 
-</script>
+</script>   
