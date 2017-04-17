@@ -12,7 +12,7 @@ use App\Inventory;
 use Auth;
 use App\Staff;
 
-class SalesController extends Controller
+class InvoiceController extends Controller
 {
 
     public function __construct()
@@ -26,12 +26,14 @@ class SalesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('sales.index');
+    {   
+        //showrecent invoices.
+        $invoices = Invoice::orderBy('created_at', 'desc')->take(5)->get();
+        return view('invoice.index')->with('invoices', $invoices);
     }
 
     public function show() 
     {
-        return view('sales.show');
+        return view('invoice.show');
     }
 }

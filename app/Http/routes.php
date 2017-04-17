@@ -23,6 +23,9 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::resource('admin/purchase/history', 'Controllers\PurchasesController');
     Route::get('admin/purchase/getProduct/{id}', 'Controllers\PurchasesController@getProduct');
 
+    Route::get('invoices', 'Controllers\InvoiceController@index');
+    Route::get('invoices/{id}', 'Controllers\InvoiceController@show');
+
     Route::get('staff/{rep}', 'Controllers\SalesController@getStaff');
 
     Route::get('inventory', 'Controllers\InventoryController@index');

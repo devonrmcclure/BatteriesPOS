@@ -3,7 +3,7 @@
         <div class="module">
             <div class="product-wrapper">
                 <div class="sales-history">  
-                    <h3>Sku {{product.sku}} Sales History</h3>
+                    <h3>Sku {{proudct.sku}} Sales History</h3>
                     <table>
                         <tr>
                             <th>Invoice</th>

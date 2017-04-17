@@ -28,9 +28,10 @@
         <div class="current-user">
             <a href="#" id="user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <i class="caret"></i></a>
 
-            <ul class="dropdown-menu pull-right" aria-labelledby="user-dropdown">
-                <li><a href="#">Settings (TODO)</a></li>
+            <ul class="dropdown-menu pull-right" aria-labelledby="user-dropdown"> 
+                <li><a href="/invoices">Invoice Lookup</a></li>
                 <li role="separator" class="divider"></li>
+                <li><a href="#">Settings (TODO)</a></li>
                 <li><a href="/logout">Log out</a></li>
             </ul>
         </div>

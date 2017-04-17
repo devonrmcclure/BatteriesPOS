@@ -4,7 +4,7 @@
     <input type="text" placeholder="Search By Part Number" v-model="partNumber" @keyup.enter="getByPartNumber(partNumber)"/>
 	
     <h2>Results</h2>
-    <table class="inventory-results">
+    <table class="table-results">
         <tr>
             <th>SKU</th>
             <th>Description</th>

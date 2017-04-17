@@ -98,13 +98,16 @@ class ApiController extends Controller
         $query = $model::select();
         
         if(isset($parameters['with']))
-        {
+        {   
+            $withParam = explode(',', $parameters['with'], 2);
             if(isset($parameters['wherewith']))
             {
                 $param = explode(',', $parameters['wherewith'], 3);
                 $query->with([$parameters['with'] => function($query) use ($param) {
                     $query->where($param[0], $param[1], $param[2]);
                 }]);
+            } elseif(count($withParam) > 0) {
+                $query->with($withParam[0], $withParam[1]);
             } else {
                 $query->with($parameters['with']);
             }

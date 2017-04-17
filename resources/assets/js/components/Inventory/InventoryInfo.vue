@@ -130,7 +130,7 @@ export default Vue.extend({
         getProduct(sku) {
             var url = '/api/v0/inventory?sku=' + sku + '&with=qoh';
 
-            this.$http.get(url, {api_token: 'token'}).then(function(response) {
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('product', response.data.data[0]);
 
             }, function(response) {
@@ -141,7 +141,7 @@ export default Vue.extend({
         getQoh(sku) {
             var url = '/api/v0/qoh?sku=' + sku + '&with=location';
               
-            this.$http.get(url, {api_token: 'token'}).then(function(response) {
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('qoh', response.data.data);
 
             }, function(response) {
@@ -152,7 +152,7 @@ export default Vue.extend({
         getHistory(sku) {
             var url = '/api/v0/sales?sku=' + sku + '&with=invoice&order_by=created_at,desc&limit=5';
               
-            this.$http.get(url, {api_token: 'token'}).then(function(response) {
+            this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('history', response.data.data);
 
             }, function(response) {
