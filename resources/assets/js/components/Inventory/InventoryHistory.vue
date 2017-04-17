@@ -2,9 +2,9 @@
     <div class="col-md-9 module-container">
         <div class="module">
             <div class="product-wrapper">
-                <div class="sales-history">  
-                    <h3>Sku {{proudct.sku}} Sales History</h3>
-                    <table>
+                <div>  
+                    <h3>Sku {{product.sku}} Sales History</h3>
+                    <table class="table-results">
                         <tr>
                             <th>Invoice</th>
                             <th>Description</th>
@@ -15,7 +15,7 @@
                             <th>Date <small><em>(YYYY-MM-DD)</em></small></th>
                         </tr>
                             <tr v-for="sale in history">
-                                <td>{{sale.invoice.id}}</td>
+                                <td><a href="/invoices/{{sale.invoice.id}}">{{sale.invoice.id}}</a></td>
                                 <td>{{sale.description}}</td>
                                 <td>{{sale.quantity}}</td>
                                 <td>${{sale.price}}</td>
@@ -125,7 +125,7 @@ export default Vue.extend({
         },
 
         getHistory(sku) {
-            var url = '/api/v0/sales?sku=' + sku + '&with=invoice&order_by=created_at,desc&limit=5';
+            var url = '/api/v0/sales?sku=' + sku + '&with=invoice&order_by=created_at,desc&limit=all';
               
             this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('history', response.data.data);

@@ -106,7 +106,7 @@ class ApiController extends Controller
                 $query->with([$parameters['with'] => function($query) use ($param) {
                     $query->where($param[0], $param[1], $param[2]);
                 }]);
-            } elseif(count($withParam) > 0) {
+            } elseif(count($withParam) > 1) {
                 $query->with($withParam[0], $withParam[1]);
             } else {
                 $query->with($parameters['with']);
