@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Http\Requests;
+use App\Http\Requests\StorePartOrder;
 
 use App\PartOrder;
 use Carbon\Carbon;
@@ -36,7 +37,7 @@ class PartOrdersController extends ApiController
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StorePartOrder $request)
     {
         //TODO: Validation. (Use Laravel's validator.)
 
