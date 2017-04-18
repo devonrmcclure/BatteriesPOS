@@ -11,7 +11,7 @@
             <input type="text" name="customer-last-name" id="last-name" placeholder="Last Name" value="{{customer.last_name}}" readonly/>
         </div>
         <div>
-            <input type="text" name="customer-address" id="address" placeholder="Address" value="{{customer.address}}" readonly/> 
+            <input type="text" name="customer-address" id="address" placeholder="Address" value="{{customer.address}}" readonly ondblclick="this.readOnly='';" onblur="this.readOnly='true';"/> 
             <input type="text" name="customer-city" id="city" placeholder="City" value="{{customer.city}}" readonly/>
             <input type="text" name="customer-postal-code" id="postal-code" placeholder="Postal Code" value="{{customer.postal_code}}" readonly/>
         </div>
