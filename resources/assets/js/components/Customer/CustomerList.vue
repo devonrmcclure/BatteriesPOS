@@ -1,5 +1,5 @@
 <template>
-    <button value="New Customer" @click="newCustomer()">New Customer</button>
+<!--     <button value="New Customer" @click="newCustomer()">New Customer</button> -->
 	<table>
         <tr>
             <th>Customer</th>
@@ -16,7 +16,7 @@
         </tr>
     </table>
 
-    <new-customer-modal :show.sync="showNewCustomerModal" title="New Customer" :location="location"></new-customer-modal>
+<!--     <new-customer-modal :show.sync="showNewCustomerModal" title="New Customer" :location="location"></new-customer-modal> -->
 </template>
 
 <script lang="babel">
