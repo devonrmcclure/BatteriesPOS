@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Helpers\Phone;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreCustomer;
 
 use App\Customer;
 
@@ -37,7 +38,7 @@ class CustomersController extends ApiController
 		]);
 	}
 
-	public function store(Request $request) 
+	public function store(StoreCustomer $request) 
 	{
 		//dd($request->all());
 		$phone = Phone::formatNumber($request->input('customer-primary-phone'));

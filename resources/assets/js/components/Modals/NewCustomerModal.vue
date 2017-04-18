@@ -81,7 +81,11 @@
                     this.close();
                 }, function(response) {
                     //TODO: Proper flash message
-                    console.log(response);
+                    var array = $.map(response.data, function(value, index) {
+                        return [value];
+                    });
+
+                    alert(array.join("\n"));
                 });               
             },
 

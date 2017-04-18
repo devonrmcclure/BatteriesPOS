@@ -26,9 +26,9 @@
                     <img src="/img/products/{{product.image}}"/>
                 </div>
 
-                <div class="sales-history">  
+                <div>  
                     <h3>Sales History <small>(Last 5)</small></h3>
-                    <table>
+                    <table class="table-results">
                         <tr>
                             <th>Invoice</th>
                             <th>Description</th>
@@ -39,7 +39,7 @@
                             <th>Date <small><em>(YYYY-MM-DD)</em></small></th>
                         </tr>
                             <tr v-for="sale in history">
-                                <td>{{sale.invoice.id}}</td>
+                                <td><a href="/invoices/{{sale.invoice.id}}">{{sale.invoice.id}}</a></td>
                                 <td>{{sale.description}}</td>
                                 <td>{{sale.quantity}}</td>
                                 <td>${{sale.price}}</td>
