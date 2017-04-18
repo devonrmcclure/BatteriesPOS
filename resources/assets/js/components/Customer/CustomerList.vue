@@ -45,7 +45,7 @@ export default Vue.extend({
         },
 
         getCustomers() {
-            var url = '/api/v0/customers?location_id=' + this.location.id;
+            var url = '/api/v0/customers?order_by=created_at,desc&location_id=' + this.location.id;
 
             this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       // get status
@@ -63,7 +63,7 @@ export default Vue.extend({
 
     filters: {
         moment: function (date) {
-            return Moment(date).format('MMMM Do YYYY');
+            return Moment(date).format('YYYY-MM-D @ H:mm');
         }
     },
 
