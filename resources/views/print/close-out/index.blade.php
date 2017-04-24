@@ -27,9 +27,13 @@
             <p><span class="heading">Date:</span> {{$closeOutResults['closeOutDate']}}</p><br/>
             <p><span class="heading">Sales:</span> ${{$closeOutResults['sales']}}</p><br/>
             <p><span class="heading">Returns:</span> ${{$closeOutResults['returns']}}</p><br/>
-            <p><span class="heading">Net Sales:</span> ${{$closeOutResults['netSales']}}</p>
+            <p><span class="heading">Net Sales:</span> ${{$closeOutResults['netSales']}}</p><br />
+            <p><span class="heading">Invoices:</span> {{$closeOutResults['invoiceCount']}}</p>
+            <p><span class="heading">Items Sold:</span> {{$closeOutResults['itemsSold']}}</p>
+            <p><span class="heading">$$/Invoice:</span> ${{$closeOutResults['salesPerInvoice']}}</p>
+            <p><span class="heading">Items/Invoice:</span> {{$closeOutResults['itemsPerInvoice']}}</p>
         </div>
-
+        
         <div class="preTaxInfo">
             <p><span class="heading">Location:</span> {{Auth::user()->name}}</p><br/>
             <p><span class="heading">Pre-Tax Sales:</span> ${{$closeOutResults['preTaxSales']}}</p><br/>

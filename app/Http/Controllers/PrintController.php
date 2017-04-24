@@ -144,13 +144,14 @@ class PrintController extends Controller
         $preTaxNetSales = $preTaxSales - $preTaxReturns;
         $netSales = $sales - $returns;
         $salesPerInvoice = $netSales/$invoiceCount;
+        $itemsPerInvoice = $itemsSold/$invoiceCount;
 
         isset($_GET['print']) ? $print = true : $print = false;
 
         $closeOutResults = compact('preTaxSales', 'preTaxReturns', 'preTaxNetSales', 'sales', 'returns', 'netSales', 
             'calculatedCashSales', 'calculatedInteracSales', 'calculatedMasterCardSales', 'calculatedVisaSales', 
             'calculatedOtherSales', 'inputCashSales', 'inputInteracSales', 'inputMasterCardSales', 'inputVisaSales',
-            'inputOtherSales', 'closeOutDate', 'itemsSold', 'invoiceCount', 'salesPerInvoice', 'totalPST', 'totalGST');
+            'inputOtherSales', 'closeOutDate', 'itemsSold', 'invoiceCount', 'salesPerInvoice', 'itemsPerInvoice', 'totalPST', 'totalGST');
 
         return view('print/close-out/index')->with('closeOutResults', $closeOutResults)->with('sales', $invoices)->with('print', $print);
     }
