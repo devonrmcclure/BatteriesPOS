@@ -25,7 +25,7 @@ class CreateStaffTable extends Migration
                         $table->string('primary_phone');
                         $table->string('secondary_phone')->nullable();
                         $table->string('email');
-                        $table->string('rep_code');
+                        $table->string('rep_code')->nullable(false);
                         $table->timestamps();
 
                         $table->foreign('location_id')->references('id')->on('users');

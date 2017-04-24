@@ -31,19 +31,28 @@ class StaffTableSeeder extends Seeder
                   'created_at' => Carbon::now()->format('Y-m-d H:i:s')
     	]);
 
-        DB::table('staff')->insert([
-                    'location_id' => 3,
-                   	'first_name' => 'Devon',
-                    'last_name' => 'McClure',
-                   	'address' => '15826 McBeth Rd',
-                   	'city' => 'Surrey',
-                   	'province' => 'British Columbia',
-                   	'country' => 'Canada',
-                   	'postal_code' => 'V4A 5X3',
-                   	'primary_phone' => '778-874-9156',
-                   	'email' => 'devon.r.mcclure@gmail.com',
-                   	'rep_code' => 'DM',
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
+      DB::table('staff')->insert([
+                  'location_id' => 3,
+                 	'first_name' => 'Devon',
+                  'last_name' => 'McClure',
+                 	'address' => '15826 McBeth Rd',
+                 	'city' => 'Surrey',
+                 	'province' => 'British Columbia',
+                 	'country' => 'Canada',
+                 	'postal_code' => 'V4A 5X3',
+                 	'primary_phone' => '778-874-9156',
+                 	'email' => 'devon.r.mcclure@gmail.com',
+                 	'rep_code' => 'DM',
+                  'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+      ]);
+
+      DB::table('staff')->insert([
+              'location_id' => 6,
+              'first_name' => 'Guildford Staff',
+              'primary_phone' => '604-930-9889',
+              'email' => 'guildford@batteriesincluded.ca',
+              'rep_code' => 'GF',
+              'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+      ]);
     }
 }
