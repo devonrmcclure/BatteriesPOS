@@ -336,9 +336,9 @@ export default Vue.extend({
 
                     date = year + "-" + month + "-" + day;
                     window.open("/print/close-out/" + date + "?print=true");
-                    alert('Close-Out Successful!');
                 }, function(response) {
                     //TODO: Proper flash message
+                    alert('Something went wrong');
                 });               
             },
     }
