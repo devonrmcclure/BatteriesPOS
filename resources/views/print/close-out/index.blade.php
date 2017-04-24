@@ -101,17 +101,15 @@
                 </tr>
 
                 @foreach($sales as $sale)
-                    
-
                     <tr style="font-weight: bold; border-top: 1px solid black;">
                         <td>{{$sale->id}}</td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td>${{($sale->total - $sale->total_gst - $sale->total_pst)}}</td>
-                        <td>${{$sale->total_gst}}</td>
-                        <td>${{$sale->total_pst}}</td>
-                        <td>${{$sale->total}}</td>
+                        <td>{{$sale->total_items}}</td>
+                        <td>${{number_format(($sale->total - $sale->total_gst - $sale->total_pst), 2)}}</td>
+                        <td>${{number_format($sale->total_gst, 2)}}</td>
+                        <td>${{number_format($sale->total_pst, 2)}}</td>
+                        <td>${{number_format($sale->total, 2)}}</td>
                         <td>{{$sale->created_at->format('H:m')}}</td>
                         <td>{{$sale->staff}}</td>
                     </tr>
@@ -122,26 +120,48 @@
                             <td>{{$product->description}}</td>
                             <td>{{$product->sku}}</td>
                             <td>{{$product->quantity}}</td>
-                            <td>${{$product->extended}}</td>
-                            <td>${{$product->gst}}</td>
-                            <td>${{$product->pst}}</td>
-                            <td>${{$product->total}}</td>
+                            <td>${{number_format($product->extended, 2)}}</td>
+                            <td>${{number_format($product->gst, 2)}}</td>
+                            <td>${{number_format($product->pst, 2)}}</td>
+                            <td>${{number_format($product->total, 2)}}</td>
                             <td></td>
                             <td></td>
                             <td></td>                         
                         </tr>
                     @endforeach
                 @endforeach
+
+                <tr style="border-top: 1px solid black">
+                    <td>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{$closeOutResults['itemsSold']}}</td>
+                    <td>${{number_format($closeOutResults['preTaxNetSales'], 2)}}</td>
+                    <td>${{number_format($closeOutResults['totalGST'], 2)}}</td>
+                    <td>${{number_format($closeOutResults['totalPST'], 2)}}</td>
+                    <td>${{number_format($closeOutResults['netSales'], 2)}}</td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="totals">
+                <tr>
+                    <td>Sales: ${{number_format($closeOutResults['preTaxNetSales'], 2)}}</td>
+                    <td>GST: ${{number_format($closeOutResults['totalGST'], 2)}}</td>
+                    <td>PST: ${{number_format($closeOutResults['totalPST'], 2)}}</td>
+                    <td>Total: ${{number_format($closeOutResults['netSales'], 2)}}</td>
+                </tr>
             </table>
 
         </div>
 
     </div>
-    {{-- @if($print)
+    @if($print)
         <script>
             window.print();
             setTimeout(window.close, 500);
         </script>
-    @endif --}}
+    @endif
 </body>
 </html>

@@ -93,6 +93,8 @@ class PrintController extends Controller
         $inputOtherSales = $closeOut->other;
 
         $itemsSold = 0;
+        $totalGST = 0;
+        $totalPST = 0;
 
         //get values from invoices ->with('sale', 'customer'). 
         $invoices = Invoice::whereDate('created_at', '=', $date)->with('sale', 'customer')->get();
@@ -133,6 +135,8 @@ class PrintController extends Controller
                 } else {
                     $preTaxSales += $product->extended;
                     $sales += $product->total;
+                    $totalPST += $product->pst;
+                    $totalGST += $product->gst;
                 }
             }
         }
@@ -141,11 +145,13 @@ class PrintController extends Controller
         $netSales = $sales - $returns;
         $salesPerInvoice = $netSales/$invoiceCount;
 
+        isset($_GET['print']) ? $print = true : $print = false;
+
         $closeOutResults = compact('preTaxSales', 'preTaxReturns', 'preTaxNetSales', 'sales', 'returns', 'netSales', 
             'calculatedCashSales', 'calculatedInteracSales', 'calculatedMasterCardSales', 'calculatedVisaSales', 
             'calculatedOtherSales', 'inputCashSales', 'inputInteracSales', 'inputMasterCardSales', 'inputVisaSales',
-            'inputOtherSales', 'closeOutDate', 'itemsSold', 'invoiceCount', 'salesPerInvoice');
+            'inputOtherSales', 'closeOutDate', 'itemsSold', 'invoiceCount', 'salesPerInvoice', 'totalPST', 'totalGST');
 
-        return view('print/close-out/index')->with('closeOutResults', $closeOutResults)->with('sales', $invoices);
+        return view('print/close-out/index')->with('closeOutResults', $closeOutResults)->with('sales', $invoices)->with('print', $print);
     }
 }

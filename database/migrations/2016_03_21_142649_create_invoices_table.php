@@ -15,6 +15,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
                         $table->increments('id');
                         $table->string('location'); //White Rock
+                        $table->integer('total_items');
                         $table->float('total_pst');
                         $table->float('total_gst');
                         $table->float('total');

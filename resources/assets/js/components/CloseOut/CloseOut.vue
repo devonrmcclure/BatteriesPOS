@@ -329,6 +329,13 @@ export default Vue.extend({
                 .then(function(response) {
                     //Success
                     //TODO: Proper flash message
+                    var date = new Date();
+                    var month = date.getMonth() + 1;
+                    var day = date.getDate();
+                    var year = date.getFullYear();
+
+                    date = year + "-" + month + "-" + day;
+                    window.open("/print/close-out/" + date + "?print=true");
                     alert('Close-Out Successful!');
                 }, function(response) {
                     //TODO: Proper flash message

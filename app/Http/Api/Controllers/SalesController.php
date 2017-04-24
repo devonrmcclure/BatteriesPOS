@@ -44,16 +44,19 @@ class SalesController extends ApiController
 	{   
 		$totalPST = 0;
         $totalGST = 0;
+        $totalItems = 0;
 
         for($i = 0; $i < count($request->input('sku')); $i++)
         {   
             $totalPST += $request->input('pst')[$i];
             $totalGST += $request->input('gst')[$i];
+            $totalItems += $request->input('quantity')[$i];
         }
 		//Add invoice.
 		$invoice = new Invoice();
         $invoice->id = $request->input('sale-invoice');
         $invoice->location = \Auth::guard('api')->user()->name;
+        $invoice->total_items = $totalItems;
         $invoice->total_pst = $totalPST;
         $invoice->total_gst = $totalGST;
         $invoice->total = $request->input('sale-total');
