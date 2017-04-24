@@ -86,6 +86,7 @@
     @if($print)
         <script>
             window.print();
+            window.close();
         </script>
     @endif
 </body>
