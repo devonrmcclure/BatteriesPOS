@@ -1,4 +1,4 @@
-<template>
+ <template>
     <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location" :phone="phoneNumber"></new-customer-modal>
     <form v-on:submit.prevent="getCustomer()">
         <span class="error">{{ error }}</span>

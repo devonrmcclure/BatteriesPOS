@@ -101,58 +101,64 @@ class PrintController extends Controller
 
         $invoiceCount = count($invoices);
         
-        //determine sales, refunds, and net sales.  
-        foreach ($invoices as $invoice)
-        {   
-            switch($invoice->payment_method)
-            {
-                case 'Cash':
-                    $calculatedCashSales += $invoice->total;
-                    break;
-                case 'Interac':
-                    $calculatedInteracSales += $invoice->total;
-                    break;
-                case 'MasterCard':
-                    $calculatedMasterCardSales += $invoice->total;
-                    break;
-                case 'Visa':
-                    $calculatedVisaSales += $invoice->total;
-                    break;
-                default:
-                    echo 'This should not happen';
-                    break;
-            }
-
-            foreach ($invoice->sale as $product)
+        //determine sales, refunds, and net sales.
+        if($invoiceCount)
+        {
+            foreach ($invoices as $invoice)
             {   
+                switch($invoice->payment_method)
+                {
+                    case 'Cash':
+                        $calculatedCashSales += $invoice->total;
+                        break;
+                    case 'Interac':
+                        $calculatedInteracSales += $invoice->total;
+                        break;
+                    case 'MasterCard':
+                        $calculatedMasterCardSales += $invoice->total;
+                        break;
+                    case 'Visa':
+                        $calculatedVisaSales += $invoice->total;
+                        break;
+                    default:
+                        echo 'This should not happen';
+                        break;
+                }
 
-                $itemsSold += $product->quantity;
-
-                if((float) $product->total < 0)
+                foreach ($invoice->sale as $product)
                 {   
-                    $preTaxReturns += abs($product->extended);
-                    $returns += abs($product->total);
-                } else {
-                    $preTaxSales += $product->extended;
-                    $sales += $product->total;
-                    $totalPST += $product->pst;
-                    $totalGST += $product->gst;
+
+                    $itemsSold += $product->quantity;
+
+                    if((float) $product->total < 0)
+                    {   
+                        $preTaxReturns += abs($product->extended);
+                        $returns += abs($product->total);
+                    } else {
+                        $preTaxSales += $product->extended;
+                        $sales += $product->total;
+                        $totalPST += $product->pst;
+                        $totalGST += $product->gst;
+                    }
                 }
             }
+
+            $preTaxNetSales = $preTaxSales - $preTaxReturns;
+            $netSales = $sales - $returns;
+            $salesPerInvoice = $netSales/$invoiceCount;
+            $itemsPerInvoice = $itemsSold/$invoiceCount;
+
+            isset($_GET['print']) ? $print = true : $print = false;
+
+            $closeOutResults = compact('preTaxSales', 'preTaxReturns', 'preTaxNetSales', 'sales', 'returns', 'netSales', 
+                'calculatedCashSales', 'calculatedInteracSales', 'calculatedMasterCardSales', 'calculatedVisaSales', 
+                'calculatedOtherSales', 'inputCashSales', 'inputInteracSales', 'inputMasterCardSales', 'inputVisaSales',
+                'inputOtherSales', 'closeOutDate', 'itemsSold', 'invoiceCount', 'salesPerInvoice', 'itemsPerInvoice', 'totalPST', 'totalGST');
+
+            return view('print/close-out/index')->with('closeOutResults', $closeOutResults)->with('sales', $invoices)->with('print', $print);
         }
 
-        $preTaxNetSales = $preTaxSales - $preTaxReturns;
-        $netSales = $sales - $returns;
-        $salesPerInvoice = $netSales/$invoiceCount;
-        $itemsPerInvoice = $itemsSold/$invoiceCount;
-
-        isset($_GET['print']) ? $print = true : $print = false;
-
-        $closeOutResults = compact('preTaxSales', 'preTaxReturns', 'preTaxNetSales', 'sales', 'returns', 'netSales', 
-            'calculatedCashSales', 'calculatedInteracSales', 'calculatedMasterCardSales', 'calculatedVisaSales', 
-            'calculatedOtherSales', 'inputCashSales', 'inputInteracSales', 'inputMasterCardSales', 'inputVisaSales',
-            'inputOtherSales', 'closeOutDate', 'itemsSold', 'invoiceCount', 'salesPerInvoice', 'itemsPerInvoice', 'totalPST', 'totalGST');
-
-        return view('print/close-out/index')->with('closeOutResults', $closeOutResults)->with('sales', $invoices)->with('print', $print);
+        return view('print/close-out/index')->with('error', 'There are no sales to close')->with('print', false)->with('closeOutResults', false);
+        
     }
 }
