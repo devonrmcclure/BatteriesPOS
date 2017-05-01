@@ -11,7 +11,6 @@ class InventoryController extends Controller
 {
     public function __construct()
     {
-        // TODO: Also check if user is admin.
         $this->middleware('auth');
     }
     

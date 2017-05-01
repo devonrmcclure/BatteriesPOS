@@ -92,12 +92,27 @@ Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev
 
         Route::get('settings', 'Api\Controllers\SettingsController@index');
 
-        Route::group(['prefix' => 'admin'], function () {
-            Route::get('inventory', 'Api\Controllers\Admin\InventoryController@index');
-            Route::post('inventory/update', 'Api\Controllers\Admin\InventoryController@update');
 
-            Route::get('categories', 'Api\Controllers\Admin\CategoriesController@index');
-            Route::post('categories', 'Api\Controllers\Admin\CategoriesController@update');
-        });
+        //Admin API Routes
+        Route::get('inventory', 'Api\Controllers\Admin\InventoryController@index');
+        Route::post('inventory/update', 'Api\Controllers\Admin\InventoryController@update');
+
+        Route::get('categories', 'Api\Controllers\Admin\CategoriesController@index');
+        Route::post('categories', 'Api\Controllers\Admin\CategoriesController@update');
+
     });
+});
+
+
+Route::group(['middleware' => ['web', 'admin'], 'domain' => 'batteriespos.dev'], function () {
+
+    Route::group(['prefix' => 'admin'], function () {
+
+        Route::get('/', 'Controllers\Admin\DashboardController@index');
+
+        
+    });
+
+
+
 });
