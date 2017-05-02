@@ -28,13 +28,24 @@
         <div class="current-user">
             <a href="#" id="user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <i class="caret"></i></a>
 
-            <ul class="dropdown-menu pull-right" aria-labelledby="user-dropdown">
-                <li><a href="/customers">Customers</a></li>
-                <li><a href="/invoices">Invoice Lookup</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Settings (TODO)</a></li>
-                <li><a href="/logout">Log out</a></li>
-            </ul>
+            
+            @if(Auth::user()->admin)
+                 <ul class="dropdown-menu pull-right" aria-labelledby="user-dropdown">
+                    <li><a href="#">Sale Stats</a></li>
+                    <li><a href="#">Other Link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Settings (TODO)</a></li>
+                    <li><a href="/logout">Log out</a></li>
+                </ul>
+            @else
+                {{-- Employee Dropdown Menu --}}
+                <ul class="dropdown-menu pull-right" aria-labelledby="user-dropdown">
+                    <li><a href="/customers">Customers</a></li>
+                    <li><a href="/invoices">Invoice Lookup</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/logout">Log out</a></li>
+                </ul>
+            @endif
         </div>
     @endif
 

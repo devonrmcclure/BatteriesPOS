@@ -110,6 +110,8 @@ Route::group(['middleware' => ['web', 'admin'], 'domain' => 'batteriespos.dev'],
 
         Route::get('/', 'Controllers\Admin\DashboardController@index');
 
+        Route::get('/staff', 'Controllers\Admin\StaffController@index');
+
         
     });
 

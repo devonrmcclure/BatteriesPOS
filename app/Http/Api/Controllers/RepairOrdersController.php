@@ -13,6 +13,8 @@ use App\Http\Requests\StoreRepairOrder;
 
 use Auth;
 
+use Carbon\Carbon;
+
 
 class RepairOrdersController extends ApiController
 {
@@ -63,7 +65,7 @@ class RepairOrdersController extends ApiController
         $repairOrder->invoice_id = $request->input('deposit-invoice');
         $repairOrder->problem = $request->input('problem');
         $repairOrder->notes = $request->input('notes');
-        $repairOrder->to_head_office = '0000-00-00 00:00:00';
+        $repairOrder->to_head_office = Carbon::now()->format('Y-m-d H:i:s');
         $repairOrder->save();
 
     }
