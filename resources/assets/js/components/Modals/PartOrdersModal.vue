@@ -34,7 +34,10 @@
                 <label for="part-number">Part Number</label>
                 <input name="part-number" id="part-number" type="text"/>
 
-                <label for="deposit">Deposit</label>
+                <label for="invoice">Invoice</label>
+                <input name="invoice" id="invoice" type="text" v-model="invoice"/>
+
+                <label for="invoice">Deposit</label>
                 <input name="deposit" id="deposit" type="text"/>
 
                 <label for="staff">Staff</label>

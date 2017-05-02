@@ -108,7 +108,7 @@
             moment: function (date) {
             if(date !== '' && date !== '0000-00-00 00:00:00')
             {
-                return Moment(date).format('YYYY-MM-D @ H:mm');
+                return Moment(date).format('YYYY-MM-DD @ H:mm');
             }
                 return 'Not Yet';
             }

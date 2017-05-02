@@ -24,6 +24,7 @@ class StorePartOrder extends Request
     public function rules()
     {
         return [
+            'make' => 'required',
             'referred-by' => 'required',
             'customer-id' => 'required',
             'deposit' => 'required',
