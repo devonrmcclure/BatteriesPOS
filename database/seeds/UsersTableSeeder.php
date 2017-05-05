@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
                     'phone_number' => '604-536-8108',
                    	'admin' => 0,
                     'gst_number' => '121104442RT0001',
-                    'api_token' => 'token',
+                    'api_token' => bcrypt('WR'),
                    	'password' => bcrypt('3218wr'),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class InventoryController extends Controller
+class StaffController extends Controller
 {
     public function __construct()
     {
@@ -15,6 +15,6 @@ class InventoryController extends Controller
     }
     
     public function index() {
-        return view('admin.inventory.index');
+        return view('admin.staff.index');
     }
 }

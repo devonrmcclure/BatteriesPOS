@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev
 
         Route::get('customers', 'Api\Controllers\CustomersController@index');
         Route::post('customers', 'Api\Controllers\CustomersController@store');
+        Route::post('customers/update', 'Api\Controllers\CustomersController@update');
         Route::get('inventory', 'Api\Controllers\InventoryController@index');
         Route::get('invoice', 'Api\Controllers\InvoiceController@index');
         Route::get('sales', 'Api\Controllers\SalesController@index');
@@ -92,15 +93,18 @@ Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev
 
         Route::get('settings', 'Api\Controllers\SettingsController@index');
 
-
-        //Admin API Routes
-        Route::get('inventory', 'Api\Controllers\Admin\InventoryController@index');
-        Route::post('inventory/update', 'Api\Controllers\Admin\InventoryController@update');
-
-        Route::get('categories', 'Api\Controllers\Admin\CategoriesController@index');
-        Route::post('categories', 'Api\Controllers\Admin\CategoriesController@update');
-
     });
+});
+
+Route::group(['middleware' => ['auth:api', 'web', 'admin'], 'prefix' => 'api/v0/admin'], function () {
+    //Admin API Routes
+    Route::get('inventory', 'Api\Controllers\Admin\InventoryController@index');
+    Route::post('inventory/update', 'Api\Controllers\Admin\InventoryController@update');
+
+    Route::get('categories', 'Api\Controllers\Admin\CategoriesController@index');
+    Route::post('categories', 'Api\Controllers\Admin\CategoriesController@update');
+
+    Route::post('staff/add', 'Api\Controllers\Admin\StaffController@store');
 });
 
 
@@ -114,7 +118,5 @@ Route::group(['middleware' => ['web', 'admin'], 'domain' => 'batteriespos.dev'],
 
         
     });
-
-
 
 });

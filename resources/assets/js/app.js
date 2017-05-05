@@ -14,6 +14,7 @@ import AdminInventory from './components/Admin/Inventory.vue';
 import CloseOut from './components/CloseOut/CloseOut.vue';
 import Invoice from './components/Invoice/Invoice.vue';
 import InvoiceInfo from './components/Invoice/InvoiceInfo.vue';
+import Staff from './components/Admin/Staff/Staff.vue';
 
 import './directives/Ajax';
 
@@ -22,7 +23,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('input[name="_t
 
 new Vue({
     el: '#app',
-    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo},
+    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo, Staff},
     data() {
     	return {
         	showNewSaleModal: false,

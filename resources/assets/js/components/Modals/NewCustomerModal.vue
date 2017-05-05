@@ -41,7 +41,6 @@
 <script>
     import Moment from 'moment';
     import Modal from './Modal.vue';
-    import ReceiptModal from './ReceiptModal.vue';
 
     export default Modal.extend({
 

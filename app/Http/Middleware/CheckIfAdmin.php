@@ -17,10 +17,18 @@ class CheckIfAdmin
      */
     public function handle($request, Closure $next)
     {   
-        if(Auth::user()->admin) {
-            return $next($request);
+        if ($request->ajax() || $request->wantsJson()) {
+            if(Auth::guard('api')->user()->admin) {
+                return $next($request);
+            } else {
+                return response('Unauthorized.', 401);
+            }
         } else {
-            return redirect()->guest('login');
+            if(Auth::user()->admin) {
+                return $next($request);
+            } else {
+                return redirect()->guest('login');
+            }
         }
 
     }

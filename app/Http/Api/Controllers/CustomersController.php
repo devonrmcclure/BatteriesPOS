@@ -9,6 +9,7 @@ use App\Helpers\Phone;
 
 use App\Http\Requests;
 use App\Http\Requests\StoreCustomer;
+use App\Http\Requests\UpdateCustomer;
 
 use App\Customer;
 
@@ -41,7 +42,6 @@ class CustomersController extends ApiController
 	public function store(StoreCustomer $request) 
 	{
 		//dd($request->all());
-		$phone = Phone::formatNumber($request->input('customer-primary-phone'));
 		$customer = new Customer();
 		$customer->first_name = $request->input('customer-first-name');
 		$customer->last_name = $request->input('customer-last-name');
@@ -57,6 +57,21 @@ class CustomersController extends ApiController
 		$customer->comments = $request->input('customer-comments');
 		$customer->store_credit = $request->input('customer-store-credit');
 		$customer->location_id = \Auth::guard('api')->user()->id;
+		$customer->save();
+
+		return $customer;
+	}
+
+	public function update(UpdateCustomer $request)
+	{
+		$customer = Customer::find($request->input('customer-id'));
+		$customer->first_name = $request->input('customer-first-name');
+		$customer->last_name = $request->input('customer-last-name');
+		$customer->address   = $request->input('customer-address');
+		$customer->city      = $request->input('customer-city');
+		$customer->postal_code = $request->input('customer-postal-code');
+		$customer->primary_phone = Phone::formatNumber($request->input('customer-primary-phone'));
+		$customer->secondary_phone = Phone::formatNumber($request->input('customer-secondary-phone'));
 		$customer->save();
 
 		return $customer;

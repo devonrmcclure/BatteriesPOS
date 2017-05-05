@@ -1,24 +1,27 @@
- <template>
+<template>
     <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location" :phone="phoneNumber"></new-customer-modal>
     <form v-on:submit.prevent="getCustomer()">
         <span class="error">{{ error }}</span>
         <input type="text" placeholder="Search Customer" v-model="phoneNumber" value="{{phoneNumber}}" @change="getCustomer()"/><br/>
-    </form>
-        <div>
-            <input type="hidden" name="customer-id" value="{{customer.id}}" readonly/>
-            <input type="hidden" name="new-customer" value="{{customer.new_customer}}" readonly/>
-            <input type="text" name="customer-first-name" id="first-name" placeholder="First Name" value="{{customer.first_name}}" readonly/>
-            <input type="text" name="customer-last-name" id="last-name" placeholder="Last Name" value="{{customer.last_name}}" readonly/>
-        </div>
-        <div>
-            <input type="text" name="customer-address" id="address" placeholder="Address" value="{{customer.address}}" readonly ondblclick="this.readOnly='';" onblur="this.readOnly='true';"/> 
-            <input type="text" name="customer-city" id="city" placeholder="City" value="{{customer.city}}" readonly/>
-            <input type="text" name="customer-postal-code" id="postal-code" placeholder="Postal Code" value="{{customer.postal_code}}" readonly/>
-        </div>
-        <div>
-            <input type="text" name="customer-primary-phone" id="primary-phone" placeholder="Primary Phone" value="{{customer.primary_phone}}" readonly/>
-            <input type="text" name="customer-secondary-phone" id="secondary-phone" placeholder="Secondary Phone" value="{{customer.secondary_phone}}" readonly/>
-        </div>
+    </form> 
+        <form id="customer-form">
+            <div>
+                <input  type="hidden" name="api_token" v-model="location.api_token" readonly/> 
+                <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
+                <input type="hidden" name="new-customer" v-model="customer.new_customer" readonly/>
+                <input type="text" name="customer-first-name" id="first-name" placeholder="First Name" v-model="customer.first_name" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/>
+                <input type="text" name="customer-last-name" id="last-name" placeholder="Last Name" v-model="customer.last_name" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/>
+            </div>
+            <div>
+                <input type="text" name="customer-address" id="address" placeholder="Address" v-model="customer.address" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/> 
+                <input type="text" name="customer-city" id="city" placeholder="City" v-model="customer.city" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/>
+                <input type="text" name="customer-postal-code" id="postal-code" placeholder="Postal Code" v-model="customer.postal_code" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/>
+            </div>
+            <div>
+                <input type="text" name="customer-primary-phone" id="primary-phone" placeholder="Primary Phone" v-model="customer.primary_phone" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/>
+                <input type="text" name="customer-secondary-phone" id="secondary-phone" placeholder="Secondary Phone" v-model="customer.secondary_phone" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/>
+            </div>
+        </form>
 </template>
 
 
@@ -78,6 +81,25 @@ export default Vue.extend({
                 this.clearInputs();
                 this.showNewCustomerModal = true;
             });
+        },
+
+        updateCustomer(e) {
+            
+            var formData = new FormData(document.querySelector('#customer-form'));
+            var url = '/api/v0/customers/update';
+            this.$http.post(url, formData)
+            .then(function(response) {
+                //Success
+                this.$set('customer', response.data);
+                this.close();
+            }, function(response) {
+                //TODO: Proper flash message
+                var array = $.map(response.data, function(value, index) {
+                    return [value];
+                });
+
+                alert(array.join("\n"));
+            });             
         }
     },
 

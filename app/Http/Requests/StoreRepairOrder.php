@@ -30,6 +30,7 @@ class StoreRepairOrder extends Request
             'product' => 'required',
             'model' => 'required',
             'date-code' => 'required_if:call-if-over,date code warranty',
+            'customer-address' => 'required_if:call-if-over,warranty',
             'condition' => 'required',
             'accessories' => 'required',
             'problem' => 'required'

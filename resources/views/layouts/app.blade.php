@@ -32,7 +32,7 @@
             @if(Auth::user()->admin)
                  <ul class="dropdown-menu pull-right" aria-labelledby="user-dropdown">
                     <li><a href="#">Sale Stats</a></li>
-                    <li><a href="#">Other Link</a></li>
+                    <li><a href="/admin/staff">Staff</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="#">Settings (TODO)</a></li>
                     <li><a href="/logout">Log out</a></li>
