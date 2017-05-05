@@ -55,9 +55,20 @@
                     <input name="accessories" id="accessories" type="text"/>
 
                     <hr />
-                    <label for="problem">Problem</label>
-                    <br />
-                    <textarea name="problem" id="problem"></textarea>
+                    <div style="width: 100%;">
+                        <div style="float:left; display: block; width: 45%; margin: 5px; padding: 0">
+                            <label for="problem">Problem</label>
+                            <br />
+                            <textarea name="problem" id="problem" style="width: 100%; height: 80px;"></textarea>
+                        </div>
+                        <div style="float:right; display: block; width: 50%; margin: 5px; padding: 0">
+                            <label for="Notes">Notes</label>
+                            <br />
+                            <textarea name="notes" id="notes" style="width: 100%; height: 80px;"></textarea>
+                        </div>
+
+                        <div class="clear-class"></div>
+                    </div>
                 </div>
                 
                 <br />
