@@ -26,20 +26,20 @@
         <div class="close-out-print">
             <div class="info">
                 <p><span class="heading">Date:</span> {{$closeOutResults['closeOutDate']}}</p><br/>
-                <p><span class="heading">Sales:</span> ${{$closeOutResults['sales']}}</p><br/>
-                <p><span class="heading">Returns:</span> ${{$closeOutResults['returns']}}</p><br/>
-                <p><span class="heading">Net Sales:</span> ${{$closeOutResults['netSales']}}</p><br />
+                <p><span class="heading">Sales:</span> ${{number_format($closeOutResults['sales'], 2)}}</p><br/>
+                <p><span class="heading">Returns:</span> ${{number_format($closeOutResults['returns'], 2)}}</p><br/>
+                <p><span class="heading">Net Sales:</span> ${{number_format($closeOutResults['netSales'], 2)}}</p><br />
                 <p><span class="heading">Invoices:</span> {{$closeOutResults['invoiceCount']}}</p>
                 <p><span class="heading">Items Sold:</span> {{$closeOutResults['itemsSold']}}</p>
-                <p><span class="heading">$$/Invoice:</span> ${{$closeOutResults['salesPerInvoice']}}</p>
-                <p><span class="heading">Items/Invoice:</span> {{$closeOutResults['itemsPerInvoice']}}</p>
+                <p><span class="heading">$$/Invoice:</span> ${{number_format($closeOutResults['salesPerInvoice'], 2)}}</p>
+                <p><span class="heading">Items/Invoice:</span> {{number_format($closeOutResults['itemsPerInvoice'], 2)}}</p>
             </div>
             
             <div class="preTaxInfo">
                 <p><span class="heading">Location:</span> {{Auth::user()->name}}</p><br/>
-                <p><span class="heading">Pre-Tax Sales:</span> ${{$closeOutResults['preTaxSales']}}</p><br/>
-                <p><span class="heading">Pre-Tax Returns:</span> ${{$closeOutResults['preTaxReturns']}}</p><br/>
-                <p><span class="heading">Pre-Tax Net Sales:</span> ${{$closeOutResults['preTaxNetSales']}}</p> 
+                <p><span class="heading">Pre-Tax Sales:</span> ${{number_format($closeOutResults['preTaxSales'], 2)}}</p><br/>
+                <p><span class="heading">Pre-Tax Returns:</span> ${{number_format($closeOutResults['preTaxReturns'], 2)}}</p><br/>
+                <p><span class="heading">Pre-Tax Net Sales:</span> ${{number_format($closeOutResults['preTaxNetSales'], 2)}}</p> 
             </div>
 
             <div class="sales-info">
@@ -52,38 +52,38 @@
 
                     <tr>
                         <td>Cash</td>
-                        <td>{{$closeOutResults['inputCashSales']}}</td>
-                        <td>{{$closeOutResults['calculatedCashSales']}}</td>
+                        <td>${{number_format($closeOutResults['inputCashSales'], 2)}}</td>
+                        <td>${{number_format($closeOutResults['calculatedCashSales'], 2)}}</td>
                     </tr>
 
                     <tr>
                         <td>Interac</td>
-                        <td>{{$closeOutResults['inputInteracSales']}}</td>
-                        <td>{{$closeOutResults['calculatedInteracSales']}}</td>
+                        <td>${{number_format($closeOutResults['inputInteracSales'], 2)}}</td>
+                        <td>${{number_format($closeOutResults['calculatedInteracSales'], 2)}}</td>
                     </tr>
 
                     <tr>
                         <td>MasterCard</td>
-                        <td>{{$closeOutResults['inputMasterCardSales']}}</td>
-                        <td>{{$closeOutResults['calculatedMasterCardSales']}}</td>
+                        <td>${{number_format($closeOutResults['inputMasterCardSales'], 2)}}</td>
+                        <td>${{number_format($closeOutResults['calculatedMasterCardSales'], 2)}}</td>
                     </tr>
 
                     <tr>
                         <td>Visa</td>
-                        <td>{{$closeOutResults['inputVisaSales']}}</td>
-                        <td>{{$closeOutResults['calculatedVisaSales']}}</td>
+                        <td>${{number_format($closeOutResults['inputVisaSales'], 2)}}</td>
+                        <td>${{number_format($closeOutResults['calculatedVisaSales'], 2)}}</td>
                     </tr>
 
                     <tr>
                         <td>Other</td>
-                        <td>{{$closeOutResults['inputOtherSales']}}</td>
-                        <td>{{$closeOutResults['calculatedOtherSales']}}</td>
+                        <td>${{number_format($closeOutResults['inputOtherSales'], 2)}}</td>
+                        <td>${{number_format($closeOutResults['calculatedOtherSales'], 2)}}</td>
                     </tr>
 
                     <tr>
                         <td>Total</td>
-                        <th>{{$closeOutResults['netSales']}}</th>
-                        <th>{{$closeOutResults['netSales']}}</th>
+                        <th>${{number_format($closeOutResults['netSales'], 2)}}</th>
+                        <th>${{number_format($closeOutResults['netSales'], 2)}}</th>
                     </tr>
 
                 </table>

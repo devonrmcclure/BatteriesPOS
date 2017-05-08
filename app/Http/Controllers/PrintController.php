@@ -13,6 +13,8 @@ use Carbon\Carbon;
 
 use App\Http\Requests;
 
+use Auth;
+
 class PrintController extends Controller
 {   
 
@@ -49,7 +51,7 @@ class PrintController extends Controller
             $invoice = Invoice::where('id', $partOrder->invoice->id)->with('sale')->first();
         }
         isset($_GET['print']) ? $print = true : $print = false;
-        
+
         return view('print/part-orders/index')->with('partOrder', $partOrder)->with('invoice', $invoice)->with('print', $print);
     }
 
@@ -99,7 +101,7 @@ class PrintController extends Controller
         $totalPST = 0;
 
         //get values from invoices ->with('sale', 'customer'). 
-        $invoices = Invoice::whereDate('created_at', '=', $date)->with('sale', 'customer')->get();
+        $invoices = Invoice::where('location', Auth::user()->name)->whereDate('created_at', '=', $date)->with('sale', 'customer')->orderBy('created_at', 'asc')->get();
 
         $invoiceCount = count($invoices);
         
@@ -157,7 +159,7 @@ class PrintController extends Controller
                 'calculatedOtherSales', 'inputCashSales', 'inputInteracSales', 'inputMasterCardSales', 'inputVisaSales',
                 'inputOtherSales', 'closeOutDate', 'itemsSold', 'invoiceCount', 'salesPerInvoice', 'itemsPerInvoice', 'totalPST', 'totalGST');
 
-            return view('print/close-out/index')->with('closeOutResults', $closeOutResults)->with('sales', $invoices)->with('print', $print);
+            return view('print/close-out/index')->with('closeOutResults', $closeOutResults)->with('sales', $invoices)->with('print', $print)->with('error', false);
         }
 
         return view('print/close-out/index')->with('error', 'There are no sales to close')->with('print', false)->with('closeOutResults', false);

@@ -91,7 +91,9 @@ export default Vue.extend({
             var day = date.getDate();
             var year = date.getFullYear();
 
-            return year + "-" + month + "-" + day;
+            var dateString = year + '-' + (('0' + month).slice(-2)) + '-' + (('0' + day).slice(-2))
+
+            return dateString;
         },
 
         difference: function() {
@@ -329,13 +331,7 @@ export default Vue.extend({
                 .then(function(response) {
                     //Success
                     //TODO: Proper flash message
-                    var date = new Date();
-                    var month = date.getMonth() + 1;
-                    var day = date.getDate();
-                    var year = date.getFullYear();
-
-                    date = year + "-" + month + "-" + day;
-                    window.open("/print/close-out/" + date + "?print=true");
+                    window.open("/print/close-out/" + this.today + "?print=true");
                 }, function(response) {
                     //TODO: Proper flash message
                     alert('Something went wrong');
