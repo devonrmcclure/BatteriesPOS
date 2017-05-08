@@ -12,7 +12,7 @@
         </tr>
 
         <tr v-for="repairOrder in repairOrders">
-            <td>{{ repairOrder.id }}</td>
+            <td><a href="repair-orders/{{ repairOrder.id }}">{{ repairOrder.id }}</a></td>
             <td>{{ repairOrder.customer.first_name }} {{ repairOrder.customer.last_name }}</td>
             <td>{{ repairOrder.customer.primary_phone }}</td>
             <td>{{ repairOrder.product }}</td>

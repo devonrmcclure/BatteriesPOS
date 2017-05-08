@@ -22,4 +22,9 @@ class RepairOrdersController extends Controller
     {
         return view('repair-orders.index');
     }
+
+    public function show()
+    {
+        return view('repair-orders.view');
+    }
 }

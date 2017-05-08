@@ -43,6 +43,12 @@
                 <label for="staff">Staff</label>
                 <input name="staff" id="staff" type="text"/>
 
+                <div style="display: block; width: 50%; margin: 5px; padding: 0">
+                    <label for="Notes">Notes</label>
+                    <br />
+                    <textarea name="notes" id="notes" style="width: 100%; height: 80px;"></textarea>
+                </div>
+
                 <input name="pick-up-location" id="pick-up-location" type="hidden" value="{{location.name}}"/>
             </div>
 

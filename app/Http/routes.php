@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     Route::get('inventory/sales-history/{id}', 'Controllers\InventoryController@history');
 
     Route::get('repair-orders', 'Controllers\RepairOrdersController@index');
-    Route::post('repair-orders', 'Controllers\RepairOrdersController@store'); //Change to post to api.batteriespos.dev/v0/repair-orders
+    Route::get('repair-orders/{orderNum}', 'Controllers\RepairOrdersController@show'); //Change to post to api.batteriespos.dev/v0/repair-orders
 
     Route::get('part-orders', 'Controllers\PartOrdersController@index');
     Route::get('part-orders/{orderNum}', 'Controllers\PartOrdersController@show');
