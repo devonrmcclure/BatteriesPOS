@@ -6,6 +6,7 @@
             <input type="hidden" name="api_token" value="{{location.api_token}}"/>
             <input type="hidden" name="rep_id" v-model="rep.id"/>
 
+
             <div class="part-order-number">
                 <label for="part-order-id">Part Order #:</label>
                 <input name="part-order-id" id="part-order-id" type="text" v-model="id" readonly>
@@ -14,6 +15,7 @@
             <customer :customer.sync="customer" :location.sync="location"></customer>
 
             <div class="important-info">
+                <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
                 <label for="referred-by">Referred By</label>
                 <select name="referred-by" id="referred_by">
                     <option value="none">-- Select -- </option>

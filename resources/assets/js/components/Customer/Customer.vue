@@ -6,7 +6,7 @@
     </form> 
         <form id="customer-form">
             <div>
-                <input  type="hidden" name="api_token" v-model="location.api_token" readonly/> 
+                <input type="hidden" name="api_token" v-model="location.api_token" readonly/> 
                 <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
                 <input type="hidden" name="new-customer" v-model="customer.new_customer" readonly/>
                 <input type="text" name="customer-first-name" id="first-name" placeholder="First Name" v-model="customer.first_name" readonly ondblclick="this.readOnly='';" oblur="this.readOnly='true';" @change="updateCustomer()"/>

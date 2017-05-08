@@ -16,14 +16,12 @@ export default Vue.extend({
     },
 
     methods: {
-        render(data, type) {
+        render(data, type, options) {
             var context = document.querySelector('#graph').getContext('2d');
             new Chart(context, {
                 type: type,
                 data: data,
-                options: {
-                    maintainAspectRatio: false
-                }
+                options: options
             }); 
         }
     }

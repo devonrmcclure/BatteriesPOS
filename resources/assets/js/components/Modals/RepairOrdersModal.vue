@@ -4,10 +4,11 @@
         <div class="Modal__body">
 
             <form id="new-repair-order-form">
-                <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
+                <input type="hidden" name="api_token" value="{{location.api_token}}"/>
                 <customer :customer.sync="customer" :location.sync="location"></customer>
                 
                 <div class="important-info">
+                    <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
                     <label for="orderNumber">Repair Order Number:</label>
                     <input type="text" name="orderNumber" id="orderNumber" v-model="orderNumber" readonly/>
                     <label for="referred-by">Referred By</label>
@@ -23,7 +24,7 @@
                     <input name="original-receipt" id="original-receipt" type="text" placeholder="yes/no">
 
                     <label for="deposit">Deposit</label>
-                    <input name="deposit" id="deposit" type="text"/>
+                    <input name="deposit" id="deposit" type="text" v-model="deposit"/>
 
                     <label for="date-code">Deposit Invoice</label>
                     <input name="deposit-invoice" id="deposit-invoice" v-model="invoice" type="text"/>
