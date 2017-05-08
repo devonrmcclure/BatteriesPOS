@@ -163,6 +163,7 @@ export default Modal.extend({
                 this.$dispatch('new-part-order');
                 this.$broadcast('new-part-order');
                 this.close();
+                window.open("/print/part-order/" + this.id + "?print=true");
             }, function(response) {
                 //TODO: Proper flash message
                 var array = $.map(response.data, function(value, index) {

@@ -76,5 +76,16 @@
         </div>
 
     </div>
+
+    @if(isset($error))
+        {{$error}}
+    @endif
+
+    @if($print)
+        <script>
+            window.print();
+            setTimeout(window.close, 500);
+        </script>
+    @endif
 </body>
 </html>
