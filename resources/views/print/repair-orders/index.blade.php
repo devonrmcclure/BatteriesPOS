@@ -61,7 +61,7 @@
             </div>
 
             <div class="notes">
-                Notes
+                {{$invoice->notes}}
             </div>
 
             <div class="footer">
@@ -151,8 +151,15 @@
         </div>
     </div>
 
-    <script>
-        //window.print();
-    </script>
+    @if(isset($error))
+        {{$error}}
+    @endif
+
+    @if($print)
+        <script>
+            window.print();
+            setTimeout(window.close, 500);
+        </script>
+    @endif
 </body>
 </html>

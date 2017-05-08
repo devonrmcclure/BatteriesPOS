@@ -128,6 +128,7 @@
                     this.$dispatch('new-repair-order');
                     this.$broadcast('new-repair-order');
                     this.close();
+                    window.open("/print/repair-order/" + this.orderNumber + "?print=true");
                 }, function(response) {
                     //TODO: Proper flash message
                     var array = $.map(response.data, function(value, index) {

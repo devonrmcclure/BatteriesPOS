@@ -48,16 +48,18 @@ class PrintController extends Controller
         {
             $invoice = Invoice::where('id', $partOrder->invoice->id)->with('sale')->first();
         }
-
-        return view('print/part-orders/index')->with('partOrder', $partOrder)->with('invoice', $invoice);
+        isset($_GET['print']) ? $print = true : $print = false;
+        
+        return view('print/part-orders/index')->with('partOrder', $partOrder)->with('invoice', $invoice)->with('print', $print);
     }
 
     public function repair_order_invoice($id) {
         //get repair order info
         //send to view
         $invoice = RepairOrder::where('id', $id)->with('customer', 'staff')->first();
+        isset($_GET['print']) ? $print = true : $print = false;
         //dd($invoice->toArray());
-        return view('print/repair-orders/index')->with('invoice', $invoice);
+        return view('print/repair-orders/index')->with('invoice', $invoice)->with('print', $print);
     }
 
     public function close_out($date) {
