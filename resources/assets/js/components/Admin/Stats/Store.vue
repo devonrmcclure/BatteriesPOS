@@ -40,7 +40,7 @@ export default Graph.extend({
                 datasets: [
                     {         
                         label: 'Total (w/ Tax)',    
-                        data: [this.guildfordSales, this.mapleRidgeSales, this.richmondSales, this.whiteRockSales],
+                        data: [Number(this.guildfordSales).toFixed(2), Number(this.mapleRidgeSales).toFixed(2), Number(this.richmondSales).toFixed(2), Number(this.whiteRockSales).toFixed(2)],
                         backgroundColor: this.colors
                     }
                 ],
