@@ -1,4 +1,6 @@
 <template>
+    <h3>Daily Sales <small>{{Number(total).toFixed(2)}}</small></h3>
+    <hr />
     <div>
         <canvas id="graph"></canvas>
     </div>

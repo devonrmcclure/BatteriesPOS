@@ -1,9 +1,43 @@
 <template>
-    <div class="col-md-9 module-container">
+    <!-- <div class="col-md-9 module-container">
         <div class="module">
             Dashboardddd
         </div>
+    </div> -->
+    <div class="col-md-3 module-container">
+        <div class="module">
+            <store-stats 
+                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
+                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
+                :location="location"
+            ></store-stats>
+        </div>
     </div>
+
+    <div class="col-md-3 module-container">
+        <div class="module">
+            <h3>New Part Orders <small>5 total</small></h3>
+            <hr />
+            <store-stats 
+                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
+                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
+                :location="location"
+            ></store-stats>
+        </div>
+    </div>
+
+    <div class="col-md-3 module-container">
+        <div class="module">
+            <h3>New Repair Orders</h3>
+            <hr />
+            <store-stats 
+                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
+                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
+                :location="location"
+            ></store-stats>
+        </div>
+    </div>
+
     <div class="col-md-3 module-container">
         <div class="module">
             <h3>Daily Sales <small>{{today | moment}}</small></h3>
@@ -16,11 +50,29 @@
         </div>
     </div>
 
- <!-- <sale-type-stats 
-        :labels="['Cash', 'Interac', 'Visa', 'MasterCard', 'Other']" 
-        :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B', '#9C27B0']"
-        :location="location"
-    ></sale-type-stats> -->
+    <div class="col-md-3 module-container">
+        <div class="module">
+            <h3>Daily Sales <small>{{today | moment}}</small></h3>
+            <hr />
+            <store-stats 
+                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
+                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
+                :location="location"
+            ></store-stats>
+        </div>
+    </div>
+
+    <div class="col-md-3 module-container">
+        <div class="module">
+            <h3>Daily Sales <small>{{today | moment}}</small></h3>
+            <hr />
+            <store-stats 
+                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
+                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
+                :location="location"
+            ></store-stats>
+        </div>
+    </div>
 </template>
 
 <script lang="babel">
