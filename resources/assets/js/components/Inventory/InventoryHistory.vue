@@ -140,7 +140,7 @@ export default Vue.extend({
       moment: function (date) {
         if(date !== 'No Previous Sale' && date !== '')
         {
-            return Moment(date).format('YYYY-MM-D @ H:mm');
+            return Moment(date).format('YYYY-MM-DD @ H:mm');
         }
             return 'No Sales History';
       }

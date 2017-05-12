@@ -26,6 +26,10 @@ class InventoryController extends Controller
         return view('inventory.show');
     }
 
+    public function order() {
+        return view('inventory.order');
+    }
+
     public function history() {
         return view('inventory.history');
     }

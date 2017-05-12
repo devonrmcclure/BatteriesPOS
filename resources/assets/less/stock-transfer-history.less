@@ -1,0 +1,58 @@
+.stock-transfer-history {
+
+    .stock-tabs {
+        border: 1px solid #ccc; 
+
+        .tab {
+            padding: 15px 10px;
+            margin: 0;
+            width: 90px;
+        }
+
+        .tab-active {
+            background: @green-700;
+        }
+
+        a:hover, a:active, a:visited {
+            text-decoration: none;
+        }
+    }
+
+    .stock-order-history, .stock-request-history {
+        border: 1px solid #ccc;
+        border-top: none;
+        padding: 0 10px;
+    }
+    
+    .order {
+        width: 100%;
+        padding-top: 8px;
+
+        &:nth-child(even):hover {
+            background: #eee;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .order-date {
+            font-style: italic;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .order-status, .view-more {
+            float: right;
+            margin: 0 5px;
+        }
+
+        .material-icons {
+            vertical-align: middle;
+            padding-bottom: 3px;
+        }
+    }
+
+}

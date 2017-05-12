@@ -40,6 +40,7 @@
             @else
                 {{-- Employee Dropdown Menu --}}
                 <ul class="dropdown-menu pull-right" aria-labelledby="user-dropdown">
+                    <li><a href="/inventory/order">Order Inventory</a></li>
                     <li><a href="/customers">Customers</a></li>
                     <li><a href="/invoices">Invoice Lookup</a></li>
                     <li role="separator" class="divider"></li>
