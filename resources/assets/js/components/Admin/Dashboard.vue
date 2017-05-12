@@ -4,7 +4,7 @@
             Dashboardddd
         </div>
     </div> -->
-    <div class="col-md-3 module-container">
+    <div class="col-md-4 module-container">
         <div class="module">
             <store-stats 
                 :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
@@ -14,63 +14,13 @@
         </div>
     </div>
 
-    <div class="col-md-3 module-container">
+    <div class="col-md-5 module-container">
         <div class="module">
-            <h3>New Part Orders <small>5 total</small></h3>
-            <hr />
-            <store-stats 
+            <new-repair-orders-stats 
                 :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
                 :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
                 :location="location"
-            ></store-stats>
-        </div>
-    </div>
-
-    <div class="col-md-3 module-container">
-        <div class="module">
-            <h3>New Repair Orders</h3>
-            <hr />
-            <store-stats 
-                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
-                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
-                :location="location"
-            ></store-stats>
-        </div>
-    </div>
-
-    <div class="col-md-3 module-container">
-        <div class="module">
-            <h3>Daily Sales <small>{{today | moment}}</small></h3>
-            <hr />
-            <store-stats 
-                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
-                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
-                :location="location"
-            ></store-stats>
-        </div>
-    </div>
-
-    <div class="col-md-3 module-container">
-        <div class="module">
-            <h3>Daily Sales <small>{{today | moment}}</small></h3>
-            <hr />
-            <store-stats 
-                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
-                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
-                :location="location"
-            ></store-stats>
-        </div>
-    </div>
-
-    <div class="col-md-3 module-container">
-        <div class="module">
-            <h3>Daily Sales <small>{{today | moment}}</small></h3>
-            <hr />
-            <store-stats 
-                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
-                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
-                :location="location"
-            ></store-stats>
+            ></new-repair-orders-stats>
         </div>
     </div>
 </template>
@@ -78,11 +28,13 @@
 <script lang="babel">
 import Vue from 'vue';
 import Moment from 'moment';
-import StoreStats from './Stats/Store.vue'
+import StoreStats from './Stats/Store.vue';
+import NewRepairOrdersStats from './Stats/NewRepairOrdersStats.vue';
+import NewPartOrdersStats from './Stats/NewPartOrdersStats.vue';
 
 export default Vue.extend({
 
-    components: {StoreStats},
+    components: {StoreStats, NewRepairOrdersStats, NewPartOrdersStats},
 
     props: ['location'],
     

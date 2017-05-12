@@ -1,8 +1,8 @@
 <template>
-    <h3>Daily Sales <small>{{Number(total).toFixed(2)}}</small></h3>
+    <h3>New POs <small>{{total}}</small></h3>
     <hr />
     <div>
-        <canvas id="store-sales" style="height:150px"></canvas>
+        <canvas id="po-stats" style="height:150px"></canvas>
     </div>
 </template>
 
@@ -21,28 +21,29 @@ export default Graph.extend({
 
     data() {
         return {
-            guildfordSales: null,
-            mapleRidgeSales: null,
-            richmondSales: null,
-            whiteRockSales: null,
+            guildfordPOs: null,
+            mapleRidgePOs: null,
+            richmondPOs: null,
+            whiteRockPOs: null,
+            total: 0
         }
     },
 
     ready() {
-        this.getGFSales();
-        this.getMRSales();
-        this.getRMSales();
-        this.getWRSales();
+        this.getGFPOs();
+        this.getMRPOs();
+        this.getRMPOs();
+        this.getWRPOs();
 
         setTimeout(function() {
-            var context = document.querySelector('#store-sales').getContext('2d');
+            var context = document.querySelector('#po-stats').getContext('2d');
             
             var data = {
                 labels: this.labels,
                 datasets: [
                     {         
                         label: 'Total (w/ Tax)',    
-                        data: [Number(this.guildfordSales).toFixed(2), Number(this.mapleRidgeSales).toFixed(2), Number(this.richmondSales).toFixed(2), Number(this.whiteRockSales).toFixed(2)],
+                        data: [Number(this.guildfordPOs).toFixed(2), Number(this.mapleRidgePOs).toFixed(2), Number(this.richmondPOs).toFixed(2), Number(this.whiteRockPOs).toFixed(2)],
                         backgroundColor: this.colors
                     }
                 ],
@@ -50,14 +51,14 @@ export default Graph.extend({
 
             var options = {
                 legend: {
-                    display: false,
+                    display: true,
                 },
 
                 maintainAspectRatio: false,
                 responsive: true
             }
 
-            this.render(data, 'bar', context, options); 
+            this.render(data, 'pie', context, options); 
         }.bind(this), 500);
        
     },
@@ -74,70 +75,66 @@ export default Graph.extend({
     },
 
     methods: {
-        getGFSales() {
-            var url = '/api/v0/invoice?created_at=' + this.today + '&location=Guildford&limit=all';
+        getGFPOs() {
+            var url = '/api/v0/part-orders?created_at=' + this.today + '&location_id=6&limit=all';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
                 //Success
-                for(var i = 0; i < response.data.data.length; i++) {
-                    this.guildfordSales += response.data.data[i].total;
-                }
+                this.guildfordPOs = response.data.data.length;
+                this.total += response.data.data.length;
             }, function(response) {
                 //Error
                 if(response.status === 404)
                 {
-                    this.guildfordSales = 0;    
-                }
-            });
-        },
-
-        getMRSales() {
-            var url = '/api/v0/invoice?created_at=' + this.today + '&location=Maple Ridge&limit=all';
-            this.$http.get(url, {api_token: this.location.api_token})
-            .then(function(response) {
-                //Success
-                for(var i = 0; i < response.data.data.length; i++) {
-                    this.mapleRidgeSales += response.data.data[i].total;
-                }                    
-            }, function(response) {
-                //Error
-                if(response.status === 404)
-                {
-                    this.mapleRidgeSales = 0;        
+                    this.guildfordPOs = 0;    
                 }
             });
         },
 
-        getRMSales() {
-            var url = '/api/v0/invoice?created_at=' + this.today + '&location=Richmond&limit=all';
+        getMRPOs() {
+            var url = '/api/v0/part-orders?created_at=' + this.today + '&location_id=8&limit=all';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
                 //Success
-                for(var i = 0; i < response.data.data.length; i++) {
-                    this.richmondSales += response.data.data[i].total;
-                }                    
+                this.mapleRidgePOs = response.data.data.length;       
+                this.total += response.data.data.length;   
             }, function(response) {
                 //Error
                 if(response.status === 404)
                 {
-                    this.richmondSales = 0;   
+                    this.mapleRidgePOs = 0;        
                 }
             });
         },
 
-        getWRSales() {
-            var url = '/api/v0/invoice?created_at=' + this.today + '&location=White Rock&limit=all';
+        getRMPOs() {
+            var url = '/api/v0/part-orders?created_at=' + this.today + '&location_id=2&limit=all';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
                 //Success
-                for(var i = 0; i < response.data.data.length; i++) {            
-                   this.whiteRockSales += response.data.data[i].total;
-                }                    
+                this.richmondPOs = response.data.data.length;
+                this.total += response.data.data.length;               
             }, function(response) {
                 //Error
                 if(response.status === 404)
                 {
-                    this.whiteRockSales = 0;       
+                    this.richmondPOs = 0;   
+                }
+            });
+        },
+
+        getWRPOs() {
+            var url = '/api/v0/part-orders?created_at=' + this.today + '&location_id=3&limit=all';
+            this.$http.get(url, {api_token: this.location.api_token})
+            .then(function(response) {
+                //Success          
+                this.whiteRockPOs = response.data.data.length; 
+                this.total += response.data.data.length;            
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                    this.whiteRockPOs = 0;       
                 }
             });
         }
