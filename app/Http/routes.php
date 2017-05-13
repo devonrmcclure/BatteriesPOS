@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
 
     Route::get('inventory', 'Controllers\InventoryController@index');
     Route::get('inventory/order', 'Controllers\InventoryController@order');
+    Route::get('inventory/order/{id}', 'Controllers\InventoryController@showOrder');
     Route::get('inventory/{id}', 'Controllers\InventoryController@show');
     Route::get('inventory/sales-history/{id}', 'Controllers\InventoryController@history');
 
