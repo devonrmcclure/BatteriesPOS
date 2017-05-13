@@ -1,16 +1,22 @@
 .stock-transfer-history {
 
     .stock-tabs {
-        border: 1px solid #ccc; 
 
         .tab {
             padding: 15px 10px;
             margin: 0;
             width: 90px;
+            background: @indigo-300;
+            border: 1px solid @indigo;
+
+            &:hover {
+                background: @indigo-700;
+            }
         }
 
         .tab-active {
-            background: @green-700;
+            background: @indigo;
+            border: 1px solid @indigo-700;
         }
 
         a:hover, a:active, a:visited {
@@ -19,18 +25,16 @@
     }
 
     .stock-order-history, .stock-request-history {
-        border: 1px solid #ccc;
-        border-top: none;
-        padding: 0 10px;
+        
     }
     
     .order {
         width: 100%;
+        padding: 0 10px;
         padding-top: 8px;
-
-        &:nth-child(even):hover {
-            background: #eee;
-        }
+        background: @red-100;
+        border: 1px solid @red-300;
+        margin: 3px 0;
 
         p {
             font-size: 18px;
@@ -53,6 +57,11 @@
             vertical-align: middle;
             padding-bottom: 3px;
         }
+    }
+
+    .completed {
+        background: @green-100; 
+        border: 1px solid @green-300;
     }
 
 }
