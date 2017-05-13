@@ -51,14 +51,14 @@ export default Graph.extend({
                 labels: this.labels,
                 datasets: [
                     {         
-                        label: 'Part Orders',    
+                        label: 'Repair Orders',    
                         backgroundColor: "rgba(0,0,255,0.4)",
                         data: [Number(this.guildfordROs).toFixed(2), Number(this.mapleRidgeROs).toFixed(2), Number(this.richmondROs).toFixed(2), Number(this.whiteRockROs).toFixed(2)],
                         
                     },
 
                      {         
-                        label: 'Repair Orders',    
+                        label: 'Part Orders',    
                         backgroundColor: "rgba(255,0,0,0.4)",
                         data: [Number(this.guildfordPOs).toFixed(2), Number(this.mapleRidgePOs).toFixed(2), Number(this.richmondPOs).toFixed(2), Number(this.whiteRockPOs).toFixed(2)],
                     }
@@ -74,7 +74,7 @@ export default Graph.extend({
                 responsive: true
             }
 
-            this.render(data, 'line', context, options); 
+            this.render(data, 'bar', context, options); 
         }.bind(this), 500);
        
     },
