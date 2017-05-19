@@ -10,7 +10,7 @@
 |
 */
 
-Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function () {
+Route::group(['middleware' => ['web']], function () {
     Route::auth();
 
     Route::get('/', 'Controllers\HomeController@index');
@@ -56,7 +56,7 @@ Route::group(['middleware' => ['web'], 'domain' => 'batteriespos.dev'], function
     });
 });
 
-Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev'], function () {
+Route::group(['middleware' => ['web']], function () {
     //Note: Must use Auth::gaurd('api')->user();
 
     Route::group(['prefix' => 'api/v0'], function () {
@@ -94,6 +94,8 @@ Route::group(['middleware' => ['auth:api', 'web'], 'domain' => 'batteriespos.dev
         Route::post('close-out', 'Api\Controllers\CloseOutController@store');
 
         Route::get('settings', 'Api\Controllers\SettingsController@index');
+
+        Route::get('stock-order', 'Api\Controllers\StockOrderController@index');
 
     });
 });

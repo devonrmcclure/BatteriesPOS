@@ -63,7 +63,7 @@ export default Vue.extend({
 
     filters: {
         moment: function (date) {
-            return Moment(date).format('YYYY-MM-D @ H:mm');
+            return Moment(date).format('YYYY-MM-DD @ H:mm');
         }
     },
 

@@ -70,7 +70,9 @@ export default Graph.extend({
             var day = date.getDate();
             var year = date.getFullYear();
 
-            return year + "-" + month + "-" + day;
+            var dateString = year + '-' + (('0' + month).slice(-2)) + '-' + (('0' + day).slice(-2))
+
+            return dateString;
         }
     },
 
