@@ -33,13 +33,25 @@
                 </div>
 
                 <div class="stock-request-history hidden">
-                    <div class="order">
-                        <p class="order-number">Request RM05WR</p>
-                        <p class="order-date">2017-05-06</p>
-                        <p class="view-more"><a href="#"><i class="material-icons md-24 md-black"> launch</i></a></p>
-                        <p class="order-status"><i class="material-icons md-24 red500">warning </i></p>
-                    </div>
-                </div>
+                    <div class="order" v-for='request in requests'>
+
+                        <!-- completed order -->
+                        <div v-if="request.completed == 1" class="completed">
+                            <p class="order-number">Order {{request.order_number}}</p>
+                            <p class="order-date">{{request.created_at | moment}}</p>
+                            <p class="view-more"><a href="/inventory/order/{{request.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
+
+                            <p class="order-status"><i class="material-icons md-24 green700">check_circle </i></p>
+                        </div>
+                        
+                        <!-- incomplete order -->
+                        <div v-else class="incomplete">
+                            <p class="order-number">Order {{request.order_number}}</p>
+                            <p class="order-date">{{request.created_at | moment}}</p>
+                            <p class="view-more"><a href="/inventory/order/{{request.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
+                            <p class="order-status"><i class="material-icons md-24 red500">warning </i></p>
+                        </div>
+                    </div>                </div>
             </div>
         </div>
 
@@ -61,12 +73,14 @@ export default Vue.extend({
 
     data() {
         return {
-            orders: []
+            orders: [],
+            requests: []
         }
     },
 
     ready() {
         this.getStockOrders();
+        this.getStockRequests();
 
     },
 
@@ -95,6 +109,21 @@ export default Vue.extend({
                 if(response.status === 404)
                 {
                     this.order = [];   
+                }
+            });
+        },
+
+        getStockRequests() {
+            var url = '/api/v0/stock-order?order_by=created_at,desc&requesting_from_location=' + this.location.id + '&limit=5';
+            this.$http.get(url, {api_token: this.location.api_token})
+            .then(function(response) {
+                //Success
+                this.requests = response.data.data;
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                    this.requests = [];   
                 }
             });
         },
