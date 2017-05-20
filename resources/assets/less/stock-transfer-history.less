@@ -30,11 +30,23 @@
     
     .order {
         width: 100%;
-        padding: 0 10px;
-        padding-top: 8px;
-        background: @red-100;
-        border: 1px solid @red-300;
-        margin: 3px 0;
+
+        .completed {
+            padding: 0 10px;
+            padding-top: 8px;
+            background: @green-100; 
+            border: 1px solid @green-300;
+            margin: 3px 0;
+        }
+
+        .incomplete {
+            padding: 0 10px;
+            padding-top: 8px;
+            background: @red-100; 
+            border: 1px solid @red-300;
+            margin: 3px 0;
+        }
+        
 
         p {
             font-size: 18px;
