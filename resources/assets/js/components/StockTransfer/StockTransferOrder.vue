@@ -1,66 +1,46 @@
 <template>
-    <div class="col-md-8 module-container">
-        <div class="module stock-transfer-order">
-            <div class="order-header">
-                <p class="order-status incomplete">Order is incomplete!</p>
-                <div class="order-number">
-                    <h2>Order WR00HO</h2>
-                </div>
-                <div class="order-dates">
-                    <p><span class="heading">Stock Ordered:</span> 2017-05-08</p>
-                    <p><span class="heading">Stock Sent:</span> 2017-05-10</p>
-                    <p><span class="heading">Stock Received:</span> </p>
-                </div>
+    <div class="col-md-12 module-container">
+        <div class="col-md-8 module-container">
+            <div class="module stock-transfer-order">
+                <div class="order-header">
+                    <p class="order-status status-{{orderInfo.status}}">Order is {{orderInfo.status}}!</p>
+                    <div class="order-number">
+                        <h2>Order {{orderInfo.order_number}}</h2>
+                    </div>
+                    <div class="order-dates">
+                        <p><span class="heading">Status:</span> {{orderInfo.status}}</p>
+                        <p><span class="heading">Stock Ordered:</span> {{orderInfo.date_ordered | moment}}</p>
+                        <p><span class="heading">Stock Sent:</span> {{orderInfo.date_in_transit | moment}}</p>
+                        <p><span class="heading">Stock Received:</span> {{orderInfo.date_received | moment}}</p>
+                    </div>
 
+                </div>
+                <div class="clear-class"></div>
+                <hr />
+                
+                <table>
+                    <tr>
+                        <th>Sku</th>
+                        <th>Description</th>
+                        <th>Qty Ordered</th>
+                        <th>Qty Received</th>
+                    </tr>
+
+                    <tr v-for="product in orderInfo.products">
+                        <td>{{product.sku}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.quantity_ordered}}</td>
+                        <td>{{product.quantity_received}}</td>
+                    </tr>
+                </table>
             </div>
-            <div class="clear-class"></div>
-            <hr />
-            
-            <table>
-                <tr>
-                    <th>Sku</th>
-                    <th>Description</th>
-                    <th>Qty Ordered</th>
-                    <th>Qty Received</th>
-                </tr>
-
-                <tr>
-                    <td>483</td>
-                    <td>CR2032</td>
-                    <td>100</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>483</td>
-                    <td>CR2032</td>
-                    <td>100</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>483</td>
-                    <td>CR2032</td>
-                    <td>100</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>483</td>
-                    <td>CR2032</td>
-                    <td>100</td>
-                    <td></td>
-                </tr>
-
-            </table>
-
-            
         </div>
-    </div>
 
-    <div class="col-md-4 module-container">
-        <div class="module">
-            
+        <div class="col-md-4 module-container">
+            <div class="module">
+                <input placeholder="Sku" type="text" class="sku" id="sku" v-model="sku" tab-index="1">
+                <input placeholder="Quantity" type="text" class="qty" id="qty" v-model="qty" @keyup.enter.prevent="addProduct()" @blur="addProduct()" tab-index="2">
+            </div>
         </div>
     </div>
 </template>
@@ -71,22 +51,25 @@ import Moment from 'moment';
 
 export default Vue.extend({
 
-    props: {
-        location: {},
-        labels: {},
-        colors: {
-            default: 'grey',
-        }
-    },
+    props: ['location'],
 
     data() {
         return {
-            
+            orderNumber: '',
+            orderInfo: [],
+            description: '',
+            sku: '',
+            qty: ''
         }
     },
 
     ready() {
-             
+        var temp = window.location.href.split('/');
+        this.orderNumber = temp[5];
+        Vue.nextTick(function () {
+            this.getStockOrders(this.orderNumber);
+            //this.highlightCurrentLocation();
+        }.bind(this));
     },
 
     computed: {
@@ -103,38 +86,44 @@ export default Vue.extend({
     },
 
     methods: {
-        getGFROs() {
-            var url = '/api/v0/repair-orders?created_at=' + this.today + '&location_id=6&limit=all';
+        getStockOrders() {
+            var url = '/api/v0/stock-order?order_number=' + this.orderNumber + '&requesting_location=' + this.location.id + '&with=products';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
                 //Success
-                this.guildfordROs = response.data.data.length;
-                this.totalROs += response.data.data.length;
+                this.orderInfo = response.data.data[0];
             }, function(response) {
                 //Error
                 if(response.status === 404)
                 {
-                    this.guildfordROs = 0;    
+                    this.orderNumber = [];    
                 }
             });
         },
 
-        showTab(type) {
-            if(type == 'orders')
-            {
-                $('.stock-order-history').show();
-                $('.orderTab').addClass('tab-active');
-                $('.stock-request-history').hide();
-                $('.requestTab').removeClass('tab-active');
-            } else {
-                $('.stock-order-history').hide();
-                $('.orderTab').removeClass('tab-active');
-                $('.stock-request-history').show();
-                $('.stock-request-history').removeClass('hidden');
-                $('.requestTab').addClass('tab-active');
-            }
+        addProduct() {
+            var url = '/api/v0/stock-order/add-product';
+
+            this.$http.post(url, {api_token: this.location.api_token, sku: this.sku, qty: this.qty, order: this.orderNumber}).then(function(response) {
+                    this.getStockOrders(this.orderNumber);
+            }, function(response) {
+              this.$set('error', 'The Product does not exist!');
+              // error callback
+            });
+
         }
-    }
+        
+    },
+
+    filters: {
+        moment: function (date) {
+        if(date !== '' && date !== '0000-00-00 00:00:00' && date !== null)
+        {
+            return Moment(date).format('YYYY-MM-DD @ H:mm');
+        }
+            return 'Not Yet';
+        }
+    },
 });
 
 </script>

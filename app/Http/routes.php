@@ -96,6 +96,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('settings', 'Api\Controllers\SettingsController@index');
 
         Route::get('stock-order', 'Api\Controllers\StockOrderController@index');
+        Route::post('stock-order', 'Api\Controllers\StockOrderController@new');
+        Route::post('stock-order/add-product', 'Api\Controllers\StockOrderController@add_product');
 
     });
 });

@@ -18,7 +18,8 @@ class StockOrderProducts extends Migration
             $table->integer('sku')->unsigned();
             $table->string('description');
             $table->integer('quantity_ordered');
-            $table->integer('quantity_received')->nullable();
+            $table->integer('quantity_filled')->nullable();
+            $table->boolean('received')->default(0); 
 
             $table->foreign('order_id')
                   ->references('order_number')->on('stock_order_history');

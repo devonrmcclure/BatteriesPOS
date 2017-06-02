@@ -69,7 +69,7 @@ export default Vue.extend({
         }
     },
 
-    ready(sku) {
+    ready() {
         var temp = window.location.href.split('/');
         this.sku = temp[5];
         Vue.nextTick(function () {

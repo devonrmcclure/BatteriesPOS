@@ -16,7 +16,7 @@ class CreateStockOrderHistoryTable extends Migration
             $table->string('order_number')->primary();
             $table->integer('requesting_location')->unsigned();
             $table->integer('requesting_from_location')->unsigned();
-            $table->boolean('completed')->default(false);
+            $table->string('status')->default('Unordered');
             $table->timestamp('date_ordered')->nullable();
             $table->timestamp('date_in_transit')->nullable();
             $table->timestamp('date_received')->nullable();

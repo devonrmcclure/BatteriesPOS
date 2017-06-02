@@ -8,13 +8,36 @@
     .order-header {
         
         .order-status {
-            background: @red-100;
-            border: 1px solid @red-300;
+            
             text-align: center;
             font-size: 18px;
             font-weight: bold;
             padding: 10px;
+            
+        }
+
+        .status-Unordered {
+            background: @red-100;
+            border: 1px solid @red-300;
             color: @red-A700;
+        }
+
+        .status-Ordered {
+            background: @yellow-100;
+            border: 1px solid @yellow-300;
+            color: @yellow-A700;
+        }
+
+        .status-In-Transit {
+            background: @blue-100;
+            border: 1px solid @blue-300;
+            color: @blue-A700;
+        }
+
+        .status-Completed {
+            background: @green-100;
+            border: 1px solid @green-300;
+            color: @green-A700;
         }
 
         .order-number {

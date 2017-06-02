@@ -32,8 +32,9 @@
         width: 100%;
 
         .completed {
+            width: 100%;
             padding: 0 10px;
-            padding-top: 8px;
+            padding-top: 9px;
             background: @green-100; 
             border: 1px solid @green-300;
             margin: 3px 0;
@@ -41,9 +42,9 @@
 
         .incomplete {
             padding: 0 10px;
-            padding-top: 8px;
-            background: @red-100; 
-            border: 1px solid @red-300;
+            padding-top: 9px;
+            background: @yellow-200; 
+            border: 1px solid @yellow;
             margin: 3px 0;
         }
         
@@ -54,13 +55,13 @@
             display: inline-block;
         }
 
-        .order-date {
+        .order-date, .order-received {
             font-style: italic;
             font-size: 12px;
             font-weight: normal;
         }
 
-        .order-status, .view-more {
+        .order-status, .view-more, .order-received {
             float: right;
             margin: 0 5px;
         }
