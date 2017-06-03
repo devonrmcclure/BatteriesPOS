@@ -48,6 +48,9 @@ class StockOrderController extends ApiController
     public function new() 
     {
         echo 'hi';
+
+        //default to "unordered"
+        //take location and make sure it is in "requesting_from_location"
     }
 
     public function add_product(Request $request) 
@@ -65,9 +68,6 @@ class StockOrderController extends ApiController
         $stockProduct->description = $product->description;
         $stockProduct->quantity_ordered = $request->input('qty');
         $stockProduct->save();
-
-
-
 
     }
 
