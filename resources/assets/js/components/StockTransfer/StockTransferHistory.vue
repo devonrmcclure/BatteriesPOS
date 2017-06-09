@@ -50,13 +50,18 @@
                             <p class="view-more"><a href="/inventory/request/{{request.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
                             <p class="order-status"><i class="material-icons md-24 yellowA700">info_outline </i></p>
                         </div>
-                    </div>                </div>
+                    </div>               
+                </div>
             </div>
         </div>
 
         <div class="col-md-4 module-container">
             <div class="module">
-                <p class="new-order"><button>new order</button></p>
+                <span>Order From:</span> 
+                <select id="order-from">
+                    <option v-for="location in locations" value="{{location.location_code}}">{{location.name}}</option>
+                </select>
+                <p class="new-order"><button @click="newOrder()">new order</button></p>
             </div>
         </div>
     </div>
@@ -73,13 +78,15 @@ export default Vue.extend({
     data() {
         return {
             orders: [],
-            requests: []
+            requests: [],
+            locations: []
         }
     },
 
     ready() {
         this.getStockOrders();
         this.getStockRequests();
+        this.getLocations();
 
     },
 
@@ -97,6 +104,23 @@ export default Vue.extend({
     },
 
     methods: {
+
+        getLocations() {
+            var url = '/api/v0/user?only=id,location_code,name&order_by=name,asc';
+            this.$http.get(url, {api_token: this.location.api_token})
+            .then(function(response) {
+                //Success
+                this.locations = response.data.data;
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                    this.locations = [];   
+                }
+            });
+
+        },
+
         getStockOrders() {
             var url = '/api/v0/stock-order?order_by=created_at,desc&requesting_location=' + this.location.id + '&limit=5';
             this.$http.get(url, {api_token: this.location.api_token})
@@ -141,6 +165,22 @@ export default Vue.extend({
                 $('.stock-request-history').removeClass('hidden');
                 $('.requestTab').addClass('tab-active');
             }
+        },
+
+        newOrder() {
+
+            var url = '/api/v0/stock-order';
+            this.$http.post(url, {api_token: this.location.api_token, order_from: $("#order-from").val(), ordering_location: this.location.location_code})
+            .then(function(response) {
+                //Success
+                window.location.href = '/inventory/order/' + response.data;
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                    this.requests = [];   
+                }
+            });
         }
     },
 

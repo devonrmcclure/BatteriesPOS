@@ -12,6 +12,7 @@ use App\Inventory;
 use App\StockOrderProducts;
 use App\StockOrderHistory;
 use App\Qoh;
+use App\User;
 
 use Carbon\Carbon;
 
@@ -51,13 +52,20 @@ class StockOrderController extends ApiController
     public function new(Request $request) 
     {
 
+        //dd($request->all());
+
+        //create order number
+        //get requesting id
+        $orderFromID = User::where('location_code', $request->input('order_from'))->first();
+
+        $orderNumber = $this->createOrderNumber($request->input('ordering_location'), $request->input('order_from'));
 
         $order = new StockOrderHistory();
 
-        $order->order_number = 
+        $order->order_number = $orderNumber;
 
-        $order->requesting_location = $request->input('requesting-location');
-        $order->requesting_from_location = $request->input('requesting-from-location');
+        $order->requesting_location = Auth::user()->id;
+        $order->requesting_from_location = $orderFromID->id;
 
         $order->status = 'Unordered';
 
@@ -67,9 +75,13 @@ class StockOrderController extends ApiController
 
         $order->created_at = Carbon::now();
         $order->updated_at = Carbon::now();
+
+        $order->save();
+
+        return $orderNumber;
     }
 
-    public function add_product(Request $request) 
+    public function addProduct(Request $request) 
     {
        
 
@@ -85,6 +97,29 @@ class StockOrderController extends ApiController
         $stockProduct->quantity_ordered = $request->input('qty');
         $stockProduct->save();
 
+    }
+
+    private function createOrderNumber(String $orderingLocation, String $orderFrom)
+    {
+        //Check if an order exists with WR-01-HO
+        $exists = StockOrderHistory::orderBy('order_number', 'desc')->where('order_number', 'like', $orderingLocation . '%')->first();
+
+        $orderNumber = '';
+
+        if($exists != null)
+        {
+            $explodedNumber = explode('-', $exists->order_number);
+
+            if($explodedNumber[0] == $orderingLocation && $explodedNumber[2] == $orderFrom)
+            {
+                $orderNumber = $orderingLocation . '-' . ($explodedNumber[1] + 1) . '-' . $orderFrom;
+                return $orderNumber;     
+            }
+
+            return $orderingLocation . '-1-' . $orderFrom;
+        }
+
+        return $orderingLocation . '-1-' . $orderFrom;
     }
 
 }

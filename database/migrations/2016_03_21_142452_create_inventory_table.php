@@ -30,6 +30,8 @@ class CreateInventoryTable extends Migration
                         $table->string('manufacturer')->nullable();
                         $table->string('model_number')->nullable();
                         $table->string('order_number')->nullable();
+                        $table->float('last_purchase_vendor')->nullable();
+                        $table->float('current_purchase_vendor')->nullable();
                         $table->timestamps();
 
                         $table->foreign('category_id')

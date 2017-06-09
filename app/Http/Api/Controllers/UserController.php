@@ -27,7 +27,7 @@ class UserController extends ApiController
 
 		if(!$user)
 		{
-			return $this->respondNotFound('Purchase does not exist');
+			return $this->respondNotFound('User does not exist');
 		}
 		
 		return $this->respond([
