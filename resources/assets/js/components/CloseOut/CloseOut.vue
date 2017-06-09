@@ -27,7 +27,7 @@
         <input name="total" type="text" placeholder="0.00" v-model="inputTotals" readonly><br/>
 
         <label for="proceeds">Proceeds To Deposit</label>
-        <input name="proceeds" type="text" placeholder="0.00" v-model="totalSales.toFixed(2)" readonly><br/>
+        <input name="proceeds" type="text" placeholder="0.00" v-model="totalSales" readonly><br/>
 
         <label for="difference">DIFFERENCE</label>
         <input name="difference" type="text" placeholder="0.00" v-model="difference" readonly><br/>
@@ -118,7 +118,7 @@ export default Vue.extend({
                         'preTax': (response.data.data[i].total - (response.data.data[i].total_pst + response.data.data[i].total_gst))
                     };
                         this.totalCashSales.push(data);
-                        this.totalSales += response.data.data[i].total;
+                        this.totalSales += Number(response.data.data[i].total);
                 }
             }, function(response) {
                 //Error
@@ -141,7 +141,7 @@ export default Vue.extend({
                         'preTax': (response.data.data[i].total - (response.data.data[i].total_pst + response.data.data[i].total_gst))
                     };
                         this.totalInteracSales.push(data);
-                        this.totalSales += response.data.data[i].total;
+                        this.totalSales += Number(response.data.data[i].total);
                 }                    
             }, function(response) {
                 //Error
@@ -164,7 +164,7 @@ export default Vue.extend({
                         'preTax': (response.data.data[i].total - (response.data.data[i].total_pst + response.data.data[i].total_gst))
                     };
                         this.totalVisaSales.push(data);
-                        this.totalSales += response.data.data[i].total;
+                        this.totalSales += Number(response.data.data[i].total);
                 }                    
             }, function(response) {
                 //Error
@@ -187,7 +187,7 @@ export default Vue.extend({
                         'preTax': (response.data.data[i].total - (response.data.data[i].total_pst + response.data.data[i].total_gst))
                     };
                         this.totalMasterCardSales.push(data);
-                        this.totalSales += response.data.data[i].total;
+                        this.totalSales += Number(response.data.data[i].total);
                 }                    
             }, function(response) {
                 //Error
@@ -210,7 +210,7 @@ export default Vue.extend({
                         'preTax': (response.data.data[i].total - (response.data.data[i].total_pst + response.data.data[i].total_gst))
                     };
                         this.totalOtherSales.push(data);
-                        this.totalSales += response.data.data[i].total;
+                        this.totalSales += Number(response.data.data[i].total);
                 }                    
             }, function(response) {
                 //Error

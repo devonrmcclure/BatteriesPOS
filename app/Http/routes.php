@@ -114,7 +114,7 @@ Route::group(['middleware' => ['auth:api', 'web', 'admin'], 'prefix' => 'api/v0/
 });
 
 
-Route::group(['middleware' => ['web', 'admin'], 'domain' => 'batteriespos.dev'], function () {
+Route::group(['middleware' => ['web', 'admin']], function () {
 
     Route::group(['prefix' => 'admin'], function () {
 

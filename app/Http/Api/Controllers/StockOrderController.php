@@ -10,7 +10,10 @@ use App\Http\Requests;
 use App\Customer;
 use App\Inventory;
 use App\StockOrderProducts;
+use App\StockOrderHistory;
 use App\Qoh;
+
+use Carbon\Carbon;
 
 use Auth;
 
@@ -45,12 +48,25 @@ class StockOrderController extends ApiController
        
     }
 
-    public function new() 
+    public function new(Request $request) 
     {
-        echo 'hi';
 
-        //default to "unordered"
-        //take location and make sure it is in "requesting_from_location"
+
+        $order = new StockOrderHistory();
+
+        $order->order_number = 
+
+        $order->requesting_location = $request->input('requesting-location');
+        $order->requesting_from_location = $request->input('requesting-from-location');
+
+        $order->status = 'Unordered';
+
+        $order->date_ordered = null;
+        $order->date_in_transit = null;
+        $order->date_received = null;
+
+        $order->created_at = Carbon::now();
+        $order->updated_at = Carbon::now();
     }
 
     public function add_product(Request $request) 
