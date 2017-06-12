@@ -1,5 +1,5 @@
 .stock-transfer-history {
-
+    
     .stock-tabs {
 
         .tab {
@@ -31,18 +31,53 @@
     .order {
         width: 100%;
 
-        .completed {
-            width: 100%;
+        .status-Unordered {
+            background: @red-100;
+            border: 1px solid @red-300;
+            color: @red-A700;
             padding: 0 10px;
             padding-top: 9px;
+            margin: 3px 0;
+
+            .md-icon-Unordered {
+                color: @red-A700;
+            }
+        }
+
+        .status-Ordered {
+            background: @yellow-100;
+            border: 1px solid @yellow-300;
+            color: @yellow-A700;
+
+            .md-icon-Ordered {
+                color: @yellow-A700;
+            }
+        }
+
+        .status-In-Transit {
+            background: @blue-100;
+            border: 1px solid @blue-300;
+            color: @blue-A700;
+
+            .md-icon-In-Transit {
+                color: @blue-A700;
+            }
+        }
+
+        .status-Completed {
+            background: @green-100;
+            border: 1px solid @green-300;
+            color: @green-A700;
+        }
+
+        .completed {
+            width: 100%;
             background: @green-100; 
             border: 1px solid @green-300;
-            margin: 3px 0;
         }
 
         .incomplete {
-            padding: 0 10px;
-            padding-top: 9px;
+            
             background: @yellow-200; 
             border: 1px solid @yellow;
             margin: 3px 0;

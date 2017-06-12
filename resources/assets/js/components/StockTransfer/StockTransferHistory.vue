@@ -22,11 +22,11 @@
                         </div>
                         
                         <!-- incomplete order -->
-                        <div v-else class="incomplete">
+                        <div v-else class="status-{{order.status}}">
                             <p class="order-number">Order {{order.order_number}}</p>
                             <p class="order-date">{{order.created_at | moment}}</p>
                             <p class="view-more"><a href="/inventory/order/{{order.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
-                            <p class="order-status"><i class="material-icons md-24 yellowA700">info_outline </i></p>
+                            <p class="order-status"><i class="material-icons md-24 md-icon-{{order.status}}">info_outline </i></p>
                         </div>
                     </div>
                 </div>
