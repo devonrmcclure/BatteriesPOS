@@ -122,6 +122,8 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
         Route::get('/staff', 'Controllers\Admin\StaffController@index');
 
+        Route::get('/inventory-orders', 'Controllers\Admin\InventoryOrdersController@index');
+
         
     });
 

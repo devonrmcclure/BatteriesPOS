@@ -17,6 +17,7 @@ import InvoiceInfo from './components/Invoice/InvoiceInfo.vue';
 import Staff from './components/Admin/Staff/Staff.vue';
 import StockTransferHistory from './components/StockTransfer/StockTransferHistory.vue';
 import StockTransferOrder from './components/StockTransfer/StockTransferOrder.vue';
+import AdminInventoryOrders from './components/Admin/Inventory/InventoryOrders.vue';
 
 import './directives/Ajax';
 
@@ -25,7 +26,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('input[name="_t
 
 new Vue({
     el: '#app',
-    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo, Staff, StockTransferHistory, StockTransferOrder},
+    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo, Staff, StockTransferHistory, StockTransferOrder, AdminInventoryOrders},
     data() {
     	return {
         	showNewSaleModal: false,

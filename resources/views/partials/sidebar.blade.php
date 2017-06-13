@@ -9,7 +9,7 @@
 					<li class="ripple-effect"><a href="/admin/stats"><i class="material-icons md-24 ">poll</i>Stats</a></li>
 					<li class="ripple-effect"><a href="/admin/repair-orders"><i class="material-icons md-24">build</i>Repair Orders</a></li>
 					<li class="ripple-effect"><a href="/admin/part-orders"><i class="material-icons md-24">local_shipping</i>Part Orders</a></li>
-					<li class="ripple-effect"><a href="/admin/inventory"><i class="material-icons md-24">compare_arrows</i>Inventory Ordering</a></li>
+					<li class="ripple-effect"><a href="/admin/inventory-orders"><i class="material-icons md-24">compare_arrows</i>Inventory Ordering</a></li>
 
 				@else
 					<li class="ripple-effect"><a href="/"><i class="material-icons md-24">home</i>Dashboard</a></li>

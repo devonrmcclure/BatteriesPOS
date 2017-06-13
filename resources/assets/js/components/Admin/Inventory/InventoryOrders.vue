@@ -84,9 +84,7 @@ export default Vue.extend({
     },
 
     ready() {
-        this.getStockOrders();
-        this.getStockRequests();
-        this.getLocations();
+        
 
     },
 
