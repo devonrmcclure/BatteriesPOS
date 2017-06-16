@@ -30,8 +30,8 @@
                         <td>{{product.sku}}</td>
                         <td>{{product.description}}</td>
                         <td>{{product.quantity_ordered}}</td>
-                        <td v-if="orderInfo.status == 'In-Transit'"><input type="text" v-model="product.quantity_received" @blur="updateQuantity($index)"></td>
-                        <td v-else>{{product.quantity_received}}</td>
+                        <td v-if="orderInfo.status == 'In-Transit'"><input type="text" v-model="product.quantity_filled" @blur="updateQuantity($index)"></td>
+                        <td v-else>{{product.quantity_filled}}</td>
                     </tr>
                 </table>
             </div>
@@ -45,8 +45,8 @@
                     <button @click="sendOrder('Ordered')">Send Order</button>
                 </span>
 
-                <span v-if="orderInfo.status == 'In-Transit'">
-                    <button @click="sendOrder('Completed')">Mark Order Received</button>
+                <span>
+                    <button @click="sendOrder('Completed')" >Mark Order Received</button>
                 </span>
             </div>
         </div>
