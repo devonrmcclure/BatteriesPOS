@@ -3,9 +3,9 @@
         <div class="col-md-8 module-container">
             <div class="module stock-transfer-order">
                 <div class="order-header">
-                    <p class="order-status status-{{orderInfo.status}}">Order is {{orderInfo.status}}!</p>
+                    <p class="order-status status-{{orderInfo.status}}">Request is {{orderInfo.status}}!</p>
                     <div class="order-number">
-                        <h2>Order {{orderInfo.order_number}}</h2>
+                        <h2>Request {{orderInfo.order_number}}</h2>
                     </div>
                     <div class="order-dates">
                         <p><span class="heading">Status:</span> {{orderInfo.status}}</p>
@@ -23,30 +23,22 @@
                         <th>Sku</th>
                         <th>Description</th>
                         <th>Qty Ordered</th>
-                        <th>Qty Received</th>
                     </tr>
 
                     <tr v-for="product in orderInfo.products">
                         <td>{{product.sku}}</td>
                         <td>{{product.description}}</td>
-                        <td>{{product.quantity_ordered}}</td>
-                        <td>{{product.quantity_received}}</td>
+                        <td v-if="orderInfo.status == 'Ordered'"><input type="text" @blur="updateQuantity($index)" v-model="product.quantity_ordered"></input></td>
+
+                        <td v-else>{{product.quantity_ordered}}</td>
                     </tr>
                 </table>
             </div>
         </div>
 
-        <div class="col-md-4 module-container">
+        <div class="col-md-4 module-container" v-if="orderInfo.status == 'Ordered'">
             <div class="module">
-                <span v-if="orderInfo.status == 'Unordered'">
-                    <input placeholder="Sku" type="text" class="sku" id="sku" v-model="sku" tab-index="1">
-                    <input placeholder="Quantity" type="text" class="qty" id="qty" v-model="qty" @keyup.enter.prevent="addProduct()" @blur="addProduct()" tab-index="2"> <br />
-                    <button @click="sendOrder('Ordered')">Send Order</button>
-                </span>
-
-                <span v-if="orderInfo.status == 'In-Transit'">
-                    <button @click="sendOrder('Completed')">Mark Order Received</button>
-                </span>
+                <button @click="sendOrder()">Mark In Transit</button>
             </div>
         </div>
     </div>
@@ -94,7 +86,8 @@ export default Vue.extend({
 
     methods: {
         getStockOrders() {
-            var url = '/api/v0/stock-order?order_number=' + this.orderNumber + '&requesting_location=' + this.location.id + '&with=products';
+            //TODO add &status=ordered when done debugging
+            var url = '/api/v0/stock-order?order_number=' + this.orderNumber + '&requesting_from_location=' + this.location.id + '&with=products';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
                 //Success
@@ -108,24 +101,24 @@ export default Vue.extend({
             });
         },
 
-        addProduct() {
-            var url = '/api/v0/stock-order/add-product';
-
-            this.$http.post(url, {api_token: this.location.api_token, sku: this.sku, qty: this.qty, order: this.orderNumber}).then(function(response) {
-                    this.getStockOrders(this.orderNumber);
-                    this.qty = '';
-                    this.sku = '';
-                    $('.sku').focus();
+        updateQuantity(index) {
+            var url = '/api/v0/stock-order/update-product-order-qty';
+            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index-1].id, quantity_ordered: this.orderInfo.products[index-1].quantity_ordered})
+            .then(function(response) {
+                //Success
+                
             }, function(response) {
-              this.$set('error', 'The Product does not exist!');
-              // error callback
+                //Error
+                if(response.status === 404)
+                {
+                      
+                }
             });
+        },   
 
-        },
-
-        sendOrder(status) {
+        sendOrder() {
             var url = '/api/v0/stock-order/update-status';
-            this.$http.post(url, {api_token: this.location.api_token, newStatus: status, orderID: this.orderNumber})
+            this.$http.post(url, {api_token: this.location.api_token, newStatus: 'In-Transit', orderID: this.orderNumber})
             .then(function(response) {
                 //Success
                 window.location.href = '/inventory/order';
@@ -136,7 +129,8 @@ export default Vue.extend({
                       
                 }
             });
-        },     
+        },    
+
         
     },
 

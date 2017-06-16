@@ -14,7 +14,7 @@
                     <div class="order" v-for='order in orders'>
 
                         <!-- completed order -->
-                        <div v-if="order.completed == 1" class="completed">
+                        <div v-if="order.status == 'Completed'" class="status-{{order.status}}">
                             <p class="order-number">Order {{order.order_number}}</p>
                             <p class="order-date">{{order.created_at | moment}}</p>
                             <p class="view-more"><a href="/inventory/order/{{order.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
@@ -35,7 +35,7 @@
                     <div class="order" v-for='request in requests'>
 
                         <!-- completed order -->
-                        <div v-if="request.completed == 1" class="completed">
+                        <div v-if="request.status == 'Completed'" class="status-{{request.status}}">
                             <p class="order-number">Order {{request.order_number}}</p>
                             <p class="order-date">{{request.created_at | moment}}</p>
                             <p class="view-more"><a href="/inventory/request/{{request.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
@@ -137,7 +137,7 @@ export default Vue.extend({
         },
 
         getStockRequests() {
-            var url = '/api/v0/stock-order?order_by=created_at,desc&requesting_from_location=' + this.location.id + '&limit=5';
+            var url = '/api/v0/stock-order?order_by=created_at,desc&requesting_from_location=' + this.location.id + '&except=status,!=,Unordered&limit=5';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
                 //Success

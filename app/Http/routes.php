@@ -31,6 +31,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('inventory', 'Controllers\InventoryController@index');
     Route::get('inventory/order', 'Controllers\InventoryController@order');
     Route::get('inventory/order/{id}', 'Controllers\InventoryController@showOrder');
+    Route::get('inventory/request/{id}', 'Controllers\InventoryController@showRequest');
     Route::get('inventory/{id}', 'Controllers\InventoryController@show');
     Route::get('inventory/sales-history/{id}', 'Controllers\InventoryController@history');
 
@@ -97,7 +98,9 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('stock-order', 'Api\Controllers\StockOrderController@index');
         Route::post('stock-order', 'Api\Controllers\StockOrderController@new');
+        Route::post('stock-order/update-status', 'Api\Controllers\StockOrderController@updateStatus');
         Route::post('stock-order/add-product', 'Api\Controllers\StockOrderController@addProduct');
+        Route::post('stock-order/update-product-order-qty', 'Api\Controllers\StockOrderController@updateProductOrderQty');
 
     });
 });

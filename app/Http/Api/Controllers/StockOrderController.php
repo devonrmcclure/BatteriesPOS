@@ -99,6 +99,35 @@ class StockOrderController extends ApiController
 
     }
 
+    public function updateStatus(Request $request)
+    {
+        $order = StockOrderHistory::where('order_number', $request->input('orderID'))->first();
+
+        $order->status = $request->input('newStatus');
+
+        if($request->input('newStatus') == 'Ordered')
+        {
+            $order->date_ordered = Carbon::now();
+        } else if($request->input('newStatus') == 'In-Transit' ) {
+            $order->date_in_transit = Carbon::now();
+        } else if($request->input('newStatus') == 'Completed') {
+            $order->date_received = Carbon::now();
+        } else {
+            return 'THIS SHOULD NOT HAPPEN'; //TODO: Proper error
+        }
+
+        $order->save();
+    }
+
+    public function updateProductOrderQty(Request $request) 
+    {
+        $product = StockOrderProducts::where('id', $request->input('id'))->first();
+
+        $product->quantity_ordered = $request->input('quantity_ordered');
+
+        $product->save();
+    }
+
     private function createOrderNumber(String $orderingLocation, String $orderFrom)
     {
         //Check if an order exists with WR-01-HO

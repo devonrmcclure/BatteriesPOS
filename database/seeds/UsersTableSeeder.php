@@ -21,6 +21,20 @@ class UsersTableSeeder extends Seeder
           NM: 7
           MR: 8
       */
+      DB::table('users')->insert([
+          'id' => 100,
+              'name' => 'Vendor',
+              'email' => 'vendor',
+              'location_code' => 'VO',
+              'phone_number' => '555-555-5555',
+              'admin' => 1,
+              'gst_number' => '',
+              'api_token' => bcrypt('VO'),
+              'password' => bcrypt('3218vo'),
+              'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+      ]);
+
+
     	DB::table('users')->insert([
     				'id' => 1,
     	           	'name' => 'Head Office',

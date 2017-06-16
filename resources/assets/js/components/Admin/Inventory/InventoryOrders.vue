@@ -2,7 +2,7 @@
     <div class="col-md-12 module-container">
         <div class="col-md-8 module-container">
             <div class="module stock-transfer-history">
-                <h2>Order History</h2>
+                <h2>Admin Order History</h2>
                 <hr />
                 
                 <div class="stock-tabs">
@@ -60,6 +60,7 @@
                 <span>Order From:</span> 
                 <select id="order-from">
                     <option v-for="location in locations" value="{{location.location_code}}">{{location.name}}</option>
+                    <option value="VO">Vendor</option>
                 </select>
                 <p class="new-order"><button @click="newOrder()">new order</button></p>
             </div>
@@ -84,7 +85,7 @@ export default Vue.extend({
     },
 
     ready() {
-        
+        this.getLocations();
 
     },
 
