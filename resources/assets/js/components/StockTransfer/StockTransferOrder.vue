@@ -37,8 +37,8 @@
             </div>
         </div>
 
-        <div class="col-md-4 module-container">
-            <div class="module">
+        <div class="col-md-4 module-container" >
+            <div class="module" v-if="orderInfo.status == 'In-Transit' || orderInfo.status == 'Unordered'">
                 <span v-if="orderInfo.status == 'Unordered'">
                     <input placeholder="Sku" type="text" class="sku" id="sku" v-model="sku" tab-index="1">
                     <input placeholder="Quantity" type="text" class="qty" id="qty" v-model="qty" @keyup.enter.prevent="addProduct()" @blur="addProduct()" tab-index="2"> <br />
@@ -46,7 +46,7 @@
                 </span>
 
                 <span>
-                    <button @click="sendOrder('Completed')" >Mark Order Received</button>
+                    <button @click="sendOrder('Completed')" v-if="orderInfo.status == 'In-Transit'">Mark Order Received</button>
                 </span>
             </div>
         </div>
@@ -141,7 +141,7 @@ export default Vue.extend({
 
         updateQuantity(index) {
             var url = '/api/v0/stock-order/update-product-received-qty';
-            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index].id, quantity_received: this.orderInfo.products[index].quantity_received})
+            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index].id, quantity_received: this.orderInfo.products[index].quantity_filled})
             .then(function(response) {
                 //Success
                 

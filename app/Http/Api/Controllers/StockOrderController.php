@@ -165,16 +165,17 @@ class StockOrderController extends ApiController
     private function updateQOH($orderNumber)
     {
         //get order products
-        $order = StockOrderHistory::where('order_number', 'GF-1-WR')->with('products')->first();
+        $order = StockOrderHistory::where('order_number', $orderNumber)->with('products')->first();
         foreach($order->products as $product)
         {
-            $sku = Qoh::where('sku', $product->sku)->where('location_id', $order->requesting_from_location)->first();
+            $sku = Qoh::where('sku', $product->sku)->where('location_id', $order->requesting_location)->first();
             $sku->quantity += $product->quantity_filled;
-            $sku->save();        }
+            $sku->save();        
+        }
 
         foreach($order->products as $product)
         {
-            $sku2 = Qoh::where('sku', $product->sku)->where('location_id', $order->requesting_location)->first();
+            $sku2 = Qoh::where('sku', $product->sku)->where('location_id', $order->requesting_from_location)->first();
             $sku2->quantity -= $product->quantity_ordered;
             $sku2->save();
         }
