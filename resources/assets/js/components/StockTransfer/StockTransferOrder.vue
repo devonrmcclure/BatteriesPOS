@@ -30,7 +30,8 @@
                         <td>{{product.sku}}</td>
                         <td>{{product.description}}</td>
                         <td>{{product.quantity_ordered}}</td>
-                        <td>{{product.quantity_received}}</td>
+                        <td v-if="orderInfo.status == 'In-Transit'"><input type="text" v-model="product.quantity_received" @blur="updateQuantity($index)"></td>
+                        <td v-else>{{product.quantity_received}}</td>
                     </tr>
                 </table>
             </div>
@@ -136,7 +137,22 @@ export default Vue.extend({
                       
                 }
             });
-        },     
+        },
+
+        updateQuantity(index) {
+            var url = '/api/v0/stock-order/update-product-received-qty';
+            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index].id, quantity_received: this.orderInfo.products[index].quantity_received})
+            .then(function(response) {
+                //Success
+                
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                      
+                }
+            });
+        },        
         
     },
 

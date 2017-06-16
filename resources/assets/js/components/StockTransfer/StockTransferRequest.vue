@@ -103,7 +103,7 @@ export default Vue.extend({
 
         updateQuantity(index) {
             var url = '/api/v0/stock-order/update-product-order-qty';
-            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index-1].id, quantity_ordered: this.orderInfo.products[index-1].quantity_ordered})
+            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index].id, quantity_ordered: this.orderInfo.products[index].quantity_ordered})
             .then(function(response) {
                 //Success
                 

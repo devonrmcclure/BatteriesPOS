@@ -101,6 +101,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('stock-order/update-status', 'Api\Controllers\StockOrderController@updateStatus');
         Route::post('stock-order/add-product', 'Api\Controllers\StockOrderController@addProduct');
         Route::post('stock-order/update-product-order-qty', 'Api\Controllers\StockOrderController@updateProductOrderQty');
+        Route::post('stock-order/update-product-received-qty', 'Api\Controllers\StockOrderController@updateProductReceivedQty');
 
     });
 });

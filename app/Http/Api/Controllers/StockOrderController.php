@@ -112,11 +112,13 @@ class StockOrderController extends ApiController
             $order->date_in_transit = Carbon::now();
         } else if($request->input('newStatus') == 'Completed') {
             $order->date_received = Carbon::now();
+            $this->updateQOH($request->input('orderID'));
         } else {
             return 'THIS SHOULD NOT HAPPEN'; //TODO: Proper error
         }
 
         $order->save();
+
     }
 
     public function updateProductOrderQty(Request $request) 
@@ -124,6 +126,15 @@ class StockOrderController extends ApiController
         $product = StockOrderProducts::where('id', $request->input('id'))->first();
 
         $product->quantity_ordered = $request->input('quantity_ordered');
+
+        $product->save();
+    }
+
+    public function updateProductReceivedQty(Request $request) 
+    {
+        $product = StockOrderProducts::where('id', $request->input('id'))->first();
+
+        $product->quantity_filled = $request->input('quantity_received');
 
         $product->save();
     }
@@ -149,6 +160,12 @@ class StockOrderController extends ApiController
         }
 
         return $orderingLocation . '-1-' . $orderFrom;
+    }
+
+    private function updateQOH($orderNumber)
+    {
+        //get order products
+        $products = StockOrderProducts::where('order_id', $orderNumber)->get();
     }
 
 }
