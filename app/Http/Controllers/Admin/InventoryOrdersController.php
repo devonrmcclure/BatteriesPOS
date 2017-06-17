@@ -17,4 +17,8 @@ class InventoryOrdersController extends Controller
     public function index() {
         return view('admin.inventory.inventory-orders');
     }
+
+    public function vendor() {
+        return view('admin.inventory.vendor');
+    }
 }

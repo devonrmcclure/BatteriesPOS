@@ -60,7 +60,6 @@
                 <span>Order From:</span> 
                 <select id="order-from">
                     <option v-for="location in locations" value="{{location.location_code}}">{{location.name}}</option>
-                    <option value="VO">Vendor</option>
                 </select>
                 <p class="new-order"><button @click="newOrder()">new order</button></p>
             </div>
@@ -168,11 +167,15 @@ export default Vue.extend({
 
         newOrder() {
 
-            var url = '/api/v0/stock-order';
+            var url = '/api/v0/admin/stock-order';
             this.$http.post(url, {api_token: this.location.api_token, order_from: $("#order-from").val(), ordering_location: this.location.location_code})
             .then(function(response) {
                 //Success
-                window.location.href = '/inventory/order/' + response.data;
+                if($("#order-from").val() == 'VO')
+                {
+                    return window.location.href = '/admin/inventory-orders';
+                }
+                return window.location.href = '/inventory/order/' + response.data;
             }, function(response) {
                 //Error
                 if(response.status === 404)

@@ -128,6 +128,8 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
         Route::get('/inventory-orders', 'Controllers\Admin\InventoryOrdersController@index');
 
+        Route::get('/inventory-orders/vendor/{id}', 'Controllers\Admin\InventoryOrdersController@vendor');
+
         
     });
 

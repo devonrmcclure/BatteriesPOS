@@ -106,7 +106,7 @@ export default Vue.extend({
     methods: {
 
         getLocations() {
-            var url = '/api/v0/user?only=id,location_code,name&order_by=name,asc';
+            var url = '/api/v0/user?only=id,location_code,name&except=name,!=,vendor&order_by=name,asc';
             this.$http.get(url, {api_token: this.location.api_token})
             .then(function(response) {
                 //Success

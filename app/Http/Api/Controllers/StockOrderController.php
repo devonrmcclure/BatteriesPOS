@@ -166,6 +166,7 @@ class StockOrderController extends ApiController
     {
         //get order products
         $order = StockOrderHistory::where('order_number', $orderNumber)->with('products')->first();
+        
         foreach($order->products as $product)
         {
             $sku = Qoh::where('sku', $product->sku)->where('location_id', $order->requesting_location)->first();
@@ -173,11 +174,14 @@ class StockOrderController extends ApiController
             $sku->save();        
         }
 
-        foreach($order->products as $product)
+        if($order->requesting_from_location != "VO")
         {
-            $sku2 = Qoh::where('sku', $product->sku)->where('location_id', $order->requesting_from_location)->first();
-            $sku2->quantity -= $product->quantity_ordered;
-            $sku2->save();
+            foreach($order->products as $product)
+            {
+                $sku2 = Qoh::where('sku', $product->sku)->where('location_id', $order->requesting_from_location)->first();
+                $sku2->quantity -= $product->quantity_ordered;
+                $sku2->save();
+            }
         }
     }
 }
