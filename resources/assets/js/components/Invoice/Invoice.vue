@@ -85,7 +85,7 @@ export default Vue.extend({
             return Moment(date).format('YYYY-MM-D @ H:mm');
         }
             return 'No Sales History';
-      }
+        }
     }
 
 

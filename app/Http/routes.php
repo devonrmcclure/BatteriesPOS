@@ -130,6 +130,12 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
         Route::get('/inventory-orders/vendor/{id}', 'Controllers\Admin\InventoryOrdersController@vendor');
 
+        Route::get('/repair-orders', 'Controllers\Admin\RepairOrdersController@index');
+        Route::get('/part-orders', 'Controllers\Admin\PartOrdersController@index');
+
+        Route::get('/repair-orders/{id}', 'Controllers\Admin\RepairOrdersController@show');
+        Route::get('/part-orders/{id}', 'Controllers\Admin\PartOrdersController@show');
+
         
     });
 

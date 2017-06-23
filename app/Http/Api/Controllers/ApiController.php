@@ -99,7 +99,7 @@ class ApiController extends Controller
         
         if(isset($parameters['with']))
         {   
-            $withParam = explode(',', $parameters['with'], 2);
+            $withParam = explode(',', $parameters['with']);
             if(isset($parameters['wherewith']))
             {
                 $param = explode(',', $parameters['wherewith'], 3);
@@ -107,7 +107,10 @@ class ApiController extends Controller
                     $query->where($param[0], $param[1], $param[2]);
                 }]);
             } elseif(count($withParam) > 1) {
-                $query->with($withParam[0], $withParam[1]);
+                foreach($withParam as $param)
+                {
+                    $query->with($param);
+                }
             } else {
                 $query->with($parameters['with']);
             }

@@ -43,7 +43,6 @@
 
     <table class="products">
         <tr>
-            <th></th>
             <th>SKU</th>
             <th>Description</th>
             <th>QTY</th>
@@ -56,17 +55,16 @@
 
         </tr>
 
-        <tr v-for="product in products">
-            <td @click="removeProduct(product, $index)">X</td>
-            <td><input type="text" name="sku[]" value="{{ product.sku }}"/></td>
-            <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
-            <td><input type="text" name="quantity[]" value="{{ prices[$index].quantity }}" @change="calculatePrice()"/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
-            <td><input type="text" name="discount[]" value="{{ prices[$index].discount }}"/></td>
-            <td><input type="text" name="unit-price[]" value="{{ product.unit_price }}" readonly/></td>
-            <td><input type="text" name="extended[]" value="{{ prices[$index].extended }}" readonly/></td>
-            <td><input type="text" name="pst[]" value="{{ prices[$index].pst }}" readonly/></td>
-            <td><input type="text" name="gst[]" value="{{ prices[$index].gst }}" readonly/></td>
-            <td><input type="text" name="sku-total[]" value="{{ prices[$index].sku_total }}" readonly/></td>
+        <tr v-for="product in partOrder.invoice.sale">
+           <td><input type="text" name="sku[]" value="{{ product.sku }}" readonly/></td>
+           <td><input type="text" name="description[]" value="{{ product.description }}" readonly/></td>
+           <td><input type="text" name="quantity[]" value="{{ product.quantity }}" readonly/></td> <!-- This needs to be completely reworked and use something like onChange=getPrices($index)-->
+           <td><input type="text" name="discount[]" value="{{ product.discount }}" readonly/></td>
+           <td><input type="text" name="unit-price[]" value="{{ product.price }}" readonly/></td>
+           <td><input type="text" name="extended[]" value="{{ product.extended }}" readonly/></td>
+           <td><input type="text" name="pst[]" value="{{ product.pst }}" readonly/></td>
+           <td><input type="text" name="gst[]" value="{{ product.gst }}" readonly/></td>
+           <td><input type="text" name="sku-total[]" value="{{ product.total }}" readonly/></td>
         </tr>
 
     </table>
@@ -129,7 +127,7 @@ export default Modal.extend({
         },
 
         getPartOrder(e) {
-            var url = '/api/v0/part-orders?id=' + this.pathArray[2] + '&with=customer';
+            var url = '/api/v0/part-orders?id=' + this.pathArray[2] + '&with=customer,staff,invoice.sale';
             this.$http.get(url, {api_token: 'token'})
             .then(function(response) {
                 //Success
