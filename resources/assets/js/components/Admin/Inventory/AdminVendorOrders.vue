@@ -9,8 +9,6 @@
                     </div>
                     <div class="order-dates">
                         <p><span class="heading">Status:</span> {{orderInfo.status}}</p>
-                        <p><span class="heading">Stock Ordered:</span> {{orderInfo.date_ordered | moment}}</p>
-                        <p><span class="heading">Stock In-Transit:</span> {{orderInfo.date_in_transit | moment}}</p>
                         <p><span class="heading">Stock Received:</span> {{orderInfo.date_received | moment}}</p>
                     </div>
 
@@ -23,8 +21,8 @@
                         <th>Sku</th>
                         <th>Description</th>
                         <th>Qty Received</th>
-                        <th>Previous Order Price</th>
-                        <th>Current Order Price</th>
+                        <th>Previous Vendor Price</th>
+                        <th>Current Vendor Price</th>
                     </tr>
 
                     <tr v-for="product in orderInfo.products">

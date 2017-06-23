@@ -174,7 +174,7 @@ class StockOrderController extends ApiController
             $sku->save();        
         }
 
-        if($order->requesting_from_location != "VO")
+        if($order->requesting_from_location != 100)
         {
             foreach($order->products as $product)
             {

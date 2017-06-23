@@ -17,7 +17,7 @@
                         <div v-if="order.completed == 1" class="completed">
                             <p class="order-number">Order {{order.order_number}}</p>
                             <p class="order-date">{{order.created_at | moment}}</p>
-                            <p class="view-more"><a href="/inventory/order/{{order.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
+                            <p class="view-more"><a href="/admin/inventory-orders/vendor/{{order.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
                             <p class="order-status"><i class="material-icons md-24 green700">done </i></p>
                         </div>
                         
@@ -25,7 +25,7 @@
                         <div v-else class="status-{{order.status}}">
                             <p class="order-number">Order {{order.order_number}}</p>
                             <p class="order-date">{{order.created_at | moment}}</p>
-                            <p class="view-more"><a href="/inventory/order/{{order.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
+                            <p class="view-more"><a href="/admin/inventory-orders/vendor/{{order.order_number}}"><i class="material-icons md-24 md-black"> launch</i></a></p>
                             <p class="order-status"><i class="material-icons md-24 md-icon-{{order.status}}">info_outline </i></p>
                         </div>
                     </div>
@@ -85,6 +85,7 @@ export default Vue.extend({
 
     ready() {
         this.getLocations();
+        this.getStockOrders();
 
     },
 
@@ -167,13 +168,13 @@ export default Vue.extend({
 
         newOrder() {
 
-            var url = '/api/v0/admin/stock-order';
+            var url = '/api/v0/stock-order';
             this.$http.post(url, {api_token: this.location.api_token, order_from: $("#order-from").val(), ordering_location: this.location.location_code})
             .then(function(response) {
                 //Success
                 if($("#order-from").val() == 'VO')
                 {
-                    return window.location.href = '/admin/inventory-orders';
+                    return window.location.href = '/admin/inventory-orders/vendor/' + response.data;
                 }
                 return window.location.href = '/inventory/order/' + response.data;
             }, function(response) {
