@@ -42,7 +42,7 @@
                     <label for="notes">Notes</label>
                     <textarea name="notes" id="notes" v-model="partOrder.notes"></textarea>
 
-                    <table class="products">
+                    <table class="part-order-products">
                         <tr>
                             <th>SKU</th>
                             <th>Description</th>

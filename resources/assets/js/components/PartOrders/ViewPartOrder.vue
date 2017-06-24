@@ -20,7 +20,7 @@
     <input name="model" id="model" type="text" v-model="partOrder.model"/>
 
     <label for="staff">Staff</label>
-    <input name="staff" id="staff" type="text" v-model="partOrder.staff"/>
+    <input name="staff" id="staff" type="text" v-model="partOrder.staff.first_name"/>
 
     <label for="sku">Sku</label>
     <input name="sku" id="sku" type="text" v-model="partOrder.sku"/>

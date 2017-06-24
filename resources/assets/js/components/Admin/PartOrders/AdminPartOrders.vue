@@ -3,30 +3,37 @@
         <div class="col-md-12 module-container">
             <div class="module admin-part-orders">
                 <h2>Order History</h2>
-                <hr />
-                
+                    
+                <input v-model="search" type="text" placeholder="Search Part Orders">
+
                 <table class="table no-print">
+                    <thead>
                     <tr>
                         <th>Location</th>
                         <th>Part Number</th>
                         <th>Customer</th>
                         <th>Phone Number</th>
                         <th>Product</th>
+                        <th>Pick Up Location</th>
                         <th>To HO</th>
                         <th>From HO</th>
                         <th>Picked Up</th>
                     </tr>
-
-                    <tr v-for="partOrder in partOrders">
+                    </thead>
+                    
+                    <tbody>
+                    <tr v-for="partOrder in partOrders | filterBy search">
                         <td>{{ partOrder.location.name }}</td>
-                        <td><a href="/part-orders/{{ partOrder.id }}">{{ partOrder.id }}</a></td>
+                        <td><a href="/admin/part-orders/{{ partOrder.id }}">{{ partOrder.id }}</a></td>
                         <td>{{ partOrder.customer.first_name }} {{ partOrder.customer.last_name }}</td>
                         <td>{{ partOrder.customer.primary_phone }}</td>
                         <td>{{ partOrder.item }}</td>
+                        <td>{{ partOrder.pick_up_location}}</td>
                         <td>{{ partOrder.to_head_office | moment }}</td>
                         <td>{{ partOrder.from_head_office | moment }}</td>
                         <td>{{ partOrder.customer_pick_up | moment }}</td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -44,6 +51,7 @@ export default Vue.extend({
     data() {
         return {
             partOrders: [],
+            search: ''
         }
     },
 

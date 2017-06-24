@@ -3,8 +3,9 @@
         <div class="col-md-12 module-container">
             <div class="module admin-repair-orders">
                 <h2>Order History</h2>
-                <hr />
                 
+                <input v-model="search" type="text" placeholder="Search Repair Orders">
+
                 <table class="table no-print">
                     <tr>
                         <th>Location</th>
@@ -17,7 +18,7 @@
                         <th>Picked Up</th>
                     </tr>
 
-                    <tr v-for="repairOrder in repairOrders">
+                    <tr v-for="repairOrder in repairOrders | filterBy search">
                         <td>{{ repairOrder.location.name }}</td>
                         <td><a href="repair-orders/{{ repairOrder.id }}">{{ repairOrder.id }}</a></td>
                         <td>{{ repairOrder.customer.first_name }} {{ repairOrder.customer.last_name }}</td>
@@ -44,6 +45,7 @@ export default Vue.extend({
     data() {
         return {
             repairOrders: [],
+            search: ''
         }
     },
 
@@ -80,7 +82,11 @@ export default Vue.extend({
 
     filters: {
         moment: function (date) {
-            return Moment(date).format('YYYY-MM-DD');
+        if(date !== '' && date !== '0000-00-00 00:00:00' && date !== null)
+        {
+            return Moment(date).format('YYYY-MM-DD @ H:mm');
+        }
+            return 'Not Yet';
         }
     }
 });
