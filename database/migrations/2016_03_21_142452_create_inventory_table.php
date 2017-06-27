@@ -25,7 +25,6 @@ class CreateInventoryTable extends Migration
                         $table->float('unit_sale_price')->nullable()->default('0.00');
                         $table->boolean('pst');
                         $table->boolean('gst');
-                        $table->integer('eco_fee_sku')->unsigned()->nullable();
                         $table->string('image');
                         $table->string('manufacturer')->nullable();
                         $table->string('model_number')->nullable();
@@ -36,8 +35,6 @@ class CreateInventoryTable extends Migration
 
                         $table->foreign('category_id')
                               ->references('id')->on('categories');
-                        $table->foreign('eco_fee_sku')
-                              ->references('sku')->on('inventory');
         });
     }
 

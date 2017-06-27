@@ -14,8 +14,13 @@ class Inventory extends Model
     	return $this->hasMany('App\Qoh', 'sku');
     }
 
-    public function cadtegory()
+    public function category()
     {
         return $this->belongsTo('App\Category');
+    }
+
+    public function associated_sku()
+    {
+        return $this->hasMany('App\AssociatedSkus', 'sku');
     }
 }

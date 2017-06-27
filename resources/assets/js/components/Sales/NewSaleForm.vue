@@ -167,10 +167,11 @@
             },
 
             getProduct(sku) {
-                  var url = '/api/v0/inventory?sku=' + sku;
+                  var url = '/api/v0/inventory?sku=' + sku + '&with=associated_sku.associated_sku';
 
                   this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       this.products.push(response.data.data[0]);
+
                       this.calculatePrice();
 
                   }, function(response) {
@@ -270,6 +271,19 @@
 
                     return false;
                 }
+                
+                
+                if(this.products[index]['associated_sku'] !== undefined && this.products[index]['associated_sku'].length > 0)
+                {
+                    //console.log(this.products[index]['associated_sku'][0]['multiplyer']);
+                    this.products.push(this.products[index]['associated_sku'][0]['associated_sku']);
+
+                    this.calculatePrice();
+
+                    this.prices[(Number(index) + 1)].quantity = Number(this.products[index]['associated_sku'][0]['multiplyer']) * Number(this.prices[index].quantity);
+
+                }    
+                
 
                 if(this.prices[index].discount != 0 && (this.prices[index].discount/100) <= this.max_discount) {
                     //TODO: check if the product is exempt from max discount %
