@@ -99,6 +99,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('stock-order', 'Api\Controllers\StockOrderController@index');
         Route::post('stock-order', 'Api\Controllers\StockOrderController@new');
         Route::post('stock-order/update-status', 'Api\Controllers\StockOrderController@updateStatus');
+        Route::post('stock-order/remove-product', 'Api\Controllers\StockOrderController@removeProduct');
         Route::post('stock-order/add-product', 'Api\Controllers\StockOrderController@addProduct');
         Route::post('stock-order/update-product-order-qty', 'Api\Controllers\StockOrderController@updateProductOrderQty');
         Route::post('stock-order/update-product-received-qty', 'Api\Controllers\StockOrderController@updateProductReceivedQty');

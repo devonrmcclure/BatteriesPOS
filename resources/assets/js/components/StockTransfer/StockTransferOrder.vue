@@ -20,6 +20,7 @@
                 
                 <table>
                     <tr>
+                        <th v-if="orderInfo.status == 'Unordered'"></th>
                         <th>Sku</th>
                         <th>Description</th>
                         <th>Qty Ordered</th>
@@ -27,9 +28,12 @@
                     </tr>
 
                     <tr v-for="product in orderInfo.products">
+                        <td v-if="orderInfo.status == 'Unordered'" class="remove-product" @click="removeProduct(product, $index)" class="removeProduct">&times;</td>
                         <td>{{product.sku}}</td>
                         <td>{{product.description}}</td>
-                        <td>{{product.quantity_ordered}}</td>
+                        <td v-if="orderInfo.status == 'Unordered'"><input type="text" @blur="updateQuantity($index)" v-model="product.quantity_ordered"></td>
+
+                        <td v-else>{{product.quantity_ordered}}</td>
                         <td v-if="orderInfo.status == 'In-Transit'"><input type="text" v-model="product.quantity_filled" @blur="updateQuantity($index)"></td>
                         <td v-else>{{product.quantity_filled}}</td>
                     </tr>
@@ -124,6 +128,35 @@ export default Vue.extend({
 
         },
 
+        removeProduct(product, index) {
+            var url = '/api/v0/stock-order/remove-product';
+            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index].id})
+            .then(function(response) {
+                this.orderInfo.products.$remove(product);
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                      
+                }
+            });
+        },
+
+        updateQuantity(index) {
+            var url = '/api/v0/stock-order/update-product-order-qty';
+            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index].id, quantity_ordered: this.orderInfo.products[index].quantity_ordered})
+            .then(function(response) {
+                //Success
+                
+            }, function(response) {
+                //Error
+                if(response.status === 404)
+                {
+                      
+                }
+            });
+        },   
+
         sendOrder(status) {
             var url = '/api/v0/stock-order/update-status';
             this.$http.post(url, {api_token: this.location.api_token, newStatus: status, orderID: this.orderNumber})
@@ -137,22 +170,7 @@ export default Vue.extend({
                       
                 }
             });
-        },
-
-        updateQuantity(index) {
-            var url = '/api/v0/stock-order/update-product-received-qty';
-            this.$http.post(url, {api_token: this.location.api_token, id: this.orderInfo.products[index].id, quantity_received: this.orderInfo.products[index].quantity_filled})
-            .then(function(response) {
-                //Success
-                
-            }, function(response) {
-                //Error
-                if(response.status === 404)
-                {
-                      
-                }
-            });
-        },        
+        },    
         
     },
 

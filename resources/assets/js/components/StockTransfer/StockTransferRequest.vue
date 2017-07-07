@@ -28,7 +28,7 @@
                     <tr v-for="product in orderInfo.products">
                         <td>{{product.sku}}</td>
                         <td>{{product.description}}</td>
-                        <td v-if="orderInfo.status == 'Ordered'"><input type="text" @blur="updateQuantity($index)" v-model="product.quantity_ordered"></input></td>
+                        <td v-if="orderInfo.status == 'Ordered'"><input type="text" @blur="updateQuantity($index)" v-model="product.quantity_ordered"></td>
 
                         <td v-else>{{product.quantity_ordered}}</td>
                     </tr>

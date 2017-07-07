@@ -121,6 +121,13 @@ class StockOrderController extends ApiController
 
     }
 
+    public function removeProduct(Request $request)
+    {
+        $product = StockOrderProducts::find($request->input('id'));
+
+        $product->delete();
+    }
+
     public function updateProductOrderQty(Request $request) 
     {
         $product = StockOrderProducts::where('id', $request->input('id'))->first();
