@@ -104,6 +104,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('stock-order/update-product-order-qty', 'Api\Controllers\StockOrderController@updateProductOrderQty');
         Route::post('stock-order/update-product-received-qty', 'Api\Controllers\StockOrderController@updateProductReceivedQty');
 
+        Route::get('todo', 'Api\Controllers\ToDoController@index');
+
     });
 });
 

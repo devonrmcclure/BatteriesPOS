@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function part_order() {
         return $this->hasMany('App\PartOrder', 'location_id');
     }
+
+    public function to_do() {
+        return $this->hasMany('App\ToDo', 'location_id');
+    }
 }

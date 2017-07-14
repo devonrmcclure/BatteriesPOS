@@ -4,11 +4,8 @@
 <div class="content">
 	<h1>{{Auth::user()->name}} <small>{{$date}}</small></h1>
 
-	<div class="col-md-6 module-container">
-		<div class="module" id="app">
-			TODO
-            
-		</div>
-	</div>
+	<daily-to-do :location="{{ Auth::User() }}"></daily-to-do>
+
+    <weekly-to-do :location="{{ Auth::User() }}"></weekly-to-do>
 </div>
 @endsection

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(InventoryTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
+        $this->call(ToDoTableSeeder::class);
         $this->call(QOHTableSeeder::class);
     }
 }

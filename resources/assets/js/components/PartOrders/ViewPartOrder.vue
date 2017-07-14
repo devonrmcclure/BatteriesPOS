@@ -1,4 +1,5 @@
 <template>
+<a href="/print/part-order/{{partOrder.id}}?print=true" target="_blank" rel="noopener noreferrer"><button>Print Order</button></a>
 <form id="part-order-form">
     <input type="hidden" name="api_token" value="{{location.api_token}}"/>
     <input type="hidden" name="rep_id" v-model="rep.id"/>

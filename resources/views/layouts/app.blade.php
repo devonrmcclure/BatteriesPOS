@@ -56,7 +56,6 @@
     <!-- JavaScripts -->
     <script src="{{ URL::asset('bower_components/jquery/dist/jquery.js') }}"></script>
     <script src="{{ URL::asset('bower_components/bootstrap/dist/js/bootstrap.js') }}"></script>
-    <script src="{{ URL::asset('sunnywalker-jQuery.FilterTable-8f7979d/jquery.filtertable.js')}}"></script>
     <script src="{{ elixir('js/app.js') }}"></script>
     @show
 

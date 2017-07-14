@@ -1,11 +1,12 @@
 <template>
-<!--     <button value="New Customer" @click="newCustomer()">New Customer</button> -->
+    <button value="New Customer" @click="newCustomer()">New Customer</button>
 	<table>
         <tr>
             <th>Customer</th>
             <th>Primary Phone</th>
             <th>Secondary Phone</th>
             <th>Customer Since</th>
+            <th>Store Credit</th>
         </tr>
 
         <tr v-for="customer in customers">
@@ -13,10 +14,11 @@
             <td>{{ customer.primary_phone }}</td>
             <td>{{ customer.secondary_phone }}</td>
             <td>{{ customer.created_at | moment }}</td>
+            <td><strong>${{ customer.store_credit }}</strong></td>
         </tr>
     </table>
 
-<!--     <new-customer-modal :show.sync="showNewCustomerModal" title="New Customer" :location="location"></new-customer-modal> -->
+    <new-customer-modal :show.sync="showNewCustomerModal" title="New Customer" :location="location"></new-customer-modal>
 </template>
 
 <script lang="babel">

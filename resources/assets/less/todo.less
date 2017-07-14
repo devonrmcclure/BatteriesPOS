@@ -1,0 +1,21 @@
+.todo-container {
+    input[type="checkbox"] {
+        position: relative;
+        z-index: -9999;
+        margin-left: -10px;
+    }
+
+    label {
+        cursor: pointer;
+        color: @indigo;
+    }
+
+    input[type="checkbox"]:checked + label {
+        color: #666;
+        font-style: italic;
+        text-decoration: line-through;
+        font-size: 12px;
+    }
+
+    
+}

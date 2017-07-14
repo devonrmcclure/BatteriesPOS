@@ -1,4 +1,5 @@
 <template>
+<a href="/print/repair-order/{{repairOrder.id}}?print=true" target="_blank" rel="noopener noreferrer"><button>Print Order</button></a>
 <form id="repair-order-form">
     <input type="hidden" name="api_token" value="{{location.api_token}}"/>
     <customer :customer.sync="customer" :location.sync="location"></customer>
