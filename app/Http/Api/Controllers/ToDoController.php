@@ -13,6 +13,8 @@ use App\Http\Requests\UpdateCustomer;
 
 use App\Customer;
 
+use Carbon\Carbon;
+
 
 class ToDoController extends ApiController
 {   
@@ -62,18 +64,13 @@ class ToDoController extends ApiController
         return $customer;
     }
 
-    public function update(UpdateCustomer $request)
+    public function update(Request $request)
     {
-        $customer = Customer::find($request->input('customer-id'));
-        $customer->first_name = $request->input('customer-first-name');
-        $customer->last_name = $request->input('customer-last-name');
-        $customer->address   = $request->input('customer-address');
-        $customer->city      = $request->input('customer-city');
-        $customer->postal_code = $request->input('customer-postal-code');
-        $customer->primary_phone = Phone::formatNumber($request->input('customer-primary-phone'));
-        $customer->secondary_phone = Phone::formatNumber($request->input('customer-secondary-phone'));
-        $customer->save();
+       $todo = \App\ToDo::find($request->input('id'));
 
-        return $customer;
+       $todo->completed = Carbon::now();
+       $todo->save();
+
+       return $todo;
     }
 }

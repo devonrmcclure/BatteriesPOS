@@ -6,9 +6,9 @@
             
             <div class="todo-container">
                 <div v-for="task in dailyToDos">
-                    <input type="checkbox" id="{{task.task}}" name="{{task.task}}" v-if="task.completed == today || task.complete >= today" checked="checked">
+                    <input type="checkbox" id="{{task.task}}" name="{{task.task}}" v-if="task.completed == today || task.completed >= today" checked="checked">
                     <input type="checkbox" id="{{task.task}}" name="{{task.task}}" v-else="">
-                    <label for="{{task.task}}">{{task.task | checkCompleted}}</label>
+                    <label for="{{task.task}}" @click="updateCompleted($index)">{{task.task | checkCompleted}}</label>
                 </div>
             </div>
         </div>
@@ -53,6 +53,20 @@ export default Vue.extend({
 
             this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('dailyToDos', response.data.data);
+
+            }, function(response) {
+            // error callback
+            });
+        },
+
+        updateCompleted(index) {
+            console.log(this.dailyToDos[index].id);
+
+            var url = '/api/v0/update-todo';
+
+            this.$http.post(url, {api_token: this.location.api_token, id: this.dailyToDos[index].id}).then(function(response) {
+
+                this.getDailyToDo();
 
             }, function(response) {
             // error callback
