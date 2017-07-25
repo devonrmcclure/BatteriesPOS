@@ -27,6 +27,8 @@ import AdminPartOrders from './components/Admin/PartOrders/AdminPartOrders.vue';
 import AdminPartOrdersShow from './components/Admin/PartOrders/AdminPartOrdersShow.vue';
 import DailyToDo from './components/ToDo/DailyToDo.vue';
 import WeeklyToDo from './components/ToDo/WeeklyToDo.vue';
+import TransferRequests from './components/ToDo/TransferRequests.vue';
+import TransferOrders from './components/ToDo/TransferOrders.vue';
 
 import './directives/Ajax';
 
@@ -35,7 +37,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('input[name="_t
 
 new Vue({
     el: '#app',
-    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo, Staff, StockTransferHistory, StockTransferOrder, AdminInventoryOrders, StockTransferRequest, AdminVendorOrders, AdminRepairOrders, AdminRepairOrdersShow, ViewRepairOrder, AdminPartOrders, AdminPartOrdersShow, DailyToDo, WeeklyToDo},
+    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo, Staff, StockTransferHistory, StockTransferOrder, AdminInventoryOrders, StockTransferRequest, AdminVendorOrders, AdminRepairOrders, AdminRepairOrdersShow, ViewRepairOrder, AdminPartOrders, AdminPartOrdersShow, DailyToDo, WeeklyToDo, TransferRequests, TransferOrders},
     data() {
     	return {
         	showNewSaleModal: false,

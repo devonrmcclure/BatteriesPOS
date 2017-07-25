@@ -245,8 +245,37 @@ class ToDoTableSeeder extends Seeder
         ]);
 
 
+        DB::table('todo')->insert([
 
+            'task' => 'Dust',
+            'task_type' => 'weekly',
+            'location_id' => '2',
+            'completed' => '0000-00-00 00:00:00',
+        ]);
 
+        DB::table('todo')->insert([
+
+            'task' => 'Dust',
+            'task_type' => 'weekly',
+            'location_id' => '3',
+            'completed' => '0000-00-00 00:00:00',
+        ]);
+
+        DB::table('todo')->insert([
+
+            'task' => 'Dust',
+            'task_type' => 'weekly',
+            'location_id' => '6',
+            'completed' => '0000-00-00 00:00:00',
+        ]);
+
+        DB::table('todo')->insert([
+
+            'task' => 'Dust',
+            'task_type' => 'weekly',
+            'location_id' => '8',
+            'completed' => '0000-00-00 00:00:00',
+        ]);
 
     }
 }

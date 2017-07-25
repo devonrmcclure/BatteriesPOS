@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-4 module-container">
+    <div class="col-md-3 module-container">
         <div class="module">
             <h4>Weekly To Do</h4>
             <hr />
