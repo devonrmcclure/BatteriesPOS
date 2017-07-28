@@ -44,10 +44,36 @@ class RepairOrdersController extends ApiController
 
     public function store(StoreRepairOrder $request) {
 
-        //TODO: Validation. (Use Laravel's validator.)
-
         $repairOrder = new RepairOrder;
         $repairOrder->id = $request->input('orderNumber');
+        $repairOrder->referred_by = $request->input('referred-by');
+        $repairOrder->customer_id = $request->input('customer-id');
+        $repairOrder->call_if_over = $request->input('call-if-over');
+        $repairOrder->original_receipt = true; //DO a check for if the original receipt checkbox is on or not, then set true of false that way.
+        $repairOrder->warranty = true; //Same as original_receipt
+        $repairOrder->deposit = $request->input('deposit');
+        $repairOrder->staff_id = 1;
+        $repairOrder->product = $request->input('product');
+        $repairOrder->model = $request->input('model');
+        $repairOrder->type = $request->input('type');
+        $repairOrder->date_code = $request->input('date_code');
+        $repairOrder->condition = $request->input('condition');
+        $repairOrder->accessories = $request->input('accessories');
+        $repairOrder->location_id = Auth::guard('api')->user()->id;
+        $repairOrder->invoice_id = $request->input('deposit-invoice');
+        $repairOrder->problem = $request->input('problem');
+        $repairOrder->notes = $request->input('notes');
+        $repairOrder->to_head_office = Carbon::now()->format('Y-m-d H:i:s');
+        $repairOrder->save();
+
+    }
+
+    public function update(StoreRepairOrder $request) {
+
+        $repairOrder = RepairOrder::find($request->input('orderNumber'));
+
+        //dd($repairOrder->referred_by);
+        
         $repairOrder->referred_by = $request->input('referred-by');
         $repairOrder->customer_id = $request->input('customer-id');
         $repairOrder->call_if_over = $request->input('call-if-over');

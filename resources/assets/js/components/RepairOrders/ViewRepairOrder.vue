@@ -1,5 +1,8 @@
 <template>
 <a href="/print/repair-order/{{repairOrder.id}}?print=true" target="_blank" rel="noopener noreferrer"><button>Print Order</button></a>
+
+<button @click="updateRepairOrder()">Update Order</button>
+
 <form id="repair-order-form">
     <input type="hidden" name="api_token" value="{{location.api_token}}"/>
     <customer :customer.sync="customer" :location.sync="location"></customer>
@@ -9,7 +12,7 @@
         <label for="orderNumber">Repair Order Number:</label>
         <input type="text" name="orderNumber" id="orderNumber" v-model="repairOrder.id" readonly/>
         <label for="referred-by">Referred By</label>
-        <input type="text" name"referred-by" id="referred-by" v-model="repairOrder.referred_by">
+        <input type="text" name="referred-by" id="referred-by" v-model="repairOrder.referred_by"/>
 
         <label for="call-if-over">Call if Over</label>
         <input name="call-if-over" id="call-if-over" type="text" v-model="repairOrder.call_if_over"/>
@@ -105,17 +108,13 @@ export default Modal.extend({
             this.showRepLogin = true;
         },
 
-        updateRepairOrder(e) {
+        updateRepairOrder() {
             //TODO Validation
-            e.preventDefault();
             var formData = new FormData(document.querySelector('#repair-order-form'));
             var url = '/api/v0/repair-orders/' + this.pathArray[2];
-            this.$http.put(url, formData)
+            this.$http.post(url, formData)
             .then(function(response) {
                 //Success
-                this.$dispatch('new-repair-order');
-                this.$broadcast('new-repair-order');
-                this.close();
             }, function(response) {
                 //TODO: Proper flash message
                 console.log(response);

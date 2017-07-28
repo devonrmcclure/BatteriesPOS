@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class RepairOrder extends Model
 {
 
+    protected $table = 'repair_orders';
+
     public $timestamps = [
         'to_head_office',
         'from_head_office',

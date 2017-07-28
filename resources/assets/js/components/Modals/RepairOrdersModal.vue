@@ -12,7 +12,7 @@
                     <label for="orderNumber">Repair Order Number:</label>
                     <input type="text" name="orderNumber" id="orderNumber" v-model="orderNumber" readonly/>
                     <label for="referred-by">Referred By</label>
-                    <select name="referred-by" id="referred_by">
+                    <select name="referred-by" id="referred-by">
                         <option value="-- SELECT ONE --" selected>-- SELECT ONE --</option>
                         <option value="Oster">Oster</option>
                     </select>
