@@ -8,7 +8,7 @@
     <customer :customer.sync="customer" :location.sync="location"></customer>
     
     <div class="important-info">
-        <input type="hidden" name="customer-id" v-model="customer.id" readonly/>
+        <input type="hidden" name="customer-id" id="customer-id" v-model="customer.id" readonly/>
         <label for="orderNumber">Repair Order Number:</label>
         <input type="text" name="orderNumber" id="orderNumber" v-model="repairOrder.id" readonly/>
         <label for="referred-by">Referred By</label>

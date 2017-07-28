@@ -1,15 +1,16 @@
 <template>
 <a href="/print/part-order/{{partOrder.id}}?print=true" target="_blank" rel="noopener noreferrer"><button>Print Order</button></a>
+
+<button @click="updatePartOrder()">Update Order</button>
 <form id="part-order-form">
     <input type="hidden" name="api_token" value="{{location.api_token}}"/>
+    <input type="hidden" name="customer-id" id="customer-id" v-model="customer.id" readonly/>
+    <input type="hidden" name="invoice" id="invoice" v-model="partOrder.invoice.id" readonly/>
     <input type="hidden" name="rep_id" v-model="rep.id"/>
     <customer :customer.sync="customer" :location.sync="location"></customer>
-    <p style="float: right">Part Order: {{partOrder.id}}</p>
+    <p style="float: right">Part Order: <input type="text" name="part-order-id" id="part-order-id" v-model="partOrder.id"/></p>
     <label for="referred-by">Referred By</label>
-    <select name="referred-by" id="referred_by" v-model="partOrder.referred_by">
-        <option value=""></option>
-        <option value="Oster">Oster</option>
-    </select>
+    <input type="text" name="referred-by" id="referred-by" v-model="partOrder.referred_by"/>
 
     <label for="make">Make</label>
     <input name="make" id="make" type="text" v-model="partOrder.make"/>
@@ -110,12 +111,11 @@ export default Modal.extend({
             this.showRepLogin = true;
         },
 
-        updatePartOrder(e) {
-            //TODO Validation
-            e.preventDefault();
+        updatePartOrder() {
+
             var formData = new FormData(document.querySelector('#part-order-form'));
             var url = '/api/v0/part-orders/' + this.pathArray[2];
-            this.$http.put(url, formData)
+            this.$http.post(url, formData)
             .then(function(response) {
                 //Success
                 this.$dispatch('new-part-order');

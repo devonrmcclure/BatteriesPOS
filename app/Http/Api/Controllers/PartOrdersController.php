@@ -45,6 +45,7 @@ class PartOrdersController extends ApiController
         $partOrder->id = $request->input('part-order-id');
         $partOrder->referred_by = $request->input('referred-by');
         $partOrder->customer_id = $request->input('customer-id');
+        $partOrder->make = $request->input('make');
         $partOrder->deposit = $request->input('deposit');
         $partOrder->staff_id = 1;
         $partOrder->item = $request->input('item');
@@ -66,5 +67,28 @@ class PartOrdersController extends ApiController
             'data' => $partOrder,
             'user' => \Auth::guard('api')->user()
         ]);
+    }
+
+    public function update(StorePartOrder $request)
+    {
+        //TODO: Validation. (Use Laravel's validator.)
+
+        $partOrder = PartOrder::find($request->input('part-order-id'));
+        
+
+        $partOrder->make = $request->input('make');
+        $partOrder->referred_by = $request->input('referred-by');
+        $partOrder->customer_id = $request->input('customer-id');
+        $partOrder->deposit = $request->input('deposit');
+        $partOrder->staff_id = 1;
+        $partOrder->item = $request->input('item');
+        $partOrder->model = $request->input('model');;
+        $partOrder->part_number = $request->input('part-number');
+        $partOrder->pick_up_location = $request->input('pick-up-location');
+        $partOrder->location_id = \Auth::guard('api')->user()->id;
+        $partOrder->invoice_id = $request->input('invoice');
+        $partOrder->notes = $request->input('notes');
+        $partOrder->to_head_office = Carbon::now();
+        $partOrder->save();
     }
 }
