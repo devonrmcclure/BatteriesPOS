@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\AssociatedSkus;
+
 class InventoryController extends \App\Http\Api\Controllers\ApiController
 {
     protected $model = '\App\Inventory';
@@ -38,5 +40,16 @@ class InventoryController extends \App\Http\Api\Controllers\ApiController
 
         $product->category_id = $category[0]->id;
         $product->save();
+    }
+
+    public function associatedSkus(Request $request) {
+        //dd($request->all());
+
+        $associatedSku = new AssociatedSkus();
+        $associatedSku->sku = $request->input('sku');
+        $associatedSku->associated_sku = $request->input('associated_sku');
+        $associatedSku->type = $request->input('type');
+        $associatedSku->multiplyer = $request->input('multiplyer');
+        $associatedSku->save();
     }
 }

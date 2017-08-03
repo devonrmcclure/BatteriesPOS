@@ -7,10 +7,11 @@
 
     <div class="row">
     	<daily-to-do :location="{{ Auth::User() }}"></daily-to-do>
+        
+        <transfer-orders :location="{{ Auth::User() }}"></transfer-orders>
 
         <transfer-requests :location="{{ Auth::User() }}"></transfer-requests>
 
-        <transfer-orders :location="{{ Auth::User() }}"></transfer-orders>
     </div>
 
     <div class="row">

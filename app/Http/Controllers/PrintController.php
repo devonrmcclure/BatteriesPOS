@@ -138,11 +138,13 @@ class PrintController extends Controller
                     {   
                         $preTaxReturns += abs($product->extended);
                         $returns += abs($product->total);
+                        $totalPST -= abs($product->pst);
+                        $totalGST -= abs($product->gst);
                     } else {
                         $preTaxSales += $product->extended;
                         $sales += $product->total;
-                        $totalPST += $product->pst;
-                        $totalGST += $product->gst;
+                        $totalPST += ($product->pst);
+                        $totalGST += ($product->gst);
                     }
                 }
             }

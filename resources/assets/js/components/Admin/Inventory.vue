@@ -27,7 +27,6 @@
 <script lang="babel">
 
 import Vue from 'vue';
-import NewCustomerModal from '../Modals/NewCustomerModal.vue';
 
 export default Vue.extend({
     data() {
@@ -49,7 +48,7 @@ export default Vue.extend({
 
     methods: {
         getInventory() {
-            var url = '/api/v0/admin/inventory?category_id=1&order_by=sku,asc&limit=500';
+            var url = '/api/v0/admin/inventory?category_id=1&order_by=sku,asc&limit=50';
 
                   this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                       this.inventory.push(response.data.data);

@@ -21,6 +21,7 @@ import StockTransferOrder from './components/StockTransfer/StockTransferOrder.vu
 import StockTransferRequest from './components/StockTransfer/StockTransferRequest.vue';
 import AdminInventoryOrders from './components/Admin/Inventory/InventoryOrders.vue';
 import AdminVendorOrders from './components/Admin/Inventory/AdminVendorOrders.vue';
+import AssociatedSkus from './components/Admin/Inventory/AssociatedSkus.vue';
 import AdminRepairOrders from './components/Admin/RepairOrders/AdminRepairOrders.vue';
 import AdminRepairOrdersShow from './components/Admin/RepairOrders/AdminRepairOrdersShow.vue';
 import AdminPartOrders from './components/Admin/PartOrders/AdminPartOrders.vue';
@@ -37,7 +38,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('input[name="_t
 
 new Vue({
     el: '#app',
-    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo, Staff, StockTransferHistory, StockTransferOrder, AdminInventoryOrders, StockTransferRequest, AdminVendorOrders, AdminRepairOrders, AdminRepairOrdersShow, ViewRepairOrder, AdminPartOrders, AdminPartOrdersShow, DailyToDo, WeeklyToDo, TransferRequests, TransferOrders},
+    components: {RepLoginModal, DailySalesStats, Inventory, InventoryInfo, InventoryHistory, RepairOrders, PartOrders, CustomerList, ViewPartOrder, Dashboard, AdminInventory, CloseOut, Invoice, InvoiceInfo, Staff, StockTransferHistory, StockTransferOrder, AdminInventoryOrders, StockTransferRequest, AdminVendorOrders, AdminRepairOrders, AdminRepairOrdersShow, ViewRepairOrder, AdminPartOrders, AdminPartOrdersShow, DailyToDo, WeeklyToDo, TransferRequests, TransferOrders, AssociatedSkus},
     data() {
     	return {
         	showNewSaleModal: false,

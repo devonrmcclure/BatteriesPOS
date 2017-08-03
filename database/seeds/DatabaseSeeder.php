@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingsTableSeeder::class);
         $this->call(ToDoTableSeeder::class);
         $this->call(QOHTableSeeder::class);
+        $this->call(AssociatedSkusTableSeeder::class);
     }
 }

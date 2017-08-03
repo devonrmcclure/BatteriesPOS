@@ -120,6 +120,8 @@ Route::group(['middleware' => ['auth:api', 'web', 'admin'], 'prefix' => 'api/v0/
     Route::post('categories', 'Api\Controllers\Admin\CategoriesController@update');
 
     Route::post('staff/add', 'Api\Controllers\Admin\StaffController@store');
+
+    Route::post('inventory/associated-skus', 'Api\Controllers\Admin\InventoryController@associatedSkus');
 });
 
 
@@ -140,6 +142,8 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
         Route::get('/repair-orders/{id}', 'Controllers\Admin\RepairOrdersController@show');
         Route::get('/part-orders/{id}', 'Controllers\Admin\PartOrdersController@show');
+
+        Route::get('/inventory/associated-skus', 'Controllers\Admin\InventoryController@associatedSkus');
 
         
     });

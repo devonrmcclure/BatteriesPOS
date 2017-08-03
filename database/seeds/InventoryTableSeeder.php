@@ -6259,9 +6259,9 @@ class InventoryTableSeeder extends Seeder
             367 => 
             array (
                 'sku' => 369,
-                'description' => 'F/LIGHT 3AA LED 3-in-1 SP3N1LEDB',
+                'description' => 'CELL CASE - HARD SHELL',
                 'category_id' => 1,
-                'unit_price' => 22.98,
+                'unit_price' => 17.00,
                 'unit_sale_price' => 0.00,
                 'pst' => 1,
                 'gst' => 1,
@@ -11518,7 +11518,7 @@ class InventoryTableSeeder extends Seeder
                 'category_id' => 1,
                 'unit_price' => 5.00,
                 'unit_sale_price' => 0.00,
-                'pst' => 1,
+                'pst' => 0,
                 'gst' => 1,
                 
                 'image' => 'no_image.png',
@@ -16274,9 +16274,9 @@ class InventoryTableSeeder extends Seeder
             456 => 
             array (
                 'sku' => 958,
-                'description' => 'SUND TRAVEL POUCH CANADA',
+                'description' => 'F/LIGHT LED 2-in-1 TELESCOPIC LAMP W/M',
                 'category_id' => 1,
-                'unit_price' => 3.98,
+                'unit_price' => 14.98,
                 'unit_sale_price' => 0.00,
                 'pst' => 1,
                 'gst' => 1,
@@ -21393,9 +21393,9 @@ class InventoryTableSeeder extends Seeder
             257 => 
             array (
                 'sku' => 1259,
-                'description' => 'SHAVER PHIL FOIL HP2904',
+                'description' => 'SHAVER PHIL AT752 (NO TRIM) W/D 8H/40M',
                 'category_id' => 1,
-                'unit_price' => 17.98,
+                'unit_price' => 79.98,
                 'unit_sale_price' => 0.00,
                 'pst' => 1,
                 'gst' => 1,
@@ -21667,7 +21667,7 @@ class InventoryTableSeeder extends Seeder
                 'sku' => 1275,
                 'description' => 'ECO FEE - PRIMARY CELL - MED=6V LANTERN',
                 'category_id' => 1,
-                'unit_price' => 0.50,
+                'unit_price' => 1.50,
                 'unit_sale_price' => 0.00,
                 'pst' => 1,
                 'gst' => 1,
@@ -33329,9 +33329,9 @@ class InventoryTableSeeder extends Seeder
             459 => 
             array (
                 'sku' => 1961,
-                'description' => 'CORD PHONE HANDSET',
+                'description' => 'CELL SCREEN PROTECTOR',
                 'category_id' => 1,
-                'unit_price' => 7.98,
+                'unit_price' => 15.00,
                 'unit_sale_price' => 0.00,
                 'pst' => 1,
                 'gst' => 1,

@@ -115,7 +115,7 @@
                             <td>${{number_format($sale->total_gst, 2)}}</td>
                             <td>${{number_format($sale->total_pst, 2)}}</td>
                             <td>${{number_format($sale->total, 2)}}</td>
-                            <td>{{$sale->created_at->format('H:m')}}</td>
+                            <td>{{$sale->created_at->format('H:i')}}</td>
                             <td>{{$sale->staff}}</td>
                         </tr>
 

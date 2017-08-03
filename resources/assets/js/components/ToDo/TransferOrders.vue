@@ -6,6 +6,7 @@
             
             <div class="todo-container">
                 <div class="stock-order-history">
+                    <div class="order" v-if='orders == ""'><a href="inventory/order"><button>New Order <i class="material-icons md-18">note_add</i></button></a></div>
                     <div class="order" v-for='order in orders'>
 
                         <!-- completed order -->
