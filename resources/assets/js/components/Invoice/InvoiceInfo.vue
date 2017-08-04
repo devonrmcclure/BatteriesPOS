@@ -33,20 +33,20 @@
                             <td><p class="product-sku">{{product.sku}}</p></td>
                             <td><p class="product-description">{{product.description}}</p></td>
                             <td><p class="product-quantity">{{product.quantity}}</p></td>
-                            <td><p class="product-price">${{product.price.toFixed(2)}}</p></td>
-                            <td><p class="product-extended">${{product.extended.toFixed(2)}}</p></td>
-                            <td><p class="product-pst>">${{product.pst.toFixed(2)}}</p></td>
-                            <td><p class="product-gst">${{product.gst.toFixed(2)}}</p></td>
-                            <td><p class="product-total">${{product.total.toFixed(2)}}</p></td>
+                            <td><p class="product-price">${{product.price}}</p></td>
+                            <td><p class="product-extended">${{product.extended}}</p></td>
+                            <td><p class="product-pst>">${{product.pst}}</p></td>
+                            <td><p class="product-gst">${{product.gst}}</p></td>
+                            <td><p class="product-total">${{product.total}}</p></td>
                         </tr>
                    
 
                         <tr>
                             <td colspan=4></td>
                             <th>Total</th>
-                            <th>${{invoice.total_pst.toFixed(2)}}</th>
-                            <th>${{invoice.total_gst.toFixed(2)}}</th>
-                            <th>${{invoice.total.toFixed(2)}}</th>
+                            <th>${{invoice.total_pst}}</th>
+                            <th>${{invoice.total_gst}}</th>
+                            <th>${{invoice.total}}</th>
 
                         </tr>
                     </table>
@@ -123,7 +123,7 @@ export default Vue.extend({
       moment: function (date) {
         if(date !== 'No Previous Sale' && date !== '')
         {
-            return Moment(date).format('YYYY-MM-D @ H:mm');
+            return Moment(date).format('YYYY-MM-DD @ H:mm');
         }
             return 'No Sales History';
       }

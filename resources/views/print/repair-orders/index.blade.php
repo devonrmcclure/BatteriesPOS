@@ -26,7 +26,7 @@
     <div class="repair-order-invoice">
         
         <div class="invoice-header">
-            <h2>Repair Order</h2> <span class="date">{{$invoice->created_at->format('Y-m-j')}}</span>
+        <h2>Repair Order</h2> <span class="date">{{$invoice->created_at->format('Y-m-d')}}</span>
             <p class="header-info">
                 <span class="invoice-number">{{$invoice->id}}</span>
                 
@@ -39,7 +39,7 @@
             <p class="phone">
                 {{$invoice->customer->primary_phone}}
 
-                @if($invoice->customer->secondary_phone !== null)
+                @if($invoice->customer->secondary_phone !== '')
                     or {{ $invoice->customer->secondary_phone}}
                 @endif
             </p>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="notes">
-                {{$invoice->notes}}
+                
             </div>
 
             <div class="footer">

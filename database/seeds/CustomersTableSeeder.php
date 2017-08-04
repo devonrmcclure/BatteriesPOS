@@ -51,29 +51,29 @@ class CustomersTableSeeder extends Seeder
         DB::table('customers')->insert([
                    	'first_name' => 'Guildford Customer',
                    	'company' => 'Batteries Included',
-                   	'address' => '1026 152nd Street',
+                   	'address' => 'Unit 101J, 15277 - 100th Ave',
                    	'city' => 'Surrey',
                    	'province' => 'British Columbia',
                    	'country' => 'Canada',
-                   	'postal_code' => 'V3R 6N7',
+                   	'postal_code' => 'V3R 8X2',
                    	'primary_phone' => '604-930-9889',
                    	'email' => 'guildford@batteriesincluded.ca',
                    	'location_id' => 6,
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
-        DB::table('customers')->insert([
-                   	'first_name' => 'Maple Ridge Customer',
-                   	'company' => 'Batteries Included',
-                   	'address' => '#500 22709 Lougheed Highway',
-                   	'city' => 'Maple Ridge',
-                   	'province' => 'British Columbia',
-                   	'country' => 'Canada',
-                   	'postal_code' => 'V2X 0T5',
-                   	'primary_phone' => '604-466-8378',
-                   	'email' => 'mapleridge@batteriesincluded.ca',
-                   	'location_id' => 8,
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
+        // DB::table('customers')->insert([
+        //            	'first_name' => 'Maple Ridge Customer',
+        //            	'company' => 'Batteries Included',
+        //            	'address' => '#500 22709 Lougheed Highway',
+        //            	'city' => 'Maple Ridge',
+        //            	'province' => 'British Columbia',
+        //            	'country' => 'Canada',
+        //            	'postal_code' => 'V2X 0T5',
+        //            	'primary_phone' => '604-466-8378',
+        //            	'email' => 'mapleridge@batteriesincluded.ca',
+        //            	'location_id' => 8,
+        //             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+        // ]);
     }
 }

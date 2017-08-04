@@ -19,7 +19,7 @@
             <td><a href="/inventory/{{product.sku}}">{{product.description}}</a></td>
             <td><a href="/inventory/{{product.sku}}">{{product.manufacturer}}</a></td>
             <td><a href="/inventory/{{product.sku}}">{{product.model_number}}</a></td>
-            <td><a href="/inventory/{{product.sku}}">${{product.unit_price.toFixed(2)}}</a></td>
+            <td><a href="/inventory/{{product.sku}}">${{product.unit_price}}</a></td>
             <td><a href="/inventory/{{product.sku}}">{{product.qoh[0].quantity}}</a></td>
         </tr>
     </table>

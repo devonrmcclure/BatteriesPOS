@@ -91,7 +91,7 @@ class RepairOrdersController extends ApiController
         $repairOrder->invoice_id = $request->input('deposit-invoice');
         $repairOrder->problem = $request->input('problem');
         $repairOrder->notes = $request->input('notes');
-        $repairOrder->to_head_office = Carbon::now()->format('Y-m-d H:i:s');
+        $repairOrder->updated_at  = Carbon::now()->format('Y-m-d H:i:s');
         $repairOrder->save();
 
     }
