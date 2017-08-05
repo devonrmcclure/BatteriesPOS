@@ -17230,9 +17230,9 @@ class InventoryTableSeeder extends Seeder
             456 => 
             array (
                 'sku' => 958,
-                'description' => 'SUND TRAVEL POUCH CANADA',
+                'description' => 'F/LIGHT LED 2-IN-1 TELESCOPIC LAMP W/M',
                 'category_id' => 1,
-                'unit_price' => 3.98,
+                'unit_price' => 14.98,
                 'unit_sale_price' => 0.0,
                 'pst' => 1,
                 'gst' => 1,
@@ -30988,7 +30988,7 @@ class InventoryTableSeeder extends Seeder
                 'sku' => 1722,
                 'description' => 'HEAVY DUTY  AAA  4 CELL PACK PANASONIC',
                 'category_id' => 1,
-                'unit_price' => 0.0,
+                'unit_price' => 1.28,
                 'unit_sale_price' => 0.0,
                 'pst' => 1,
                 'gst' => 1,
