@@ -51,7 +51,9 @@
     @endif
 
     @yield('content')
+    
 
+    <footer></footer>
     @section('scripts')
     <!-- JavaScripts -->
     <script src="{{ URL::asset('bower_components/jquery/dist/jquery.js') }}"></script>

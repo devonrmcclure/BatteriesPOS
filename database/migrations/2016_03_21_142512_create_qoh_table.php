@@ -20,10 +20,14 @@ class CreateQohTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('location_id')
-                              ->references('id')->on('users');
+                              ->references('id')->on('users')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
 
                         $table->foreign('sku')
-                              ->references('sku')->on('inventory');
+                              ->references('sku')->on('inventory')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

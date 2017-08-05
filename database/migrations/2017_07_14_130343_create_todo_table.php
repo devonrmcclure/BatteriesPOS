@@ -20,7 +20,9 @@ class CreateTodoTable extends Migration
             $table->timestamp('completed');
 
             $table->foreign('location_id')
-                  ->references('id')->on('users');
+                  ->references('id')->on('users')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 

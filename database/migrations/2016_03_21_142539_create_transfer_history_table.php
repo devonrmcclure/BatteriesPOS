@@ -21,13 +21,19 @@ class CreateTransferHistoryTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('from_store')
-                              ->references('id')->on('users');
+                              ->references('id')->on('users')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
 
                         $table->foreign('to_store')
-                              ->references('id')->on('users');
+                              ->references('id')->on('users')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
 
                         $table->foreign('sku')
-                              ->references('sku')->on('inventory');
+                              ->references('sku')->on('inventory')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

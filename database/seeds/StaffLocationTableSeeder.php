@@ -1,36 +1,40 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 
 class StaffLocationTableSeeder extends Seeder
 {
+
     /**
-     * Run the database seeds.
+     * Auto generated seed file
      *
      * @return void
      */
     public function run()
     {
+        
 
-    	/* Location codes:
-    	    HO: 1
-    	    RM: 2
-    	    WR: 3
-    	    GF: 6
-    	    NM: 7
-    	    MR: 8
-    	*/
-        DB::table('staff_location')->insert([
-                   	'staff_id' => 1,
-                   	'location_id' => 2,
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
-
-        DB::table('staff_location')->insert([
-                   	'staff_id' => 2,
-                   	'location_id' => 3,
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
+        \DB::table('staff_location')->delete();
+        
+        \DB::table('staff_location')->insert(array (
+            0 => 
+            array (
+                'id' => 1,
+                'staff_id' => 1,
+                'location_id' => 2,
+                'created_at' => '2017-08-01 13:08:38',
+                'updated_at' => NULL,
+            ),
+            1 => 
+            array (
+                'id' => 2,
+                'staff_id' => 2,
+                'location_id' => 3,
+                'created_at' => '2017-08-01 13:08:38',
+                'updated_at' => NULL,
+            ),
+        ));
+        
+        
     }
 }

@@ -29,10 +29,14 @@ class CreateSalesTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('invoice_id')
-                              ->references('id')->on('invoices');
+                              ->references('id')->on('invoices')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
 
                         $table->foreign('location_id')
-                              ->references('id')->on('users');
+                              ->references('id')->on('users')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

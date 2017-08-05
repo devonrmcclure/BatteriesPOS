@@ -20,10 +20,14 @@ class CreateAssociatedSkusTable extends Migration
             $table->string('multiplyer');
             
             $table->foreign('sku')
-                  ->references('sku')->on('inventory');
+                  ->references('sku')->on('inventory')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
 
             $table->foreign('associated_sku')
-                  ->references('sku')->on('inventory');
+                  ->references('sku')->on('inventory')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
 
         });
     }

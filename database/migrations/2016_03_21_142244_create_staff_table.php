@@ -28,7 +28,9 @@ class CreateStaffTable extends Migration
                         $table->string('rep_code')->nullable(false);
                         $table->timestamps();
 
-                        $table->foreign('location_id')->references('id')->on('users');
+                        $table->foreign('location_id')->references('id')->on('users')
+                        ->onUpdate('cascade')
+                        ->onDelete('cascade');
         });
     }
 

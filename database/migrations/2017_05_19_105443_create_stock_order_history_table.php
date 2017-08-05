@@ -23,10 +23,14 @@ class CreateStockOrderHistoryTable extends Migration
             $table->timestamps();
 
             $table->foreign('requesting_location')
-                  ->references('id')->on('users');
+                  ->references('id')->on('users')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
 
             $table->foreign('requesting_from_location')
-                  ->references('id')->on('users');
+                  ->references('id')->on('users')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 

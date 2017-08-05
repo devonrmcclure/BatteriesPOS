@@ -25,7 +25,9 @@ class CreatePurchasesTable extends Migration
             $table->timestamps();
 
             $table->foreign('vendor_invoice_id')
-                  ->references('invoice_id')->on('vendor_invoices');
+                  ->references('invoice_id')->on('vendor_invoices')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 

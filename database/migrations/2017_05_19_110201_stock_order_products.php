@@ -22,10 +22,14 @@ class StockOrderProducts extends Migration
             $table->boolean('received')->default(0); 
 
             $table->foreign('order_id')
-                  ->references('order_number')->on('stock_order_history');
+                  ->references('order_number')->on('stock_order_history')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
 
             $table->foreign('sku')
-                  ->references('sku')->on('inventory');
+                  ->references('sku')->on('inventory')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 

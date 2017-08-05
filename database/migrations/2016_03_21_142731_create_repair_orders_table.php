@@ -38,11 +38,19 @@ class CreateRepairOrdersTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('customer_id')
-                              ->references('id')->on('customers');
+                              ->references('id')->on('customers')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
+
                         $table->foreign('location_id')
-                              ->references('id')->on('users');
+                              ->references('id')->on('users')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
+
                         $table->foreign('staff_id')
-                              ->references('id')->on('staff');
+                              ->references('id')->on('staff')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
                         //$table->foreign('invoice_id')
                               //->references('id')->on('invoices');
 

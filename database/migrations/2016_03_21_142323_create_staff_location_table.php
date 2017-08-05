@@ -19,10 +19,14 @@ class CreateStaffLocationTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('staff_id')
-                              ->references('id')->on('staff');
+                              ->references('id')->on('staff')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
 
                         $table->foreign('location_id')
-                              ->references('id')->on('users');
+                              ->references('id')->on('users')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

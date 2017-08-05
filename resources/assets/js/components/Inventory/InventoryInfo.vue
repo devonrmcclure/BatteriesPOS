@@ -139,7 +139,7 @@ export default Vue.extend({
         },
 
         getQoh(sku) {
-            var url = '/api/v0/qoh?sku=' + sku + '&with=location';
+            var url = '/api/v0/qoh?sku=' + sku + '&except=location_id,!=,100&with=location';
               
             this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('qoh', response.data.data);

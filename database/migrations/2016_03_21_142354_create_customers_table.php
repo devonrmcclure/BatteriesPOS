@@ -31,7 +31,9 @@ class CreateCustomersTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('location_id')
-                              ->references('id')->on('users');
+                              ->references('id')->on('users')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

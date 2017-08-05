@@ -29,7 +29,9 @@ class CreateInvoicesTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('customer_id')
-                              ->references('id')->on('customers');
+                              ->references('id')->on('customers')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

@@ -20,7 +20,9 @@ class CreateCategoriesTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('parent_id')
-                              ->references('id')->on('categories');
+                              ->references('id')->on('categories')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

@@ -34,7 +34,9 @@ class CreateInventoryTable extends Migration
                         $table->timestamps();
 
                         $table->foreign('category_id')
-                              ->references('id')->on('categories');
+                              ->references('id')->on('categories')
+                              ->onUpdate('cascade')
+                              ->onDelete('cascade');
         });
     }
 

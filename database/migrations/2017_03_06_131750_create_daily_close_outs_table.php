@@ -24,7 +24,9 @@ class CreateDailyCloseOutsTable extends Migration
             $table->timestamps();
 
             $table->foreign('store_id')
-                  ->references('id')->on('users');
+                  ->references('id')->on('users')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 
