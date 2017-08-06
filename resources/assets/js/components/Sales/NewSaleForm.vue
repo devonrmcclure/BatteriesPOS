@@ -229,19 +229,20 @@
             calculatePST(product, extended) {
                 var calcPST = 0;
                 if(product.pst == 1) {
-                    calcPST = (extended*this.pst).toFixed(2);
+                    calcPST = (extended*this.pst);
                 }
 
-                return calcPST;
+                return Math.round((calcPST * 100).toFixed(2)) / 100;
             },
 
             calculateGST(product, extended) {
                 var calcGST = 0;
                 if(product.gst == 1) {
-                    calcGST = (extended*this.gst).toFixed(2);
+                    calcGST = (extended*this.gst);
+                    console.log(Math.round((calcGST * 100).toFixed(2)) / 100);
                 }
 
-                return calcGST;
+                return Math.round((calcGST * 100).toFixed(2)) / 100;
             },
 
             updateProduct(index) {
