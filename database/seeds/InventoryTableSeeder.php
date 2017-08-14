@@ -59756,9 +59756,9 @@ class InventoryTableSeeder extends Seeder
             318 => 
             array (
                 'sku' => 3320,
-                'description' => 'PHOTO STORAGE SD 2GB DIGITAL ALBUM',
+                'description' => 'serv dept phone repair service',
                 'category_id' => 1,
-                'unit_price' => 21.98,
+                'unit_price' => 100.00,
                 'unit_sale_price' => 0.00,
                 'pst' => 1,
                 'gst' => 1,

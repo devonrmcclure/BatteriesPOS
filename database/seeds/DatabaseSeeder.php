@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call('SettingsTableSeeder');
         $this->call('TodoTableSeeder');
         $this->call('QohTableSeeder');
-        $this->call('AssociatedSkusTableSeeder');
+        // $this->call('AssociatedSkusTableSeeder');
         $this->call('DailyCloseOutsTableSeeder');
         $this->call('InvoicesTableSeeder');
         $this->call('PartOrdersTableSeeder');

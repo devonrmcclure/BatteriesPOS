@@ -31,11 +31,12 @@ class CreateRepairOrdersTable extends Migration
                         $table->integer('invoice_id')->unsigned()->nullable();
                         $table->text('problem');
                         $table->text('notes')->nullable();
-                        $table->timestamp('to_head_office');
-                        $table->timestamp('from_head_office');
-                        $table->timestamp('customer_pick_up');
-                        $table->timestamp('customer_called');
-                        $table->timestamps();
+                        $table->timestamp('to_head_office')->nullable();
+                        $table->timestamp('from_head_office')->nullable();
+                        $table->timestamp('customer_pick_up')->nullable();
+                        $table->timestamp('customer_called')->nullable();
+                        $table->timestamp('updated_at')->useCurrent();
+                        $table->timestamp('created_at')->useCurrent();
 
                         $table->foreign('customer_id')
                               ->references('id')->on('customers')
