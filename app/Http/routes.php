@@ -145,6 +145,8 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
         Route::get('/inventory/associated-skus', 'Controllers\Admin\InventoryController@associatedSkus');
 
+        Route::get('/make-associated-skus', 'Controllers\Admin\InventoryController@makeAssociatedSkus');
+
         
     });
 

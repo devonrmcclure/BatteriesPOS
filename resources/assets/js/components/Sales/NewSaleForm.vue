@@ -239,7 +239,6 @@
                 var calcGST = 0;
                 if(product.gst == 1) {
                     calcGST = (extended*this.gst);
-                    console.log(Math.round((calcGST * 100).toFixed(2)) / 100);
                 }
 
                 return Math.round((calcGST * 100).toFixed(2)) / 100;

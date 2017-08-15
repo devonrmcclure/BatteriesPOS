@@ -27,11 +27,9 @@ class StorePartOrder extends Request
             'make' => 'required',
             'referred-by' => 'required',
             'customer-id' => 'required',
-            'deposit' => 'required',
             'item' => 'required',
             'model' => 'required',
             'part-number' => 'required',
-            'invoice' => 'required',
             'pick-up-location' => 'required',
         ];
     }

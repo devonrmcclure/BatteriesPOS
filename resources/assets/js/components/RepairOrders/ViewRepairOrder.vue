@@ -5,7 +5,7 @@
 
 <form id="repair-order-form">
     <input type="hidden" name="api_token" value="{{location.api_token}}"/>
-    <customer :customer.sync="customer" :location.sync="location"></customer>
+    <customer :customer.sync="customer" :location.sync="location" default="no"></customer>
     
     <div class="important-info">
         <input type="hidden" name="customer-id" id="customer-id" v-model="customer.id" readonly/>
@@ -99,6 +99,7 @@ export default Modal.extend({
     },
 
     ready() {
+
         this.getRepairOrder();
     },
 

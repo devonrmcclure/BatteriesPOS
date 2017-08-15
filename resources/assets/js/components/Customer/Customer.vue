@@ -41,10 +41,12 @@ export default Vue.extend({
 
     components: {NewCustomerModal},
 
-    props: ['customer', 'location'],
+    props: ['customer', 'location', 'default'],
 
-    ready() {
-        this.getDefaultCustomer();
+    ready() { 
+        if(this.default === "yes") {
+            this.getDefaultCustomer();
+        }
     },
 
     methods: {

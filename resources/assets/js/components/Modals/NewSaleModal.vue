@@ -2,7 +2,7 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
         <div class="sale-container">
             <div class="customer-info">
-            <customer :customer.sync="customer" :location.sync="location"></customer>
+            <customer :customer.sync="customer" :location.sync="location" default="yes"></customer>
             </div>
         
             <div class="Modal__body">

@@ -51784,7 +51784,7 @@ class InventoryTableSeeder extends Seeder
                 'category_id' => 1,
                 'unit_price' => 80.00,
                 'unit_sale_price' => 0.00,
-                'pst' => 1,
+                'pst' => 0,
                 'gst' => 1,
                 'image' => 'no_image.png',
                 'manufacturer' => 'Rowenta',

@@ -30,7 +30,9 @@
                     <input name="deposit-invoice" id="deposit-invoice" v-model="invoice" type="text"/>
 
                     <label for="staff">Staff</label>
-                    <input name="staff" id="staff" type="text"/>
+                    <select name="staff" id="staff">
+                        <option v-for="person in staff[0]" value="{{person.id}}">{{person.first_name}}</option>
+                    </select>
 
                     <label for="invoice">Invoice#</label>
                     <input name="invoice" id="invoice" type="text" v-model="invoice"/>
@@ -102,9 +104,14 @@
                 ro_customer: [],
                 showRepLogin: false,
                 invoice: '',
-                deposit: ''
+                deposit: '',
+                staff: []
 
             }
+        },
+
+        ready() {
+            this.getStaff();
         },
 
         methods: {
@@ -115,6 +122,19 @@
 
             newSale() {
                 this.showRepLogin = true;
+            },
+
+            getStaff() {
+                var url = '/api/v0/staff?location_id=' + this.location.id + '&api_token=' + this.location.api_token;
+                this.$http.get(url)
+                .then(function(response) {
+                    //Success
+                    console.log(response.data.data);
+                    this.staff.push(response.data.data);
+                }, function(response) {
+                    //TODO: Proper flash message
+                    
+                });         
             },
 
             newRepairOrder(e) {

@@ -52,7 +52,7 @@ class RepairOrdersController extends ApiController
         $repairOrder->original_receipt = true; //DO a check for if the original receipt checkbox is on or not, then set true of false that way.
         $repairOrder->warranty = true; //Same as original_receipt
         $repairOrder->deposit = $request->input('deposit');
-        $repairOrder->staff_id = 1;
+        $repairOrder->staff_id = (Int) $request->input('staff');
         $repairOrder->product = $request->input('product');
         $repairOrder->model = $request->input('model');
         $repairOrder->type = $request->input('type');
@@ -63,7 +63,7 @@ class RepairOrdersController extends ApiController
         $repairOrder->invoice_id = $request->input('deposit-invoice');
         $repairOrder->problem = $request->input('problem');
         $repairOrder->notes = $request->input('notes');
-        $repairOrder->to_head_office = Carbon::now()->format('Y-m-d H:i:s');
+        // $repairOrder->to_head_office = Carbon::now()->format('Y-m-d H:i:s'); //I'm dumb, it doesn't get sent to HO instantly lmao. 
         $repairOrder->save();
 
     }
@@ -80,7 +80,7 @@ class RepairOrdersController extends ApiController
         $repairOrder->original_receipt = true; //DO a check for if the original receipt checkbox is on or not, then set true of false that way.
         $repairOrder->warranty = true; //Same as original_receipt
         $repairOrder->deposit = $request->input('deposit');
-        $repairOrder->staff_id = 1;
+        $repairOrder->staff_id = $request->input('staff');
         $repairOrder->product = $request->input('product');
         $repairOrder->model = $request->input('model');
         $repairOrder->type = $request->input('type');

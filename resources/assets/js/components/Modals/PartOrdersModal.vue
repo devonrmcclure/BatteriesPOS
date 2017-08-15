@@ -19,6 +19,7 @@
                 <label for="referred-by">Referred By</label>
                 <select name="referred-by" id="referred_by">
                     <option value="none">-- Select -- </option>
+                    <option value="Walk In">Walk In</option>
                     <option value="Oster">Oster</option>
                 </select>
 
@@ -43,7 +44,9 @@
                 <input name="deposit" id="deposit" type="text"/>
 
                 <label for="staff">Staff</label>
-                <input name="staff" id="staff" type="text"/>
+                <select name="staff" id="staff">
+                    <option v-for="person in staff[0]" value="person.id">{{person.first_name}}</option>
+                </select>
 
                 <div style="display: block; width: 50%; margin: 5px; padding: 0">
                     <label for="Notes">Notes</label>
@@ -140,7 +143,12 @@ export default Modal.extend({
             invoice_comment: '',
             paymentMethod: '',
             invoice: '',
+            staff: []
         }
+    },
+
+    ready() {
+        this.getStaff();
     },
 
     methods: {
@@ -150,6 +158,19 @@ export default Modal.extend({
 
         newSale() {
             this.showRepLogin = true;
+        },
+
+        getStaff() {
+            var url = '/api/v0/staff?location_id=' + this.location.id + '&api_token=' + this.location.api_token;
+            this.$http.get(url)
+            .then(function(response) {
+                //Success
+                console.log(response.data.data);
+                this.staff.push(response.data.data);
+            }, function(response) {
+                //TODO: Proper flash message
+                
+            });         
         },
 
         newPartOrder(e) {

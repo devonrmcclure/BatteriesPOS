@@ -47,7 +47,7 @@ class PartOrdersController extends ApiController
         $partOrder->customer_id = $request->input('customer-id');
         $partOrder->make = $request->input('make');
         $partOrder->deposit = $request->input('deposit');
-        $partOrder->staff_id = 1;
+        $partOrder->staff_id = $request->input('staff');
         $partOrder->item = $request->input('item');
         $partOrder->model = $request->input('model');;
         $partOrder->part_number = $request->input('part-number');
