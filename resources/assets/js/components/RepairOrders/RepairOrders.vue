@@ -17,8 +17,8 @@
             <td>{{ repairOrder.customer.primary_phone }}</td>
             <td>{{ repairOrder.product }}</td>
             <td>{{ repairOrder.to_head_office | moment }}</td>
-            <td>{{ repairOrder.from_head_office | moment }}</td>
-            <td>{{ repairOrder.customer_pick_up | moment }}</td>
+            <td class="clickable" @dblclick="updateTimestamp($index, 'fromHO')">{{ repairOrder.from_head_office | moment }}</td>
+            <td class="clickable" @dblclick="updateTimestamp($index, 'pickUp')">{{ repairOrder.customer_pick_up | moment }}</td>
         </tr>
     </table>
 
@@ -54,6 +54,17 @@
                 this.$http.get(url, {api_token: 'token'}).then(function(response) {
                 this.$set('repairOrders', response.data.data);
 
+                }, function(response) {
+                // error callback
+                });
+            },
+
+            updateTimestamp(index, type) {
+
+                var url = '/api/v0/repair-orders/update-timestamp/' + this.repairOrders[index].id;
+
+                this.$http.post(url, {api_token: this.location.api_token, type: type}).then(function(response) {
+                    this.getRepairOrders();
                 }, function(response) {
                 // error callback
                 });

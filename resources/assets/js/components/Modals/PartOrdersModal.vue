@@ -165,7 +165,6 @@ export default Modal.extend({
             this.$http.get(url)
             .then(function(response) {
                 //Success
-                console.log(response.data.data);
                 this.staff.push(response.data.data);
             }, function(response) {
                 //TODO: Proper flash message

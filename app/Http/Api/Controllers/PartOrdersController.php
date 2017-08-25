@@ -91,4 +91,35 @@ class PartOrdersController extends ApiController
         $partOrder->to_head_office = Carbon::now();
         $partOrder->save();
     }
+
+    public function updateTimestamp(Request $request, $id)
+    {
+        if($request->input('type') == 'fromHO')
+        {
+            $partOrder = PartOrder::find($id);
+
+            $partOrder->from_head_office = Carbon::now();
+            $partOrder->save();
+            dd($request->all());
+
+        } else if($request->input('type') == 'called') {
+            
+            $partOrder = PartOrder::find($id);
+
+            $partOrder->customer_called = Carbon::now();
+            $partOrder->save();
+            dd($request->all());
+
+        } else if($request->input('type') == 'pickUp') {
+
+            $partOrder = PartOrder::find($id);
+
+            $partOrder->customer_pick_up = Carbon::now();
+            $partOrder->save();
+            dd($request->all());
+
+        } else {
+            dd('RiP');
+        }
+    }
 }

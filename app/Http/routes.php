@@ -86,11 +86,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('repair-orders/{orderNum}', 'Api\Controllers\RepairOrdersController@show');
         Route::post('repair-orders', 'Api\Controllers\RepairOrdersController@store');
         Route::post('repair-orders/{orderNum}', 'Api\Controllers\RepairOrdersController@update');
+        Route::post('repair-orders/update-timestamp/{id}', 'Api\Controllers\RepairOrdersController@updateTimestamp');
 
         Route::get('part-orders', 'Api\Controllers\PartOrdersController@index');
         Route::get('part-orders/{orderNum}', 'Api\Controllers\PartOrdersController@show');
         Route::post('part-orders', 'Api\Controllers\PartOrdersController@store');
         Route::post('part-orders/{orderNum}', 'Api\Controllers\PartOrdersController@update');
+        Route::post('part-orders/update-timestamp/{id}', 'Api\Controllers\PartOrdersController@updateTimestamp');
 
         Route::get('close-out', 'Api\Controllers\CloseOutController@index');
         Route::post('close-out', 'Api\Controllers\CloseOutController@store');

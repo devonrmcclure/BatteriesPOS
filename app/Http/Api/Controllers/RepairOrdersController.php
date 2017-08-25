@@ -95,4 +95,27 @@ class RepairOrdersController extends ApiController
         $repairOrder->save();
 
     }
+
+    public function updateTimestamp(Request $request, $id)
+    {
+        if($request->input('type') == 'fromHO')
+        {
+            $partOrder = RepairOrder::find($id);
+
+            $partOrder->from_head_office = Carbon::now();
+            $partOrder->save();
+            dd($request->all());
+
+        }  else if($request->input('type') == 'pickUp') {
+
+            $partOrder = RepairOrder::find($id);
+
+            $partOrder->customer_pick_up = Carbon::now();
+            $partOrder->save();
+            dd($request->all());
+
+        } else {
+            dd('RiP');
+        }
+    }
 }

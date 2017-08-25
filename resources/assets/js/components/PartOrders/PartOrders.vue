@@ -18,9 +18,9 @@
             <td>{{ partOrder.customer.primary_phone }}</td>
             <td>{{ partOrder.item }}</td>
             <td>{{ partOrder.to_head_office | moment }}</td>
-            <td>{{ partOrder.from_head_office | moment }}</td>
-            <td>{{ partOrder.customer_called | moment }}</td>
-            <td>{{ partOrder.customer_pick_up | moment }}</td>
+            <td class="clickable" @dblclick="updateTimestamp($index, 'fromHO')">{{ partOrder.from_head_office | moment }}</td>
+            <td class="clickable" @dblclick="updateTimestamp($index, 'called')">{{ partOrder.customer_called | moment }}</td>
+            <td class="clickable" @dblclick="updateTimestamp($index, 'pickUp')">{{ partOrder.customer_pick_up | moment }}</td>
         </tr>
     </table>
 
@@ -55,9 +55,20 @@
             getPartOrders() {
                 var url = '/api/v0/part-orders?&with=customer&order_by=created_at,desc&location_id=' + this.location.id;
 
-                this.$http.get(url, {api_token: 'token'}).then(function(response) {
+                this.$http.get(url, {api_token: this.location.api_token}).then(function(response) {
                 this.$set('partOrders', response.data.data);
 
+                }, function(response) {
+                // error callback
+                });
+            },
+
+            updateTimestamp(index, type) {
+
+                var url = '/api/v0/part-orders/update-timestamp/' + this.partOrders[index].id;
+
+                this.$http.post(url, {api_token: this.location.api_token, type: type}).then(function(response) {
+                    this.getPartOrders();
                 }, function(response) {
                 // error callback
                 });
