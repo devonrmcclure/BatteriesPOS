@@ -1,5 +1,5 @@
 <template>
-    <button @click="newOrder">New Repair Order</button>
+    <button @click="newOrder">New Repair Order</button> <br/><small><em>Double click "Not Yet" to update time</em></small>
     <table class="table no-print">
         <tr>
             <th>Repair Number</th>
