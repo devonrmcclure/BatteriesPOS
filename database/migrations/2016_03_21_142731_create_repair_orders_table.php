@@ -31,10 +31,10 @@ class CreateRepairOrdersTable extends Migration
                         $table->integer('invoice_id')->unsigned()->nullable();
                         $table->text('problem');
                         $table->text('notes')->nullable();
-                        $table->timestamp('to_head_office')->nullable();
-                        $table->timestamp('from_head_office')->nullable();
-                        $table->timestamp('customer_pick_up')->nullable();
-                        $table->timestamp('customer_called')->nullable();
+                        $table->timestamp('to_head_office')->default('0000-00-00 00:00:00');
+                        $table->timestamp('from_head_office')->default('0000-00-00 00:00:00');
+                        $table->timestamp('customer_pick_up')->default('0000-00-00 00:00:00');
+                        $table->timestamp('customer_called')->default('0000-00-00 00:00:00');
                         $table->timestamp('updated_at')->useCurrent();
                         $table->timestamp('created_at')->useCurrent();
 

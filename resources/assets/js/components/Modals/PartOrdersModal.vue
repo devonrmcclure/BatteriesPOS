@@ -45,7 +45,7 @@
 
                 <label for="staff">Staff</label>
                 <select name="staff" id="staff">
-                    <option v-for="person in staff[0]" value="person.id">{{person.first_name}}</option>
+                    <option v-for="person in staff[0]" value="{{person.id}}">{{person.first_name}}</option>
                 </select>
 
                 <div style="display: block; width: 50%; margin: 5px; padding: 0">

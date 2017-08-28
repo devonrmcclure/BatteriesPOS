@@ -16,7 +16,7 @@
             <td>{{ repairOrder.customer.first_name }} {{ repairOrder.customer.last_name }}</td>
             <td>{{ repairOrder.customer.primary_phone }}</td>
             <td>{{ repairOrder.product }}</td>
-            <td>{{ repairOrder.to_head_office | moment }}</td>
+            <td class="clickable" @dblclick="updateTimestamp($index, 'toHO')">{{ repairOrder.to_head_office | moment }}</td>
             <td class="clickable" @dblclick="updateTimestamp($index, 'fromHO')">{{ repairOrder.from_head_office | moment }}</td>
             <td class="clickable" @dblclick="updateTimestamp($index, 'pickUp')">{{ repairOrder.customer_pick_up | moment }}</td>
         </tr>

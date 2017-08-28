@@ -117,7 +117,7 @@
 
         filters: {
             moment: function (date) {
-            if(date !== '' && date !== '0000-00-00 00:00:00')
+            if(date !== '' && date !== '0000-00-00 00:00:00' && date !== null)
             {
                 return Moment(date).format('YYYY-MM-DD @ H:mm');
             }
