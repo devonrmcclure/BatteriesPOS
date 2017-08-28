@@ -35,7 +35,7 @@ class CreateRepairOrdersTable extends Migration
                         $table->timestamp('from_head_office')->default('0000-00-00 00:00:00');
                         $table->timestamp('customer_pick_up')->default('0000-00-00 00:00:00');
                         $table->timestamp('customer_called')->default('0000-00-00 00:00:00');
-                        $table->timestamp('updated_at')->useCurrent();
+                        $table->timestamp('updated_at')->nullable();
                         $table->timestamp('created_at')->useCurrent();
 
                         $table->foreign('customer_id')
