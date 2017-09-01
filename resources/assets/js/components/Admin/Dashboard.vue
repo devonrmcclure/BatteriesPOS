@@ -7,8 +7,8 @@
     <div class="col-md-4 module-container">
         <div class="module">
             <store-stats 
-                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
-                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
+                :labels="['Guildford', 'Richmond', 'White Rock']"
+                :colors="['#4CAF50', '#303F9F', '#F44336']"
                 :location="location"
             ></store-stats>
         </div>
@@ -17,8 +17,8 @@
     <div class="col-md-5 module-container">
         <div class="module">
             <new-repair-orders-stats 
-                :labels="['Guildford', 'Maple Ridge', 'Richmond', 'White Rock']"
-                :colors="['#4CAF50', '#303F9F', '#F44336', '#FFEB3B']"
+                :labels="['Guildford', 'Richmond', 'White Rock']"
+                :colors="['#4CAF50', '#303F9F', '#F44336']"
                 :location="location"
             ></new-repair-orders-stats>
         </div>

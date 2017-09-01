@@ -1,5 +1,5 @@
 <template>
-    <h3>Daily Sales <small>{{Number(total).toFixed(2)}}</small></h3>
+    <h3>Daily Sales <small>${{total}} total</small></h3>
     <hr />
     <div>
         <canvas id="store-sales" style="height:150px"></canvas>
@@ -21,16 +21,14 @@ export default Graph.extend({
 
     data() {
         return {
-            guildfordSales: null,
-            mapleRidgeSales: null,
-            richmondSales: null,
-            whiteRockSales: null,
+            guildfordSales: 0,
+            richmondSales: 0,
+            whiteRockSales: 0,
         }
     },
 
     ready() {
         this.getGFSales();
-        this.getMRSales();
         this.getRMSales();
         this.getWRSales();
 
@@ -42,7 +40,7 @@ export default Graph.extend({
                 datasets: [
                     {         
                         label: 'Total (w/ Tax)',    
-                        data: [Number(this.guildfordSales).toFixed(2), Number(this.mapleRidgeSales).toFixed(2), Number(this.richmondSales).toFixed(2), Number(this.whiteRockSales).toFixed(2)],
+                        data: [Number(this.guildfordSales).toFixed(2), Number(this.richmondSales).toFixed(2), Number(this.whiteRockSales).toFixed(2)],
                         backgroundColor: this.colors
                     }
                 ],
@@ -72,6 +70,11 @@ export default Graph.extend({
             var dateString = year + '-' + (('0' + month).slice(-2)) + '-' + (('0' + day).slice(-2))
 
             return dateString;
+        },
+
+        total: function() {
+            var total = this.guildfordSales + this.whiteRockSales + this.richmondSales;
+            return total.toFixed(2);
         }
     },
 
@@ -89,23 +92,6 @@ export default Graph.extend({
                 if(response.status === 404)
                 {
                     this.guildfordSales = 0;    
-                }
-            });
-        },
-
-        getMRSales() {
-            var url = '/api/v0/invoice?created_at=' + this.today + '&location=Maple Ridge&limit=all';
-            this.$http.get(url, {api_token: this.location.api_token})
-            .then(function(response) {
-                //Success
-                for(var i = 0; i < response.data.data.length; i++) {
-                    this.mapleRidgeSales += response.data.data[i].total;
-                }                    
-            }, function(response) {
-                //Error
-                if(response.status === 404)
-                {
-                    this.mapleRidgeSales = 0;        
                 }
             });
         },
