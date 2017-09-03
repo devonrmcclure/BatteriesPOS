@@ -2,7 +2,7 @@
     <modal :show.sync="show" :on-close="close" :title.sync="title">
 
         <div class="Modal__body">
-            <form method="POST" id="add-customer-form" action="http://api.batteriespos.dev/v0/customers">
+            <form method="POST" id="add-customer-form" action="/api/v0/customers">
                 <input type="hidden" name="api_token" value="{{location.api_token}}"/> 
                 <div>
                     <input type="text" name="customer-first-name" id="customer-first-name" placeholder="First Name *" v-model="customer.first_name"/>
