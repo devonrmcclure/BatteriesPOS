@@ -73,6 +73,11 @@
             newOrder() {
                 this.getRepairOrderNumber();
                 this.newRepairOrder = true;
+
+                
+                setTimeout(function(){
+                        $("#search-customer").focus();
+                }, 0);
             },
 
             getRepairOrderNumber() {

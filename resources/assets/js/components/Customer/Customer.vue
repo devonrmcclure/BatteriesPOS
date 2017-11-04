@@ -2,7 +2,7 @@
     <new-customer-modal :show.sync="showNewCustomerModal" :customer.sync="customer" title="New Customer" :location="location" :phone="phoneNumber"></new-customer-modal>
     <form v-on:submit.prevent="getCustomer()">
         <span class="error">{{ error }}</span>
-        <input type="text" placeholder="Search Customer" v-model="phoneNumber" value="{{phoneNumber}}" @change="getCustomer()"/><br/>
+        <input type="text" id="search-customer" placeholder="Search Customer" v-model="phoneNumber" value="{{phoneNumber}}" @change="getCustomer()"/><br/>
     </form> 
         <form id="customer-form">
             <div>

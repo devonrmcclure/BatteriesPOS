@@ -112,6 +112,7 @@
 
         ready() {
             this.getStaff();
+
         },
 
         methods: {
