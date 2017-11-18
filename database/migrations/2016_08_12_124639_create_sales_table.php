@@ -20,12 +20,12 @@ class CreateSalesTable extends Migration
                         $table->string('description');
                         $table->string('category');
                         $table->integer('quantity');
-                        $table->int('price');
+                        $table->integer('price');
                         $table->float('discount');
-                        $table->int('extended');
-                        $table->int('pst');
-                        $table->int('gst');
-                        $table->int('total');
+                        $table->integer('extended');
+                        $table->integer('pst');
+                        $table->integer('gst');
+                        $table->integer('total');
                         $table->timestamps();
 
                         $table->foreign('invoice_id')

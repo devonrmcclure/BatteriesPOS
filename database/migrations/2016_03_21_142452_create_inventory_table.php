@@ -21,16 +21,16 @@ class CreateInventoryTable extends Migration
                         // $table->float('ep_cost_wholesale');
                         // $table->float('ep_cost_ad'); //associate dealer (leslie, tong)
                         // $table->float('unit_cost');
-                        $table->int('unit_price');
-                        $table->int('unit_sale_price')->nullable()->default('0');
+                        $table->integer('unit_price');
+                        $table->integer('unit_sale_price')->nullable()->default('0');
                         $table->boolean('pst');
                         $table->boolean('gst');
                         $table->string('image');
                         $table->string('manufacturer')->nullable();
                         $table->string('model_number')->nullable();
                         $table->string('order_number')->nullable();
-                        $table->int('last_purchase_vendor')->nullable();
-                        $table->int('current_purchase_vendor')->nullable();
+                        $table->integer('last_purchase_vendor')->nullable();
+                        $table->integer('current_purchase_vendor')->nullable();
                         $table->timestamps();
 
                         $table->foreign('category_id')
