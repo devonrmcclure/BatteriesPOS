@@ -1,0 +1,9 @@
+nav {
+	background: rgb(27, 4, 235);
+	bottom: 0;
+	color: #4961a3;
+	font-size: 20px;
+	height: 80px;
+	position: fixed;
+	width: 100%; 
+}

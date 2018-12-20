@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from 'react';
 
-class App extends Component {
+import Nav from './components/UI/Nav/Nav';
+import Sidebar from './components/UI/Sidebar/Sidebar';
+
+class App extends React.Component {
 	render() {
 		return (
-			<div className="App">
-				<header className="App-header">
-					header
-				</header>
+			<div className="app">
+				<Sidebar />
+				<Nav />
 			</div>
 		);
 	}
