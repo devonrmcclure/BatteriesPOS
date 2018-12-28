@@ -1,5 +1,48 @@
-.app {
-	width: 100%;
-	height: 100%;
-	display: flex;
+body {
+	margin: 0;
+	padding: 0;
 }
+
+.App {
+	text-align: center;
+}
+
+.App-header {
+	background: #2c3e50;
+	color: white;
+	height: 90px;
+	margin-bottom: 2rem;
+	padding: 30px;
+}
+.wat {
+	height: 500px;
+	background: red;
+	width: 100%;
+}
+/* .bottom-nav {
+	background: rgb(9, 84, 224);
+	bottom: 0;
+	height: 70px;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	width: 100%;
+}
+
+.bottom-nav ul {
+	align-items: center;
+	display: flex;
+	height: inherit;
+	justify-content: space-evenly;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.bottom-nav li {
+	color: #fff;
+	display: flex;
+	font-size: 18px;
+	margin: 0 10px;
+	padding: 20px;
+} */
