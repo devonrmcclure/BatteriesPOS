@@ -1,1 +1,0 @@
-React POS for Batteries Included
