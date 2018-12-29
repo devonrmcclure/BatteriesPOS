@@ -22,7 +22,8 @@
                             ></v-text-field>
 							<v-btn 
 								:disabled="!valid"
-								@click="submit">
+								@click="submit"
+								color="primary">
 								Login
 							</v-btn>
                           </v-form>
@@ -54,9 +55,8 @@ export default {
 	}),
 
 	methods: {
-		async submit(e) {
-			e.preventDefault();
-			
+		async submit() {
+
 			const login = await Auth.login(this.username, this.password);
 			if(login.success) {
 				this.$router.push('/');

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import Login from './views/Login.vue';
+import NotFound from './views/errors/NotFound.vue';
 
 Vue.use(Router);
 
@@ -24,7 +25,17 @@ const router = new Router({
 			meta: {
 				guest: true
 			}
-		}
+		},
+		{
+			path: '/404',
+			name: 'notFound',
+			component: NotFound
+		},
+		{
+			path: '*',
+			name: 'noRoute',
+			redirect: '/404'
+		},
 		// {
 		// 	// path: '/about',
 		// 	// name: 'about',
