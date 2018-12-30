@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import Login from './views/Login.vue';
 import NotFound from './views/errors/NotFound.vue';
+import Cache from './api/Cache';
 
 Vue.use(Router);
 
@@ -50,7 +51,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
 	// The route requires a token to be set in localStorage ("Auth")
 	if (to.matched.some(record => record.meta.requiresAuth)) {
-		if (localStorage.getItem('token') === null)
+		if (Cache.getCache('auth') === null)
 		{
 			next({
 				path: '/login',
@@ -62,7 +63,7 @@ router.beforeEach((to, from, next) => {
 		}
 	// If the route is a Guest route. (basically only login)
 	} else if (to.matched.some(record => record.meta.guest)) {
-		if (localStorage.getItem('token') === null) {
+		if (Cache.getCache('auth') === null) {
 			next();
 		}
 		next({ name: 'dashboard' });

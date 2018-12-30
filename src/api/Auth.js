@@ -1,4 +1,5 @@
 import { LOGIN_ENDPOINT } from './endpoints';
+import Cache from './Cache';
 
 class Auth {
 	static async login(username, password) {
@@ -14,7 +15,7 @@ class Auth {
 			const data = await response.json();
 
 			if(data.status === 200) {
-				localStorage.setItem('token', data.data.access_token);
+				Cache.setCache('auth', data.data, data.data.expires_in);
 				success = true;
 				// TODO: Set name (White Rock) and user ID.
 			}
