@@ -14,7 +14,7 @@ class Auth {
 
 			const data = await response.json();
 
-			if(data.status === 200) {
+			if (data.status === 200) {
 				Cache.setCache('auth', data.data, data.data.expires_in);
 				success = true;
 				// TODO: Set name (White Rock) and user ID.

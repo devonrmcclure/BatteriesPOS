@@ -36,7 +36,10 @@
 
 
 <script>
-import Auth from '../api/Auth.js';
+import Auth from '@/api/Auth';
+import Location from '@/api/Location';
+import Cache from '@/api/Cache';
+
 export default {
     data: () => ({
 		valid: false,
@@ -59,6 +62,8 @@ export default {
 
 			const login = await Auth.login(this.username, this.password);
 			if(login.success) {
+				const auth = Cache.getCache('auth');
+				await Location.getInfo(auth.data.access_token);
 				this.$router.push('/');
 			} else {
 				this.error.value = true;
