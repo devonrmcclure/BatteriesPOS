@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://batteriesapi.local/api';
+export const BASE_URL = 'http://batteriesapi.test/api';
 
 export const LOGIN_ENDPOINT = `${BASE_URL}/login`;
 

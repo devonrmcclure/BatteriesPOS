@@ -19,9 +19,12 @@
 </style>
 
 <script>
-//import NavDrawer from '@/views/partials/NavDrawer.vue';
 import Navbar from '@/components/layout/Navbar.vue';
 export default {
 	components: { Navbar },
+
+	beforeCreate() {
+		this.$store.dispatch('initStore');
+	}
 }
 </script>

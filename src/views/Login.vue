@@ -36,9 +36,9 @@
 
 
 <script>
-import Auth from '@/api/Auth';
-import Location from '@/api/Location';
-import Cache from '@/api/Cache';
+import axios from 'axios';
+import Cache from '@/helpers/Cache';
+import Login from '@/api/endpoints/Login';
 
 export default {
     data: () => ({
@@ -59,11 +59,14 @@ export default {
 
 	methods: {
 		async submit() {
+			const login = await Login.post({'username': this.username, 'password': this.password});
 
-			const login = await Auth.login(this.username, this.password);
-			if(login.success) {
-				const auth = Cache.getCache('auth');
-				await Location.getInfo(auth.data.access_token);
+			if(login.status === 200) {
+				const auth = login.data.data;
+				
+				Cache.setCache('auth', auth, auth.expires);
+				axios.defaults.headers.common['Authorization'] = `${auth.token_type}  ${auth.access_token}`;
+
 				this.$router.push('/');
 			} else {
 				this.error.value = true;

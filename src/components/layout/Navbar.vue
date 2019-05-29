@@ -2,7 +2,7 @@
 	<nav>
 		<v-toolbar color="indigo" dark fixed app clipped-left dense>
 			<v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-			<v-toolbar-title class="white--text">White Rock</v-toolbar-title>
+			<v-toolbar-title class="white--text">{{ name }}</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn icon>
 				<v-icon>apps</v-icon>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
 	data() {
 		return {
@@ -35,6 +36,9 @@ export default {
 				{ icon: 'person', text: 'About', route: '/about' },
 			]
 		}
+	},
+	computed: {
+		...mapState('location', ['name'])
 	},
 }
 </script>

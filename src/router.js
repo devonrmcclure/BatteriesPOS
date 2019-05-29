@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import Login from './views/Login.vue';
 import NotFound from './views/errors/NotFound.vue';
-import Cache from './api/Cache';
+import Cache from './helpers/Cache';
 
 Vue.use(Router);
 

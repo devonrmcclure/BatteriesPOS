@@ -1,22 +1,19 @@
 <template>
 	<div class="dashboard">
-		weee
+		{{ name }} : {{ email }}
 	</div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Cache from '@/api/Cache';
-
+import { mapState } from 'vuex';
 export default {
-	mounted() {
-		const expiresInSecs = 60;
-		const data = Cache.isCached('dsa');
-		
-		if (!data) {
-			Cache.setCache('dsa', {'meow': 'test'}, expiresInSecs);
-		}
 
+	computed: {
+		...mapState('location', ['name', 'email'])
+	},
+
+	methods: {
 	}
 }
 </script>
