@@ -1,11 +1,11 @@
 class Cache {
-
     static isCached(key) {
         const data = this.getCache(key);
         const currentDate = Date.now();
         
         if(data) {
             if(data.expires < currentDate) {
+                // TODO: delete the localstorage key.
                 return false;
             }
 

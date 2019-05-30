@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import locationModule from './modules/location';
-import { inherits } from 'util';
 
 Vue.use(Vuex);
 

@@ -32,8 +32,10 @@ export default {
 			drawer: true,
 			links: [
 				{ icon: 'dashboard', text: 'Dashboard', route: '/' },
-				{ icon: 'folder', text: 'Projects', route: '/projects' },
-				{ icon: 'person', text: 'About', route: '/about' },
+				{ icon: 'shopping_cart', text: 'Sales', route: '/sales' },
+				{ icon: 'shopping_basket', text: 'Part Orders', route: '/part-orders' },
+				{ icon: 'build', text: 'Repair Orders', route: '/repair-orders' },
+				{ icon: 'assessment', text: 'Stats', route: '/stats' },
 			]
 		}
 	},

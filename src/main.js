@@ -18,8 +18,8 @@ if (auth)
 	axios.defaults.headers.common['Authorization'] = `${auth.data.token_type}  ${auth.data.access_token}`;
 }
 
-axios.defaults.headers.post['Accept'] = 'application/json';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 new Vue({
 	router,
