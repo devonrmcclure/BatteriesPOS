@@ -66,7 +66,7 @@ export default {
 				
 				Cache.setCache('auth', auth, auth.expires);
 				axios.defaults.headers.common['Authorization'] = `${auth.token_type}  ${auth.access_token}`;
-
+				this.$store.dispatch('initStore');
 				this.$router.push('/');
 			} else {
 				this.error.value = true;

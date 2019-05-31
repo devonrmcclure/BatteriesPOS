@@ -4,6 +4,7 @@ import Dashboard from './views/Dashboard.vue'
 import Login from './views/Login.vue';
 import NotFound from './views/errors/NotFound.vue';
 import Cache from './helpers/Cache';
+import Sales from '@/views/Sales.vue';
 
 Vue.use(Router);
 
@@ -25,6 +26,14 @@ const router = new Router({
 			component: Login,
 			meta: {
 				guest: true
+			}
+		},
+		{
+			path: '/sales',
+			name: 'sales',
+			component: Sales,
+			meta: {
+				requiresAuth: true
 			}
 		},
 		{

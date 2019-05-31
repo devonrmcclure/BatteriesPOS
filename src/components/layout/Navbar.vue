@@ -1,6 +1,6 @@
 <template>
 	<nav>
-		<v-toolbar color="indigo" dark fixed app clipped-left dense>
+		<v-toolbar color="indigo" dark fixed app clipped-left>
 			<v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
 			<v-toolbar-title class="white--text">{{ name }}</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -10,7 +10,7 @@
 		</v-toolbar>
 
 		<v-navigation-drawer v-model="drawer" dark app absolute clipped width="220">
-			<v-list>
+			<v-list three-line>
 				<v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
 					<v-list-tile-action>
 						<v-icon>{{ link.icon }}</v-icon>
