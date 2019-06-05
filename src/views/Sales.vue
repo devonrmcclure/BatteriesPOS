@@ -1,6 +1,7 @@
 <template>
-	<div class="dashboard">
-		Sales!
+	<div class="sales">
+		SALES!
+		{{nextInvoice}}
 	</div>
 </template>
 
@@ -14,7 +15,7 @@ export default {
     },
 
 	computed: {
-		...mapState('location', ['name', 'email'])
+		...mapState('sales', ['nextInvoice'])
 	},
 
 	methods: {

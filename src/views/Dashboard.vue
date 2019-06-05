@@ -1,13 +1,14 @@
 <template>
 	<div class="dashboard">
-		DASH
+		<latest-sales />
 	</div>
 </template>
 
 <script>
 // @ is an alias to /src
+import LatestSales from '@/components/LatestSales';
 export default {
-
+	components: { LatestSales },
 	computed: {
 	},
 

@@ -18,7 +18,7 @@ class Sale extends Base
 
     async getLatest() {
         try {
-            return await axios.get(this.baseUrl + '/latest-sales');
+            return await axios.get(`${this.endpoint}/latest`);
         } catch (error) {
             return {
                 'error': error.response.data.message
