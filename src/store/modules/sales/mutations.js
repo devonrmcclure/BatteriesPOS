@@ -1,6 +1,5 @@
 const SET_LATEST_SALES = (state, sales) => {
 	let s = [];
-
 	sales.data.forEach(item => {
 		s.push(item.attributes);
 	});

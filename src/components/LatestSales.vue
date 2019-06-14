@@ -1,46 +1,81 @@
 <template>
-    <div>
-    <v-data-table
-        :headers="headers"
-        :items="sales"
-        class="elevation-1"
-    >
-        <template v-slot:items="props">
-            <td>{{ props.item.invoice_number }}</td>
-            <td class="text-xs-right">{{ props.item.subtotal }}</td>
-            <td class="text-xs-right">{{ props.item.pst }}</td>
-            <td class="text-xs-right">{{ props.item.gst }}</td>
-            <td class="text-xs-right">{{ props.item.total }}</td>
-        </template>
-    
-    </v-data-table>
-    </div>
+	<v-container grid-list-md>
+		<v-layout row wrap>
+			<v-flex xs6>
+				<v-toolbar-title class="text-xs-left">Last 5 Sales</v-toolbar-title>
+				<v-data-table
+					:headers="headers"
+					:items="sales"
+					class="elevation-1"
+					hide-actions
+					disable-initial-sort
+				>
+					<template v-slot:items="props">
+						<td class="text-xs-right">{{ props.item.invoice_number }}</td>
+						<td class="text-xs-right">{{ props.item.subtotal | formatCurrency }}</td>
+						<td class="text-xs-right">{{ props.item.pst | formatCurrency }}</td>
+						<td class="text-xs-right">{{ props.item.gst | formatCurrency }}</td>
+						<td class="text-xs-right">{{ props.item.total | formatCurrency }}</td>
+						<td class="text-xs-right">
+							<v-btn color="error" @click="refund(props.item.id)">Refund</v-btn>
+						</td>
+					</template>
+				</v-data-table>
+			</v-flex>
 
+			<v-flex xs6>
+				<v-toolbar-title class="text-xs-left">Last 5 Part Orders</v-toolbar-title>
+				<v-data-table
+					:headers="headers"
+					:items="sales"
+					class="elevation-1"
+					hide-actions
+					disable-initial-sort
+				>
+					<template v-slot:items="props">
+						<td class="text-xs-right">{{ props.item.invoice_number }}</td>
+						<td class="text-xs-right">{{ props.item.subtotal | formatCurrency }}</td>
+						<td class="text-xs-right">{{ props.item.pst | formatCurrency }}</td>
+						<td class="text-xs-right">{{ props.item.gst | formatCurrency }}</td>
+						<td class="text-xs-right">{{ props.item.total | formatCurrency }}</td>
+						<td class="text-xs-right">
+							<v-btn color="error" @click="refund(props.item.id)">Refund</v-btn>
+						</td>
+					</template>
+				</v-data-table>
+			</v-flex>
+		</v-layout>
+	</v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
+import Sale from "@/api/endpoints/Sale";
 export default {
-    data () {
-        return {
-        headers: [
-            {
-            text: 'Invoice',
-            value: 'invoiceNumber'
-            },
-            { text: 'Subtotal', value: 'subtotal' },
-            { text: 'PST', value: 'pst' },
-            { text: 'GST', value: 'gst' },
-            { text: 'total', value: 'total' }
-        ],
-        }
-    },
+	data() {
+		return {
+			headers: [
+				{ text: "Invoice", value: "invoiceNumber", align: "center" },
+				{ text: "Subtotal", value: "subtotal", align: "center" },
+				{ text: "PST", value: "pst", align: "center" },
+				{ text: "GST", value: "gst", align: "center" },
+				{ text: "Total", value: "total", align: "center" },
+				{ text: "Actions", value: "actions", align: "center" }
+			]
+		};
+	},
 
-    computed: {
-        ...mapState('sales', ['latest']),
-        sales() {
-            return Object.values(this.latest)
-        }
-    }
-}
+	methods: {
+		async refund(id) {
+			console.log(await Sale.get(id));
+		}
+	},
+
+	computed: {
+		...mapState("sales", ["latest"]),
+		sales() {
+			return Object.values(this.latest);
+		}
+	}
+};
 </script>

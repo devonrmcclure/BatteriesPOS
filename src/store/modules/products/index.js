@@ -5,8 +5,7 @@ import getters from './getters';
 export default {
 	namespaced: true,
 	state: {
-		nextInvoice: '',
-		latest: {}
+		common: []
 	},
 	actions,
 	mutations,
