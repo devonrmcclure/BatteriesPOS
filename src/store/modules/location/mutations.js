@@ -1,12 +1,10 @@
-const SET_NAME = (state, name) => {
-    state.name = name;
-};
-
-const SET_EMAIL = (state, email) => {
-    state.email = email;
+const SET_LOCATION = (state, payload) => {
+	state.name = payload.name;
+	state.phone = payload.phone;
+	state.email = payload.email;
+	state.address = payload.address;
 };
 
 export default {
-    SET_NAME,
-    SET_EMAIL
-}
+	SET_LOCATION
+};

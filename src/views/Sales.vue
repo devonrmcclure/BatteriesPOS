@@ -28,12 +28,7 @@
 					<v-card-text>
 						<v-layout row wrap>
 							<v-flex xs10>
-								<v-data-table
-									:headers="headers"
-									:items="sale.products"
-									class="elevation-3"
-									disable-initial-sort
-								>
+								<v-data-table :headers="headers" :items="products" class="elevation-3" disable-initial-sort>
 									<template v-slot:no-data>
 										<v-alert :value="true" color="info" outline icon="warning">Add a Product!</v-alert>
 									</template>
@@ -42,7 +37,7 @@
 										<td class="text-xs-left">{{ props.item.description | trim }}</td>
 										<td class="text-xs-left">{{ props.item.price | formatCurrency }}</td>
 										<td class="text-xs-left edit">
-											<v-text-field v-model="props.item.qty" name="Qty" @change="update(props.index)"></v-text-field>
+											<v-text-field v-model="props.item.quantity" name="Qty" @change="update(props.index)"></v-text-field>
 										</td>
 										<td class="text-xs-left">{{ props.item.extended | formatCurrency}}</td>
 										<td class="text-xs-left">{{ props.item.pst | formatCurrency}}</td>
@@ -51,15 +46,20 @@
 									</template>
 									<template v-slot:footer>
 										<td :colspan="headers.length">
-											<v-btn color="success">CASH</v-btn>
-											<v-btn color="info">DEBIT</v-btn>
-											<v-btn color="warning">MASTERCARD</v-btn>
-											<v-btn color="error">VISA</v-btn>
-											<v-btn color="info">OTHER</v-btn>
+											<v-btn
+												v-for="method in paymentMethods"
+												v-bind:key="method.index"
+												color="success"
+												@click="completeSale(method.id)"
+											>{{method.name}}</v-btn>
 										</td>
 									</template>
 								</v-data-table>
 							</v-flex>
+							<v-flex xs2>
+								<customer></customer>
+							</v-flex>
+
 							<v-flex xs2>
 								<p>SUBTOTAL: {{saleSubTotal | formatCurrency}}</p>
 								<p>
@@ -71,7 +71,6 @@
 									<small>5%</small>
 								</p>
 								<p>TOTAL: {{saleTotal | formatCurrency}}</p>
-								<p>TOTAL ITEMS SOLD: {{itemsSold}}</p>
 							</v-flex>
 						</v-layout>
 					</v-card-text>
@@ -85,7 +84,12 @@
 // @ is an alias to /src
 import { mapState } from "vuex";
 import Product from "@/api/endpoints/Product";
+import Sale from "@/api/endpoints/Sale";
+import customerShow from "@/components/customer/show.vue";
 export default {
+	components: {
+		customer: customerShow
+	},
 	data() {
 		return {
 			headers: [
@@ -99,62 +103,49 @@ export default {
 				{ text: "Total", value: "total", align: "left" }
 			],
 			search: "",
-			sale: {
-				invoice_number: this.nextInvoice,
-				subtotal: "",
-				pst: "",
-				gst: "",
-				items_sold: "",
-				invoice_comment: "",
-				printed: "",
-				staff_id: "",
-				customer_id: "",
-				payment_method: "",
-				part_order_id: "",
-				repair_order_id: "",
-				products: []
-			}
+			products: []
 		};
 	},
 
 	computed: {
 		...mapState("sales", ["nextInvoice"]),
+		...mapState(["paymentMethods"]),
+		...mapState("customers", ["customer"]),
 		saleTotal() {
 			let total = 0;
-			for (let product in this.sale.products) {
-				total += this.sale.products[product].total;
+			for (let product in this.products) {
+				total += this.products[product].total;
 			}
 
 			return total;
 		},
 		salePstTotal() {
 			let total = 0;
-			for (let product in this.sale.products) {
-				total += this.sale.products[product].pst;
+			for (let product in this.products) {
+				total += this.products[product].pst;
 			}
 
 			return total;
 		},
 		saleGstTotal() {
 			let total = 0;
-			for (let product in this.sale.products) {
-				total += this.sale.products[product].gst;
+			for (let product in this.products) {
+				total += this.products[product].gst;
 			}
 
 			return total;
 		},
 		saleSubTotal() {
 			let total = 0;
-			for (let product in this.sale.products) {
-				total += this.sale.products[product].extended;
+			for (let product in this.products) {
+				total += this.products[product].extended;
 			}
-
 			return total;
 		},
 		itemsSold() {
 			let total = 0;
-			for (let product in this.sale.products) {
-				total += Number(this.sale.products[product].qty);
+			for (let product in this.products) {
+				total += Number(this.products[product].quantity);
 			}
 
 			return total;
@@ -164,14 +155,14 @@ export default {
 	methods: {
 		update(index) {
 			let extended =
-				this.sale.products[index].price * this.sale.products[index].qty;
+				this.products[index].price * this.products[index].quantity;
 			let pst =
-				(extended * 0.07).toFixed(0) * this.sale.products[index].is_pst;
+				(extended * 0.07).toFixed(0) * this.products[index].is_pst;
 			let gst =
-				(extended * 0.05).toFixed(0) * this.sale.products[index].is_gst;
+				(extended * 0.05).toFixed(0) * this.products[index].is_gst;
 			let total = extended + pst + gst;
 			let editedItem = {
-				...this.sale.products[index],
+				...this.products[index],
 				...{
 					extended,
 					pst,
@@ -179,11 +170,11 @@ export default {
 					total
 				}
 			};
-			this.sale.products.splice(index, 1, editedItem);
+			this.products.splice(index, 1, editedItem);
 		},
 		async getProduct() {
 			// check if item exists in sale already.
-			const found = this.sale.products.find(item => {
+			const found = this.products.find(item => {
 				return item.sku == this.search;
 			});
 
@@ -209,17 +200,50 @@ export default {
 				// add product to product store.
 				this.$store.dispatch("products/addCommonProduct", product);
 			}
-			product.qty = 1;
-			product.extended = product.price * product.qty;
+			product.quantity = 1;
+			product.extended = product.price * product.quantity;
 			product.pst = (product.extended * 0.07).toFixed(0) * product.is_pst;
 			product.gst = (product.extended * 0.05).toFixed(0) * product.is_gst;
 			product.total = product.extended + product.pst + product.gst;
-			this.sale.products.push(product);
+
+			this.products.push(product);
 
 			this.search = "";
 		},
+
 		addCustomer() {
 			alert("Not implemented!");
+		},
+
+		async completeSale(methodId) {
+			const data = {
+				invoice_number: this.nextInvoice,
+				subtotal: this.saleSubTotal,
+				pst: this.salePstTotal,
+				gst: this.saleGstTotal,
+				total: this.saleTotal,
+				items_sold: this.itemsSold,
+				invoice_comment: "meow",
+				printed: 0,
+				staff_id: 1,
+				customer_id: this.customer.id,
+				payment_method: methodId,
+				part_order_id: null,
+				repair_order_id: null,
+				sale_type: "regular",
+				products: this.products
+			};
+			if (data.products.length <= 0) {
+				console.log("empty products");
+				return;
+			}
+			const sale = await Sale.post(data);
+			if (sale.status == 200) {
+				this.products = [];
+				this.$store.dispatch("sales/init"); // re-init latest sales.
+			} else {
+				console.log(sale.error);
+			}
 		}
 	},
 	filters: {

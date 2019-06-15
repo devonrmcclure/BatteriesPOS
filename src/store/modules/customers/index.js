@@ -5,8 +5,12 @@ import getters from './getters';
 export default {
 	namespaced: true,
 	state: {
-		// Literally just every product added since a refresh.
-		common: []
+		customer: {
+			id: '',
+			name: '',
+			phone: '',
+			address: ''
+		}
 	},
 	actions,
 	mutations,

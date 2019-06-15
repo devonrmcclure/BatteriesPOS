@@ -39,6 +39,16 @@ class Sale extends Base {
 			};
 		}
 	}
+
+	async post(data) {
+		try {
+			return await axios.post(this.endpoint, data);
+		} catch (error) {
+			return {
+				error: error.response.data.message
+			};
+		}
+	}
 }
 
 export default new Sale();

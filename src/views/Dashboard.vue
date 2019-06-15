@@ -10,7 +10,6 @@ import LatestSales from "@/components/LatestSales";
 export default {
 	components: { LatestSales },
 	computed: {},
-
 	methods: {}
 };
 </script>
