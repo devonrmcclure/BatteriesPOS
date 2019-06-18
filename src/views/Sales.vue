@@ -27,7 +27,7 @@
 				<v-card>
 					<v-card-text>
 						<v-layout row wrap>
-							<v-flex xs10>
+							<v-flex xs9>
 								<v-data-table :headers="headers" :items="products" class="elevation-3" disable-initial-sort>
 									<template v-slot:no-data>
 										<v-alert :value="true" color="info" outline icon="warning">Add a Product!</v-alert>
@@ -56,8 +56,8 @@
 									</template>
 								</v-data-table>
 							</v-flex>
-							<v-flex xs2>
-								<customer></customer>
+							<v-flex xs3>
+								<customer class="elevation-3 pa-2"></customer>
 							</v-flex>
 
 							<v-flex xs2>
@@ -241,6 +241,7 @@ export default {
 			if (sale.status == 200) {
 				this.products = [];
 				this.$store.dispatch("sales/init"); // re-init latest sales.
+				this.$store.dispatch("customers/init"); // re-init default cust.
 			} else {
 				console.log(sale.error);
 			}
