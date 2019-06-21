@@ -23,6 +23,7 @@ axios.defaults.headers.common['Accept'] = 'application/json';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 Vue.filter('formatCurrency', Format.currency);
+Vue.filter('formatPhoneNumber', Format.phoneNumber);
 
 new Vue({
 	router,

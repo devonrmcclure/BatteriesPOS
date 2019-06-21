@@ -7,6 +7,7 @@ import staffModule from './modules/staff';
 import salesModule from './modules/sales';
 import productsModule from './modules/products';
 import customersModule from './modules/customers';
+import settingsModule from './modules/settings';
 
 Vue.use(Vuex);
 
@@ -20,13 +21,15 @@ export const store = new Vuex.Store({
 		staff: staffModule,
 		sales: salesModule,
 		products: productsModule,
-		customers: customersModule
+		customers: customersModule,
+		settings: settingsModule
 	},
 
 	actions: {
 		async initStore({ dispatch }) {
 			dispatch('staff/init');
 			dispatch('sales/init');
+			dispatch('settings/init');
 			dispatch('loadPaymentMethods');
 			await dispatch('location/init');
 			await dispatch('customers/init');

@@ -46,6 +46,16 @@ class Customer extends Base {
 			};
 		}
 	}
+
+	async post(customer) {
+		try {
+			return await axios.post(this.endpoint, customer);
+		} catch (error) {
+			return {
+				error: error.response.data.message
+			};
+		}
+	}
 }
 
 export default new Customer();

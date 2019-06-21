@@ -29,9 +29,6 @@
 						<v-layout row wrap>
 							<v-flex xs9>
 								<v-data-table :headers="headers" :items="products" class="elevation-3" disable-initial-sort>
-									<template v-slot:no-data>
-										<v-alert :value="true" color="info" outline icon="warning">Add a Product!</v-alert>
-									</template>
 									<template v-slot:items="props">
 										<td class="text-xs-left">{{ props.item.sku }}</td>
 										<td class="text-xs-left">{{ props.item.description | trim }}</td>
@@ -64,11 +61,11 @@
 								<p>SUBTOTAL: {{saleSubTotal | formatCurrency}}</p>
 								<p>
 									PST: {{salePstTotal | formatCurrency}}
-									<small>7%</small>
+									<small>{{PST_RATE}}%</small>
 								</p>
 								<p>
 									GST: {{saleGstTotal | formatCurrency}}
-									<small>5%</small>
+									<small>{{GST_RATE}}%</small>
 								</p>
 								<p>TOTAL: {{saleTotal | formatCurrency}}</p>
 							</v-flex>
@@ -111,6 +108,7 @@ export default {
 		...mapState("sales", ["nextInvoice"]),
 		...mapState(["paymentMethods"]),
 		...mapState("customers", ["customer"]),
+		...mapState("settings", ["PST_RATE", "GST_RATE"]),
 		saleTotal() {
 			let total = 0;
 			for (let product in this.products) {
@@ -157,9 +155,11 @@ export default {
 			let extended =
 				this.products[index].price * this.products[index].quantity;
 			let pst =
-				(extended * 0.07).toFixed(0) * this.products[index].is_pst;
+				(extended * (this.PST_RATE / 100)).toFixed(0) *
+				this.products[index].is_pst;
 			let gst =
-				(extended * 0.05).toFixed(0) * this.products[index].is_gst;
+				(extended * (this.GST_RATE / 100)).toFixed(0) *
+				this.products[index].is_gst;
 			let total = extended + pst + gst;
 			let editedItem = {
 				...this.products[index],
@@ -202,8 +202,12 @@ export default {
 			}
 			product.quantity = 1;
 			product.extended = product.price * product.quantity;
-			product.pst = (product.extended * 0.07).toFixed(0) * product.is_pst;
-			product.gst = (product.extended * 0.05).toFixed(0) * product.is_gst;
+			product.pst =
+				(product.extended * (this.PST_RATE / 100)).toFixed(0) *
+				product.is_pst;
+			product.gst =
+				(product.extended * (this.GST_RATE / 100)).toFixed(0) *
+				product.is_gst;
 			product.total = product.extended + product.pst + product.gst;
 
 			this.products.push(product);
