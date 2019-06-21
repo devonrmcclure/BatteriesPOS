@@ -20,9 +20,6 @@
 						@change="getProduct()"
 					></v-text-field>
 					<v-spacer></v-spacer>
-					<v-toolbar-items class="hidden-sm-and-down">
-						<v-btn flat @click="addCustomer()">Add Customer</v-btn>
-					</v-toolbar-items>
 				</v-toolbar>
 				<v-card>
 					<v-card-text>
@@ -214,11 +211,6 @@ export default {
 
 			this.search = "";
 		},
-
-		addCustomer() {
-			alert("Not implemented!");
-		},
-
 		async completeSale(methodId) {
 			const data = {
 				invoice_number: this.nextInvoice,
