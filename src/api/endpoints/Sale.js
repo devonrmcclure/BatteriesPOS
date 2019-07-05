@@ -17,7 +17,6 @@ class Sale extends Base {
 
 	async get(id = undefined, ...options) {
 		// TODO: Implement options (filter/with/etc);
-		console.log(options);
 		try {
 			if (id) {
 				return await axios.get(`${this.endpoint}/${id}`);

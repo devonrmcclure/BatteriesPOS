@@ -6,7 +6,10 @@ export default {
 	namespaced: true,
 	state: {
 		nextInvoice: '',
-		latest: {}
+		showDialog: false,
+		latest: {},
+		isRefund: false,
+		products: []
 	},
 	actions,
 	mutations,

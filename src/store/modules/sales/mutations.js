@@ -1,16 +1,36 @@
 const SET_LATEST_SALES = (state, sales) => {
 	let s = [];
 	sales.data.forEach(item => {
-		s.push(item.attributes);
+		s.push(item);
 	});
 	state.latest = { ...s };
 };
 
 const SET_NEXT_INVOICE = (state, invoice) => {
-	return (state.nextInvoice = invoice + 1);
+	state.nextInvoice = invoice + 1;
 };
+
+const SET_SHOW_DIALOG = (state, show) => {
+	state.showDialog = show;
+}
+
+const ADD_PRODUCT_TO_SALE = (state, product) => {
+	state.products.push({...product});
+}
+
+const CLEAR_SALE_PRODUCTS = (state) => {
+	state.products = [];
+}
+
+const SET_REFUND_STATE = (state, payload) => {
+	state.isRefund = payload;
+}
 
 export default {
 	SET_LATEST_SALES,
-	SET_NEXT_INVOICE
+	SET_NEXT_INVOICE,
+	SET_SHOW_DIALOG,
+	ADD_PRODUCT_TO_SALE,
+	CLEAR_SALE_PRODUCTS,
+	SET_REFUND_STATE
 };

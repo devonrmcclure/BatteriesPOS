@@ -6,6 +6,7 @@
 				<router-view></router-view>
 			</v-container>
 		</v-content>
+		<sale-form></sale-form>
 	</v-app>
 </template>
 
@@ -19,9 +20,10 @@
 </style>
 
 <script>
+import SaleForm from "@/components/SaleForm";
 import Navbar from "@/components/layout/Navbar.vue";
 export default {
-	components: { Navbar },
+	components: { Navbar, SaleForm },
 	beforeCreate() {
 		this.$store.dispatch("initStore");
 	}

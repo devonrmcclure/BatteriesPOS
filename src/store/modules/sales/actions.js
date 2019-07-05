@@ -6,13 +6,28 @@ const init = async ({ commit }) => {
 		commit('SET_LATEST_SALES', sales.data);
 		commit(
 			'SET_NEXT_INVOICE',
-			sales.data.data[0].attributes.invoice_number
+			sales.data.data[0].invoice_number
 		);
 	} else {
 		commit('SET_NEXT_INVOICE', 400000);
 	}
 };
 
-export default {
-	init
+const addProduct = ({commit}, product) => {
+	commit('ADD_PRODUCT_TO_SALE', product);
+}
+
+const clearProducts = ({ commit }) => {
+	commit('CLEAR_SALE_PRODUCTS');
 };
+
+const setIsRefund = ({commit}, payload) => { 
+	commit('SET_REFUND_STATE', payload);
+}
+
+export default {
+	init,
+	addProduct,
+	clearProducts,
+	setIsRefund
+}

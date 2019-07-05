@@ -67,7 +67,21 @@ export default {
 
 	methods: {
 		async refund(id) {
-			console.log(await Sale.get(id));
+			const sale = await Sale.get(id);
+			let products = sale.data.products;
+			console.log(products);
+
+			for(let index in products) {
+				products[index].quantity *= -1;
+				products[index].extended *= -1;
+				products[index].pst *= -1;
+				products[index].gst *= -1;
+				products[index].total *= -1;
+				console.log(products[index]);
+			this.$store.dispatch('sales/addProduct', products[index]);
+			}
+			this.$store.commit('sales/SET_SHOW_DIALOG', true);
+			this.$store.dispatch('sales/setIsRefund', true);
 		}
 	},
 
