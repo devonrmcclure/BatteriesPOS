@@ -1,7 +1,11 @@
 <template>
 	<div class="dashboard">
-		<latest-sales/>
+		<v-layout>
+			<v-flex xs6><latest-sales/></v-flex>
+		</v-layout>
+		
 	</div>
+
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-	<v-dialog v-model="showDialog" persistent v-on:refund="refund()">
+	<v-dialog v-model="showDialog" persistent full-width origin="top center" >
 		<v-toolbar dark color="primary">
 			<v-toolbar-title class="white--text">Sale #{{ nextInvoice }}</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -15,6 +15,7 @@
 			></v-text-field>
 			<v-spacer></v-spacer>
 		</v-toolbar>
+
 		<v-card>
 			<v-card-text>
 				<v-layout row wrap>
@@ -44,21 +45,24 @@
 							</template>
 						</v-data-table>
 					</v-flex>
-					<v-flex xs3>
-						<customer class="elevation-3 ml-3 pa-2"></customer>
-					</v-flex>
 
-					<v-flex xs2>
-						<p>SUBTOTAL: {{saleSubTotal | formatCurrency}}</p>
-						<p>
-							PST: {{salePstTotal | formatCurrency}}
-							<small>{{PST_RATE}}%</small>
-						</p>
-						<p>
-							GST: {{saleGstTotal | formatCurrency}}
-							<small>{{GST_RATE}}%</small>
-						</p>
-						<p>TOTAL: {{saleTotal | formatCurrency}}</p>
+					<v-flex xs3>
+						<v-flex d-flex ma-3>
+							<customer></customer>
+						</v-flex>
+						<v-flex xs12 ma-3>
+							<p>SUBTOTAL: {{saleSubTotal | formatCurrency}} </p>
+							<h1 class="math">+</h1>
+							<p>
+								PST: {{salePstTotal | formatCurrency}}
+								<small>{{PST_RATE}}%</small>
+								|
+								GST: {{saleGstTotal | formatCurrency}}
+								<small>{{GST_RATE}}%</small>
+							</p>
+							<h1 class="math">=</h1>
+							<h1>TOTAL: {{saleTotal | formatCurrency}}</h1>
+						</v-flex>
 					</v-flex>
 				</v-layout>
 			</v-card-text>
@@ -89,7 +93,8 @@ export default {
 				{ text: "Total", value: "total", align: "left" }
 			],
 			search: "",
-			products: []
+			products: [],
+			saleType: 'regular'
 		};
 	},
 	computed: {
@@ -142,8 +147,9 @@ export default {
 	watch: {
 		isRefund: function() {
 			this.products = Array.slice(this.getProducts);
+			this.saleType = 'refund';
 
-			for(let index in this.products) {
+			for (let index in this.products) {
 				this.update(index);
 			}
 		}
@@ -232,7 +238,7 @@ export default {
 				payment_method: methodId,
 				part_order_id: null,
 				repair_order_id: null,
-				sale_type: "regular",
+				sale_type: this.saleType,
 				products: this.products
 			};
 			console.log(data);
@@ -265,5 +271,13 @@ export default {
 <style scoped>
 .edit {
 	max-width: 5px;
+}
+
+p {
+	margin: 10px 0;
+}
+
+.math {
+	margin-left: 50px;
 }
 </style>

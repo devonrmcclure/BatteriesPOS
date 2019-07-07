@@ -6,7 +6,9 @@
 				<router-view></router-view>
 			</v-container>
 		</v-content>
+
 		<sale-form></sale-form>
+		<v-footer app dark></v-footer>
 	</v-app>
 </template>
 
