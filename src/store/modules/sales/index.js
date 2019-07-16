@@ -9,6 +9,9 @@ export default {
 		showDialog: false,
 		latest: {},
 		isRefund: false,
+		isPartOrder: false,
+		isRepairOrder: false,
+		isDeposit: false,
 		products: []
 	},
 	actions,

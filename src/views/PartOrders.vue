@@ -1,12 +1,12 @@
 <template>
-	<v-container grid-list-md>
-		<v-layout row wrap>
-			<v-flex xs12>
-				<v-toolbar-title class="text-xs-left">Part Order: #391399</v-toolbar-title>
-				
-			</v-flex>
-		</v-layout>
-	</v-container>
+	<v-layout row wrap>
+		<v-flex xs12>
+			<v-toolbar-title class="text-xs-left">Part Order: #391399</v-toolbar-title>
+			<v-card>
+				<v-card-text>Meow</v-card-text>
+			</v-card>
+		</v-flex>
+	</v-layout>
 </template>
 
 <script>
@@ -18,7 +18,6 @@ export default {
 	},
 	data() {
 		return {
-			e1: 0
 		};
 	},
 	computed: {},

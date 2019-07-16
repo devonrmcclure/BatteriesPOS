@@ -8,13 +8,18 @@ import salesModule from './modules/sales';
 import productsModule from './modules/products';
 import customersModule from './modules/customers';
 import settingsModule from './modules/settings';
+import partOrdersModule from './modules/partorders';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
 	strict: true,
 	state: {
-		paymentMethods: []
+		paymentMethods: [],
+		error: {
+			show: false,
+			message: 'hi'
+		}
 	},
 	modules: {
 		location: locationModule,
@@ -22,17 +27,19 @@ export const store = new Vuex.Store({
 		sales: salesModule,
 		products: productsModule,
 		customers: customersModule,
-		settings: settingsModule
+		settings: settingsModule,
+		partOrders: partOrdersModule
 	},
 
 	actions: {
-		async initStore({ dispatch }) {
+		initStore({ dispatch }) {
 			dispatch('staff/init');
 			dispatch('sales/init');
 			dispatch('settings/init');
 			dispatch('loadPaymentMethods');
-			await dispatch('location/init');
-			await dispatch('customers/init');
+			dispatch('location/init');
+			dispatch('customers/init');
+			dispatch('partOrders/init');
 		},
 		async loadPaymentMethods({ commit }) {
 			let methods = Cache.isCached('paymentmethods');
@@ -44,12 +51,28 @@ export const store = new Vuex.Store({
 			}
 
 			commit('SET_PAYMENT_METHODS', methods.data);
+		},
+
+		setErrorState({ commit }, payload) {
+			commit('SET_ERROR_STATE', payload);
+		},
+
+		clearErrorState({ commit }) {
+			commit('CLEAR_ERROR_STATE');
 		}
 	},
 
 	mutations: {
 		SET_PAYMENT_METHODS(state, payload) {
 			state.paymentMethods = payload;
+		},
+
+		SET_ERROR_STATE(state, payload) {
+			state.error = payload;
+		},
+
+		CLEAR_ERROR_STATE(state) {
+			state.error = { show: false, message: '' };
 		}
 	}
 });

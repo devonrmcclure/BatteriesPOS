@@ -6,10 +6,9 @@ const init = async ({ commit }) => {
 
 	if (!saleSettings) {
 		saleSettings = await SaleSettings.get();
-		saleSettings = saleSettings.data.data;
-		Cache.setCache('sale-settings', saleSettings);
+		saleSettings = saleSettings.data;
+		Cache.setCache('sale-settings', saleSettings.data);
 	}
-
 	commit('SET_PST_RATE', saleSettings.data.pst_rate);
 	commit('SET_GST_RATE', saleSettings.data.gst_rate);
 };

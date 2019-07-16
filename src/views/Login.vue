@@ -1,78 +1,64 @@
 <template>
-    <div class="login">
-		<v-alert :value="error.value">{{ error.message }}</v-alert>
-        <v-container>
-            <v-layout row>
-                <v-flex xs12 md3>
-                    <v-card class="pa-3">
-						<h2 subheading>Please log in!</h2>
-                        <v-form v-model="valid">
-                            <v-text-field
-                                v-model="username"
-                                :rules="usernameRules"
-                                label="Username"
-                                required
-                            ></v-text-field>
-                            <v-text-field
-                                v-model="password"
-                                :rules="passwordRules"
-                                label="Password"
-								type="password"
-                                required
-                            ></v-text-field>
-							<v-btn 
-								:disabled="!valid"
-								@click="submit"
-								color="primary">
-								Login
-							</v-btn>
-                          </v-form>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </div>
+	<v-layout row>
+		<v-flex xs4 offset-xs4>
+			<v-alert :value="error.value">{{ error.message }}</v-alert>
+
+			<v-card class="pa-3">
+				<h2 subheading>Please log in!</h2>
+				<v-form v-model="valid">
+					<v-text-field v-model="username" :rules="usernameRules" label="Username" required></v-text-field>
+					<v-text-field
+						v-model="password"
+						:rules="passwordRules"
+						label="Password"
+						type="password"
+						required
+					></v-text-field>
+					<v-btn :disabled="!valid" @click="submit" color="primary">Login</v-btn>
+				</v-form>
+			</v-card>
+		</v-flex>
+	</v-layout>
 </template>
 
 
 <script>
-import axios from 'axios';
-import Cache from '@/helpers/Cache';
-import Login from '@/api/endpoints/Login';
+import axios from "axios";
+import Cache from "@/helpers/Cache";
+import Login from "@/api/endpoints/Login";
 
 export default {
-    data: () => ({
+	data: () => ({
 		valid: false,
-		username: '',
-		usernameRules: [
-			v => !!v || 'Username is required'
-		],
-		password: '',
-		passwordRules: [
-			v => !!v || 'Password is required'
-		],
+		username: "",
+		usernameRules: [v => !!v || "Username is required"],
+		password: "",
+		passwordRules: [v => !!v || "Password is required"],
 		error: {
 			value: false,
-			message: ''
+			message: ""
 		}
 	}),
 
 	methods: {
 		async submit() {
-			const login = await Login.post({'username': this.username, 'password': this.password});
+			const login = await Login.post({
+				username: this.username,
+				password: this.password
+			});
 
-			if(login.status === 200) {
+			if (login.status === 200) {
 				const auth = login.data.data;
-				
-				Cache.setCache('auth', auth, auth.expires);
-				axios.defaults.headers.common['Authorization'] = `${auth.token_type}  ${auth.access_token}`;
-				await this.$store.dispatch('initStore');
-				await this.$router.push('/');
+				Cache.setCache("auth", auth); // auth.expires_in is the API side expires. TODO: revoke all previous keys on login.
+				axios.defaults.headers.common[
+					"Authorization"
+				] = `${auth.token_type}  ${auth.access_token}`;
+				this.$router.go("/");
 			} else {
 				this.error.value = true;
 				this.error.message = login.error;
 			}
 		}
 	}
-}
+};
 </script>

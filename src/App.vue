@@ -1,14 +1,20 @@
 <template>
 	<v-app>
-		<navbar></navbar>
+		<navbar v-if="isAuthed !== false"></navbar>
 		<v-content>
 			<v-container fluid>
+				<v-alert :value="error.show" type="error">{{ error.message }}</v-alert>
 				<router-view></router-view>
 			</v-container>
 		</v-content>
 
+		<v-footer app dark>
+			<v-spacer></v-spacer>
+			<span>footer things &copy;</span>
+			<v-spacer></v-spacer>
+		</v-footer>
 		<sale-form></sale-form>
-		<v-footer app dark></v-footer>
+		<part-order-form></part-order-form>
 	</v-app>
 </template>
 
@@ -24,10 +30,25 @@
 <script>
 import SaleForm from "@/components/SaleForm";
 import Navbar from "@/components/layout/Navbar.vue";
+import Cache from "@/helpers/Cache";
+import PartOrderForm from "@/components/PartOrderForm";
+import { mapState } from "vuex";
 export default {
-	components: { Navbar, SaleForm },
+	components: { Navbar, SaleForm, PartOrderForm },
+	data() {
+		return {};
+	},
+	computed: {
+		...mapState(["error"]),
+		isAuthed() {
+			return Cache.isCached("auth");
+		}
+	},
 	beforeCreate() {
-		this.$store.dispatch("initStore");
+		// Only set store/do api requests if logged in.
+		if (Cache.isCached("auth")) {
+			this.$store.dispatch("initStore");
+		}
 	}
 };
 </script>

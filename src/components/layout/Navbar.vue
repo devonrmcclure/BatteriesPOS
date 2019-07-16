@@ -15,12 +15,14 @@
 
 		<v-toolbar color="indigo" dark fixed app clipped-left>
 			<v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-			<v-toolbar-title class="white--text">{{ name }}</v-toolbar-title>
+			<v-toolbar-title class="white--text">BatteriesPOS</v-toolbar-title>
 			<v-spacer></v-spacer>
 
-			<v-btn absolute dark fab bottom right color="red" @click="newSale()">
-				<v-icon>add</v-icon>
-			</v-btn>
+			<v-toolbar-items>
+				<v-btn depressed color="success" @click="newSale()">New Sale</v-btn>
+				<v-btn depressed color="info" @click="newPartOrder()">New Part Order</v-btn>
+				<v-btn flat>New Repair Order</v-btn>
+			</v-toolbar-items>
 		</v-toolbar>
 	</nav>
 </template>
@@ -45,15 +47,18 @@ export default {
 					route: "/repair-orders"
 				},
 				{ icon: "assessment", text: "Stats", route: "/stats" }
-			]
+			],
 		};
 	},
+
 	computed: {
-		...mapState("location", ["name"])
 	},
 	methods: {
 		newSale() {
-			this.$store.commit('sales/SET_SHOW_DIALOG', true);
+			this.$store.commit("sales/SET_SHOW_DIALOG", true);
+		},
+		newPartOrder() {
+			this.$store.commit("partOrders/SET_SHOW_DIALOG", true);
 		}
 	}
 };

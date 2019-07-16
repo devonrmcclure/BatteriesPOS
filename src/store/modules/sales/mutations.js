@@ -26,11 +26,16 @@ const SET_REFUND_STATE = (state, payload) => {
 	state.isRefund = payload;
 }
 
+const SET_PART_ORDER_STATE = (state, payload) => {
+	state.isPartOrder = payload;
+};
+
 export default {
 	SET_LATEST_SALES,
 	SET_NEXT_INVOICE,
 	SET_SHOW_DIALOG,
 	ADD_PRODUCT_TO_SALE,
 	CLEAR_SALE_PRODUCTS,
-	SET_REFUND_STATE
+	SET_REFUND_STATE,
+	SET_PART_ORDER_STATE
 };

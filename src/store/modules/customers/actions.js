@@ -9,7 +9,7 @@ const init = async ({ dispatch }) => {
 		customer = customer.data.data[0];
 		Cache.setCache('customer', customer);
 	}
-	dispatch('setCustomer', customer.attributes);
+	dispatch('setCustomer', customer);
 };
 
 const setCustomer = ({ commit }, payload) => {

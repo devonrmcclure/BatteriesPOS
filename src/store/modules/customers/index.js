@@ -9,7 +9,8 @@ export default {
 			id: '',
 			name: '',
 			phone: '',
-			address: ''
+			address: '',
+			type: ''
 		}
 	},
 	actions,

@@ -1,5 +1,5 @@
 <template>
-	<v-dialog v-model="showDialog" persistent full-width origin="top center" >
+	<v-dialog v-model="showDialog" persistent full-width origin="top center">
 		<v-toolbar dark color="primary">
 			<v-toolbar-title class="white--text">Sale #{{ nextInvoice }}</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -41,6 +41,8 @@
 										color="success"
 										@click="completeSale(method.id)"
 									>{{method.name}}</v-btn>
+
+									<v-btn color="error" @click="cancelSale()">cancel</v-btn>
 								</td>
 							</template>
 						</v-data-table>
@@ -51,7 +53,7 @@
 							<customer></customer>
 						</v-flex>
 						<v-flex xs12 ma-3>
-							<p>SUBTOTAL: {{saleSubTotal | formatCurrency}} </p>
+							<p>SUBTOTAL: {{saleSubTotal | formatCurrency}}</p>
 							<h1 class="math">+</h1>
 							<p>
 								PST: {{salePstTotal | formatCurrency}}
@@ -94,11 +96,17 @@ export default {
 			],
 			search: "",
 			products: [],
-			saleType: 'regular'
+			saleType: "regular"
 		};
 	},
 	computed: {
-		...mapState("sales", ["nextInvoice", "showDialog", "isRefund"]),
+		...mapState("sales", [
+			"nextInvoice",
+			"showDialog",
+			"isRefund",
+			"isPartOrder",
+			"isRepairOrder"
+		]),
 		...mapState(["paymentMethods"]),
 		...mapState("customers", ["customer"]),
 		...mapState("settings", ["PST_RATE", "GST_RATE"]),
@@ -145,9 +153,8 @@ export default {
 	},
 
 	watch: {
-		isRefund: function() {
+		showDialog() {
 			this.products = Array.slice(this.getProducts);
-			this.saleType = 'refund';
 
 			for (let index in this.products) {
 				this.update(index);
@@ -156,6 +163,18 @@ export default {
 	},
 
 	methods: {
+		resetForm() {
+			this.products = [];
+			this.sale_type = 'regular';
+			this.$store.dispatch("sales/init"); // re-init latest sales.
+			this.$store.dispatch("customers/init"); // re-init default cust.
+			this.$store.dispatch("sales/clearProducts");
+			this.$store.dispatch("sales/setIsRefund", false);
+		},
+		cancelSale() {
+			this.resetForm();
+			this.$store.commit("sales/SET_SHOW_DIALOG", false);
+		},
 		update(index) {
 			const hasPST =
 				this.products[index].pst != 0 || this.products[index].is_pst
@@ -165,14 +184,18 @@ export default {
 				this.products[index].gst != 0 || this.products[index].is_gst
 					? 1
 					: 0;
-			let extended =
-				this.products[index].price * this.products[index].quantity;
+			const quantity =
+				this.products[index].quantity != null
+					? this.products[index].quantity
+					: 0;
+			let extended = this.products[index].price * quantity;
 			let pst = (extended * (this.PST_RATE / 100)).toFixed(0) * hasPST;
 			let gst = (extended * (this.GST_RATE / 100)).toFixed(0) * hasGST;
 			let total = extended + pst + gst;
 			let editedItem = {
 				...this.products[index],
 				...{
+					quantity,
 					extended,
 					pst,
 					gst,
@@ -224,6 +247,16 @@ export default {
 			this.search = "";
 		},
 		async completeSale(methodId) {
+			let saleType = this.sale_type;
+			
+			if (this.isRefund) {
+				console.log('refund!');
+				saleType = 'refund';
+			}
+			if (this.isPartOrder) {
+				console.log('part order!');
+				saleType = 'partOrder';
+			}
 			const data = {
 				invoice_number: this.nextInvoice,
 				subtotal: this.saleSubTotal,
@@ -238,22 +271,18 @@ export default {
 				payment_method: methodId,
 				part_order_id: null,
 				repair_order_id: null,
-				sale_type: this.saleType,
+				sale_type: saleType,
 				products: this.products
 			};
-			console.log(data);
 			if (data.products.length <= 0) {
 				console.log("empty products");
+				
 				return;
 			}
 			const sale = await Sale.post(data);
 			if (sale.status == 200) {
-				this.products = [];
-				this.$store.dispatch("sales/init"); // re-init latest sales.
-				this.$store.dispatch("customers/init"); // re-init default cust.
-				this.$store.commit("sales/SET_SHOW_DIALOG", false);
-				this.$store.dispatch("sales/clearProducts");
-				this.$store.dispatch("sales/setIsRefund", false);
+				this.$store.commit("sales/SET_SHOW_DIALOG", false); // TODO: change to dispatch/action
+				this.resetForm();
 			} else {
 				console.log(sale.error);
 			}

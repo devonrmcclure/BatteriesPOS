@@ -6,7 +6,6 @@ const init = async ({ commit }) => {
 
 	if (!location) {
 		location = await Location.get();
-		console.log(location);
 		Cache.setCache('location', location.data);
 	}
 

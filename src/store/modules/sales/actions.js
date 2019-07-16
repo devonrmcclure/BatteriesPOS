@@ -25,9 +25,14 @@ const setIsRefund = ({commit}, payload) => {
 	commit('SET_REFUND_STATE', payload);
 }
 
+const setIsPartOrder = ({ commit }, payload) => {
+	commit('SET_PART_ORDER_STATE', payload);
+};
+
 export default {
 	init,
 	addProduct,
 	clearProducts,
-	setIsRefund
+	setIsRefund,
+	setIsPartOrder
 }

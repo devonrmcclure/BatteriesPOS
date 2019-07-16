@@ -90,7 +90,7 @@ export default {
 			if (customer.status == 200) {
 				this.$store.dispatch(
 					"customers/setCustomer",
-					customer.data.attributes
+					customer.data
 				);
 				this.newCustomer.phone = "";
 			} else {
@@ -104,7 +104,7 @@ export default {
 			if (customer.status == 201) {
 				this.$store.dispatch(
 					"customers/setCustomer",
-					customer.data.attributes
+					customer.data
 				);
 				this.dialog = false;
 				this.newCustomer.phone = "";
