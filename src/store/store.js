@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
 		paymentMethods: [],
 		error: {
 			show: false,
-			message: 'hi'
+			message: 'Error!'
 		}
 	},
 	modules: {

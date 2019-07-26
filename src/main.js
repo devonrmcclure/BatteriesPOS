@@ -22,6 +22,28 @@ if (auth) {
 axios.defaults.headers.common['Accept'] = 'application/json';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
+axios.interceptors.response.use(
+	function(response) {
+		// Do nothing with response data
+		return response;
+	},
+	function(error) {
+		if (error.response.status == 401) {
+			// Auth failed, delete localStorage data and force relog.
+			Cache.clearCache();
+			store.dispatch('setErrorState', {
+				show: true,
+				message:
+					'Unable to connect to the API Server, you will be logged out, please log in again.'
+			});
+			setTimeout(() => {
+				router.go('/login');
+			}, 2500);
+		}
+		return Promise.reject(error);
+	}
+);
+
 Vue.filter('formatCurrency', Format.currency);
 Vue.filter('formatPhoneNumber', Format.phoneNumber);
 

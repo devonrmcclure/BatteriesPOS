@@ -4,6 +4,7 @@
 			<v-toolbar-title class="white--text">Sale #{{ nextInvoice }}</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-text-field
+				v-if="!((this.isPartOrder && !this.isRepairOrder) || (!this.isPartOrder && this.isRepairOrder))"
 				flat
 				solo-inverted
 				hide-details
@@ -18,6 +19,7 @@
 
 		<v-card>
 			<v-card-text>
+				<v-alert :value="error.show" type="error">{{error.message}}</v-alert>
 				<v-layout row wrap>
 					<v-flex xs9>
 						<v-data-table :headers="headers" :items="products" class="elevation-3" disable-initial-sort>
@@ -100,12 +102,14 @@ export default {
 		};
 	},
 	computed: {
+		...mapState(["error"]),
 		...mapState("sales", [
 			"nextInvoice",
 			"showDialog",
 			"isRefund",
 			"isPartOrder",
-			"isRepairOrder"
+			"isRepairOrder",
+			"partOrderID"
 		]),
 		...mapState(["paymentMethods"]),
 		...mapState("customers", ["customer"]),
@@ -154,7 +158,7 @@ export default {
 
 	watch: {
 		showDialog() {
-			this.products = Array.slice(this.getProducts);
+			this.products = this.getProducts.slice();
 
 			for (let index in this.products) {
 				this.update(index);
@@ -165,11 +169,12 @@ export default {
 	methods: {
 		resetForm() {
 			this.products = [];
-			this.sale_type = 'regular';
+			this.sale_type = "regular";
 			this.$store.dispatch("sales/init"); // re-init latest sales.
 			this.$store.dispatch("customers/init"); // re-init default cust.
 			this.$store.dispatch("sales/clearProducts");
 			this.$store.dispatch("sales/setIsRefund", false);
+			this.$store.commit("sales/SET_PART_ORDER_ID", null);
 		},
 		cancelSale() {
 			this.resetForm();
@@ -230,7 +235,7 @@ export default {
 
 				product = data.data;
 				// add product to product store.
-				this.$store.dispatch("products/addCommonProduct", product);
+				this.$store.dispatch("products/addCommonProduct", data.data);
 			}
 			product.quantity = 1;
 			product.extended = product.price * product.quantity;
@@ -247,15 +252,15 @@ export default {
 			this.search = "";
 		},
 		async completeSale(methodId) {
-			let saleType = this.sale_type;
-			
+			let saleType = this.saleType;
+
 			if (this.isRefund) {
-				console.log('refund!');
-				saleType = 'refund';
+				console.log("refund!");
+				saleType = "refund";
 			}
 			if (this.isPartOrder) {
-				console.log('part order!');
-				saleType = 'partOrder';
+				console.log("part order!");
+				saleType = "partOrder";
 			}
 			const data = {
 				invoice_number: this.nextInvoice,
@@ -269,19 +274,19 @@ export default {
 				staff_id: 1,
 				customer_id: this.customer.id,
 				payment_method: methodId,
-				part_order_id: null,
+				part_order_id: this.partOrderID,
 				repair_order_id: null,
 				sale_type: saleType,
 				products: this.products
 			};
 			if (data.products.length <= 0) {
 				console.log("empty products");
-				
+
 				return;
 			}
 			const sale = await Sale.post(data);
 			if (sale.status == 200) {
-				this.$store.commit("sales/SET_SHOW_DIALOG", false); // TODO: change to dispatch/action
+				this.$store.commit("sales/SET_SHOW_DIALOG", false);
 				this.resetForm();
 			} else {
 				console.log(sale.error);

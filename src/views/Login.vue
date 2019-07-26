@@ -53,6 +53,7 @@ export default {
 				axios.defaults.headers.common[
 					"Authorization"
 				] = `${auth.token_type}  ${auth.access_token}`;
+				this.$store.dispatch('clearErrorState');
 				this.$router.go("/");
 			} else {
 				this.error.value = true;

@@ -24,6 +24,10 @@ class Cache {
 		data = JSON.stringify({ ...{ data }, ...{ expires } });
 		localStorage.setItem(key, data);
 	}
+
+	static clearCache() {
+		localStorage.clear();
+	}
 }
 
 export default Cache;

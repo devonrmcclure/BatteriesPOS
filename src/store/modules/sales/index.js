@@ -12,7 +12,8 @@ export default {
 		isPartOrder: false,
 		isRepairOrder: false,
 		isDeposit: false,
-		products: []
+		products: [],
+		partOrderID: null
 	},
 	actions,
 	mutations,
