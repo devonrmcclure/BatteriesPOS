@@ -23,18 +23,15 @@ axios.defaults.headers.common['Accept'] = 'application/json';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 axios.interceptors.response.use(
-	function(response) {
-		// Do nothing with response data
-		return response;
-	},
-	function(error) {
+	response => response,
+	error => {
 		if (error.response.status == 401) {
 			// Auth failed, delete localStorage data and force relog.
 			Cache.clearCache();
 			store.dispatch('setErrorState', {
 				show: true,
 				message:
-					'Unable to connect to the API Server, you will be logged out, please log in again.'
+					'Unable to connect to the API Server (invalid token), you will be logged out, please log in again.'
 			});
 			setTimeout(() => {
 				router.go('/login');
