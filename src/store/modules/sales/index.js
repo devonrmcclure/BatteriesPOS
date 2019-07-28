@@ -8,6 +8,7 @@ export default {
 		nextInvoice: '',
 		showDialog: false,
 		latest: {},
+		history: {},
 		isRefund: false,
 		isPartOrder: false,
 		isRepairOrder: false,

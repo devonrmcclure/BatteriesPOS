@@ -15,11 +15,24 @@ class Sale extends Base {
 		throw new Error('Endpoint is immutable');
 	}
 
-	async get(id = undefined, ...options) {
+	async get(id = undefined, options) {
 		// TODO: Implement options (filter/with/etc);
 		try {
 			if (id) {
+				if (options['with']) {
+					return await axios.get(
+						`${this.endpoint}/${id}?include=${
+							options.with
+						}`
+					);
+				}
 				return await axios.get(`${this.endpoint}/${id}`);
+			}
+
+			if (options['with']) {
+				return await axios.get(
+					`${this.endpoint}?include=${options.with}`
+				);
 			}
 			return await axios.get(`${this.endpoint}`);
 		} catch (error) {
@@ -29,15 +42,15 @@ class Sale extends Base {
 		}
 	}
 
-	async getLatest() {
-		try {
-			return await axios.get(`${this.endpoint}/latest`);
-		} catch (error) {
-			return {
-				error: error.response.data.message
-			};
-		}
-	}
+	// async getLatest() {
+	// 	try {
+	// 		return await axios.get(`${this.endpoint}/latest`);
+	// 	} catch (error) {
+	// 		return {
+	// 			error: error.response.data.message
+	// 		};
+	// 	}
+	// }
 
 	async post(data) {
 		try {

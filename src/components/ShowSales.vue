@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-toolbar-title class="text-xs-left">Last 5 Sales</v-toolbar-title>
+		<v-toolbar-title class="text-xs-left">Sales History</v-toolbar-title>
 		<v-data-table
 			:headers="headers"
 			:items="sales"
@@ -14,6 +14,8 @@
 				<td>{{ props.item.pst | formatCurrency }}</td>
 				<td>{{ props.item.gst | formatCurrency }}</td>
 				<td>{{ props.item.total | formatCurrency }}</td>
+				<td>{{ props.item.sale_type }}</td>
+				<td>{{ props.item.customer.name }}</td>
 				<td>
 					<v-btn flat color="info">View</v-btn>
 					<v-btn flat v-show="props.item.sale_type != 'refund'" color="error" @click="refund(props.item.id)">Refund</v-btn>
@@ -30,12 +32,14 @@ export default {
 	data() {
 		return {
 			headers: [
-				{ text: "Invoice", value: "invoice_number" },
-				{ text: "Subtotal", value: "subtotal" },
-				{ text: "PST", value: "pst" },
-				{ text: "GST", value: "gst" },
-				{ text: "Total", value: "total" },
-				{ text: "Actions", value: "actions", align: "center" }
+				{ text: "Invoice", value: "invoice_number"},
+				{ text: "Subtotal", value: "subtotal"},
+				{ text: "PST", value: "pst"},
+				{ text: "GST", value: "gst"},
+				{ text: "Total", value: "total"},
+				{ text: "Type", value: "sale_type"},
+				{ text: "Customer", value: "customer.name"},
+				{ text: "Actions", value: "actions"}
 			]
 		};
 	},
@@ -59,9 +63,9 @@ export default {
 	},
 
 	computed: {
-		...mapState("sales", ["latest"]),
+		...mapState("sales", ["history"]),
 		sales() {
-			return Object.values(this.latest);
+			return Object.values(this.history);
 		}
 	}
 };
