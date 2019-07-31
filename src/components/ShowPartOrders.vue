@@ -5,11 +5,13 @@
 			<v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
 			<v-spacer></v-spacer>
 		</v-card-title>
+
 		<v-data-table
 			:headers="headers"
 			:items="partOrders"
 			:search="search"
 			class="elevation-1"
+			hide-actions
 			disable-initial-sort
 		>
 			<template v-slot:items="props">

@@ -1,6 +1,7 @@
 <template>
-	<v-layout>
+	<v-layout row wrap>
 		<v-flex xs12>
+			<v-toolbar-title class="text-xs-left">Sales History</v-toolbar-title>
 			<show-sales></show-sales>
 		</v-flex>
 	</v-layout>

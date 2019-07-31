@@ -1,9 +1,15 @@
 <template>
-	<div>
-		<v-toolbar-title class="text-xs-left">Sales History</v-toolbar-title>
+	<v-card>
+		<v-card-title>
+			<v-spacer></v-spacer>
+			<v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+			<v-spacer></v-spacer>
+		</v-card-title>
+
 		<v-data-table
 			:headers="headers"
 			:items="sales"
+			:search="search"
 			class="elevation-1"
 			hide-actions
 			disable-initial-sort
@@ -18,11 +24,23 @@
 				<td>{{ props.item.customer.name }}</td>
 				<td>
 					<v-btn flat color="info">View</v-btn>
-					<v-btn flat v-show="props.item.sale_type != 'refund'" color="error" @click="refund(props.item.id)">Refund</v-btn>
+					<v-btn
+						flat
+						v-show="props.item.sale_type != 'refund'"
+						color="error"
+						@click="refund(props.item.id)"
+					>Refund</v-btn>
 				</td>
 			</template>
+			<template v-slot:no-results>
+				<v-alert
+					:value="true"
+					color="error"
+					icon="warning"
+				>Your search for "{{ search }}" found no results.</v-alert>
+			</template>
 		</v-data-table>
-	</div>
+	</v-card>
 </template>
 
 <script>
@@ -31,15 +49,16 @@ import Sale from "@/api/endpoints/Sale";
 export default {
 	data() {
 		return {
+			search: "",
 			headers: [
-				{ text: "Invoice", value: "invoice_number"},
-				{ text: "Subtotal", value: "subtotal"},
-				{ text: "PST", value: "pst"},
-				{ text: "GST", value: "gst"},
-				{ text: "Total", value: "total"},
-				{ text: "Type", value: "sale_type"},
-				{ text: "Customer", value: "customer.name"},
-				{ text: "Actions", value: "actions"}
+				{ text: "Invoice", value: "invoice_number" },
+				{ text: "Subtotal", value: "subtotal" },
+				{ text: "PST", value: "pst" },
+				{ text: "GST", value: "gst" },
+				{ text: "Total", value: "total" },
+				{ text: "Type", value: "sale_type" },
+				{ text: "Customer", value: "customer.name" },
+				{ text: "Actions", value: "actions" }
 			]
 		};
 	},

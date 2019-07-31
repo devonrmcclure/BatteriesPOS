@@ -16,10 +16,9 @@ class Sale extends Base {
 	}
 
 	async get(id = undefined, options) {
-		// TODO: Implement options (filter/with/etc);
 		try {
 			if (id) {
-				if (options['with']) {
+				if (options) {
 					return await axios.get(
 						`${this.endpoint}/${id}?include=${
 							options.with
@@ -29,14 +28,16 @@ class Sale extends Base {
 				return await axios.get(`${this.endpoint}/${id}`);
 			}
 
-			if (options['with']) {
+			if (options) {
 				return await axios.get(
 					`${this.endpoint}?include=${options.with}`
 				);
 			}
 			return await axios.get(`${this.endpoint}`);
 		} catch (error) {
+			console.log(error);
 			return {
+				
 				error: error.response.data.message
 			};
 		}
