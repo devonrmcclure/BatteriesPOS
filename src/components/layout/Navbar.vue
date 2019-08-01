@@ -35,7 +35,8 @@ export default {
 			drawer: true,
 			links: [
 				{ icon: "dashboard", text: "Dashboard", route: "/" },
-				{ icon: "shopping_cart", text: "Sales", route: "/sales" },
+				{ icon: "assignment", text: "Sales", route: "/sales" },
+				{ icon: "local_shipping", text:"Inventory", route: "/inventory"},
 				{
 					icon: "shopping_basket",
 					text: "Part Orders",
@@ -46,7 +47,7 @@ export default {
 					text: "Repair Orders",
 					route: "/repair-orders"
 				},
-				{ icon: "assessment", text: "Stats", route: "/stats" }
+				{ icon: "assessment", text: "Close Out", route: "/close-out" }
 			],
 		};
 	},

@@ -1,18 +1,26 @@
 <template>
-	<div class="dashboard">
-		<v-layout>
-			<v-flex xs6><latest-sales/></v-flex>
-		</v-layout>
-		
-	</div>
-
+	<v-layout row wrap>
+		<v-flex xs7>
+			<v-toolbar-title class="text-xs-left">Outstanding Part Orders <small>(oldest first)</small></v-toolbar-title>
+			<v-card>
+				<outstanding-part-orders />
+			</v-card>
+		</v-flex>
+		<v-flex xs5>
+			<v-toolbar-title class="text-xs-left">Last 5 Sales</v-toolbar-title>
+			<v-card>
+				<latest-sales />
+			</v-card>
+		</v-flex>
+	</v-layout>
 </template>
 
 <script>
 // @ is an alias to /src
 import LatestSales from "@/components/LatestSales";
+import OutstandingPartOrders from "@/components/OutstandingPartOrders";
 export default {
-	components: { LatestSales },
+	components: { LatestSales, OutstandingPartOrders },
 	computed: {},
 	methods: {}
 };

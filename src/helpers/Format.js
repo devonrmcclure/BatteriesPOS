@@ -11,8 +11,17 @@ class Format {
 		return value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
 	}
 
-	static date(value) {
+	static dateISO(value) {
 		const format = moment(value).format('YYYY-MM-DD HH:mm');
+		if (format != 'Invalid date') {
+			return format;
+		}
+
+		return 'Not Yet';
+	}
+
+	static dateHuman(value) {
+		const format = moment(value).format('MMM Do YYYY');
 		if (format != 'Invalid date') {
 			return format;
 		}

@@ -50,6 +50,21 @@ class PartOrder extends Base {
 		}
 	}
 
+	async getOutstanding(options) {
+		try {
+			if (options) {
+				return await axios.get(
+					`${this.endpoint}/outstanding?include=${options.with}`
+				);
+			}
+			return await axios.get(`${this.endpoint}/outstanding`);
+		} catch (error) {
+			return {
+				error: error.response.data.message
+			};
+		}
+	}
+
 	async post(data) {
 		try {
 			return await axios.post(this.endpoint, data);

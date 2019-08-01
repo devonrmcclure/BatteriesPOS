@@ -1,13 +1,6 @@
 <template>
-	<div>
-		<v-toolbar-title class="text-xs-left">Last 5 Sales</v-toolbar-title>
-		<v-data-table
-			:headers="headers"
-			:items="sales"
-			class="elevation-1"
-			hide-actions
-			disable-initial-sort
-		>
+	<v-card>
+		<v-data-table :headers="headers" :items="sales" hide-actions disable-initial-sort>
 			<template v-slot:items="props">
 				<td>{{ props.item.invoice_number }}</td>
 				<td>{{ props.item.subtotal | formatCurrency }}</td>
@@ -15,12 +8,18 @@
 				<td>{{ props.item.gst | formatCurrency }}</td>
 				<td>{{ props.item.total | formatCurrency }}</td>
 				<td>
-					<v-btn flat color="info">View</v-btn>
-					<v-btn flat v-show="props.item.sale_type != 'refund'" color="error" @click="refund(props.item.id)">Refund</v-btn>
+					<v-btn
+						left
+						block
+						flat
+						v-show="props.item.sale_type != 'refund'"
+						color="error"
+						@click="refund(props.item.id)"
+					>Refund</v-btn>
 				</td>
 			</template>
 		</v-data-table>
-	</div>
+	</v-card>
 </template>
 
 <script>
@@ -35,7 +34,7 @@ export default {
 				{ text: "PST", value: "pst" },
 				{ text: "GST", value: "gst" },
 				{ text: "Total", value: "total" },
-				{ text: "Actions", value: "actions", align: "center" }
+				{ text: "Actions", value: "actions", align: "right", width: "1%" }
 			]
 		};
 	},

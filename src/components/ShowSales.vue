@@ -10,7 +10,6 @@
 			:headers="headers"
 			:items="sales"
 			:search="search"
-			class="elevation-1"
 			hide-actions
 			disable-initial-sort
 		>
@@ -22,14 +21,14 @@
 				<td>{{ props.item.total | formatCurrency }}</td>
 				<td>{{ props.item.sale_type }}</td>
 				<td>{{ props.item.customer.name }}</td>
-				<td>
-					<v-btn flat color="info">View</v-btn>
+				<td class="text-xs-right">
 					<v-btn
 						flat
 						v-show="props.item.sale_type != 'refund'"
 						color="error"
 						@click="refund(props.item.id)"
 					>Refund</v-btn>
+					<v-btn flat color="info">View</v-btn>
 				</td>
 			</template>
 			<template v-slot:no-results>
@@ -58,7 +57,7 @@ export default {
 				{ text: "Total", value: "total" },
 				{ text: "Type", value: "sale_type" },
 				{ text: "Customer", value: "customer.name" },
-				{ text: "Actions", value: "actions" }
+				{ text: "Actions", value: "actions", align: 'center' }
 			]
 		};
 	},

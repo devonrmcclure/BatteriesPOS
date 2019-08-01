@@ -1,8 +1,8 @@
 <template>
 	<v-layout row wrap>
-		<v-flex xs12>
+		<v-flex xs8 offset-xs2>
 			<v-toolbar-title class="text-xs-left">Sales History</v-toolbar-title>
-			<show-sales></show-sales>
+			<show-sales />
 		</v-flex>
 	</v-layout>
 </template>

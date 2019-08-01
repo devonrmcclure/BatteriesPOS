@@ -44,7 +44,8 @@ axios.interceptors.response.use(
 Vue.filter('formatCurrency', Format.currency);
 Vue.filter('formatPhoneNumber', Format.phoneNumber);
 
-Vue.filter('formatDate', Format.date);
+Vue.filter('formatDateISO', Format.dateISO);
+Vue.filter('formatDateHuman', Format.dateHuman);
 
 new Vue({
 	router,

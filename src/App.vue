@@ -2,7 +2,7 @@
 	<v-app>
 		<navbar v-if="isAuthed !== false"></navbar>
 		<v-content>
-			<v-container fluid>
+			<v-container grid-list-md fluid>
 				<v-alert :value="error.show" type="error">{{error.message}}</v-alert>
 				<router-view></router-view>
 			</v-container>

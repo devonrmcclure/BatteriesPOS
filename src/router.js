@@ -6,6 +6,7 @@ import NotFound from './views/errors/NotFound.vue';
 import Cache from './helpers/Cache';
 import Sales from '@/views/Sales.vue';
 import PartOrders from '@/views/PartOrders.vue';
+import Inventory from '@/views/Inventory.vue';
 
 Vue.use(Router);
 
@@ -33,6 +34,14 @@ const router = new Router({
 			path: '/sales',
 			name: 'sales',
 			component: Sales,
+			meta: {
+				requiresAuth: true
+			}
+		},
+		{
+			path: '/inventory',
+			name: 'inventory',
+			component: Inventory,
 			meta: {
 				requiresAuth: true
 			}
