@@ -1,10 +1,5 @@
 <template>
 	<v-card>
-		<v-card-title>
-			<v-spacer></v-spacer>
-			<v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-			<v-spacer></v-spacer>
-		</v-card-title>
 
 		<v-data-table
 			:headers="headers"
@@ -21,7 +16,7 @@
 				<td>{{ props.item.manufacturer }}</td>
 				<td>{{ props.item.model }}</td>
 				<td class="text-xs-right">
-					<v-btn flat color="info">Sales History</v-btn>
+					<v-btn flat color="info" @click="showHistory(props.item.sku)">Sales History</v-btn>
 				</td>
 			</template>
 			<template v-slot:no-results>
@@ -32,13 +27,19 @@
 				>Your search for "{{ search }}" found no results.</v-alert>
 			</template>
 		</v-data-table>
+
+		<product-sale-history/>
 	</v-card>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import Inventory from "@/api/endpoints/Inventory";
+import ProductSaleHistory from "./ProductSaleHistory";
 export default {
+	components: {
+		ProductSaleHistory
+	},
 	data() {
 		return {
 			search: "",
@@ -60,11 +61,22 @@ export default {
 
 	methods: {
 		async getProducts() {
-			const orders = await Inventory.get();
-			if (orders.status == 200) {
-				this.products = orders.data.data;
+			const products = await Inventory.get();
+			if (products.status == 200) {
+				this.products = products.data.data;
 			} else {
 				// flash error
+			}
+		},
+
+		async showHistory(sku) {
+			const product = await Inventory.get(sku, {with: 'sales'});
+
+			if (product.status == 200) {
+				this.$store.commit('products/SET_HISTORY_PRODUCT', product.data);
+				this.$store.commit('products/SET_SHOW_HISTORY', true);
+			} else {
+				console.log('oops');
 			}
 		}
 	},

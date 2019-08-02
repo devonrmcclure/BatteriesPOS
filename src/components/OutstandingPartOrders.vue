@@ -11,7 +11,6 @@
 			:items="partOrders"
 			:search="search"
 			disable-initial-sort
-			:headers-length="2"
 		>
 			<template v-slot:items="props">
 				<td>{{ props.item.order_number }}</td>
@@ -34,6 +33,11 @@
 					color="error"
 					icon="warning"
 				>Your search for "{{ search }}" found no results.</v-alert>
+			</template>
+			<template v-slot:no-data>
+				<v-alert :value="true" color="warning" icon="warning">
+					Sorry, nothing to display here :(
+				</v-alert>
 			</template>
 		</v-data-table>
 	</v-card>

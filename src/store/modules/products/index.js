@@ -6,7 +6,13 @@ export default {
 	namespaced: true,
 	state: {
 		// Literally just every product added since a refresh.
-		common: []
+		common: [],
+		showHistory: false,
+		historyProduct: [
+			{
+				sales: []
+			}
+		]
 	},
 	actions,
 	mutations,
