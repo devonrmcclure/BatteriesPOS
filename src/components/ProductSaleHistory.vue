@@ -68,7 +68,7 @@ export default {
 			search: "",
 			headers: [
 				{ text: "Invoice", value: "invoice", width: "1%" },
-                { text: "Description", value: "description", width: "1%" },
+                { text: "Description", value: "description"},
                 { text: "Quantity", value: 'quantity', width: "1%" },
                 { text: "Price", value: "price" },
                 { text: "Extended", value: "extended" },

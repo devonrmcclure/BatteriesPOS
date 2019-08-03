@@ -1,10 +1,10 @@
 import Base from './Base';
 import axios from 'axios';
 
-class PartOrder extends Base {
+class RepairOrder extends Base {
 	constructor() {
 		super();
-		this._endpoint = this.baseUrl + '/part-orders';
+		this._endpoint = this.baseUrl + '/repair-orders';
 	}
 
 	get endpoint() {
@@ -76,4 +76,4 @@ class PartOrder extends Base {
 	}
 }
 
-export default new PartOrder();
+export default new RepairOrder();

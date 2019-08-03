@@ -24,6 +24,7 @@
 					<v-flex xs9>
 						<v-data-table :headers="headers" :items="products" class="elevation-3" disable-initial-sort>
 							<template v-slot:items="props">
+								<td><v-icon color="error" @click="removeItem(props.index)">close</v-icon></td>
 								<td class="text-xs-left">{{ props.item.sku }}</td>
 								<td class="text-xs-left">{{ props.item.description | trim }}</td>
 								<td class="text-xs-left">{{ props.item.price | formatCurrency }}</td>
@@ -87,6 +88,7 @@ export default {
 	data() {
 		return {
 			headers: [
+				{ text: '', value: ''},
 				{ text: "Sku", value: "sku", align: "left" },
 				{ text: "Description", value: "description", align: "left" },
 				{ text: "Price", value: "price", align: "left" },
@@ -167,6 +169,9 @@ export default {
 	},
 
 	methods: {
+		removeItem(index) {
+			this.products.splice(index, 1);
+		},
 		resetForm() {
 			this.products = [];
 			this.sale_type = "regular";

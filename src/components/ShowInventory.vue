@@ -1,13 +1,11 @@
 <template>
 	<v-card>
-
-		<v-data-table
-			:headers="headers"
-			:items="products"
-			:search="search"
-			hide-actions
-			disable-initial-sort
-		>
+		<v-card-title>
+			<v-spacer></v-spacer>
+			<v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+			<v-spacer></v-spacer>
+		</v-card-title>
+		<v-data-table :headers="headers" :items="products" :search="search" disable-initial-sort>
 			<template v-slot:items="props">
 				<td>{{ props.item.sku }}</td>
 				<td>{{ props.item.description }}</td>
@@ -28,7 +26,7 @@
 			</template>
 		</v-data-table>
 
-		<product-sale-history/>
+		<product-sale-history />
 	</v-card>
 </template>
 
@@ -36,6 +34,7 @@
 import { mapState } from "vuex";
 import Inventory from "@/api/endpoints/Inventory";
 import ProductSaleHistory from "./ProductSaleHistory";
+import Cache from "@/helpers/Cache";
 export default {
 	components: {
 		ProductSaleHistory
@@ -61,22 +60,28 @@ export default {
 
 	methods: {
 		async getProducts() {
-			const products = await Inventory.get();
-			if (products.status == 200) {
-				this.products = products.data.data;
-			} else {
-				// flash error
+			let products = Cache.isCached("inventory").data;
+
+			if (!products) {
+				products = await Inventory.get();
+				products = products.data.data;
+				Cache.setCache("inventory", products);
 			}
+
+			this.products = products;
 		},
 
 		async showHistory(sku) {
-			const product = await Inventory.get(sku, {with: 'sales'});
+			const product = await Inventory.get(sku, { with: "sales" });
 
 			if (product.status == 200) {
-				this.$store.commit('products/SET_HISTORY_PRODUCT', product.data);
-				this.$store.commit('products/SET_SHOW_HISTORY', true);
+				this.$store.commit(
+					"products/SET_HISTORY_PRODUCT",
+					product.data
+				);
+				this.$store.commit("products/SET_SHOW_HISTORY", true);
 			} else {
-				console.log('oops');
+				console.log("oops");
 			}
 		}
 	},
