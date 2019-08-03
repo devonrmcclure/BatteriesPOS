@@ -35,9 +35,7 @@ class Sale extends Base {
 			}
 			return await axios.get(`${this.endpoint}`);
 		} catch (error) {
-			console.log(error);
 			return {
-				
 				error: error.response.data.message
 			};
 		}

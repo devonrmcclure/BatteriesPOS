@@ -35,8 +35,8 @@
 				>Your search for "{{ search }}" found no results.</v-alert>
 			</template>
 			<template v-slot:no-data>
-				<v-alert :value="true" color="warning" icon="warning">
-					Sorry, nothing to display here :(
+				<v-alert :value="true" color="success" icon="check">
+					No outstanding Part Orders! :)
 				</v-alert>
 			</template>
 		</v-data-table>

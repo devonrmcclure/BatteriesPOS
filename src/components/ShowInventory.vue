@@ -44,12 +44,12 @@ export default {
 		return {
 			search: "",
 			headers: [
-				{ text: "Sku", value: "sku" },
+				{ text: "Sku", value: "sku", width: "1%" },
 				{ text: "Description", value: "description" },
-				{ text: "Price (plus tax)", value: "price" },
+				{ text: "Price (plus tax)", value: "price", width: "1%" },
 				{ text: "Brand", value: "brand" },
 				{ text: "Manufacturer", value: "manufacturer" },
-				{ text: "Model Number", value: "model_number" },
+				{ text: "Model Number", value: "model_number", width: "1%" },
 				{ text: "Actions", value: "actions", align: "center" }
 			],
 			products: []

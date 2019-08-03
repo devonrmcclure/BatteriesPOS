@@ -84,7 +84,6 @@ export default {
 	methods: {
         close () {
             this.$store.commit('products/SET_SHOW_HISTORY', false);
-            console.log(this.historyProduct[0].sales);
         }
 	},
 
