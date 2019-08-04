@@ -5,7 +5,7 @@
 			<v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
 			<v-spacer></v-spacer>
 		</v-card-title>
-		<v-data-table :headers="headers" :items="products" :search="search" disable-initial-sort>
+		<v-data-table :headers="headers" :items="products" :search="search" disable-initial-sort :loading="loading">
 			<template v-slot:items="props">
 				<td>{{ props.item.sku }}</td>
 				<td>{{ props.item.description }}</td>
@@ -51,7 +51,8 @@ export default {
 				{ text: "Model Number", value: "model_number", width: "1%" },
 				{ text: "Actions", value: "actions", align: "center" }
 			],
-			products: []
+			products: [],
+			loading: true
 		};
 	},
 	beforeMount() {
@@ -69,6 +70,7 @@ export default {
 			}
 
 			this.products = products;
+			this.loading = false;
 		},
 
 		async showHistory(sku) {
