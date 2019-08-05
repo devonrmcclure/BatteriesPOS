@@ -8,9 +8,7 @@ export default {
 		orderNumber: '',
 		products: [],
 		invoices: [],
-		latest: {},
-		viewPartOrderDialog: false,
-		viewPartOrderNum: undefined
+		latest: {}
 	},
 	actions,
 	mutations

@@ -6,28 +6,22 @@
 			<v-spacer></v-spacer>
 		</v-card-title>
 
-		<v-data-table
-			:headers="headers"
-			:items="partOrders"
-			:search="search"
-			disable-initial-sort
-		>
+		<v-data-table :headers="headers" :items="repairOrders" :search="search" disable-initial-sort>
 			<template v-slot:items="props">
 				<td>{{ props.item.order_number }}</td>
-				<td>{{ props.item.brand }}</td>
+				<td>{{ props.item.brand}}</td>
 				<td>{{ props.item.model}}</td>
-				<td>{{ props.item.item}}</td>
 				<td>{{ props.item.customer.name}}</td>
 				<td>{{ props.item.customer.phone | formatPhoneNumber}}</td>
 				<td
 					@dblclick="changeDate(props.item.id, props.index, 'to_ho')"
-				>{{ props.item.to_ho | formatDateISO }}</td>
+				>{{ props.item.to_ho | formatDateHuman }}</td>
 				<td
 					@dblclick="changeDate(props.item.id, props.index, 'from_ho')"
-				>{{ props.item.from_ho | formatDateISO }}</td>
+				>{{ props.item.from_ho | formatDateHuman }}</td>
 				<td
 					@dblclick="changeDate(props.item.id, props.index, 'picked_up')"
-				>{{ props.item.picked_up | formatDateISO }}</td>
+				>{{ props.item.picked_up | formatDateHuman }}</td>
 				<td class="text-xs-right">
 					<v-btn color="info" left flat>view</v-btn>
 					<v-btn color="error" left flat>void</v-btn>
@@ -41,7 +35,7 @@
 				>Your search for "{{ search }}" found no results.</v-alert>
 			</template>
 			<template v-slot:no-data>
-				<v-alert :value="true" color="info" icon="info">No Part Orders found.</v-alert>
+				<v-alert :value="true" color="info" icon="info">No Repair Orders found.</v-alert>
 			</template>
 		</v-data-table>
 	</v-card>
@@ -49,7 +43,7 @@
 
 <script>
 import { mapState } from "vuex";
-import PartOrder from "@/api/endpoints/PartOrder";
+import RepairOrder from "@/api/endpoints/RepairOrder";
 import moment from "moment";
 export default {
 	data() {
@@ -59,7 +53,6 @@ export default {
 				{ text: "Order", value: "order_number" },
 				{ text: "Brand", value: "brand" },
 				{ text: "Model", value: "model" },
-				{ text: "Item", value: "item" },
 				{ text: "Customer", value: "customer.name" },
 				{ text: "Phone", value: "customer.phone" },
 				{ text: "To HO", value: "to_ho" },
@@ -67,39 +60,40 @@ export default {
 				{ text: "Picked Up", value: "picked_up" },
 				{ text: "Actions", value: "actions", align: "center" }
 			],
-			partOrders: []
+			repairOrders: []
 		};
 	},
 
 	async beforeMount() {
-		await this.getPartOrders();
+		await this.getRepairOrders();
 	},
 
 	watch: {
 		latest() {
-			this.getPartOrders();
+			this.getRepairOrders();
 		}
 	},
 
 	methods: {
-		async getPartOrders() {
-			const orders = await PartOrder.get(undefined, { with: "customer" });
+		async getRepairOrders() {
+			const orders = await RepairOrder.getOutstanding({
+				with: "customer"
+			});
 			if (orders.status == 200) {
-				this.partOrders = orders.data.data;
+				this.repairOrders = orders.data.data;
 			} else {
 				// flash error
 			}
 		},
 
 		changeDate(id, index, field) {
-			console.log(id);
 			const date = new Date();
-			this.partOrders[index][field] = date.toISOString();
+			this.repairOrders[index][field] = date.toISOString();
 
 			const data = new Object();
 			data[field] = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
-			const resp = PartOrder.put(id, data);
+			const resp = RepairOrder.put(id, data);
 
 			if (resp.status == 200) {
 				//flash success
@@ -110,7 +104,7 @@ export default {
 	},
 
 	computed: {
-		...mapState("partOrders", ["latest"])
+		...mapState("repairOrders", ["latest"])
 	}
 };
 </script>

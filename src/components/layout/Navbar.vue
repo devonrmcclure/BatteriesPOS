@@ -21,7 +21,7 @@
 			<v-toolbar-items>
 				<v-btn depressed color="success" @click="newSale()">New Sale</v-btn>
 				<v-btn depressed color="info" @click="newPartOrder()">New Part Order</v-btn>
-				<v-btn flat>New Repair Order</v-btn>
+				<v-btn flat @click="newRepairOrder()">New Repair Order</v-btn>
 			</v-toolbar-items>
 		</v-toolbar>
 	</nav>
@@ -35,7 +35,11 @@ export default {
 			links: [
 				{ icon: "dashboard", text: "Dashboard", route: "/" },
 				{ icon: "assignment", text: "Sales", route: "/sales" },
-				{ icon: "local_shipping", text:"Inventory", route: "/inventory"},
+				{
+					icon: "local_shipping",
+					text: "Inventory",
+					route: "/inventory"
+				},
 				{
 					icon: "shopping_basket",
 					text: "Part Orders",
@@ -47,18 +51,20 @@ export default {
 					route: "/repair-orders"
 				},
 				{ icon: "assessment", text: "Close Out", route: "/close-out" }
-			],
+			]
 		};
 	},
 
-	computed: {
-	},
+	computed: {},
 	methods: {
 		newSale() {
 			this.$store.commit("sales/SET_SHOW_DIALOG", true);
 		},
 		newPartOrder() {
 			this.$store.commit("partOrders/SET_SHOW_DIALOG", true);
+		},
+		newRepairOrder() {
+			this.$store.commit("repairOrders/SET_SHOW_DIALOG", true);
 		}
 	}
 };

@@ -6,6 +6,7 @@ import NotFound from './views/errors/NotFound.vue';
 import Cache from './helpers/Cache';
 import Sales from '@/views/Sales.vue';
 import PartOrders from '@/views/PartOrders.vue';
+import RepairOrders from '@/views/RepairOrders.vue';
 import Inventory from '@/views/Inventory.vue';
 
 Vue.use(Router);
@@ -50,6 +51,14 @@ const router = new Router({
 			path: '/part-orders',
 			name: 'part-orders',
 			component: PartOrders,
+			meta: {
+				requiresAuth: true
+			}
+		},
+		{
+			path: '/repair-orders',
+			name: 'repair-orders',
+			component: RepairOrders,
 			meta: {
 				requiresAuth: true
 			}

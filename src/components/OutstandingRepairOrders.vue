@@ -8,7 +8,7 @@
 
 		<v-data-table
 			:headers="headers"
-			:items="partOrders"
+			:items="repairOrders"
 			:search="search"
 			disable-initial-sort
 		>
@@ -45,7 +45,7 @@
 
 <script>
 import { mapState } from "vuex";
-import PartOrder from "@/api/endpoints/PartOrder";
+import RepairOrder from "@/api/endpoints/RepairOrder";
 import moment from "moment";
 export default {
 	data() {
@@ -53,46 +53,45 @@ export default {
 			search: "",
 			headers: [
 				{ text: "Invoice", value: "order_number" },
-				{ text: "Item", value: "item" },
+				{ text: "Brand", value: "brand" },
 				{ text: "Customer", value: "customer.name" },
 				{ text: "Phone", value: "customer.phone" },
 				{ text: "To HO", value: "to_ho" },
 				{ text: "From HO", value: "from_ho" },
 				{ text: "Picked Up", value: "picked_up" }
 			],
-			partOrders: []
+			repairOrders: []
 		};
 	},
 
 	async beforeMount() {
-		await this.getPartOrders();
+		await this.getRepairOrders();
 	},
 
 	watch: {
 		latest() {
-			this.getPartOrders();
+			this.getRepairOrders();
 		}
 	},
 
 	methods: {
-		async getPartOrders() {
-			const orders = await PartOrder.getOutstanding({ with: "customer" });
+		async getRepairOrders() {
+			const orders = await RepairOrder.getOutstanding({ with: "customer" });
 			if (orders.status == 200) {
-				this.partOrders = orders.data.data;
+				this.repairOrders = orders.data.data;
 			} else {
 				// flash error
 			}
 		},
 
 		changeDate(id, index, field) {
-			console.log(id);
 			const date = new Date();
-			this.partOrders[index][field] = date.toISOString();
+			this.repairOrders[index][field] = date.toISOString();
 
 			const data = new Object();
 			data[field] = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
-			const resp = PartOrder.put(id, data);
+			const resp = RepairOrder.put(id, data);
 
 			if (resp.status == 200) {
 				//flash success
@@ -103,7 +102,7 @@ export default {
 	},
 
 	computed: {
-		...mapState("partOrders", ["latest"])
+		...mapState("repairOrders", ["latest"])
 	}
 };
 </script>

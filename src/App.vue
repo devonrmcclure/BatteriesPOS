@@ -13,8 +13,10 @@
 			<span>footer things &copy;</span>
 			<v-spacer></v-spacer>
 		</v-footer>
-		<sale-form></sale-form>
-		<part-order-form></part-order-form>
+		<sale-form />
+		<part-order-form />
+		<repair-order-form />
+		<view-part-order />
 	</v-app>
 </template>
 
@@ -32,9 +34,11 @@ import SaleForm from "@/components/SaleForm";
 import Navbar from "@/components/layout/Navbar.vue";
 import Cache from "@/helpers/Cache";
 import PartOrderForm from "@/components/PartOrderForm";
+import RepairOrderForm from "@/components/RepairOrderForm";
+import ViewPartOrder from "@/components/ViewPartOrder";
 import { mapState } from "vuex";
 export default {
-	components: { Navbar, SaleForm, PartOrderForm },
+	components: { Navbar, SaleForm, PartOrderForm, RepairOrderForm, ViewPartOrder },
 	data() {
 		return {};
 	},

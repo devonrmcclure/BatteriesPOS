@@ -9,6 +9,7 @@ import productsModule from './modules/products';
 import customersModule from './modules/customers';
 import settingsModule from './modules/settings';
 import partOrdersModule from './modules/partorders';
+import repairOrdersModule from './modules/repairorders';
 
 Vue.use(Vuex);
 
@@ -28,7 +29,8 @@ export const store = new Vuex.Store({
 		products: productsModule,
 		customers: customersModule,
 		settings: settingsModule,
-		partOrders: partOrdersModule
+		partOrders: partOrdersModule,
+		repairOrders: repairOrdersModule
 	},
 
 	actions: {
@@ -40,6 +42,7 @@ export const store = new Vuex.Store({
 			dispatch('location/init');
 			dispatch('customers/init');
 			dispatch('partOrders/init');
+			dispatch('repairOrders/init');
 		},
 		async loadPaymentMethods({ commit }) {
 			let methods = Cache.isCached('paymentmethods');
