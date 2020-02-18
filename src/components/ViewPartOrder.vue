@@ -38,7 +38,7 @@
 						</table>
 						<br />
 						<h2>Sales</h2>
-						<table class="poTable" v-for="sale of partOrder.sales" :key=sale.invoice>
+						<table class="poTable" v-for="sale of partOrder.sales" :key="sale.invoice">
 							<thead>
 								<th>Sale Invoice</th>
 								<th>Sku</th>
@@ -50,9 +50,9 @@
 								<th>GST</th>
 								<th>Total</th>
 							</thead>
-							<tbody >
-								<tr v-for="product of sale.products" :key=product.sku>
-									<td>{{ sale.invoice_number}} </td>
+							<tbody>
+								<tr v-for="product of sale.products" :key="product.sku">
+									<td>{{ sale.invoice_number}}</td>
 									<td>{{ product.sku }}</td>
 									<td>{{ product.description }}</td>
 									<td>{{ product.price | formatCurrency }}</td>
@@ -60,7 +60,7 @@
 									<td>{{ product.extended | formatCurrency }}</td>
 									<td>{{ product.pst | formatCurrency }}</td>
 									<td>{{ product.gst | formatCurrency }}</td>
-									<td>{{ product.total | formatCurrency }}</td>	
+									<td>{{ product.total | formatCurrency }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -99,7 +99,11 @@ export default {
 	},
 	data() {
 		return {
-			partOrder: { staff: {}, customer: {name: '', address: '', phone: ''}, sales: {} }
+			partOrder: {
+				staff: {},
+				customer: { name: "", address: "", phone: "" },
+				sales: {}
+			}
 		};
 	},
 	computed: {
@@ -107,8 +111,12 @@ export default {
 		...mapState("partOrders", ["viewPartOrderDialog", "viewPartOrderNum"])
 	},
 
-	beforeMount() {
-		this.getPartOrder();
+	watch: {
+		viewPartOrderNum() {
+			if(this.viewPartOrderNum != undefined) {
+				this.getPartOrder();
+			}
+		}
 	},
 
 	methods: {

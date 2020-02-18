@@ -25,7 +25,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.interceptors.response.use(
 	response => response,
 	error => {
-		if (error.response.status == 401) {
+		if (error.response.status == 401 && router.currentRoute.name != 'login') {
 			// Auth failed, delete localStorage data and force relog.
 			Cache.clearCache();
 			store.dispatch('setErrorState', {

@@ -1,8 +1,8 @@
 const SET_STAFF = (state, staff) => {
     let s = [];
     staff.forEach((item) => {
-        return s[item.attributes.initials] =  {
-            name: item.attributes.name
+        return s[item.initials] =  {
+            name: item.name
         };
     });
 

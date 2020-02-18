@@ -29,7 +29,7 @@
 					@dblclick="changeDate(props.item.id, props.index, 'picked_up')"
 				>{{ props.item.picked_up | formatDateISO }}</td>
 				<td class="text-xs-right">
-					<v-btn color="info" left flat>view</v-btn>
+					<v-btn color="info" left flat @click="view(props.item.order_number)">view</v-btn>
 					<v-btn color="error" left flat>void</v-btn>
 				</td>
 			</template>
@@ -82,6 +82,16 @@ export default {
 	},
 
 	methods: {
+
+		view(id) {
+			console.log(id);
+			this.$store.commit("partOrders/SET_VIEW_PART_ORDER_DIALOG", true);
+			this.$store.commit(
+				"partOrders/SET_VIEW_PART_ORDER_NUMBER",
+				id
+			);
+		},
+		
 		async getPartOrders() {
 			const orders = await PartOrder.get(undefined, { with: "customer" });
 			if (orders.status == 200) {
